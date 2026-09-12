@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
 import { MessageSquare, ArrowRight } from "lucide-react";
@@ -96,14 +96,14 @@ export default function PoliticalClients() {
           </h3>
         </div>
 
-        {/* 6 Circular Politician Cards */}
-        <Stagger className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6" delayChildren={0.08}>
+        {/* 6 Circular Politician Cards with 100% Uniform Height & Alignment */}
+        <Stagger className="grid grid-cols-2 gap-4 sm:gap-6 sm:grid-cols-3 lg:grid-cols-6 items-stretch" delayChildren={0.08}>
           {politicians.map((p) => (
-            <StaggerItem key={p.name}>
-              <div className="group flex flex-col items-center text-center p-4 rounded-3xl border border-stone-200/80 bg-[#F8FAFC] transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:bg-white hover:shadow-card">
+            <StaggerItem key={p.name} className="h-full">
+              <div className="group h-full flex flex-col items-center justify-between text-center p-4 sm:p-5 rounded-3xl border border-stone-200/90 bg-[#F8FAFC] transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:bg-white hover:shadow-card">
                 {/* Circular Portrait with Luxury Border */}
-                <div className="relative mb-4">
-                  <div className="relative h-28 w-28 overflow-hidden rounded-full ring-2 ring-accent/30 transition-all duration-300 group-hover:ring-accent group-hover:scale-105 group-hover:shadow-md bg-white">
+                <div className="relative mb-3.5 shrink-0">
+                  <div className="relative h-24 w-24 sm:h-28 sm:w-28 overflow-hidden rounded-full ring-2 ring-accent/30 transition-all duration-300 group-hover:ring-accent group-hover:scale-105 group-hover:shadow-md bg-white">
                     <Image
                       src={p.image}
                       alt={p.name}
@@ -114,30 +114,37 @@ export default function PoliticalClients() {
                   </div>
                 </div>
 
-                {/* Party Emblem / Tag */}
-                <div className="mb-2">
-                  {p.party === "BJP" ? (
-                    <span className="inline-flex items-center gap-1 rounded-full border border-amber-500/40 bg-amber-50 px-2.5 py-0.5 text-[10px] font-bold text-amber-900 shadow-xs">
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#FF9933]" />
-                      BJP
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/40 bg-emerald-50 px-2.5 py-0.5 text-[10px] font-bold text-emerald-900 shadow-xs">
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#138808]" />
-                      INC
-                    </span>
-                  )}
+                {/* Bottom Content Container with Fixed Alignment Slots */}
+                <div className="flex flex-col items-center w-full grow justify-end">
+                  {/* Party Emblem / Tag - Fixed Height */}
+                  <div className="h-6 flex items-center justify-center mb-2 shrink-0">
+                    {p.party === "BJP" ? (
+                      <span className="inline-flex items-center gap-1 rounded-full border border-amber-500/40 bg-amber-50 px-2.5 py-0.5 text-[10px] font-bold text-amber-900 shadow-xs">
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#FF9933]" />
+                        BJP
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/40 bg-emerald-50 px-2.5 py-0.5 text-[10px] font-bold text-emerald-900 shadow-xs">
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#138808]" />
+                        INC
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Name with fixed height container for 1-line and 2-line names */}
+                  <div className="h-10 flex items-center justify-center w-full px-1">
+                    <h4 className="font-display text-xs sm:text-sm font-bold text-ink leading-tight transition-colors group-hover:text-accent line-clamp-2">
+                      {p.name}
+                    </h4>
+                  </div>
+
+                  {/* Designation / Role with fixed height container */}
+                  <div className="h-5 flex items-center justify-center w-full mt-0.5">
+                    <p className="text-[11px] font-medium text-ink/75 truncate max-w-full">
+                      {p.designation}
+                    </p>
+                  </div>
                 </div>
-
-                {/* Name */}
-                <h4 className="font-display text-sm font-bold text-ink transition-colors group-hover:text-accent">
-                  {p.name}
-                </h4>
-
-                {/* Designation / Role */}
-                <p className="mt-0.5 text-[11px] font-medium text-ink/75">
-                  {p.designation}
-                </p>
               </div>
             </StaggerItem>
           ))}
