@@ -8,6 +8,7 @@ import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
 import Faq from "@/components/faq";
 import LeadForm from "@/components/lead-form";
 import { caseStudies } from "@/components/case-studies";
+import PoliticalClients from "@/components/political-clients";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -165,6 +166,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           </div>
         </div>
       </section>
+
+      {/* Featured Politician Clients if on Political Management */}
+      {service.slug === "political-management" && <PoliticalClients />}
 
       {/* FAQ */}
       <section className="bg-paper py-20 lg:py-28">
