@@ -109,6 +109,30 @@ const SERVICE_FOCUS_OPTIONS: Record<string, string[]> = {
     "Pitch Decks & Collaterals",
     "Packaging & UI Assets",
   ],
+  "Creative Services & Brand Design": [
+    "Brand Identity & Guidelines",
+    "Performance Ad Creatives",
+    "Pitch Decks & Collaterals",
+    "Reels & Motion Design",
+  ],
+  "Social Media Management": [
+    "Daily Content Publishing",
+    "Short-Form Reels & Videos",
+    "Community Growth & DMs",
+    "Executive Personal Branding",
+  ],
+  "Performance Marketing": [
+    "Full-Funnel Paid Acquisition",
+    "Landing Page CRO",
+    "Blended ROAS Scaling",
+    "Server-Side Tracking & CAPI",
+  ],
+  "Paid Social Advertising": [
+    "Meta Performance Funnel",
+    "LinkedIn B2B Ads",
+    "Creative Fatigue Defense",
+    "Custom Audience Scale",
+  ],
 };
 
 function matchService(inputName?: string): string {

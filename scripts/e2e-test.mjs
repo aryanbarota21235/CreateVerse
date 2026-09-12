@@ -166,6 +166,10 @@ async function runTests() {
     "/services/influencer-marketing",
     "/services/native-advertising",
     "/services/graphic-design",
+    "/services/creative-services",
+    "/services/social-media-management",
+    "/services/performance-marketing",
+    "/services/paid-social",
     "/robots.txt",
     "/sitemap.xml",
   ];

@@ -406,7 +406,176 @@ export const services: Service[] = [
     industries: ["All industries"],
     faqs: [{ q: "Do you handle one-off design projects?", a: "Yes — from full brand identities to single campaign creative packs." }],
   },
+  {
+    slug: "creative-services",
+    name: "Creative Services & Brand Design",
+    shortName: "Creative Services",
+    tagline: "High-impact visual identity, performance creative and brand assets.",
+    description:
+      "Full-stack creative production for modern businesses. We design brand guidelines, high-converting ad creatives, video assets, presentation decks and marketing collateral that set you apart.",
+    icon: "Palette",
+    priority: true,
+    category: "Creative",
+    problem: {
+      title: "Generic visual design hurts conversion and credibility.",
+      desc: "In competitive markets, buyers evaluate capability within seconds. Inconsistent creative and cookie-cutter templates reduce trust and lower ad performance. You need bold, cohesive visual systems that drive measurable commercial results.",
+    },
+    deliverables: [
+      "Brand identity systems, typography & color palettes",
+      "High-converting performance ad creatives (static, carousel, motion)",
+      "Brochures, pitch decks & corporate marketing collateral",
+      "Short-form video assets, reels & motion design",
+      "Custom landing page UI/UX kits & digital design systems",
+      "Social media brand style guides & post asset templates",
+    ],
+    process: defaultProcess,
+    benefits: [
+      "Consistent, luxury brand positioning across every touchpoint",
+      "Higher ad CTR and reduced cost-per-click from thumb-stopping creative",
+      "Rapid turnaround on campaign and marketing assets",
+      "Full ownership of all production source files",
+    ],
+    industries: ["Real estate & luxury developers", "D2C & retail brands", "B2B & corporate enterprises", "Political & civic organizations"],
+    faqs: [
+      { q: "Do you handle both digital and print creative?", a: "Yes. We deliver everything from web and social ad creatives to print brochures, billboards, and investor pitch decks." },
+      { q: "Can you work within our existing brand guidelines?", a: "Absolutely. We can either build a new visual identity from scratch or scale your existing brand kit across new channels." },
+      { q: "What is your turnaround time for ad creatives?", a: "Campaign creative packages are typically delivered within 3–5 business days, with rapid same-day adjustments during live scaling." },
+    ],
+  },
+  {
+    slug: "social-media-management",
+    name: "Social Media Management",
+    shortName: "Social Media Management",
+    tagline: "End-to-end editorial, community, and organic brand authority.",
+    description:
+      "Full-scale social media operations for brands and leaders. We handle content strategy, graphic design, short-form reels, community engagement and profile growth to turn your social presence into commercial equity.",
+    icon: "Share2",
+    priority: true,
+    category: "Creative",
+    problem: {
+      title: "Posting without a narrative wastes executive and marketing bandwidth.",
+      desc: "Most corporate social channels publish random updates that generate zero engagement and zero leads. Social media requires consistent narrative engineering, native platform creative, and proactive community engagement.",
+    },
+    deliverables: [
+      "Monthly content calendars & editorial strategy",
+      "Short-form video editing, scripts & daily reels",
+      "Platform-native visual designs & carousel infographics",
+      "Community management, DM triage & audience engagement",
+      "Executive and founder personal branding strategy",
+      "Monthly performance analytics, growth reporting & optimization",
+    ],
+    process: defaultProcess,
+    benefits: [
+      "Consistent, professional social presence without internal operational overhead",
+      "Compound organic reach and inbound brand authority",
+      "High-engagement video reels that drive qualified followers",
+      "Direct conversion paths from social profiles to consultation funnels",
+    ],
+    industries: ["Real estate developers", "Education & immigration consultancies", "Corporate leaders & founders", "E-commerce brands"],
+    faqs: [
+      { q: "Which platforms do you manage?", a: "We manage Instagram, LinkedIn, YouTube, Facebook, and X (Twitter), selecting the platforms where your target audience spends active time." },
+      { q: "Do we need to record videos ourselves?", a: "We provide shot-by-shot scripts and guidance, or we can produce motion graphics and curate high-end footage without requiring you on camera." },
+      { q: "How do you measure success?", a: "We track qualified profile visits, website clicks, inbound DM inquiries, follower growth velocity, and engagement quality." },
+    ],
+  },
+  {
+    slug: "performance-marketing",
+    name: "Performance Marketing",
+    shortName: "Performance Marketing",
+    tagline: "Full-funnel digital acquisition engineered for measurable ROAS.",
+    description:
+      "Data-driven, omnichannel paid customer acquisition across Google, Meta, and programmatic channels. Every rupee deployed is optimized toward pipeline, revenue, and customer acquisition cost.",
+    icon: "Target",
+    priority: true,
+    category: "Acquisition",
+    problem: {
+      title: "Ad spend without rigorous attribution and CRO burns capital fast.",
+      desc: "Scaling digital advertising requires more than boosting posts. You need precision audience targeting, rapid creative testing, high-converting landing pages, and clean attribution modeling.",
+    },
+    deliverables: [
+      "Full-funnel media planning & cross-channel budget allocation",
+      "Google Search, Performance Max, YouTube & Display campaigns",
+      "Meta (Facebook & Instagram) paid acquisition funnels",
+      "High-converting landing page design & continuous CRO",
+      "Server-side conversion tracking & advanced attribution setup",
+      "Weekly blended CAC and ROAS financial reporting",
+    ],
+    process: defaultProcess,
+    benefits: [
+      "Predictable customer acquisition at profitable CAC",
+      "Multi-channel diversification so you never depend on a single ad platform",
+      "Complete transparency into cost per acquisition and true pipeline value",
+      "Continuous creative testing that keeps ad fatigue at bay",
+    ],
+    industries: ["Real estate & developers", "Immigration & visa businesses", "B2B SaaS & high-ticket services", "D2C e-commerce"],
+    faqs: [
+      { q: "How is performance marketing different from regular advertising?", a: "Performance marketing is 100% tied to measurable commercial outcomes (leads, sales, CAC, ROAS) rather than vanity metrics like impressions or clicks." },
+      { q: "What budget do we need to start?", a: "We tailor campaign architectures based on your unit economics and target geography, typically starting with budgets that ensure statistically significant test data within 14 days." },
+      { q: "Do you build the landing pages too?", a: "Yes. High-converting, mobile-optimized landing pages and speed optimization are included in our performance marketing practice." },
+    ],
+  },
+  {
+    slug: "paid-social",
+    name: "Paid Social Advertising",
+    shortName: "Paid Social",
+    tagline: "High-ROAS Meta, LinkedIn, and YouTube performance campaigns.",
+    description:
+      "Scale high-intent paid social campaigns across Instagram, Facebook, LinkedIn, and YouTube. We engineer custom audience segments, video creative testing engines, and instant lead capture.",
+    icon: "Megaphone",
+    priority: true,
+    category: "Advertising",
+    problem: {
+      title: "Ad fatigue and rising CPMs make paid social unprofitable without systems.",
+      desc: "Traditional social ads stop working after a few weeks as audience saturation sets in. You need systematic creative refreshes, modular ad variations, and rigorous audience exclusion lists.",
+    },
+    deliverables: [
+      "Meta Ads (Instagram & Facebook) performance campaigns",
+      "LinkedIn Ads for B2B & HNI corporate targeting",
+      "YouTube in-stream & shorts video ad campaigns",
+      "Modular creative testing frameworks & weekly asset rotation",
+      "Custom & lookalike audience architecture",
+      "Server-side Conversions API (CAPI) setup",
+    ],
+    process: defaultProcess,
+    benefits: [
+      "Consistent inbound lead volume from high-traffic social platforms",
+      "Scalable ROAS with systematic defense against ad fatigue",
+      "Precision targeting of verified decision-makers and high-net-worth buyers",
+      "Live conversion reporting directly connected to your CRM",
+    ],
+    industries: ["Real estate developers", "Immigration consultancies", "Political campaigns & public initiatives", "High-growth consumer brands"],
+    faqs: [
+      { q: "Which social ad platform works best?", a: "Meta (Instagram/Facebook) is king for volume and consumer/HNI targeting; LinkedIn dominates high-ticket B2B; and YouTube is unmatched for building high-trust video affinity." },
+      { q: "How often do you refresh ad creatives?", a: "We test new hooks and visual variations weekly to maintain optimal click-through rates and prevent ad fatigue." },
+      { q: "Do you integrate with our CRM?", a: "Yes. Inbound leads from Meta and LinkedIn lead forms or landing pages are piped in real time to your CRM or WhatsApp desk." },
+    ],
+  },
 ];
 
 export const priorityServices = services.filter((s) => s.priority);
-export const getService = (slug: string) => services.find((s) => s.slug === slug);
+
+export const getService = (slug: string) => {
+  const clean = slug.toLowerCase().trim();
+  const direct = services.find((s) => s.slug === clean);
+  if (direct) return direct;
+
+  const aliases: Record<string, string> = {
+    creative: "creative-services",
+    "creative-services": "creative-services",
+    "creative-service": "creative-services",
+    "social-media": "social-media-management",
+    "social-media-management": "social-media-management",
+    smm: "social-media-management",
+    "performance-marketing": "performance-marketing",
+    performance: "performance-marketing",
+    "paid-social": "paid-social",
+    "paid-social-ads": "paid-social",
+  };
+
+  const mapped = aliases[clean];
+  if (mapped) {
+    return services.find((s) => s.slug === mapped);
+  }
+
+  return undefined;
+};
