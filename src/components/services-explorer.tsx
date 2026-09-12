@@ -97,7 +97,7 @@ export default function ServicesExplorer() {
   const { openEnquiry } = useEnquiry();
 
   return (
-    <section className="bg-white py-24 lg:py-32 scroll-mt-20" id="services">
+    <section className="bg-paper py-24 lg:py-32 scroll-mt-20 border-t border-stone-200" id="services">
       <div className="container-site">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-12 border-b border-stone-200">
           <div>
@@ -138,7 +138,7 @@ export default function ServicesExplorer() {
                   return (
                     <div
                       key={item.slug}
-                      className="group flex flex-col justify-between rounded-3xl border border-black/[0.12] bg-[#F8FAFC] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:bg-white hover:shadow-lift"
+                      className="group flex flex-col justify-between rounded-3xl border border-black/[0.12] bg-white p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
                     >
                       <div>
                         <div className="flex items-center justify-between">

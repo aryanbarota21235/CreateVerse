@@ -13,11 +13,11 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <LeadFlow />
       <ServicesExplorer />
       <StatsStrip />
       <WhatWeDo />
       <IndustriesSection />
-      <LeadFlow />
       <ProcessSection />
       <CaseStudies />
       <WhyCreateVerse />
