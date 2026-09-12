@@ -1,34 +1,64 @@
 ﻿"use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, MessageCircle } from "lucide-react";
+import { ArrowRight, ArrowUpRight, MessageCircle, Building2, Plane, Megaphone, TrendingUp } from "lucide-react";
 import Reveal from "@/components/reveal";
-import { priorityServices } from "@/lib/services";
-import { iconMap } from "@/components/services-grid";
 import { site } from "@/lib/site";
 import { useEnquiry } from "@/context/enquiry-context";
 
-const heroPillars = [
-  { label: "Real Estate Acquisition", desc: "Site-visit pipelines & HNI buyer funnels for high-ticket projects" },
-  { label: "Immigration & Visa", desc: "Pre-screened student & PR consultation engines across intake cycles" },
-  { label: "Political War Room", desc: "Constituency narrative, video operations & voter mobilization" },
-  { label: "Performance Marketing", desc: "Omnichannel Google & Meta acquisition scaled to revenue" },
+const acquisitionPillars = [
+  {
+    num: "01",
+    tag: "High-Ticket Property",
+    title: "Real Estate Acquisition",
+    desc: "End-to-end buyer funnels, geo-targeted ads for site visits, and instant WhatsApp qualification for developers and brokers.",
+    metric: "₹48.6 Cr+ Inventory Closed",
+    href: "/services/real-estate-lead-generation",
+    icon: Building2,
+  },
+  {
+    num: "02",
+    tag: "Intake Pipelines",
+    title: "Immigration & Visa Funnels",
+    desc: "Pre-screened applicant funnels for study visa, PR and visitor visa consultancies — filtering serious applicants before counselor calls.",
+    metric: "3,850+ Consultations Booked",
+    href: "/services/immigration-lead-generation",
+    icon: Plane,
+  },
+  {
+    num: "03",
+    tag: "War Room Operations",
+    title: "Political Campaign Ops",
+    desc: "Constituency narrative strategy, rapid video content operations, and grassroots voter mobilization executed at regional scale.",
+    metric: "14.2M+ Targeted Voter Reach",
+    href: "/services/political-management",
+    icon: Megaphone,
+  },
+  {
+    num: "04",
+    tag: "Full-Funnel Scale",
+    title: "Performance Marketing",
+    desc: "Omnichannel Google Search & Meta paid advertising paired with conversion-first landing pages built to deliver measurable commercial pipeline.",
+    metric: "4.2x Average Account ROAS",
+    href: "/services/lead-generation",
+    icon: TrendingUp,
+  },
 ];
 
 export default function Hero() {
   const { openEnquiry } = useEnquiry();
 
   return (
-    <section className="relative overflow-hidden bg-paper pt-32 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24">
+    <section className="relative overflow-hidden bg-paper pt-36 pb-20 sm:pt-40 sm:pb-24 lg:pt-44 lg:pb-28">
       {/* Ambient background glow */}
-      <div className="dot-texture absolute inset-0 opacity-60" />
-      <div className="absolute left-1/2 -top-40 -translate-x-1/2 h-[560px] w-[800px] rounded-full bg-gradient-to-b from-brand-sky/60 via-brand-sun/40 to-transparent blur-3xl pointer-events-none" />
+      <div className="dot-texture absolute inset-0 opacity-50" />
+      <div className="absolute left-1/2 -top-44 -translate-x-1/2 h-[600px] w-[900px] rounded-full bg-gradient-to-b from-brand-sky/60 via-brand-sun/30 to-transparent blur-3xl pointer-events-none" />
 
       <div className="container-site relative">
-        {/* Centered Grand Editorial Content */}
+        {/* Main Editorial Agency Headline */}
         <div className="mx-auto max-w-4xl text-center">
           <Reveal>
-            <div className="inline-flex items-center gap-2 rounded-full border border-paper-line bg-white/90 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-ink/75 shadow-xs backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 rounded-full border border-paper-line bg-white/95 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-ink/75 shadow-xs backdrop-blur-md">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
@@ -47,7 +77,7 @@ export default function Hero() {
           <Reveal delay={0.2}>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-ink/65 sm:text-lg lg:text-xl">
               We design and execute bespoke acquisition systems for luxury real estate developers,
-              visa consultancies, political campaigns and high-growth brands — engineered for verified
+              visa consultancies, political campaigns and high-growth brands — delivering verified
               inquiries and predictable commercial pipeline.
             </p>
           </Reveal>
@@ -57,7 +87,7 @@ export default function Hero() {
               {/* Grand Enquire Button */}
               <button
                 onClick={() => openEnquiry()}
-                className="group inline-flex items-center gap-2 rounded-full border-[1.5px] border-ink bg-ink px-8 py-4 text-xs font-bold uppercase tracking-[0.22em] text-white shadow-md transition-all duration-300 hover:bg-transparent hover:text-ink sm:text-xs"
+                className="group inline-flex items-center gap-2 rounded-full border-[1.5px] border-ink bg-ink px-8 py-4 text-xs font-bold uppercase tracking-[0.22em] text-white shadow-md transition-all duration-300 hover:bg-accent hover:border-accent hover:shadow-lg sm:text-xs"
               >
                 <span>Enquire Now</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -77,65 +107,73 @@ export default function Hero() {
           </Reveal>
         </div>
 
-        {/* Industry Pillars Grid - Refined Luxury Aesthetic */}
+        {/* 4 Core Acquisition Pillars - Luxury Agency Grid */}
         <Reveal delay={0.4}>
-          <div className="mt-16 sm:mt-20 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {heroPillars.map((p, i) => (
-              <div
-                key={p.label}
-                className="group relative rounded-2xl border border-paper-line bg-white/85 p-5 shadow-xs backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:border-accent/40"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent">
-                    0{i + 1}
-                  </span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-accent/30 group-hover:bg-accent transition-colors" />
-                </div>
-                <h3 className="mt-3 font-display text-base font-bold text-ink">
-                  {p.label}
-                </h3>
-                <p className="mt-1 text-xs text-ink/55 leading-relaxed">
-                  {p.desc}
+          <div className="mt-16 sm:mt-20">
+            <div className="flex items-center justify-between border-b border-paper-line/80 pb-4 mb-6">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-ink/40">
+                  Specialized Acquisition Practice Areas
                 </p>
               </div>
-            ))}
-          </div>
-        </Reveal>
-
-        {/* Core Capabilities Navigation */}
-        <Reveal delay={0.5}>
-          <div className="mt-14 sm:mt-16">
-            <div className="flex items-center justify-between border-b border-paper-line pb-3">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-ink/45">
-                Acquisition Capabilities &amp; Services
-              </p>
-              <Link href="/services" className="text-xs font-bold uppercase tracking-[0.16em] text-accent hover:underline">
-                View All Services →
+              <Link
+                href="/services"
+                className="group hidden sm:inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.18em] text-accent hover:underline"
+              >
+                <span>Browse All 13+ Services</span>
+                <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>
-            <div className="mt-4 grid grid-cols-2 gap-2.5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 lg:gap-3">
-              {priorityServices.map((s) => {
-                const Icon = iconMap[s.icon];
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {acquisitionPillars.map((p) => {
+                const Icon = p.icon;
                 return (
                   <Link
-                    key={s.slug}
-                    href={`/services/${s.slug}`}
-                    className="group flex items-center gap-2.5 rounded-2xl border border-paper-line bg-white/90 p-3 shadow-xs transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-md"
+                    key={p.num}
+                    href={p.href}
+                    className="group relative flex flex-col justify-between rounded-3xl border border-paper-line bg-white/90 p-6 sm:p-7 shadow-xs backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:bg-white hover:shadow-lift"
                   >
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-paper text-ink transition-all duration-300 group-hover:bg-accent group-hover:text-white">
-                      {Icon && <Icon className="h-4 w-4" />}
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block truncate text-[12px] font-semibold leading-tight text-ink group-hover:text-accent">
-                        {s.shortName ?? s.name}
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-accent">
+                          {p.num}
+                        </span>
+                        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-paper text-ink/60 transition-all duration-300 group-hover:bg-accent group-hover:text-white">
+                          <Icon className="h-4 w-4" />
+                        </span>
+                      </div>
+
+                      <span className="mt-4 block text-[10px] font-semibold uppercase tracking-wider text-ink/40">
+                        {p.tag}
                       </span>
-                      <span className="block truncate text-[10px] uppercase tracking-wider text-ink/40">
-                        {s.category}
+                      <h3 className="mt-1 font-display text-lg font-bold text-ink group-hover:text-accent transition-colors">
+                        {p.title}
+                      </h3>
+                      <p className="mt-2 text-xs leading-relaxed text-ink/60">
+                        {p.desc}
+                      </p>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-paper-line/70 flex items-center justify-between">
+                      <span className="text-[11px] font-bold text-emerald-700">
+                        {p.metric}
                       </span>
-                    </span>
+                      <ArrowUpRight className="h-4 w-4 text-ink/30 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
+                    </div>
                   </Link>
                 );
               })}
+            </div>
+
+            <div className="mt-6 text-center sm:hidden">
+              <Link
+                href="/services"
+                className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.18em] text-accent hover:underline"
+              >
+                <span>Browse All 13+ Services</span>
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </Link>
             </div>
           </div>
         </Reveal>
