@@ -38,13 +38,13 @@ export default function ContactPage() {
                   href={site.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-4 rounded-2xl border border-emerald-500/20 bg-emerald-50/70 p-5 shadow-xs transition-all hover:-translate-y-0.5 hover:shadow-md"
+                  className="group flex items-center gap-4 rounded-2xl border border-emerald-500/30 bg-emerald-50/90 p-5 shadow-xs transition-all hover:-translate-y-0.5 hover:shadow-md"
                 >
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-600 text-white">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm">
                     <WhatsAppIcon className="h-6 w-6 text-white" />
                   </span>
                   <div>
-                    <span className="block text-xs font-semibold text-emerald-800">Chat on WhatsApp (Instant)</span>
+                    <span className="block text-xs font-bold text-emerald-800">Chat on WhatsApp (Instant)</span>
                     <span className="block text-sm font-bold text-emerald-950 group-hover:underline">{site.phone}</span>
                   </div>
                 </a>
@@ -52,38 +52,38 @@ export default function ContactPage() {
                 {/* Direct Phone */}
                 <a
                   href={`tel:${site.phoneRaw}`}
-                  className="group flex items-center gap-4 rounded-2xl border border-paper-line bg-white p-5 shadow-xs transition-all hover:-translate-y-0.5 hover:shadow-md"
+                  className="group flex items-center gap-4 rounded-2xl border border-black/[0.12] bg-white p-5 shadow-xs transition-all hover:-translate-y-0.5 hover:shadow-md"
                 >
                   <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-ink text-white">
                     <Phone className="h-5 w-5" />
                   </span>
                   <div>
-                    <span className="block text-xs text-ink/40">Direct Phone</span>
-                    <span className="block text-sm font-semibold text-ink group-hover:text-accent">{site.phone}</span>
+                    <span className="block text-xs font-bold text-ink/75">Direct Phone</span>
+                    <span className="block text-sm font-bold text-ink group-hover:text-accent">{site.phone}</span>
                   </div>
                 </a>
 
                 {/* Email */}
                 <a
                   href={`mailto:${site.email}`}
-                  className="group flex items-center gap-4 rounded-2xl border border-paper-line bg-white p-5 shadow-xs transition-all hover:-translate-y-0.5 hover:shadow-md"
+                  className="group flex items-center gap-4 rounded-2xl border border-black/[0.12] bg-white p-5 shadow-xs transition-all hover:-translate-y-0.5 hover:shadow-md"
                 >
                   <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-sky text-accent">
                     <Mail className="h-5 w-5" />
                   </span>
                   <div>
-                    <span className="block text-xs text-ink/40">Official Email</span>
-                    <span className="block text-sm font-semibold text-ink group-hover:text-accent">{site.email}</span>
+                    <span className="block text-xs font-bold text-ink/75">Official Email</span>
+                    <span className="block text-sm font-bold text-ink group-hover:text-accent">{site.email}</span>
                   </div>
                 </a>
 
                 {/* Location */}
-                <div className="flex items-center gap-4 rounded-2xl border border-paper-line bg-white p-5 shadow-xs">
+                <div className="flex items-center gap-4 rounded-2xl border border-black/[0.12] bg-white p-5 shadow-xs">
                   <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-sun text-brand-orange">
                     <MapPin className="h-5 w-5" />
                   </span>
                   <div>
-                    <span className="block text-xs text-ink/40">Based in</span>
+                    <span className="block text-xs font-bold text-ink/75">Based in</span>
                     <span className="block text-sm font-semibold text-ink">{site.location} — Operating Pan-India &amp; Global</span>
                   </div>
                 </div>

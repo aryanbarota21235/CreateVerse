@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { ArrowUpRight, Building2, Plane, Megaphone, Target, Zap, Code2, Filter, Share2, PenLine, Palette, ArrowRight } from "lucide-react";
@@ -99,7 +99,7 @@ export default function ServicesExplorer() {
   return (
     <section className="bg-white py-24 lg:py-32 scroll-mt-20" id="services">
       <div className="container-site">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-12 border-b border-paper-line">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-12 border-b border-stone-200">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent">
               Acquisition Architecture &amp; Core Practices
@@ -107,7 +107,7 @@ export default function ServicesExplorer() {
             <h2 className="text-balance mt-3 max-w-2xl font-display text-4xl font-bold tracking-tightest text-ink sm:text-5xl">
               Everything growth needs, under one roof.
             </h2>
-            <p className="mt-3 max-w-xl text-base text-ink/60">
+            <p className="mt-3 max-w-xl text-base leading-relaxed text-ink/80 font-normal">
               We design, build and manage the entire acquisition engine — combining strategy, paid media, direct-response creative and modern technology.
             </p>
           </div>
@@ -127,7 +127,7 @@ export default function ServicesExplorer() {
             <div key={group.category}>
               <div className="flex items-center gap-3 mb-6">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                <h3 className="text-xs font-bold uppercase tracking-[0.22em] text-ink/45">
+                <h3 className="text-xs font-extrabold uppercase tracking-[0.22em] text-ink/75">
                   {group.category}
                 </h3>
               </div>
@@ -138,16 +138,16 @@ export default function ServicesExplorer() {
                   return (
                     <div
                       key={item.slug}
-                      className="group flex flex-col justify-between rounded-3xl border border-paper-line bg-paper/50 p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:bg-white hover:shadow-lift"
+                      className="group flex flex-col justify-between rounded-3xl border border-black/[0.12] bg-[#F8FAFC] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:bg-white hover:shadow-lift"
                     >
                       <div>
                         <div className="flex items-center justify-between">
-                          <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-ink shadow-xs transition-all duration-300 group-hover:bg-accent group-hover:text-white">
+                          <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white border border-black/[0.08] text-ink shadow-xs transition-all duration-300 group-hover:bg-accent group-hover:text-white group-hover:border-accent">
                             <Icon className="h-5 w-5" />
                           </span>
                           <button
                             onClick={() => openEnquiry(item.name)}
-                            className="text-[11px] font-bold uppercase tracking-wider text-ink/40 hover:text-accent transition-colors"
+                            className="text-[11px] font-bold uppercase tracking-wider text-ink/70 hover:text-accent transition-colors"
                           >
                             Enquire
                           </button>
@@ -156,18 +156,18 @@ export default function ServicesExplorer() {
                         <h4 className="mt-6 font-display text-xl font-bold text-ink group-hover:text-accent transition-colors">
                           {item.name}
                         </h4>
-                        <p className="mt-2 text-xs leading-relaxed text-ink/65">
+                        <p className="mt-2 text-xs leading-relaxed text-ink/80 font-normal">
                           {item.tagline}
                         </p>
                       </div>
 
-                      <div className="mt-8 pt-5 border-t border-paper-line/80 flex items-center justify-between">
-                        <span className="text-[11px] font-semibold text-accent truncate pr-2">
+                      <div className="mt-8 pt-5 border-t border-stone-200 flex items-center justify-between">
+                        <span className="text-xs font-bold text-accent truncate pr-2">
                           {item.deliverable}
                         </span>
                         <Link
                           href={`/services/${item.slug}`}
-                          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-ink/30 shadow-xs transition-all group-hover:bg-accent group-hover:text-white"
+                          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white border border-black/[0.08] text-ink/60 shadow-xs transition-all group-hover:bg-accent group-hover:text-white group-hover:border-accent"
                           aria-label={`View details for ${item.name}`}
                         >
                           <ArrowUpRight className="h-3.5 w-3.5" />

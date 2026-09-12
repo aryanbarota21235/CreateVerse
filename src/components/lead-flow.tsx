@@ -30,14 +30,14 @@ export default function LeadFlow() {
             {stages.map((s, i) => (
               <Reveal key={s.title} delay={i * 0.1}>
                 <div className="group relative text-center lg:text-left">
-                  <div className="relative mx-auto flex h-[68px] w-[68px] items-center justify-center rounded-2xl border border-paper-line bg-white shadow-card transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-lift lg:mx-0">
+                  <div className="relative mx-auto flex h-[68px] w-[68px] items-center justify-center rounded-2xl border border-black/[0.12] bg-white shadow-card transition-all duration-300 group-hover:-translate-y-1 hover:border-accent group-hover:shadow-lift lg:mx-0">
                     <s.icon className="h-6 w-6 text-accent" />
                     <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-brand-orange font-display text-[11px] font-bold text-white">
                       {i + 1}
                     </span>
                   </div>
-                  <h3 className="mt-5 font-display text-lg font-semibold text-ink">{s.title}</h3>
-                  <p className="mt-2 text-[13px] leading-relaxed text-ink/50">{s.desc}</p>
+                  <h3 className="mt-5 font-display text-lg font-bold text-ink">{s.title}</h3>
+                  <p className="mt-2 text-[13px] leading-relaxed text-ink/80 font-normal">{s.desc}</p>
                 </div>
               </Reveal>
             ))}

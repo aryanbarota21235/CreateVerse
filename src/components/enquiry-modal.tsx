@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -114,7 +114,7 @@ export default function EnquiryModal() {
                 <h3 className="mt-5 font-display text-2xl sm:text-3xl font-bold text-ink">
                   Enquiry Received
                 </h3>
-                <p className="mx-auto mt-2 max-w-md text-sm text-ink/65 sm:text-base">
+                <p className="mx-auto mt-2 max-w-md text-sm text-ink/85 font-normal sm:text-base">
                   Thank you, <span className="font-semibold text-ink">{name || "there"}</span>. Our strategist is reviewing your requirements and will reach out within 2 hours.
                 </p>
 
@@ -123,7 +123,7 @@ export default function EnquiryModal() {
                   <p className="text-xs font-bold uppercase tracking-wider text-emerald-900">
                     Direct WhatsApp Connect
                   </p>
-                  <p className="mt-1 text-sm text-emerald-900/80">
+                  <p className="mt-1 text-sm font-medium text-emerald-900/90">
                     Connect directly on WhatsApp with our team for immediate project scoping.
                   </p>
                   <a
@@ -139,7 +139,7 @@ export default function EnquiryModal() {
 
                 <button
                   onClick={handleReset}
-                  className="mt-6 text-sm font-medium text-ink/50 underline hover:text-ink"
+                  className="mt-6 text-sm font-semibold text-ink/75 underline hover:text-ink"
                 >
                   Close Window
                 </button>
@@ -149,7 +149,7 @@ export default function EnquiryModal() {
                 {/* Left Side: Agency Pitch & Direct Contact */}
                 <div className="lg:col-span-5 bg-ink p-6 sm:p-8 md:p-10 text-white flex flex-col justify-between">
                   <div>
-                    <div className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-white/60">
+                    <div className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-white/80">
                       <span>Growth Consultation</span>
                     </div>
 
@@ -157,7 +157,7 @@ export default function EnquiryModal() {
                       Let&apos;s build your <span className="text-brand-gradient">growth engine.</span>
                     </h3>
 
-                    <p className="mt-4 text-sm leading-relaxed text-white/70">
+                    <p className="mt-4 text-sm leading-relaxed text-white/85 font-normal">
                       Share your goals and challenges. We&apos;ll audit your current acquisition funnel and deliver a clear, measurable roadmap.
                     </p>
 
@@ -185,13 +185,13 @@ export default function EnquiryModal() {
                       {/* Phone */}
                       <a
                         href={`tel:${site.phoneRaw}`}
-                        className="flex items-center gap-3.5 rounded-2xl border border-white/10 bg-white/5 p-3.5 transition-all hover:bg-white/10"
+                        className="flex items-center gap-3.5 rounded-2xl border border-white/15 bg-white/5 p-3.5 transition-all hover:bg-white/10"
                       >
                         <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white">
                           <Phone className="h-4 w-4" />
                         </span>
                         <div>
-                          <span className="block text-[10px] font-bold uppercase tracking-wider text-white/40">
+                          <span className="block text-[10px] font-bold uppercase tracking-wider text-white/70">
                             Direct Phone
                           </span>
                           <span className="block text-sm font-semibold text-white">
@@ -203,13 +203,13 @@ export default function EnquiryModal() {
                       {/* Email */}
                       <a
                         href={`mailto:${site.email}`}
-                        className="flex items-center gap-3.5 rounded-2xl border border-white/10 bg-white/5 p-3.5 transition-all hover:bg-white/10"
+                        className="flex items-center gap-3.5 rounded-2xl border border-white/15 bg-white/5 p-3.5 transition-all hover:bg-white/10"
                       >
                         <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white">
                           <Mail className="h-4 w-4" />
                         </span>
                         <div>
-                          <span className="block text-[10px] font-bold uppercase tracking-wider text-white/40">
+                          <span className="block text-[10px] font-bold uppercase tracking-wider text-white/70">
                             Official Email
                           </span>
                           <span className="block text-sm font-semibold text-white">
@@ -220,7 +220,7 @@ export default function EnquiryModal() {
                     </div>
                   </div>
 
-                  <div className="mt-8 border-t border-white/10 pt-4 text-xs text-white/45 flex items-center gap-2">
+                  <div className="mt-8 border-t border-white/15 pt-4 text-xs font-medium text-white/75 flex items-center gap-2">
                     <ShieldCheck className="h-4 w-4 text-emerald-400" />
                     <span>Confidential Consultation · NDA Protected</span>
                   </div>
@@ -232,7 +232,7 @@ export default function EnquiryModal() {
                     <h4 className="font-display text-xl font-bold text-ink sm:text-2xl">
                       Project Enquiry Details
                     </h4>
-                    <p className="mt-1 text-xs text-ink/50 sm:text-sm">
+                    <p className="mt-1 text-xs font-medium text-ink/75 sm:text-sm">
                       Submit your requirements below or reach out directly on WhatsApp.
                     </p>
                   </div>
@@ -240,7 +240,7 @@ export default function EnquiryModal() {
                   <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Service Selection Pills */}
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-ink/60 mb-2">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-ink mb-2">
                         Practice Area Required
                       </label>
                       <div className="flex flex-wrap gap-1.5">
@@ -252,7 +252,7 @@ export default function EnquiryModal() {
                             className={`rounded-xl px-3 py-1.5 text-xs font-semibold transition-all ${
                               service === item
                                 ? "bg-accent text-white shadow-sm ring-1 ring-accent"
-                                : "bg-paper text-ink/75 hover:bg-paper-soft hover:text-ink"
+                                : "bg-[#F8FAFC] border border-black/[0.10] text-ink font-semibold hover:bg-white hover:border-accent"
                             }`}
                           >
                             {item}
@@ -264,7 +264,7 @@ export default function EnquiryModal() {
                     {/* Name & Phone */}
                     <div className="grid gap-3 sm:grid-cols-2">
                       <div>
-                        <label className="block text-xs font-medium text-ink/70 mb-1">
+                        <label className="block text-xs font-bold text-ink mb-1">
                           Full Name <span className="text-rose-500">*</span>
                         </label>
                         <input
@@ -273,11 +273,11 @@ export default function EnquiryModal() {
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           placeholder="Your Name"
-                          className="w-full rounded-xl border border-paper-line bg-paper/40 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink/30 outline-none transition-colors focus:border-accent focus:bg-white"
+                          className="w-full rounded-xl border border-black/[0.15] bg-[#F8FAFC] px-3.5 py-2.5 text-sm font-medium text-ink placeholder:text-ink/50 outline-none transition-colors focus:border-accent focus:bg-white"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-ink/70 mb-1">
+                        <label className="block text-xs font-bold text-ink mb-1">
                           WhatsApp / Phone <span className="text-rose-500">*</span>
                         </label>
                         <input
@@ -286,7 +286,7 @@ export default function EnquiryModal() {
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
                           placeholder="+91 00000 00000"
-                          className="w-full rounded-xl border border-paper-line bg-paper/40 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink/30 outline-none transition-colors focus:border-accent focus:bg-white"
+                          className="w-full rounded-xl border border-black/[0.15] bg-[#F8FAFC] px-3.5 py-2.5 text-sm font-medium text-ink placeholder:text-ink/50 outline-none transition-colors focus:border-accent focus:bg-white"
                         />
                       </div>
                     </div>
@@ -294,7 +294,7 @@ export default function EnquiryModal() {
                     {/* Email & Company */}
                     <div className="grid gap-3 sm:grid-cols-2">
                       <div>
-                        <label className="block text-xs font-medium text-ink/70 mb-1">
+                        <label className="block text-xs font-bold text-ink mb-1">
                           Work Email <span className="text-rose-500">*</span>
                         </label>
                         <input
@@ -303,11 +303,11 @@ export default function EnquiryModal() {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="name@company.com"
-                          className="w-full rounded-xl border border-paper-line bg-paper/40 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink/30 outline-none transition-colors focus:border-accent focus:bg-white"
+                          className="w-full rounded-xl border border-black/[0.15] bg-[#F8FAFC] px-3.5 py-2.5 text-sm font-medium text-ink placeholder:text-ink/50 outline-none transition-colors focus:border-accent focus:bg-white"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-ink/70 mb-1">
+                        <label className="block text-xs font-bold text-ink mb-1">
                           Company / Project Name
                         </label>
                         <input
@@ -315,14 +315,14 @@ export default function EnquiryModal() {
                           value={company}
                           onChange={(e) => setCompany(e.target.value)}
                           placeholder="Company or Organization"
-                          className="w-full rounded-xl border border-paper-line bg-paper/40 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink/30 outline-none transition-colors focus:border-accent focus:bg-white"
+                          className="w-full rounded-xl border border-black/[0.15] bg-[#F8FAFC] px-3.5 py-2.5 text-sm font-medium text-ink placeholder:text-ink/50 outline-none transition-colors focus:border-accent focus:bg-white"
                         />
                       </div>
                     </div>
 
                     {/* Budget Selection Pills */}
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-ink/60 mb-2">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-ink mb-2">
                         Estimated Monthly Marketing Budget
                       </label>
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -334,7 +334,7 @@ export default function EnquiryModal() {
                             className={`rounded-xl px-2.5 py-2 text-xs font-semibold transition-all text-center ${
                               budget === b
                                 ? "bg-ink text-white shadow-sm"
-                                : "bg-paper text-ink/70 hover:bg-paper-soft hover:text-ink"
+                                : "bg-[#F8FAFC] border border-black/[0.10] text-ink font-semibold hover:bg-white hover:border-accent"
                             }`}
                           >
                             {b}
@@ -345,7 +345,7 @@ export default function EnquiryModal() {
 
                     {/* Message / Brief */}
                     <div>
-                      <label className="block text-xs font-medium text-ink/70 mb-1">
+                      <label className="block text-xs font-bold text-ink mb-1">
                         Specific Goals / Overview
                       </label>
                       <textarea
@@ -353,7 +353,7 @@ export default function EnquiryModal() {
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         placeholder="Tell us about your target audience, current cost per lead, or upcoming project launch..."
-                        className="w-full resize-none rounded-xl border border-paper-line bg-paper/40 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink/30 outline-none transition-colors focus:border-accent focus:bg-white"
+                        className="w-full resize-none rounded-xl border border-black/[0.15] bg-[#F8FAFC] px-3.5 py-2.5 text-sm font-medium text-ink placeholder:text-ink/50 outline-none transition-colors focus:border-accent focus:bg-white"
                       />
                     </div>
 
@@ -375,7 +375,7 @@ export default function EnquiryModal() {
                       </button>
                     </div>
 
-                    <p className="text-center text-[11px] text-ink/40">
+                    <p className="text-center text-[11px] font-semibold text-ink/70">
                       We respect your time. Guaranteed response within 2 hours.
                     </p>
                   </form>

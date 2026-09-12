@@ -32,12 +32,12 @@ export default function AboutPage() {
           <div className="grid gap-6 sm:grid-cols-2">
             {principles.map((p, i) => (
               <Reveal key={p.title} delay={i * 0.08}>
-                <div className="h-full rounded-2xl border border-paper-line bg-white p-8 shadow-card transition-all hover:-translate-y-1 hover:shadow-lift">
-                  <span className={`font-display text-sm font-semibold tracking-widest ${i % 2 === 0 ? "text-accent" : "text-brand-orange"}`}>
+                <div className="h-full rounded-2xl border border-black/[0.12] bg-white p-8 shadow-card transition-all hover:-translate-y-1 hover:border-accent hover:shadow-lift">
+                  <span className={`font-display text-sm font-bold tracking-widest ${i % 2 === 0 ? "text-accent" : "text-brand-orange"}`}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h2 className="mt-4 font-display text-2xl font-semibold text-ink">{p.title}</h2>
-                  <p className="mt-3 text-sm leading-relaxed text-ink/55">{p.desc}</p>
+                  <h2 className="mt-4 font-display text-2xl font-bold text-ink">{p.title}</h2>
+                  <p className="mt-3 text-sm leading-relaxed text-ink/80 font-normal">{p.desc}</p>
                 </div>
               </Reveal>
             ))}

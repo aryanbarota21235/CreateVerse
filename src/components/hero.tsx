@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { ArrowRight, ArrowDown, Building2, Plane, Megaphone, TrendingUp, ArrowUpRight } from "lucide-react";
@@ -59,7 +59,7 @@ export default function Hero() {
         {/* Main Editorial Agency Headline */}
         <div className="mx-auto max-w-4xl text-center">
           <Reveal>
-            <div className="inline-flex items-center gap-2 rounded-full border border-paper-line bg-white/95 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-ink/75 shadow-xs backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 rounded-full border border-black/[0.12] bg-white px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-ink shadow-xs backdrop-blur-md">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
@@ -76,7 +76,7 @@ export default function Hero() {
           </Reveal>
 
           <Reveal delay={0.2}>
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-ink/65 sm:text-lg lg:text-xl">
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-ink/85 sm:text-lg lg:text-xl font-normal">
               We design and execute bespoke acquisition systems for luxury real estate developers,
               visa consultancies, political campaigns and high-growth brands — delivering verified
               inquiries and predictable commercial pipeline.
@@ -99,7 +99,7 @@ export default function Hero() {
                 href={site.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2.5 rounded-full border border-paper-line bg-white px-7 py-4 text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-xs transition-all duration-300 hover:border-accent hover:text-accent sm:text-xs"
+                className="group inline-flex items-center gap-2.5 rounded-full border border-black/[0.14] bg-white px-7 py-4 text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-xs transition-all duration-300 hover:border-accent hover:text-accent sm:text-xs"
               >
                 <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
                 <span>WhatsApp ({site.phone})</span>
@@ -112,7 +112,7 @@ export default function Hero() {
         <Reveal delay={0.4}>
           <div className="mt-16 sm:mt-20">
             <div className="mb-6">
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-ink/40">
+              <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-ink/75">
                 Specialized Acquisition Practice Areas
               </p>
             </div>
@@ -124,34 +124,34 @@ export default function Hero() {
                   <Link
                     key={p.num}
                     href={p.href}
-                    className="group relative flex flex-col justify-between rounded-3xl border border-paper-line bg-white/90 p-6 sm:p-7 shadow-xs backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:bg-white hover:shadow-lift"
+                    className="group relative flex flex-col justify-between rounded-3xl border border-black/[0.12] bg-white p-6 sm:p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
                   >
                     <div>
                       <div className="flex items-center justify-between">
                         <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-accent">
                           {p.num}
                         </span>
-                        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-paper text-ink/60 transition-all duration-300 group-hover:bg-accent group-hover:text-white">
+                        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#F1F5F9] text-ink transition-all duration-300 group-hover:bg-accent group-hover:text-white">
                           <Icon className="h-4 w-4" />
                         </span>
                       </div>
 
-                      <span className="mt-4 block text-[10px] font-semibold uppercase tracking-wider text-ink/40">
+                      <span className="mt-4 block text-[10px] font-bold uppercase tracking-wider text-ink/70">
                         {p.tag}
                       </span>
                       <h3 className="mt-1 font-display text-lg font-bold text-ink group-hover:text-accent transition-colors">
                         {p.title}
                       </h3>
-                      <p className="mt-2 text-xs leading-relaxed text-ink/60">
+                      <p className="mt-2 text-xs leading-relaxed text-ink/80">
                         {p.desc}
                       </p>
                     </div>
 
-                    <div className="mt-6 pt-4 border-t border-paper-line/70 flex items-center justify-between">
+                    <div className="mt-6 pt-4 border-t border-stone-200 flex items-center justify-between">
                       <span className="text-[11px] font-bold text-emerald-700">
                         {p.metric}
                       </span>
-                      <ArrowUpRight className="h-4 w-4 text-ink/30 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
+                      <ArrowUpRight className="h-4 w-4 text-ink/60 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
                     </div>
                   </Link>
                 );
@@ -162,7 +162,7 @@ export default function Hero() {
             <div className="mt-10 flex items-center justify-center">
               <a
                 href="#services"
-                className="group inline-flex items-center gap-2 rounded-full border border-paper-line bg-white px-7 py-3 text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-xs transition-all duration-300 hover:border-accent hover:text-accent hover:shadow-card"
+                className="group inline-flex items-center gap-2 rounded-full border border-black/[0.14] bg-white px-7 py-3 text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-card transition-all duration-300 hover:border-accent hover:text-accent"
               >
                 <span>Browse All 13+ Services</span>
                 <ArrowDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-y-0.5" />

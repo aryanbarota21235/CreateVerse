@@ -11,16 +11,16 @@ export default function FinalCTA() {
       <div className="container-site relative">
         <div className="grid items-center gap-14 lg:grid-cols-2">
           <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-orange">Let&apos;s Talk</p>
-            <h2 className="text-balance mt-4 font-display text-4xl font-semibold tracking-tightest text-white sm:text-5xl lg:text-6xl">
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-brand-orange">Let&apos;s Talk</p>
+            <h2 className="text-balance mt-4 font-display text-4xl font-bold tracking-tightest text-white sm:text-5xl lg:text-6xl">
               Ready to build your next{" "}
               <span className="text-brand-gradient">growth engine?</span>
             </h2>
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/55">
+            <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/80 font-normal">
               Tell us where you want to grow. We&apos;ll come back with a clear point of view on the
               funnel, channels and budget it takes to get there.
             </p>
-            <ul className="mt-8 space-y-3 text-sm text-white/60">
+            <ul className="mt-8 space-y-3 text-sm font-medium text-white/85">
               {[
                 "Free 30-minute strategy conversation",
                 "Honest assessment — even if we're not a fit",

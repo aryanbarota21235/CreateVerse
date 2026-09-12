@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import { X } from "lucide-react";
@@ -11,18 +11,18 @@ export default function WhatsAppWidget() {
   return (
     <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2">
       {showTooltip && (
-        <div className="hidden sm:flex items-center gap-2 rounded-2xl border border-paper-line bg-white/95 px-3.5 py-2 shadow-xl backdrop-blur-md">
+        <div className="hidden sm:flex items-center gap-2 rounded-2xl border border-black/[0.12] bg-white px-3.5 py-2 shadow-xl backdrop-blur-md">
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
           </span>
           <div className="text-xs">
-            <p className="font-semibold text-ink">Chat on WhatsApp</p>
-            <p className="text-[11px] text-ink/50">{site.phone}</p>
+            <p className="font-bold text-ink">Chat on WhatsApp</p>
+            <p className="text-[11px] font-medium text-ink/80">{site.phone}</p>
           </div>
           <button
             onClick={() => setShowTooltip(false)}
-            className="ml-1 text-ink/30 hover:text-ink"
+            className="ml-1 text-ink/60 hover:text-ink"
             aria-label="Dismiss tooltip"
           >
             <X className="h-3.5 w-3.5" />

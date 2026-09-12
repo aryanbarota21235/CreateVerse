@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -8,9 +8,10 @@
   }
   body {
     @apply bg-paper text-ink antialiased;
+    color: #0B0F19;
   }
   ::selection {
-    background-color: #0b93d8;
+    background-color: #0284C7;
     color: #ffffff;
   }
 }
@@ -23,22 +24,22 @@
     text-wrap: balance;
   }
   .text-brand-gradient {
-    @apply bg-gradient-to-r from-accent to-brand-orange bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-accent to-brand-orange bg-clip-text text-transparent font-extrabold;
   }
   .grid-texture {
     background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
     background-size: 56px 56px;
   }
   .grid-texture-light {
     background-image:
-      linear-gradient(to right, rgba(13, 20, 32, 0.045) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(13, 20, 32, 0.045) 1px, transparent 1px);
+      linear-gradient(to right, rgba(11, 15, 25, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(11, 15, 25, 0.05) 1px, transparent 1px);
     background-size: 56px 56px;
   }
   .dot-texture {
-    background-image: radial-gradient(rgba(13, 20, 32, 0.09) 1px, transparent 1px);
-    background-size: 22px 22px;
+    background-image: radial-gradient(rgba(11, 15, 25, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
 }

@@ -51,14 +51,14 @@ export default function ServicesGrid({ showHeading = true }: { showHeading?: boo
                     >
                       <Icon className="h-5 w-5" />
                     </span>
-                    <ArrowUpRight className="h-5 w-5 text-white/30 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-brand-orange" />
+                    <ArrowUpRight className="h-5 w-5 text-white/60 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-brand-orange" />
                   </div>
-                  <p className={`relative mt-6 text-[11px] font-semibold uppercase tracking-[0.18em] ${orange ? "text-brand-orange" : "text-accent"}`}>
+                  <p className={`relative mt-6 text-[11px] font-bold uppercase tracking-[0.18em] ${orange ? "text-brand-orange" : "text-accent"}`}>
                     {s.category}
                   </p>
-                  <h3 className="relative mt-2 font-display text-2xl font-semibold tracking-tight">{s.name}</h3>
-                  <p className="relative mt-3 text-sm leading-relaxed text-white/55">{s.tagline}</p>
-                  <span className="relative mt-auto pt-7 inline-flex items-center gap-2 text-sm font-semibold text-white/80 transition-colors group-hover:text-white">
+                  <h3 className="relative mt-2 font-display text-2xl font-bold tracking-tight">{s.name}</h3>
+                  <p className="relative mt-3 text-sm leading-relaxed text-white/80 font-normal">{s.tagline}</p>
+                  <span className="relative mt-auto pt-7 inline-flex items-center gap-2 text-sm font-semibold text-white/90 transition-colors group-hover:text-white">
                     Explore service
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </span>
@@ -76,17 +76,17 @@ export default function ServicesGrid({ showHeading = true }: { showHeading?: boo
               <StaggerItem key={s.slug}>
                 <Link
                   href={`/services/${s.slug}`}
-                  className="group flex h-full items-start gap-4 rounded-2xl border border-paper-line bg-paper p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-white hover:shadow-card"
+                  className="group flex h-full items-start gap-4 rounded-2xl border border-black/[0.12] bg-[#F8FAFC] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:bg-white hover:shadow-card"
                 >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white text-ink/45 shadow-card transition-colors group-hover:bg-brand-sky group-hover:text-accent">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white border border-black/[0.08] text-ink shadow-xs transition-colors group-hover:bg-brand-sky group-hover:text-accent">
                     <Icon className="h-5 w-5" />
                   </span>
                   <span>
-                    <span className="flex items-center gap-1.5 text-sm font-semibold text-ink">
+                    <span className="flex items-center gap-1.5 text-sm font-bold text-ink">
                       {s.name}
-                      <ArrowUpRight className="h-3.5 w-3.5 text-ink/25 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
+                      <ArrowUpRight className="h-3.5 w-3.5 text-ink/60 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
                     </span>
-                    <span className="mt-1 block text-xs leading-relaxed text-ink/50">{s.tagline}</span>
+                    <span className="mt-1 block text-xs leading-relaxed text-ink/80 font-normal">{s.tagline}</span>
                   </span>
                 </Link>
               </StaggerItem>

@@ -20,11 +20,11 @@ export default function Footer() {
               <span className="font-display text-3xl font-bold tracking-tight text-brand-gradient">
                 CREATEVERSE
               </span>
-              <span className="mt-1 block text-[10px] font-semibold uppercase tracking-[0.35em] text-white/40">
+              <span className="mt-1 block text-[10px] font-bold uppercase tracking-[0.35em] text-white/70">
                 Redefining Digital
               </span>
             </Link>
-            <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/60">
+            <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/80 font-normal">
               A growth and digital acquisition partner. We generate leads, build digital acquisition
               systems and manage high-impact campaigns for real estate, immigration, political
               organizations and ambitious businesses.
@@ -33,7 +33,7 @@ export default function Footer() {
             <div className="mt-7 flex flex-wrap items-center gap-3">
               <button
                 onClick={() => openEnquiry()}
-                className="group inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-xs font-bold text-ink transition-all hover:bg-accent hover:text-white"
+                className="group inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-xs font-bold text-ink transition-all hover:bg-accent hover:text-white shadow-sm"
               >
                 <span>Enquire Now</span>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -52,17 +52,17 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-3">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">Core Services</h3>
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white/75">Core Services</h3>
             <ul className="mt-5 space-y-3">
               {featured.map((s) => (
                 <li key={s.slug}>
-                  <Link href={`/services/${s.slug}`} className="text-sm text-white/65 transition-colors hover:text-brand-orange">
+                  <Link href={`/services/${s.slug}`} className="text-sm font-medium text-white/85 transition-colors hover:text-brand-orange">
                     {s.shortName ?? s.name}
                   </Link>
                 </li>
               ))}
               <li>
-                <Link href="/services" className="text-sm font-medium text-brand-orange transition-colors hover:text-brand-orangedark">
+                <Link href="/services" className="text-sm font-bold text-brand-orange transition-colors hover:text-brand-orangedark">
                   All services →
                 </Link>
               </li>
@@ -70,11 +70,11 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-2">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">Company</h3>
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white/75">Company</h3>
             <ul className="mt-5 space-y-3">
               {site.nav.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="text-sm text-white/65 transition-colors hover:text-brand-orange">
+                  <Link href={item.href} className="text-sm font-medium text-white/85 transition-colors hover:text-brand-orange">
                     {item.label}
                   </Link>
                 </li>
@@ -83,8 +83,8 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-2">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">Contact &amp; WhatsApp</h3>
-            <ul className="mt-5 space-y-3 text-sm text-white/65">
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white/75">Contact &amp; WhatsApp</h3>
+            <ul className="mt-5 space-y-3 text-sm text-white/85 font-medium">
               <li>
                 <a href={site.whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-emerald-400 hover:underline">
                   <WhatsAppIcon className="h-4 w-4" />
@@ -93,16 +93,16 @@ export default function Footer() {
               </li>
               <li>
                 <a href={`mailto:${site.email}`} className="flex items-center gap-2 transition-colors hover:text-brand-orange">
-                  <Mail className="h-4 w-4 text-white/40" />
+                  <Mail className="h-4 w-4 text-white/70" />
                   <span>{site.email}</span>
                 </a>
               </li>
-              <li className="text-xs text-white/40">{site.location}</li>
+              <li className="text-xs text-white/70">{site.location}</li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-ink-line pt-8 text-xs text-white/35 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-3 border-t border-ink-line pt-8 text-xs font-medium text-white/65 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} CreateVerse. All rights reserved.</p>
           <p>Leads. Growth Systems. High-Impact Campaigns.</p>
         </div>

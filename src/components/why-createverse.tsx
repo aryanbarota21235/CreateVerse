@@ -30,8 +30,8 @@ export default function WhyCreateVerse() {
                   <span className={`flex h-11 w-11 items-center justify-center rounded-xl text-white transition-transform duration-300 group-hover:scale-105 ${i % 2 === 0 ? "bg-accent" : "bg-brand-orange"}`}>
                     <r.icon className="h-5 w-5" />
                   </span>
-                  <h3 className="mt-5 font-display text-xl font-semibold text-ink">{r.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink/60">{r.desc}</p>
+                  <h3 className="mt-5 font-display text-xl font-bold text-ink">{r.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink/80 font-normal">{r.desc}</p>
                 </div>
               </StaggerItem>
             ))}

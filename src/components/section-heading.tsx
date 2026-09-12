@@ -11,11 +11,11 @@ interface Props {
 export default function SectionHeading({ eyebrow, title, description, dark = false, align = "left" }: Props) {
   return (
     <Reveal className={align === "center" ? "text-center" : ""}>
-      <p className={`text-xs font-semibold uppercase tracking-[0.22em] ${dark ? "text-brand-orange" : "text-accent"}`}>
+      <p className={`text-xs font-bold uppercase tracking-[0.22em] ${dark ? "text-brand-orange" : "text-accent"}`}>
         {eyebrow}
       </p>
       <h2
-        className={`text-balance mt-4 font-display text-4xl font-semibold tracking-tightest sm:text-5xl ${
+        className={`text-balance mt-4 font-display text-4xl font-bold tracking-tightest sm:text-5xl ${
           dark ? "text-white" : "text-ink"
         } ${align === "center" ? "mx-auto max-w-3xl" : "max-w-3xl"}`}
       >
@@ -23,7 +23,7 @@ export default function SectionHeading({ eyebrow, title, description, dark = fal
       </h2>
       {description && (
         <p
-          className={`mt-5 max-w-2xl text-lg leading-relaxed ${dark ? "text-white/55" : "text-ink/60"} ${
+          className={`mt-5 max-w-2xl text-lg leading-relaxed ${dark ? "text-white/80" : "text-ink/80 font-normal"} ${
             align === "center" ? "mx-auto" : ""
           }`}
         >

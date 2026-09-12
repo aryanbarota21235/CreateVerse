@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -31,10 +31,10 @@ export default function Navbar() {
     <header className="fixed inset-x-0 top-3 sm:top-5 z-50 px-4 sm:px-8 pointer-events-none">
       {/* Maximum luxury width floating pill dock */}
       <div
-        className={`mx-auto flex items-center justify-between rounded-full bg-white/95 shadow-[0_10px_35px_rgba(13,20,32,0.08)] backdrop-blur-2xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-auto border border-ink/[0.08] ${
+        className={`mx-auto flex items-center justify-between rounded-full bg-white/98 shadow-[0_10px_35px_rgba(11,15,25,0.08)] backdrop-blur-2xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-auto border ${
           scrolled
-            ? "max-w-6xl py-2.5 px-6 sm:px-10 shadow-[0_16px_44px_rgba(13,20,32,0.12)] border-ink/[0.12]"
-            : "max-w-7xl py-3.5 px-8 sm:px-12"
+            ? "max-w-6xl py-2.5 px-6 sm:px-10 shadow-[0_16px_44px_rgba(11,15,25,0.12)] border-black/[0.15]"
+            : "max-w-7xl py-3.5 px-8 sm:px-12 border-black/[0.12]"
         }`}
       >
         {/* Brand Logo */}
@@ -64,7 +64,7 @@ export default function Navbar() {
                 key={item.href}
                 href={item.href}
                 className={`relative py-1 text-xs font-bold uppercase tracking-[0.2em] transition-colors duration-300 group ${
-                  active ? "text-accent" : "text-ink/80 hover:text-accent"
+                  active ? "text-accent" : "text-ink hover:text-accent"
                 }`}
               >
                 <span>{item.label}</span>
@@ -130,24 +130,24 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.98 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="mx-auto mt-2 max-w-sm overflow-hidden rounded-3xl border border-paper-line bg-white/98 p-5 shadow-2xl backdrop-blur-2xl pointer-events-auto sm:hidden"
+            className="mx-auto mt-2 max-w-sm overflow-hidden rounded-3xl border border-black/[0.12] bg-white p-5 shadow-2xl backdrop-blur-2xl pointer-events-auto sm:hidden"
             aria-label="Mobile navigation"
           >
             <div className="flex flex-col gap-2">
-              <div className="mb-2 flex items-center justify-between border-b border-paper-line/70 pb-3">
-                <span className="text-xs font-bold uppercase tracking-wider text-ink/40">Navigation</span>
+              <div className="mb-2 flex items-center justify-between border-b border-stone-200 pb-3">
+                <span className="text-xs font-bold uppercase tracking-wider text-ink/75">Navigation</span>
               </div>
               {site.nav.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="rounded-xl px-3.5 py-2.5 text-sm font-bold uppercase tracking-wider text-ink/80 transition-colors hover:bg-paper hover:text-accent"
+                  className="rounded-xl px-3.5 py-2.5 text-sm font-bold uppercase tracking-wider text-ink transition-colors hover:bg-[#F8FAFC] hover:text-accent"
                 >
                   {item.label}
                 </Link>
               ))}
 
-              <div className="mt-3 pt-3 border-t border-paper-line/70 flex flex-col gap-2">
+              <div className="mt-3 pt-3 border-t border-stone-200 flex flex-col gap-2">
                 <button
                   onClick={() => {
                     setOpen(false);

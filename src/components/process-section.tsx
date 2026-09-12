@@ -20,12 +20,12 @@ export default function ProcessSection() {
         <Stagger className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" delayChildren={0.12}>
           {steps.map((s, i) => (
             <StaggerItem key={s.num}>
-              <div className="group relative h-full rounded-2xl border border-paper-line bg-white p-8 shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lift">
-                <span className={`font-display text-5xl font-semibold tracking-tight ${i % 2 === 0 ? "text-accent/20" : "text-brand-orange/25"}`}>
+              <div className="group relative h-full rounded-2xl border border-black/[0.12] bg-white p-8 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift">
+                <span className={`font-display text-5xl font-bold tracking-tight ${i % 2 === 0 ? "text-accent/40" : "text-brand-orange/45"}`}>
                   {s.num}
                 </span>
-                <h3 className="mt-6 font-display text-2xl font-semibold text-ink">{s.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-ink/55">{s.desc}</p>
+                <h3 className="mt-6 font-display text-2xl font-bold text-ink">{s.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-ink/80 font-normal">{s.desc}</p>
               </div>
             </StaggerItem>
           ))}

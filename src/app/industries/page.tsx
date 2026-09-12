@@ -24,31 +24,31 @@ export default function IndustriesPage() {
         <div className="container-site space-y-6">
           {industries.map((ind, i) => (
             <Reveal key={ind.slug}>
-              <div className="grid gap-8 rounded-3xl border border-paper-line bg-white p-8 shadow-card transition-all hover:-translate-y-1 hover:shadow-lift sm:p-12 lg:grid-cols-12">
+              <div className="grid gap-8 rounded-3xl border border-black/[0.12] bg-white p-8 shadow-card transition-all hover:-translate-y-1 hover:shadow-lift sm:p-12 lg:grid-cols-12">
                 <div className="lg:col-span-5">
-                  <span className={`rounded-full px-3 py-1 text-xs font-semibold tracking-wide ${i % 2 === 0 ? "bg-brand-sky text-accent" : "bg-brand-sun text-brand-orange"}`}>
+                  <span className={`rounded-full px-3 py-1 text-xs font-bold tracking-wide ${i % 2 === 0 ? "bg-brand-sky text-accent" : "bg-brand-sun text-brand-orange"}`}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+                  <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
                     {ind.name}
                   </h2>
-                  <p className="mt-4 text-lg font-medium leading-snug text-ink/75">{ind.headline}</p>
+                  <p className="mt-4 text-lg font-bold leading-snug text-ink">{ind.headline}</p>
                   <Link
                     href={ind.cta.href}
-                    className="group mt-7 inline-flex items-center gap-2 text-sm font-semibold text-accent transition-colors hover:text-accent-dim"
+                    className="group mt-7 inline-flex items-center gap-2 text-sm font-bold text-accent transition-colors hover:text-accent-dim"
                   >
                     {ind.cta.label}
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
                 <div className="lg:col-span-7">
-                  <p className="text-sm leading-relaxed text-ink/55">{ind.description}</p>
+                  <p className="text-sm leading-relaxed text-ink/80 font-normal">{ind.description}</p>
                   <Stagger className="mt-6 grid gap-3 sm:grid-cols-2" delayChildren={0.06}>
                     {ind.points.map((p) => (
                       <StaggerItem key={p}>
-                        <div className="flex items-start gap-3 rounded-xl border border-paper-line bg-paper p-4">
+                        <div className="flex items-start gap-3 rounded-xl border border-black/[0.08] bg-[#F8FAFC] p-4">
                           <span className={`mt-[7px] h-1 w-3 shrink-0 rounded-full ${i % 2 === 0 ? "bg-accent" : "bg-brand-orange"}`} />
-                          <p className="text-sm leading-relaxed text-ink/70">{p}</p>
+                          <p className="text-sm leading-relaxed text-ink/90 font-medium">{p}</p>
                         </div>
                       </StaggerItem>
                     ))}

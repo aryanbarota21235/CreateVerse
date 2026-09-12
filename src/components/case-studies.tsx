@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import SectionHeading from "@/components/section-heading";
 import { Stagger, StaggerItem } from "@/components/reveal";
@@ -73,30 +73,30 @@ export default function CaseStudies() {
             <StaggerItem key={c.category}>
               <Link
                 href={`/services/${c.slug}`}
-                className="group flex h-full flex-col justify-between rounded-3xl border border-paper-line bg-paper/60 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:bg-white hover:shadow-lift sm:p-10"
+                className="group flex h-full flex-col justify-between rounded-3xl border border-black/[0.12] bg-[#F8FAFC] p-8 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:bg-white hover:shadow-lift sm:p-10"
               >
                 <div>
                   <div className="flex items-center justify-between gap-4">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-semibold text-accent shadow-sm">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white border border-black/[0.08] px-3.5 py-1 text-xs font-bold text-accent shadow-xs">
                       {c.category}
                     </span>
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-ink/40 shadow-sm transition-all group-hover:bg-accent group-hover:text-white">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white border border-black/[0.08] text-ink/70 shadow-xs transition-all group-hover:bg-accent group-hover:text-white group-hover:border-accent">
                       <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </span>
                   </div>
 
-                  <h3 className="mt-6 font-display text-2xl font-semibold leading-snug tracking-tight text-ink group-hover:text-accent transition-colors">
+                  <h3 className="mt-6 font-display text-2xl font-bold leading-snug tracking-tight text-ink group-hover:text-accent transition-colors">
                     {c.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-ink/60">{c.summary}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-ink/80 font-normal">{c.summary}</p>
                 </div>
 
-                <div className="mt-8 border-t border-paper-line/80 pt-6">
+                <div className="mt-8 border-t border-stone-200 pt-6">
                   <div className="grid grid-cols-3 gap-2 sm:gap-4">
                     {c.stats.map((s) => (
-                      <div key={s.label} className="rounded-xl bg-white/80 p-3 shadow-xs">
+                      <div key={s.label} className="rounded-xl border border-black/[0.08] bg-white p-3 shadow-xs">
                         <p className="font-display text-lg font-bold text-ink sm:text-xl">{s.value}</p>
-                        <p className="mt-0.5 text-[11px] font-medium leading-tight text-ink/50">{s.label}</p>
+                        <p className="mt-0.5 text-[11px] font-semibold leading-tight text-ink/75">{s.label}</p>
                       </div>
                     ))}
                   </div>

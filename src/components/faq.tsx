@@ -11,7 +11,7 @@ export default function Faq({ items, dark = false }: { items: FAQ[]; dark?: bool
   return (
     <div
       className={`divide-y overflow-hidden rounded-2xl border ${
-        dark ? "divide-white/10 border-ink-line bg-ink-soft" : "divide-paper-line border-paper-line bg-white shadow-card"
+        dark ? "divide-white/15 border-white/20 bg-ink-soft" : "divide-stone-200 border-stone-200 bg-white shadow-card"
       }`}
     >
       {items.map((f, i) => {
@@ -23,12 +23,12 @@ export default function Faq({ items, dark = false }: { items: FAQ[]; dark?: bool
               className="flex w-full items-center justify-between gap-6 px-6 py-5 text-left sm:px-8"
               aria-expanded={isOpen}
             >
-              <span className={`font-display text-base font-semibold sm:text-lg ${dark ? "text-white" : "text-ink"}`}>
+              <span className={`font-display text-base font-bold sm:text-lg ${dark ? "text-white" : "text-ink"}`}>
                 {f.q}
               </span>
               <Plus
                 className={`h-5 w-5 shrink-0 transition-transform duration-300 ${
-                  isOpen ? "rotate-45 text-brand-orange" : dark ? "text-white/40" : "text-ink/40"
+                  isOpen ? "rotate-45 text-brand-orange" : dark ? "text-white/70" : "text-ink/70"
                 }`}
               />
             </button>
@@ -41,7 +41,7 @@ export default function Faq({ items, dark = false }: { items: FAQ[]; dark?: bool
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   className="overflow-hidden"
                 >
-                  <p className={`px-6 pb-6 text-sm leading-relaxed sm:px-8 ${dark ? "text-white/55" : "text-ink/60"}`}>
+                  <p className={`px-6 pb-6 text-sm leading-relaxed sm:px-8 ${dark ? "text-white/80" : "text-ink/80 font-normal"}`}>
                     {f.a}
                   </p>
                 </motion.div>

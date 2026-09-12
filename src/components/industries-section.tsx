@@ -24,19 +24,19 @@ export default function IndustriesSection() {
             const tint = tints[i % 2];
             return (
               <StaggerItem key={ind.slug}>
-                <div className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-paper-line bg-paper p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lift sm:p-10">
+                <div className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-black/[0.12] bg-[#F8FAFC] p-8 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:bg-white hover:shadow-lift sm:p-10">
                   <span className={`absolute left-0 top-0 h-1.5 w-full ${tint.bar}`} />
                   <div className="flex items-center justify-between">
-                    <span className={`rounded-full px-3 py-1 text-xs font-semibold tracking-wide ${tint.chip}`}>
+                    <span className={`rounded-full px-3 py-1 text-xs font-bold tracking-wide ${tint.chip}`}>
                       {String(i + 1).padStart(2, "0")}
                     </span>
                   </div>
-                  <h3 className="mt-6 font-display text-3xl font-semibold tracking-tight text-ink">{ind.name}</h3>
-                  <p className="mt-3 text-lg font-medium leading-snug text-ink/80">{ind.headline}</p>
-                  <p className="mt-4 text-sm leading-relaxed text-ink/55">{ind.description}</p>
+                  <h3 className="mt-6 font-display text-3xl font-bold tracking-tight text-ink">{ind.name}</h3>
+                  <p className="mt-3 text-lg font-bold leading-snug text-ink">{ind.headline}</p>
+                  <p className="mt-4 text-sm leading-relaxed text-ink/80 font-normal">{ind.description}</p>
                   <ul className="mt-6 space-y-2.5">
                     {ind.points.map((p) => (
-                      <li key={p} className="flex items-start gap-2.5 text-sm text-ink/70">
+                      <li key={p} className="flex items-start gap-2.5 text-sm font-medium text-ink/90">
                         <span className={`mt-[7px] h-1 w-4 shrink-0 rounded-full ${tint.bar}`} />
                         {p}
                       </li>
@@ -44,7 +44,7 @@ export default function IndustriesSection() {
                   </ul>
                   <Link
                     href={ind.cta.href}
-                    className="mt-8 inline-flex items-center gap-2 pt-2 text-sm font-semibold text-ink transition-colors hover:text-accent"
+                    className="mt-8 inline-flex items-center gap-2 pt-2 text-sm font-bold text-ink transition-colors hover:text-accent"
                   >
                     {ind.cta.label}
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

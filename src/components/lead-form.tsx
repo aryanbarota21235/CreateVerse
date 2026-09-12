@@ -5,7 +5,7 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { services } from "@/lib/services";
 
 const inputCls =
-  "w-full rounded-xl border border-white/12 bg-white/[0.05] px-4 py-3.5 text-sm text-white placeholder:text-white/35 outline-none transition-colors focus:border-accent/70 focus:bg-white/[0.08]";
+  "w-full rounded-xl border border-white/20 bg-white/[0.08] px-4 py-3.5 text-sm text-white placeholder:text-white/60 outline-none transition-colors focus:border-accent focus:bg-white/[0.12]";
 
 export default function LeadForm({ compact = false }: { compact?: boolean }) {
   const [submitted, setSubmitted] = useState(false);
@@ -27,8 +27,8 @@ export default function LeadForm({ compact = false }: { compact?: boolean }) {
     return (
       <div className="flex flex-col items-center rounded-2xl border border-accent/30 bg-accent/10 p-10 text-center">
         <CheckCircle2 className="h-10 w-10 text-accent" />
-        <h3 className="mt-4 font-display text-2xl font-semibold text-white">Request received.</h3>
-        <p className="mt-2 max-w-sm text-sm text-white/55">
+        <h3 className="mt-4 font-display text-2xl font-bold text-white">Request received.</h3>
+        <p className="mt-2 max-w-sm text-sm text-white/80">
           Our team will reach out shortly to schedule your growth strategy conversation.
         </p>
       </div>
@@ -36,7 +36,7 @@ export default function LeadForm({ compact = false }: { compact?: boolean }) {
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-3xl border border-white/10 bg-ink-soft p-6 shadow-lift sm:p-8">
+    <form onSubmit={onSubmit} className="rounded-3xl border border-white/20 bg-ink-soft p-6 shadow-lift sm:p-8">
       <div className={`grid gap-4 ${compact ? "" : "sm:grid-cols-2"}`}>
         <input name="name" required placeholder="Your name" className={inputCls} aria-label="Your name" />
         <input name="phone" required type="tel" placeholder="Phone / WhatsApp" className={inputCls} aria-label="Phone" />
@@ -65,12 +65,12 @@ export default function LeadForm({ compact = false }: { compact?: boolean }) {
       <button
         type="submit"
         disabled={sending}
-        className="group mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-orange px-7 py-3.5 text-base font-semibold text-white transition-all hover:bg-brand-orangedark disabled:opacity-60"
+        className="group mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-orange px-7 py-3.5 text-base font-bold text-white transition-all hover:bg-brand-orangedark disabled:opacity-60 shadow-md"
       >
         {sending ? "Sending…" : "Request My Growth Strategy"}
         <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
       </button>
-      <p className="mt-4 text-center text-[11px] text-white/35">
+      <p className="mt-4 text-center text-[11px] text-white/65 font-medium">
         No spam, no obligation. Your details stay with CreateVerse.
       </p>
     </form>
