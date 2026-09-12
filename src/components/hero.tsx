@@ -158,15 +158,21 @@ export default function Hero() {
               })}
             </div>
 
-            {/* Placed at the bottom as requested: smooth scroll to all services below */}
+            {/* Placed at the bottom as requested: smooth scroll to all services below without polluting browser history */}
             <div className="mt-10 flex items-center justify-center">
-              <a
-                href="#services"
+              <button
+                type="button"
+                onClick={() => {
+                  const el = document.getElementById("services");
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
                 className="group inline-flex items-center gap-2 rounded-full border border-black/[0.14] bg-white px-7 py-3 text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-card transition-all duration-300 hover:border-accent hover:text-accent"
               >
                 <span>Browse All 13+ Services</span>
                 <ArrowDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-y-0.5" />
-              </a>
+              </button>
             </div>
           </div>
         </Reveal>

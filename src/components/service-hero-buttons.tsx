@@ -29,14 +29,14 @@ export default function ServiceHeroButtons({ serviceName }: ServiceHeroButtonsPr
         <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
       </button>
 
-      <a
-        href="#how-we-work"
+      <button
+        type="button"
         onClick={scrollToHowWeWork}
         className="group inline-flex items-center gap-2 rounded-full border border-black/[0.15] bg-white px-7 py-3.5 text-base font-bold text-ink shadow-sm transition-all duration-300 hover:border-accent hover:text-accent hover:shadow-sm"
       >
         <span>See How We Work</span>
         <ChevronDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5 text-ink/70 group-hover:text-accent" />
-      </a>
+      </button>
     </div>
   );
 }
