@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { getService, services } from "@/lib/services";
 import { iconMap } from "@/components/services-grid";
 import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
 import Faq from "@/components/faq";
 import ServiceCta from "@/components/service-cta";
+import ServiceHeroButtons from "@/components/service-hero-buttons";
 import PoliticalClients from "@/components/political-clients";
+import { caseStudies } from "@/components/case-studies";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -27,6 +29,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   const Icon = iconMap[service.icon];
   const related = services.filter((s) => s.slug !== service.slug && s.priority).slice(0, 3);
+  const relatedCase = caseStudies.find((c) => c.slug === service.slug);
 
   return (
     <>
@@ -49,21 +52,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             </h1>
             <p className="mt-6 max-w-2xl text-xl font-bold leading-snug text-ink">{service.tagline}</p>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink/80 font-normal">{service.description}</p>
-            <div className="mt-9 flex flex-wrap gap-4">
-              <Link
-                href="/contact"
-                className="group inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-base font-bold text-white transition-all hover:bg-accent shadow-sm"
-              >
-                Get a Growth Strategy
-                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Link>
-              <Link
-                href="/work"
-                className="inline-flex items-center gap-2 rounded-full border border-black/[0.15] bg-white px-7 py-3.5 text-base font-bold text-ink shadow-sm transition-all hover:border-accent hover:text-accent"
-              >
-                See How We Work
-              </Link>
-            </div>
+            <ServiceHeroButtons serviceName={service.name} />
           </Reveal>
         </div>
       </section>
@@ -105,20 +94,20 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      {/* Process */}
-      <section className="bg-white py-20 lg:py-28">
+      {/* Process & How We Work */}
+      <section id="how-we-work" className="bg-white py-20 lg:py-28 scroll-mt-24 border-t border-stone-200">
         <div className="container-site">
           <Reveal>
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-brand-orange">Process</p>
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-brand-orange">Execution Architecture</p>
             <h2 className="text-balance mt-4 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-              How it runs.
+              How we work &amp; run campaigns.
             </h2>
           </Reveal>
           <Stagger className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" delayChildren={0.1}>
             {service.process.map((p, i) => (
               <StaggerItem key={p.title}>
-                <div className="h-full rounded-2xl border border-black/[0.12] bg-[#F8FAFC] p-7">
-                  <span className={`font-display text-4xl font-bold tracking-tight ${i % 2 === 0 ? "text-accent/40" : "text-brand-orange/45"}`}>
+                <div className="h-full rounded-2xl border border-stone-200 bg-[#F8FAFC] p-7 transition-all duration-300 hover:border-accent hover:bg-white hover:shadow-card">
+                  <span className={`font-display text-4xl font-bold tracking-tight ${i % 2 === 0 ? "text-accent/60" : "text-brand-orange/60"}`}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="mt-5 font-display text-xl font-bold text-ink">{p.title}</h3>
@@ -127,6 +116,39 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               </StaggerItem>
             ))}
           </Stagger>
+
+          {/* Verified Case Study / Engagement Benchmark if available */}
+          {relatedCase && (
+            <Reveal delay={0.15}>
+              <div className="mt-14 rounded-3xl border border-stone-200 bg-[#F8FAFC] p-8 sm:p-10 shadow-card">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-stone-200 pb-6 mb-8">
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-[0.22em] text-accent">
+                      Verified Engagement Outcome
+                    </span>
+                    <h4 className="mt-2 font-display text-2xl font-bold text-ink">
+                      {relatedCase.title}
+                    </h4>
+                    <p className="mt-2 text-sm text-ink/75 max-w-2xl leading-relaxed">
+                      {relatedCase.summary}
+                    </p>
+                  </div>
+                  <span className="inline-flex self-start sm:self-center rounded-full bg-white border border-stone-200 px-4 py-1.5 text-xs font-bold text-ink shadow-xs">
+                    {relatedCase.tag}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+                  {relatedCase.stats.map((s) => (
+                    <div key={s.label} className="rounded-2xl border border-stone-200/80 bg-white p-5 text-center shadow-xs">
+                      <p className="font-display text-3xl font-bold text-ink">{s.value}</p>
+                      <p className="mt-1 text-xs font-bold uppercase tracking-wider text-ink/70">{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+          )}
 
           {/* Benefits + industries */}
           <div className="mt-16 grid gap-10 lg:grid-cols-2">
