@@ -1,8 +1,10 @@
-export const site = {
+﻿export const site = {
   name: "CreateVerse",
   tagline: "Growth & Digital Acquisition Partner",
-  email: "hello@createverse.in",
-  phone: "+91 00000 00000", // placeholder — replace with verified number
+  email: "info@createverse.in",
+  phone: "+91 91746-91846",
+  phoneRaw: "+919174691846",
+  whatsappUrl: "https://wa.me/919174691846?text=Hi%20CreateVerse%2C%20I%20would%20like%20to%20enquire%20about%20your%20services.",
   location: "India",
   nav: [
     { label: "Services", href: "/services" },

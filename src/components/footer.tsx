@@ -1,10 +1,15 @@
+﻿"use client";
+
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, MessageCircle, Phone, Mail } from "lucide-react";
 import { site } from "@/lib/site";
 import { services } from "@/lib/services";
+import { useEnquiry } from "@/context/enquiry-context";
 
 export default function Footer() {
   const featured = services.filter((s) => s.priority);
+  const { openEnquiry } = useEnquiry();
+
   return (
     <footer className="bg-ink text-white">
       <div className="container-site py-16 lg:py-20">
@@ -18,18 +23,31 @@ export default function Footer() {
                 Redefining Digital
               </span>
             </Link>
-            <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/55">
-              A growth and digital acquisition partner. We generate leads, build digital growth
+            <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/60">
+              A growth and digital acquisition partner. We generate leads, build digital acquisition
               systems and manage high-impact campaigns for real estate, immigration, political
               organizations and ambitious businesses.
             </p>
-            <Link
-              href="/contact"
-              className="group mt-7 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-ink transition-all hover:bg-brand-orange hover:text-white"
-            >
-              Start a Project
-              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Link>
+
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <button
+                onClick={() => openEnquiry()}
+                className="group inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-xs font-bold text-ink transition-all hover:bg-accent hover:text-white"
+              >
+                <span>Enquire Now</span>
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </button>
+
+              <a
+                href={site.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-4 py-2.5 text-xs font-bold text-emerald-300 transition-all hover:bg-emerald-500/25"
+              >
+                <MessageCircle className="h-4 w-4 text-emerald-400" />
+                <span>WhatsApp ({site.phone})</span>
+              </a>
+            </div>
           </div>
 
           <div className="lg:col-span-3">
@@ -64,14 +82,21 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-2">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">Contact</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">Contact &amp; WhatsApp</h3>
             <ul className="mt-5 space-y-3 text-sm text-white/65">
               <li>
-                <a href={`mailto:${site.email}`} className="transition-colors hover:text-brand-orange">
-                  {site.email}
+                <a href={site.whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-emerald-400 hover:underline">
+                  <MessageCircle className="h-4 w-4" />
+                  <span>{site.phone}</span>
                 </a>
               </li>
-              <li>{site.location}</li>
+              <li>
+                <a href={`mailto:${site.email}`} className="flex items-center gap-2 transition-colors hover:text-brand-orange">
+                  <Mail className="h-4 w-4 text-white/40" />
+                  <span>{site.email}</span>
+                </a>
+              </li>
+              <li className="text-xs text-white/40">{site.location}</li>
             </ul>
           </div>
         </div>
