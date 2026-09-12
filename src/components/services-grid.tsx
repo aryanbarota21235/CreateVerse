@@ -63,8 +63,11 @@ export default function ServicesGrid({ showHeading = true }: { showHeading?: boo
   }, [activeCategory]);
 
   return (
-    <section className="bg-paper py-20 lg:py-28 border-t border-stone-200">
-      <div className="container-site">
+    <section className="relative overflow-hidden bg-paper py-20 lg:py-28 border-t border-stone-200">
+      <div className="dot-texture absolute inset-0 opacity-80 pointer-events-none" />
+      <div className="absolute -left-44 top-24 h-[440px] w-[440px] rounded-full bg-brand-sun/80 blur-3xl pointer-events-none" />
+      <div className="absolute -right-44 top-1/2 h-[420px] w-[420px] rounded-full bg-brand-sky/40 blur-3xl pointer-events-none" />
+      <div className="container-site relative">
         {showHeading && (
           <SectionHeading
             eyebrow="Capabilities & Practices"

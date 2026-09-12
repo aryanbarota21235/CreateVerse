@@ -35,8 +35,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     <>
       {/* Hero */}
       <section className="relative overflow-hidden bg-paper pt-[76px]">
-        <div className="dot-texture absolute inset-0" />
-        <div className="absolute -right-32 top-16 h-[360px] w-[560px] rounded-full bg-brand-sky blur-3xl" />
+        <div className="dot-texture absolute inset-0 opacity-80 pointer-events-none" />
+        <div className="absolute -left-40 top-28 h-[360px] w-[360px] rounded-full bg-brand-sun/80 blur-3xl pointer-events-none" />
+        <div className="absolute -right-32 top-16 h-[360px] w-[500px] rounded-full bg-brand-sky/40 blur-3xl pointer-events-none" />
         <div className="container-site relative pb-20 pt-16 sm:pt-24 lg:pb-24 lg:pt-28">
           <Reveal>
             <nav className="flex items-center gap-2 text-xs font-semibold text-ink/70" aria-label="Breadcrumb">
@@ -73,8 +74,11 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* What we do / deliverables */}
-      <section className="bg-paper py-20 lg:py-28">
-        <div className="container-site">
+      <section className="relative overflow-hidden bg-paper py-20 lg:py-28">
+        <div className="dot-texture absolute inset-0 opacity-80 pointer-events-none" />
+        <div className="absolute -left-44 top-24 h-[400px] w-[400px] rounded-full bg-brand-sun/70 blur-3xl pointer-events-none" />
+        <div className="absolute -right-44 bottom-12 h-[380px] w-[380px] rounded-full bg-brand-sky/35 blur-3xl pointer-events-none" />
+        <div className="container-site relative">
           <Reveal>
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent">What We Do</p>
             <h2 className="text-balance mt-4 max-w-2xl font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
