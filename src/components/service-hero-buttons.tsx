@@ -19,20 +19,20 @@ export default function ServiceHeroButtons({ serviceName }: ServiceHeroButtonsPr
   };
 
   return (
-    <div className="mt-9 flex flex-wrap items-center gap-4">
+    <div className="mt-7 sm:mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
       <button
         type="button"
         onClick={() => openEnquiry(serviceName)}
-        className="group inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-base font-bold text-white transition-all duration-300 hover:bg-accent shadow-sm hover:shadow-md hover:shadow-accent/20"
+        className="group inline-flex items-center justify-center gap-2 rounded-full bg-ink px-6 sm:px-7 py-3.5 text-sm sm:text-base font-bold text-white transition-all duration-300 hover:bg-accent shadow-sm hover:shadow-md hover:shadow-accent/20 active:scale-[0.99]"
       >
         <span>Get a Growth Strategy</span>
-        <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+        <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-300 group-hover:translate-x-1" />
       </button>
 
       <button
         type="button"
         onClick={scrollToHowWeWork}
-        className="group inline-flex items-center gap-2 rounded-full border border-black/[0.15] bg-white px-7 py-3.5 text-base font-bold text-ink shadow-sm transition-all duration-300 hover:border-accent hover:text-accent hover:shadow-sm"
+        className="group inline-flex items-center justify-center gap-2 rounded-full border border-black/[0.15] bg-white px-6 sm:px-7 py-3.5 text-sm sm:text-base font-bold text-ink shadow-sm transition-all duration-300 hover:border-accent hover:text-accent hover:shadow-sm active:scale-[0.99]"
       >
         <span>See How We Work</span>
         <ChevronDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5 text-ink/70 group-hover:text-accent" />

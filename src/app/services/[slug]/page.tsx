@@ -45,14 +45,18 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               <span>/</span>
               <span className="text-ink font-bold">{service.name}</span>
             </nav>
-            <div className="mt-8 flex h-14 w-14 items-center justify-center rounded-2xl bg-accent text-white shadow-lift">
-              {Icon && <Icon className="h-7 w-7" />}
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-stone-200/90 bg-white/90 px-3.5 py-1.5 shadow-xs backdrop-blur-sm">
+              {Icon && <Icon className="h-4 w-4 text-accent" />}
+              <span className="text-[11px] font-bold uppercase tracking-wider text-accent">
+                {service.category} Practice
+              </span>
             </div>
-            <h1 className="text-balance mt-7 max-w-3xl font-display text-5xl font-bold tracking-tightest text-ink sm:text-6xl">
+
+            <h1 className="text-balance mt-4 max-w-3xl font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tightest text-ink">
               {service.name}
             </h1>
-            <p className="mt-6 max-w-2xl text-xl font-bold leading-snug text-ink">{service.tagline}</p>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink/80 font-normal">{service.description}</p>
+            <p className="mt-4 sm:mt-6 max-w-2xl text-lg sm:text-xl font-bold leading-snug text-ink">{service.tagline}</p>
+            <p className="mt-3 sm:mt-4 max-w-2xl text-sm sm:text-base leading-relaxed text-ink/80 font-normal">{service.description}</p>
             <ServiceHeroButtons serviceName={service.name} />
           </Reveal>
         </div>

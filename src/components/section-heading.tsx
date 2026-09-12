@@ -15,7 +15,7 @@ export default function SectionHeading({ eyebrow, title, description, dark = fal
         {eyebrow}
       </p>
       <h2
-        className={`text-balance mt-4 font-display text-4xl font-bold tracking-tightest sm:text-5xl ${
+        className={`text-balance mt-3 font-display text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tightest ${
           dark ? "text-white" : "text-ink"
         } ${align === "center" ? "mx-auto max-w-3xl" : "max-w-3xl"}`}
       >
@@ -23,7 +23,7 @@ export default function SectionHeading({ eyebrow, title, description, dark = fal
       </h2>
       {description && (
         <p
-          className={`mt-5 max-w-2xl text-lg leading-relaxed ${dark ? "text-white/80" : "text-ink/80 font-normal"} ${
+          className={`mt-3 sm:mt-5 max-w-2xl text-sm sm:text-base lg:text-lg leading-relaxed ${dark ? "text-white/80" : "text-ink/80 font-normal"} ${
             align === "center" ? "mx-auto" : ""
           }`}
         >

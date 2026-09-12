@@ -49,7 +49,7 @@ export default function Hero() {
   const { openEnquiry } = useEnquiry();
 
   return (
-    <section className="relative overflow-hidden bg-paper pt-24 pb-14 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20">
+    <section className="relative overflow-hidden bg-paper pt-20 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20">
       {/* Editorial Luxury Background with Warm Sun and Subtle Sky Glow */}
       <div className="dot-texture absolute inset-0 opacity-80 pointer-events-none" />
       <div className="grid-texture-light absolute inset-0 opacity-30 pointer-events-none" />
@@ -64,7 +64,7 @@ export default function Hero() {
         {/* Main Editorial Agency Headline */}
         <div className="mx-auto max-w-4xl text-center">
           <Reveal>
-            <div className="inline-flex items-center gap-2 rounded-full border border-black/[0.12] bg-white px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-ink shadow-xs backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 rounded-full border border-black/[0.12] bg-white px-3.5 py-1 sm:px-4 sm:py-1.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-ink shadow-xs backdrop-blur-md">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
@@ -74,14 +74,14 @@ export default function Hero() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <h1 className="text-balance mt-4 font-display text-4xl font-bold leading-[1.05] tracking-tightest text-ink sm:text-5xl md:text-6xl lg:text-[68px]">
+            <h1 className="text-balance mt-3 sm:mt-4 font-display text-3xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold leading-[1.08] tracking-tightest text-ink">
               Turn Digital Attention into{" "}
               <span className="text-accent">Real Revenue.</span>
             </h1>
           </Reveal>
 
           <Reveal delay={0.2}>
-            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-ink/85 sm:text-lg font-normal">
+            <p className="mx-auto mt-3 sm:mt-4 max-w-2xl text-sm leading-relaxed text-ink/85 sm:text-lg font-normal">
               We design and execute bespoke acquisition systems for luxury real estate developers,
               visa consultancies, political campaigns and high-growth brands — delivering verified
               inquiries and predictable commercial pipeline.
@@ -152,17 +152,21 @@ export default function Hero() {
               })}
             </div>
 
-            {/* Placed at the bottom as requested: smooth scroll to all services below without polluting browser history */}
-            <div className="mt-10 flex items-center justify-center">
+            {/* Placed at the bottom as requested: smooth scroll to all services below with slight lower landing */}
+            <div className="mt-8 sm:mt-10 flex items-center justify-center">
               <button
                 type="button"
                 onClick={() => {
                   const el = document.getElementById("services");
                   if (el) {
-                    el.scrollIntoView({ behavior: "smooth" });
+                    const navOffset = 80;
+                    const elementTop = el.getBoundingClientRect().top + window.pageYOffset;
+                    // Landing slightly lower into the services cards
+                    const targetPosition = elementTop - navOffset + 140;
+                    window.scrollTo({ top: targetPosition, behavior: "smooth" });
                   }
                 }}
-                className="group inline-flex items-center gap-2 rounded-full border border-black/[0.14] bg-white px-7 py-3 text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-card transition-all duration-300 hover:border-accent hover:text-accent"
+                className="group inline-flex items-center gap-2 rounded-full border border-black/[0.14] bg-white px-6 sm:px-7 py-3 text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-card transition-all duration-300 hover:border-accent hover:text-accent active:scale-[0.99]"
               >
                 <span>Browse All 13+ Services</span>
                 <ArrowDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-y-0.5" />
