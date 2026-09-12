@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ServicesGrid from "@/components/services-grid";
+import PoliticalClients from "@/components/political-clients";
 import FinalCTA from "@/components/final-cta";
 import PageHero from "@/components/page-hero";
 
@@ -13,11 +14,12 @@ export default function ServicesPage() {
   return (
     <>
       <PageHero
-        eyebrow="Services"
+        eyebrow="Services & Practices"
         title={<>Everything growth needs, <span className="text-accent">under one roof.</span></>}
         description="Acquisition, advertising, creative and technology — organized so every service feeds the same goal: customers, not just clicks."
       />
       <ServicesGrid showHeading={false} />
+      <PoliticalClients />
       <FinalCTA />
     </>
   );

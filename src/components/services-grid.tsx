@@ -1,94 +1,192 @@
+"use client";
+
+import { useState, useMemo } from "react";
 import Link from "next/link";
 import {
-  ArrowRight, ArrowUpRight, Building2, Code2, Filter, Megaphone, Newspaper, Palette,
-  PenLine, Plane, Share2, Target, UserCheck, Users, Zap, type LucideIcon,
+  ArrowRight,
+  ArrowUpRight,
+  Building2,
+  Code2,
+  Filter,
+  Megaphone,
+  Newspaper,
+  Palette,
+  PenLine,
+  Plane,
+  Share2,
+  Target,
+  UserCheck,
+  Users,
+  Zap,
+  CheckCircle2,
+  type LucideIcon,
 } from "lucide-react";
 import SectionHeading from "@/components/section-heading";
-import { Stagger, StaggerItem } from "@/components/reveal";
-import { services } from "@/lib/services";
+import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
+import { services, type Service } from "@/lib/services";
+import { useEnquiry } from "@/context/enquiry-context";
 
 export const iconMap: Record<string, LucideIcon> = {
-  Building2, Plane, Megaphone, Target, Zap, Code2, Filter,
-  Share2, UserCheck, PenLine, Users, Newspaper, Palette,
+  Building2,
+  Plane,
+  Megaphone,
+  Target,
+  Zap,
+  Code2,
+  Filter,
+  Share2,
+  UserCheck,
+  PenLine,
+  Users,
+  Newspaper,
+  Palette,
 };
 
+type CategoryFilter = "all" | Service["category"];
+
+const categories: { label: string; value: CategoryFilter }[] = [
+  { label: "All Practices", value: "all" },
+  { label: "Lead Acquisition", value: "Acquisition" },
+  { label: "Paid Advertising", value: "Advertising" },
+  { label: "Political Campaigns", value: "Campaigns" },
+  { label: "Technology & CRO", value: "Technology" },
+  { label: "Creative & Content", value: "Creative" },
+];
+
 export default function ServicesGrid({ showHeading = true }: { showHeading?: boolean }) {
-  const priority = services.filter((s) => s.priority);
-  const rest = services.filter((s) => !s.priority);
+  const [activeCategory, setActiveCategory] = useState<CategoryFilter>("all");
+  const { openEnquiry } = useEnquiry();
+
+  const filteredServices = useMemo(() => {
+    if (activeCategory === "all") return services;
+    return services.filter((s) => s.category === activeCategory);
+  }, [activeCategory]);
 
   return (
-    <section className="bg-white py-24 lg:py-32">
+    <section className="bg-paper py-20 lg:py-28 border-t border-stone-200">
       <div className="container-site">
         {showHeading && (
           <SectionHeading
-            eyebrow="Services"
+            eyebrow="Capabilities & Practices"
             title="A complete growth stack — led by what drives revenue."
             description="Lead generation, paid media and political management lead our practice, backed by full creative and technology capability."
           />
         )}
 
-        {/* Priority services — feature cards */}
-        <Stagger className={`grid gap-6 md:grid-cols-2 lg:grid-cols-3 ${showHeading ? "mt-16" : ""}`} delayChildren={0.08}>
-          {priority.map((s, i) => {
-            const Icon = iconMap[s.icon] ?? Target;
-            const orange = i % 2 === 1;
+        {/* Filter Navigation Tabs */}
+        <div className={`flex flex-wrap items-center justify-center gap-2 sm:gap-3 ${showHeading ? "mt-12" : "mb-14"}`}>
+          {categories.map((cat) => {
+            const count =
+              cat.value === "all"
+                ? services.length
+                : services.filter((s) => s.category === cat.value).length;
+            const active = activeCategory === cat.value;
+
             return (
-              <StaggerItem key={s.slug}>
-                <Link
-                  href={`/services/${s.slug}`}
-                  className="group relative flex h-full flex-col overflow-hidden rounded-3xl bg-ink p-8 text-white shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lift"
+              <button
+                key={cat.value}
+                onClick={() => setActiveCategory(cat.value)}
+                className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all duration-300 shadow-xs ${
+                  active
+                    ? "bg-ink text-white shadow-md scale-105"
+                    : "bg-white text-ink/75 border border-stone-200 hover:border-accent hover:text-accent hover:bg-stone-50"
+                }`}
+              >
+                <span>{cat.label}</span>
+                <span
+                  className={`flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-extrabold ${
+                    active ? "bg-accent text-white" : "bg-stone-100 text-ink/60"
+                  }`}
                 >
-                  <div
-                    className={`absolute -right-16 -top-16 h-44 w-44 rounded-full blur-2xl transition-opacity duration-500 opacity-60 group-hover:opacity-100 ${
-                      orange ? "bg-brand-orange/25" : "bg-accent/25"
-                    }`}
-                  />
-                  <div className="relative flex items-start justify-between">
-                    <span
-                      className={`flex h-12 w-12 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 ${
-                        orange ? "bg-brand-orange text-white" : "bg-accent text-white"
-                      }`}
-                    >
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <ArrowUpRight className="h-5 w-5 text-white/60 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-brand-orange" />
-                  </div>
-                  <p className={`relative mt-6 text-[11px] font-bold uppercase tracking-[0.18em] ${orange ? "text-brand-orange" : "text-accent"}`}>
-                    {s.category}
-                  </p>
-                  <h3 className="relative mt-2 font-display text-2xl font-bold tracking-tight">{s.name}</h3>
-                  <p className="relative mt-3 text-sm leading-relaxed text-white/80 font-normal">{s.tagline}</p>
-                  <span className="relative mt-auto pt-7 inline-flex items-center gap-2 text-sm font-semibold text-white/90 transition-colors group-hover:text-white">
-                    Explore service
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </span>
-                </Link>
-              </StaggerItem>
+                  {count}
+                </span>
+              </button>
             );
           })}
-        </Stagger>
+        </div>
 
-        {/* Supporting services */}
-        <Stagger className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" delayChildren={0.05}>
-          {rest.map((s) => {
+        {/* Clean Luxury White Cards Grid */}
+        <Stagger
+          key={activeCategory}
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          delayChildren={0.06}
+        >
+          {filteredServices.map((s) => {
             const Icon = iconMap[s.icon] ?? Target;
+            const topDeliverables = s.deliverables.slice(0, 3);
+
             return (
               <StaggerItem key={s.slug}>
-                <Link
-                  href={`/services/${s.slug}`}
-                  className="group flex h-full items-start gap-4 rounded-2xl border border-black/[0.12] bg-[#F8FAFC] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:bg-white hover:shadow-card"
-                >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white border border-black/[0.08] text-ink shadow-xs transition-colors group-hover:bg-brand-sky group-hover:text-accent">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <span>
-                    <span className="flex items-center gap-1.5 text-sm font-bold text-ink">
-                      {s.name}
-                      <ArrowUpRight className="h-3.5 w-3.5 text-ink/60 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
-                    </span>
-                    <span className="mt-1 block text-xs leading-relaxed text-ink/80 font-normal">{s.tagline}</span>
-                  </span>
-                </Link>
+                <div className="group relative flex h-full flex-col justify-between rounded-3xl border border-stone-200/90 bg-white p-7 sm:p-8 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:border-accent hover:shadow-lift">
+                  <div>
+                    {/* Top Row: Category badge & Enquire Action */}
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="inline-flex rounded-full bg-paper px-3 py-1 text-[11px] font-bold text-accent border border-stone-200">
+                        {s.category}
+                      </span>
+                      <button
+                        onClick={() => openEnquiry(s.name)}
+                        className="text-[11px] font-bold uppercase tracking-wider text-ink/60 transition-colors hover:text-accent"
+                      >
+                        Enquire
+                      </button>
+                    </div>
+
+                    {/* Icon & Title */}
+                    <div className="mt-6 flex items-start gap-4">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-paper border border-stone-200 text-ink shadow-xs transition-all duration-300 group-hover:bg-accent group-hover:text-white group-hover:border-accent">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <Link href={`/services/${s.slug}`}>
+                          <h3 className="font-display text-xl font-bold tracking-tight text-ink transition-colors group-hover:text-accent">
+                            {s.name}
+                          </h3>
+                        </Link>
+                        <p className="mt-1 text-xs leading-relaxed text-ink/75 font-normal">
+                          {s.tagline}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Deliverables / Scope Preview */}
+                    <div className="mt-6 border-t border-stone-100 pt-5">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-ink/50 mb-3">
+                        Core Capabilities
+                      </p>
+                      <ul className="space-y-2">
+                        {topDeliverables.map((d) => (
+                          <li
+                            key={d}
+                            className="flex items-start gap-2 text-xs font-medium text-ink/80"
+                          >
+                            <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent" />
+                            <span className="line-clamp-1">{d}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Bottom Row: Direct Link */}
+                  <div className="mt-8 pt-5 border-t border-stone-100 flex items-center justify-between">
+                    <Link
+                      href={`/services/${s.slug}`}
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-accent transition-colors hover:text-accent-dim"
+                    >
+                      <span>Explore Practice Architecture</span>
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                    </Link>
+
+                    <Link
+                      href={`/services/${s.slug}`}
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-paper border border-stone-200 text-ink/70 shadow-xs transition-all group-hover:bg-accent group-hover:text-white group-hover:border-accent"
+                      aria-label={`View details for ${s.name}`}
+                    >
+                      <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </Link>
+                  </div>
+                </div>
               </StaggerItem>
             );
           })}
