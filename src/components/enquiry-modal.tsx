@@ -154,7 +154,7 @@ export default function EnquiryModal() {
                     </div>
 
                     <h3 className="mt-5 font-display text-2xl sm:text-3xl font-bold leading-tight">
-                      Let&apos;s build your <span className="text-brand-gradient">growth engine.</span>
+                      Let&apos;s build your <span className="text-accent">growth engine.</span>
                     </h3>
 
                     <p className="mt-4 text-sm leading-relaxed text-white/85 font-normal">

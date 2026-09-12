@@ -17,7 +17,7 @@ export default function IndustriesPage() {
     <>
       <PageHero
         eyebrow="Industries"
-        title={<>Deep expertise where <span className="text-brand-gradient">growth is won.</span></>}
+        title={<>Deep expertise where <span className="text-accent">growth is won.</span></>}
         description="Acquisition works when it's shaped by how an industry actually buys and decides. These are the four arenas we know cold."
       />
       <section className="bg-paper pb-24 lg:pb-32">

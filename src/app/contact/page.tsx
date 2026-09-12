@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone, ArrowUpRight } from "lucide-react";
 import PageHero from "@/components/page-hero";
 import Reveal from "@/components/reveal";
 import Faq from "@/components/faq";
@@ -24,7 +24,7 @@ export default function ContactPage() {
     <>
       <PageHero
         eyebrow="Contact & Enquiries"
-        title={<>Let&apos;s build your <span className="text-brand-gradient">growth engine.</span></>}
+        title={<>Let&apos;s build your <span className="text-accent">growth engine.</span></>}
         description="Tell us where you want to grow. We'll respond within 2 hours with a clear roadmap on how to get there."
       />
 
@@ -38,43 +38,58 @@ export default function ContactPage() {
                   href={site.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-4 rounded-2xl border border-emerald-500/30 bg-emerald-50/90 p-5 shadow-xs transition-all hover:-translate-y-0.5 hover:shadow-md"
+                  className="group flex items-center justify-between rounded-2xl border border-stone-200 bg-white p-5 shadow-card transition-all hover:-translate-y-0.5 hover:border-emerald-500/60 hover:shadow-lift"
                 >
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm">
-                    <WhatsAppIcon className="h-6 w-6 text-white" />
-                  </span>
-                  <div>
-                    <span className="block text-xs font-bold text-emerald-800">Chat on WhatsApp (Instant)</span>
-                    <span className="block text-sm font-bold text-emerald-950 group-hover:underline">{site.phone}</span>
+                  <div className="flex items-center gap-4">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#25D366]/15 text-[#25D366]">
+                      <WhatsAppIcon className="h-6 w-6 text-[#25D366]" />
+                    </span>
+                    <div>
+                      <span className="block text-xs font-bold uppercase tracking-wider text-ink/75">Fastest Response</span>
+                      <span className="block font-display text-base font-bold text-ink">Chat on WhatsApp</span>
+                    </div>
                   </div>
-                </a>
-
-                {/* Direct Phone */}
-                <a
-                  href={`tel:${site.phoneRaw}`}
-                  className="group flex items-center gap-4 rounded-2xl border border-black/[0.12] bg-white p-5 shadow-xs transition-all hover:-translate-y-0.5 hover:shadow-md"
-                >
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-ink text-white">
-                    <Phone className="h-5 w-5" />
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-paper text-ink/70 transition-transform group-hover:translate-x-0.5">
+                    <ArrowUpRight className="h-4 w-4" />
                   </span>
-                  <div>
-                    <span className="block text-xs font-bold text-ink/75">Direct Phone</span>
-                    <span className="block text-sm font-bold text-ink group-hover:text-accent">{site.phone}</span>
-                  </div>
                 </a>
 
                 {/* Email */}
                 <a
                   href={`mailto:${site.email}`}
-                  className="group flex items-center gap-4 rounded-2xl border border-black/[0.12] bg-white p-5 shadow-xs transition-all hover:-translate-y-0.5 hover:shadow-md"
+                  className="group flex items-center justify-between rounded-2xl border border-black/[0.12] bg-white p-5 shadow-card transition-all hover:-translate-y-0.5 hover:border-accent hover:shadow-lift"
                 >
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-sky text-accent">
-                    <Mail className="h-5 w-5" />
-                  </span>
-                  <div>
-                    <span className="block text-xs font-bold text-ink/75">Official Email</span>
-                    <span className="block text-sm font-bold text-ink group-hover:text-accent">{site.email}</span>
+                  <div className="flex items-center gap-4">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-sky text-accent">
+                      <Mail className="h-5 w-5" />
+                    </span>
+                    <div>
+                      <span className="block text-xs font-bold uppercase tracking-wider text-ink/75">Email our team</span>
+                      <span className="block font-display text-base font-bold text-ink">{site.email}</span>
+                    </div>
                   </div>
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-paper text-ink/70 transition-transform group-hover:translate-x-0.5">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </a>
+
+                {/* Phone */}
+                <a
+                  href={`tel:${site.phone}`}
+                  className="group flex items-center justify-between rounded-2xl border border-black/[0.12] bg-white p-5 shadow-card transition-all hover:-translate-y-0.5 hover:border-accent hover:shadow-lift"
+                >
+                  <div className="flex items-center gap-4">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-sky text-accent">
+                      <Phone className="h-5 w-5" />
+                    </span>
+                    <div>
+                      <span className="block text-xs font-bold uppercase tracking-wider text-ink/75">Direct dial</span>
+                      <span className="block font-display text-base font-bold text-ink">{site.phone}</span>
+                    </div>
+                  </div>
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-paper text-ink/70 transition-transform group-hover:translate-x-0.5">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
                 </a>
 
                 {/* Location */}
@@ -100,8 +115,8 @@ export default function ContactPage() {
 
           {/* Form panel */}
           <Reveal delay={0.1} className="lg:col-span-7">
-            <div className="rounded-[2rem] bg-ink p-6 shadow-lift sm:p-8">
-              <h2 className="px-2 pb-5 font-display text-2xl font-semibold text-white">Direct Project Enquiry</h2>
+            <div className="rounded-[2rem] border border-stone-200 bg-white p-6 shadow-card sm:p-8">
+              <h2 className="px-2 pb-5 font-display text-2xl font-bold text-ink">Direct Project Enquiry</h2>
               <LeadForm />
             </div>
           </Reveal>

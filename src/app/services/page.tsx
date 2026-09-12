@@ -14,7 +14,7 @@ export default function ServicesPage() {
     <>
       <PageHero
         eyebrow="Services"
-        title={<>Everything growth needs, <span className="text-brand-gradient">under one roof.</span></>}
+        title={<>Everything growth needs, <span className="text-accent">under one roof.</span></>}
         description="Acquisition, advertising, creative and technology — organized so every service feeds the same goal: customers, not just clicks."
       />
       <ServicesGrid showHeading={false} />

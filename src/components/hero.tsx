@@ -71,7 +71,7 @@ export default function Hero() {
           <Reveal delay={0.1}>
             <h1 className="text-balance mt-8 font-display text-5xl font-bold leading-[1.04] tracking-tightest text-ink sm:text-6xl md:text-7xl lg:text-[76px]">
               Turn Digital Attention into{" "}
-              <span className="text-brand-gradient">Real Revenue.</span>
+              <span className="text-accent">Real Revenue.</span>
             </h1>
           </Reveal>
 

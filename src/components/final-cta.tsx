@@ -14,7 +14,7 @@ export default function FinalCTA() {
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-brand-orange">Let&apos;s Talk</p>
             <h2 className="text-balance mt-4 font-display text-4xl font-bold tracking-tightest text-white sm:text-5xl lg:text-6xl">
               Ready to build your next{" "}
-              <span className="text-brand-gradient">growth engine?</span>
+              <span className="text-accent">growth engine?</span>
             </h2>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/80 font-normal">
               Tell us where you want to grow. We&apos;ll come back with a clear point of view on the

@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { getService, services } from "@/lib/services";
 import { iconMap } from "@/components/services-grid";
 import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
 import Faq from "@/components/faq";
-import LeadForm from "@/components/lead-form";
-import { caseStudies } from "@/components/case-studies";
+import ServiceCta from "@/components/service-cta";
 import PoliticalClients from "@/components/political-clients";
 
 export function generateStaticParams() {
@@ -28,7 +27,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   const Icon = iconMap[service.icon];
   const related = services.filter((s) => s.slug !== service.slug && s.priority).slice(0, 3);
-  const relatedCase = caseStudies.find((c) => c.slug === service.slug);
 
   return (
     <>
@@ -154,14 +152,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                   </span>
                 ))}
               </div>
-              {relatedCase && (
-                <div className="mt-8 rounded-2xl bg-ink p-6 text-white border border-white/15">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-orange">Related engagement</p>
-                  <p className="mt-2 font-display text-lg font-bold">{relatedCase.title}</p>
-                  <p className="mt-2 text-sm leading-relaxed text-white/80 font-normal">{relatedCase.summary}</p>
-                  <p className="mt-3 text-[11px] italic text-white/60">Results data pending client approval.</p>
-                </div>
-              )}
             </Reveal>
           </div>
         </div>
@@ -185,39 +175,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      {/* CTA + related */}
-      <section className="bg-ink py-20 lg:py-28">
-        <div className="container-site">
-          <div className="grid items-start gap-14 lg:grid-cols-2">
-            <Reveal>
-              <h2 className="text-balance font-display text-4xl font-bold tracking-tightest text-white sm:text-5xl">
-                Put <span className="text-brand-gradient">{service.shortName ?? service.name}</span> to work.
-              </h2>
-              <p className="mt-5 max-w-md text-lg leading-relaxed text-white/80 font-normal">
-                Tell us your goal — we&apos;ll map the funnel, channels and budget to hit it.
-              </p>
-              <div className="mt-10">
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-white/75">Also explore</p>
-                <div className="mt-4 space-y-3">
-                  {related.map((r) => (
-                    <Link
-                      key={r.slug}
-                      href={`/services/${r.slug}`}
-                      className="group flex items-center justify-between rounded-xl border border-white/15 bg-ink-soft px-5 py-4 transition-colors hover:border-accent"
-                    >
-                      <span className="text-sm font-semibold text-white">{r.name}</span>
-                      <ArrowUpRight className="h-4 w-4 text-white/70 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-brand-orange" />
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-            <Reveal delay={0.15}>
-              <LeadForm compact />
-            </Reveal>
-          </div>
-        </div>
-      </section>
+      {/* Executive Strategy CTA & Related Services */}
+      <ServiceCta service={service} related={related} />
     </>
   );
 }

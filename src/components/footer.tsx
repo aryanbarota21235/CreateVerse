@@ -17,7 +17,7 @@ export default function Footer() {
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Link href="/" className="inline-block" aria-label="CreateVerse home">
-              <span className="font-display text-3xl font-bold tracking-tight text-brand-gradient">
+              <span className="font-display text-3xl font-bold tracking-tight text-white">
                 CREATEVERSE
               </span>
               <span className="mt-1 block text-[10px] font-bold uppercase tracking-[0.35em] text-white/70">

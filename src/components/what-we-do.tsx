@@ -37,7 +37,7 @@ export default function WhatWeDo() {
             <div className="flex h-full items-center justify-center rounded-2xl border border-black bg-ink p-8 shadow-card">
               <p className="text-center font-display text-2xl font-bold leading-snug tracking-tight text-white">
                 One partner.<br />
-                <span className="text-brand-gradient">Strategy → Creative → Media → Tech.</span>
+                <span className="text-accent">Strategy → Creative → Media → Tech.</span>
               </p>
             </div>
           </StaggerItem>

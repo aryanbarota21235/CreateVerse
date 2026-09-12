@@ -80,21 +80,8 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Right CTAs: Clean WhatsApp Link (no green pill) + Enquire Now */}
-        <div className="hidden items-center gap-4 sm:flex shrink-0">
-          {/* Clean WhatsApp Link - No cheap green capsule */}
-          <a
-            href={site.whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 py-2 px-3 text-xs font-bold text-ink transition-colors hover:text-accent"
-            title="Chat on WhatsApp"
-          >
-            <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
-            <span className="tracking-wide">{site.phone}</span>
-          </a>
-
-          {/* Enquire Now Button (Opens Grand Modal) */}
+        {/* Right CTA: Enquire Now */}
+        <div className="hidden items-center gap-3 sm:flex shrink-0">
           <button
             onClick={() => openEnquiry()}
             className="group inline-flex items-center gap-1.5 rounded-full bg-ink px-6 py-2.5 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-sm transition-all duration-300 hover:bg-accent hover:shadow-md hover:shadow-accent/20"
@@ -165,7 +152,7 @@ export default function Navbar() {
                   className="flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-sm"
                 >
                   <WhatsAppIcon className="h-4 w-4 text-white" />
-                  WhatsApp ({site.phone})
+                  Chat on WhatsApp
                 </a>
               </div>
             </div>
