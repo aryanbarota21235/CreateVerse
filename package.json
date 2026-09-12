@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "node scripts/e2e-test.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.23.0",

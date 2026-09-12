@@ -269,6 +269,11 @@ export function saveEnquiry(
   if (typeof window !== "undefined") {
     try {
       localStorage.setItem(STORAGE_KEY_ENQUIRIES, JSON.stringify(updated));
+      fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newRecord),
+      }).catch((err) => console.warn("API enquiry sync notice:", err));
     } catch (e) {
       console.error("Failed to save enquiry to storage", e);
     }
@@ -347,7 +352,16 @@ export function addFinancialRecord(record: {
 
   const updated = [newRecord, ...all];
   if (typeof window !== "undefined") {
-    localStorage.setItem(STORAGE_KEY_FINANCE, JSON.stringify(updated));
+    try {
+      localStorage.setItem(STORAGE_KEY_FINANCE, JSON.stringify(updated));
+      fetch("/api/finance", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newRecord),
+      }).catch((err) => console.warn("API finance sync notice:", err));
+    } catch (e) {
+      console.error("Failed to save finance record to storage", e);
+    }
   }
   return newRecord;
 }
