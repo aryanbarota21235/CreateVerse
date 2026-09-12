@@ -5,7 +5,6 @@ import { ArrowRight, ArrowDown, Building2, Plane, Megaphone, TrendingUp, ArrowUp
 import Reveal from "@/components/reveal";
 import { site } from "@/lib/site";
 import { useEnquiry } from "@/context/enquiry-context";
-import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 const acquisitionPillars = [
   {
@@ -28,19 +27,19 @@ const acquisitionPillars = [
   },
   {
     num: "03",
-    tag: "War Room Operations",
-    title: "Political Campaign Ops",
-    desc: "Constituency narrative strategy, rapid video content operations, and grassroots voter mobilization executed at regional scale.",
-    metric: "14.2M+ Targeted Voter Reach",
+    tag: "Voter Mobilization",
+    title: "Political Management",
+    desc: "24/7 digital war room operations — constituency-level voter outreach, rapid response desk, and narrative building.",
+    metric: "14.2M+ Targeted Reach",
     href: "/services/political-management",
     icon: Megaphone,
   },
   {
     num: "04",
-    tag: "Full-Funnel Scale",
+    tag: "High-ROI Scaling",
     title: "Performance Marketing",
-    desc: "Omnichannel Google Search & Meta paid advertising paired with conversion-first landing pages built to deliver measurable commercial pipeline.",
-    metric: "4.2x Average Account ROAS",
+    desc: "Full-funnel Google and Meta acquisition architecture designed around one North Star: verified revenue vs. capital deployed.",
+    metric: "4.2x Blended ROAS Delivered",
     href: "/services/lead-generation",
     icon: TrendingUp,
   },
@@ -50,10 +49,13 @@ export default function Hero() {
   const { openEnquiry } = useEnquiry();
 
   return (
-    <section className="relative overflow-hidden bg-paper pt-36 pb-20 sm:pt-40 sm:pb-24 lg:pt-44 lg:pb-28">
-      {/* Ambient background glow */}
-      <div className="dot-texture absolute inset-0 opacity-50" />
-      <div className="absolute left-1/2 -top-44 -translate-x-1/2 h-[600px] w-[900px] rounded-full bg-gradient-to-b from-brand-sky/60 via-brand-sun/30 to-transparent blur-3xl pointer-events-none" />
+    <section className="relative overflow-hidden bg-paper pt-24 pb-14 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20">
+      {/* Rich Multi-Layered Editorial Background */}
+      <div className="grid-texture-light absolute inset-0 opacity-60 pointer-events-none" />
+      <div className="dot-texture absolute inset-0 opacity-40 pointer-events-none" />
+      <div className="absolute -left-28 top-1/4 h-[450px] w-[450px] rounded-full bg-accent/15 blur-[100px] pointer-events-none" />
+      <div className="absolute -right-28 top-1/3 h-[500px] w-[500px] rounded-full bg-brand-orange/12 blur-[120px] pointer-events-none" />
+      <div className="absolute left-1/2 -top-28 -translate-x-1/2 h-[500px] w-[800px] rounded-full bg-gradient-to-b from-brand-sky/60 via-emerald-100/25 to-transparent blur-3xl pointer-events-none" />
 
       <div className="container-site relative">
         {/* Main Editorial Agency Headline */}
@@ -69,14 +71,14 @@ export default function Hero() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <h1 className="text-balance mt-8 font-display text-5xl font-bold leading-[1.04] tracking-tightest text-ink sm:text-6xl md:text-7xl lg:text-[76px]">
+            <h1 className="text-balance mt-4 font-display text-4xl font-bold leading-[1.05] tracking-tightest text-ink sm:text-5xl md:text-6xl lg:text-[68px]">
               Turn Digital Attention into{" "}
               <span className="text-accent">Real Revenue.</span>
             </h1>
           </Reveal>
 
           <Reveal delay={0.2}>
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-ink/85 sm:text-lg lg:text-xl font-normal">
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-ink/85 sm:text-lg font-normal">
               We design and execute bespoke acquisition systems for luxury real estate developers,
               visa consultancies, political campaigns and high-growth brands — delivering verified
               inquiries and predictable commercial pipeline.
@@ -84,33 +86,22 @@ export default function Hero() {
           </Reveal>
 
           <Reveal delay={0.3}>
-            <div className="mt-9 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+            <div className="mt-6 flex items-center justify-center">
               {/* Grand Enquire Button */}
               <button
                 onClick={() => openEnquiry()}
-                className="group inline-flex items-center gap-2 rounded-full border-[1.5px] border-ink bg-ink px-8 py-4 text-xs font-bold uppercase tracking-[0.22em] text-white shadow-md transition-all duration-300 hover:bg-accent hover:border-accent hover:shadow-lg sm:text-xs"
+                className="group inline-flex items-center gap-2 rounded-full border-[1.5px] border-ink bg-ink px-9 py-4 text-xs font-bold uppercase tracking-[0.22em] text-white shadow-md transition-all duration-300 hover:bg-accent hover:border-accent hover:shadow-lg"
               >
                 <span>Enquire Now</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
-
-              {/* WhatsApp Direct Action */}
-              <a
-                href={site.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2.5 rounded-full border border-black/[0.14] bg-white px-7 py-4 text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-xs transition-all duration-300 hover:border-accent hover:text-accent sm:text-xs"
-              >
-                <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
-                <span>WhatsApp ({site.phone})</span>
-              </a>
             </div>
           </Reveal>
         </div>
 
-        {/* 4 Core Acquisition Pillars */}
+        {/* 4 Core Acquisition Pillars - Brought above the fold */}
         <Reveal delay={0.4}>
-          <div className="mt-16 sm:mt-20">
+          <div className="mt-8 sm:mt-10">
             <div className="mb-6">
               <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-ink/75">
                 Specialized Acquisition Practice Areas

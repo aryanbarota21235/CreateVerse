@@ -117,7 +117,10 @@ export default function ServicesGrid({ showHeading = true }: { showHeading?: boo
 
             return (
               <StaggerItem key={s.slug}>
-                <div className="group relative flex h-full flex-col justify-between rounded-3xl border border-stone-200/90 bg-white p-7 sm:p-8 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:border-accent hover:shadow-lift">
+                <Link
+                  href={`/services/${s.slug}`}
+                  className="group relative flex h-full flex-col justify-between rounded-3xl border border-stone-200/90 bg-white p-7 sm:p-8 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:border-accent hover:shadow-lift cursor-pointer block"
+                >
                   <div>
                     {/* Top Row: Category badge & Enquire Action */}
                     <div className="flex items-center justify-between gap-2">
@@ -125,8 +128,13 @@ export default function ServicesGrid({ showHeading = true }: { showHeading?: boo
                         {s.category}
                       </span>
                       <button
-                        onClick={() => openEnquiry(s.name)}
-                        className="text-[11px] font-bold uppercase tracking-wider text-ink/60 transition-colors hover:text-accent"
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          openEnquiry(s.name);
+                        }}
+                        className="relative z-10 text-[11px] font-bold uppercase tracking-wider text-ink/60 transition-colors hover:text-accent"
                       >
                         Enquire
                       </button>
@@ -138,11 +146,9 @@ export default function ServicesGrid({ showHeading = true }: { showHeading?: boo
                         <Icon className="h-5 w-5" />
                       </div>
                       <div>
-                        <Link href={`/services/${s.slug}`}>
-                          <h3 className="font-display text-xl font-bold tracking-tight text-ink transition-colors group-hover:text-accent">
-                            {s.name}
-                          </h3>
-                        </Link>
+                        <h3 className="font-display text-xl font-bold tracking-tight text-ink transition-colors group-hover:text-accent">
+                          {s.name}
+                        </h3>
                         <p className="mt-1 text-xs leading-relaxed text-ink/75 font-normal">
                           {s.tagline}
                         </p>
@@ -170,23 +176,18 @@ export default function ServicesGrid({ showHeading = true }: { showHeading?: boo
 
                   {/* Bottom Row: Direct Link */}
                   <div className="mt-8 pt-5 border-t border-stone-100 flex items-center justify-between">
-                    <Link
-                      href={`/services/${s.slug}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-accent transition-colors hover:text-accent-dim"
-                    >
+                    <span className="inline-flex items-center gap-1.5 text-xs font-bold text-accent transition-colors group-hover:text-accent-dim">
                       <span>Explore Practice Architecture</span>
                       <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                    </Link>
+                    </span>
 
-                    <Link
-                      href={`/services/${s.slug}`}
+                    <span
                       className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-paper border border-stone-200 text-ink/70 shadow-xs transition-all group-hover:bg-accent group-hover:text-white group-hover:border-accent"
-                      aria-label={`View details for ${s.name}`}
                     >
                       <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </Link>
+                    </span>
                   </div>
-                </div>
+                </Link>
               </StaggerItem>
             );
           })}

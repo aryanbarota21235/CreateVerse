@@ -136,9 +136,10 @@ export default function ServicesExplorer() {
                 {group.items.map((item) => {
                   const Icon = item.icon;
                   return (
-                    <div
+                    <Link
                       key={item.slug}
-                      className="group flex flex-col justify-between rounded-3xl border border-black/[0.12] bg-white p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
+                      href={`/services/${item.slug}`}
+                      className="group flex flex-col justify-between rounded-3xl border border-black/[0.12] bg-white p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift cursor-pointer block"
                     >
                       <div>
                         <div className="flex items-center justify-between">
@@ -146,8 +147,13 @@ export default function ServicesExplorer() {
                             <Icon className="h-5 w-5" />
                           </span>
                           <button
-                            onClick={() => openEnquiry(item.name)}
-                            className="text-[11px] font-bold uppercase tracking-wider text-ink/70 hover:text-accent transition-colors"
+                            type="button"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              openEnquiry(item.name);
+                            }}
+                            className="relative z-10 text-[11px] font-bold uppercase tracking-wider text-ink/70 hover:text-accent transition-colors"
                           >
                             Enquire
                           </button>
@@ -165,15 +171,13 @@ export default function ServicesExplorer() {
                         <span className="text-xs font-bold text-accent truncate pr-2">
                           {item.deliverable}
                         </span>
-                        <Link
-                          href={`/services/${item.slug}`}
+                        <span
                           className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white border border-black/[0.08] text-ink/60 shadow-xs transition-all group-hover:bg-accent group-hover:text-white group-hover:border-accent"
-                          aria-label={`View details for ${item.name}`}
                         >
                           <ArrowUpRight className="h-3.5 w-3.5" />
-                        </Link>
+                        </span>
                       </div>
-                    </div>
+                    </Link>
                   );
                 })}
               </div>
