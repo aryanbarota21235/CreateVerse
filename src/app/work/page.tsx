@@ -17,7 +17,7 @@ export default function WorkPage() {
         title={<>Results we&apos;ll <span className="text-accent">show, not tell.</span></>}
         description="We're preparing detailed case studies with verified client data. Until they're approved, we publish the shape of our engagements with clearly marked placeholders — never invented numbers."
       />
-      <CaseStudies />
+      <CaseStudies className="pt-4 sm:pt-6 pb-20 lg:pb-28" />
       <FinalCTA />
     </>
   );

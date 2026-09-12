@@ -58,9 +58,9 @@ export const caseStudies = [
   },
 ];
 
-export default function CaseStudies() {
+export default function CaseStudies({ className = "" }: { className?: string }) {
   return (
-    <section className="bg-white py-24 lg:py-32">
+    <section className={`bg-white ${className || "py-20 lg:py-28"}`}>
       <div className="container-site">
         <SectionHeading
           eyebrow="Case Studies & Impact"
