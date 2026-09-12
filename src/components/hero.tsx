@@ -50,15 +50,12 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-paper pt-20 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20">
-      {/* Editorial Luxury Background with Warm Sun and Subtle Sky Glow */}
-      <div className="dot-texture absolute inset-0 opacity-80 pointer-events-none" />
-      <div className="grid-texture-light absolute inset-0 opacity-30 pointer-events-none" />
-      {/* Warm Yellow/Amber Glow on the left, matching /industries */}
-      <div className="absolute -left-36 top-20 h-[440px] w-[440px] rounded-full bg-brand-sun/85 blur-3xl pointer-events-none" />
-      {/* Very subtle Sky Blue Glow on the top-right */}
-      <div className="absolute -right-36 -top-20 h-[420px] w-[420px] rounded-full bg-brand-sky/45 blur-3xl pointer-events-none" />
-      {/* Soft center gradient feather */}
-      <div className="absolute left-1/2 -top-28 -translate-x-1/2 h-[360px] w-[700px] rounded-full bg-gradient-to-b from-brand-sky/20 via-brand-sun/15 to-transparent blur-3xl pointer-events-none" />
+      {/* Clean Blueish Ambient Background */}
+      <div className="dot-texture absolute inset-0 opacity-50 pointer-events-none" />
+      <div className="grid-texture-light absolute inset-0 opacity-40 pointer-events-none" />
+      <div className="absolute -left-28 top-1/4 h-[450px] w-[450px] rounded-full bg-accent/12 blur-[100px] pointer-events-none" />
+      <div className="absolute -right-28 top-1/3 h-[500px] w-[500px] rounded-full bg-accent/8 blur-[120px] pointer-events-none" />
+      <div className="absolute left-1/2 -top-28 -translate-x-1/2 h-[500px] w-[850px] rounded-full bg-gradient-to-b from-brand-sky/60 via-brand-sky/20 to-transparent blur-3xl pointer-events-none" />
 
       <div className="container-site relative">
         {/* Main Editorial Agency Headline */}
