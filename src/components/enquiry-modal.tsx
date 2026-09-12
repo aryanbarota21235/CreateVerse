@@ -223,8 +223,8 @@ export default function EnquiryModal() {
             {submitted ? (
               /* Success Confirmation Screen */
               <div className="p-8 sm:p-12 text-center">
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200">
-                  <CheckCircle2 className="h-8 w-8" />
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-stone-100 text-ink border border-stone-200">
+                  <CheckCircle2 className="h-8 w-8 text-accent" />
                 </div>
                 <h3 className="mt-5 font-display text-2xl font-bold text-ink sm:text-3xl">
                   Enquiry Received
@@ -234,28 +234,14 @@ export default function EnquiryModal() {
                   <span className="font-semibold text-accent">{service}</span> will review your scope and connect with you shortly.
                 </p>
 
-                {/* Instant WhatsApp Quick Link */}
-                <div className="mx-auto mt-7 max-w-md rounded-2xl border border-emerald-500/20 bg-emerald-50/70 p-4 text-left">
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-emerald-900">
-                    Need an immediate response?
-                  </p>
-                  <a
-                    href={`https://wa.me/919174691846?text=Hi%20CreateVerse%2C%20I%20just%20submitted%20an%20enquiry%20for%20${encodeURIComponent(service)}.%20My%20name%20is%20${encodeURIComponent(name)}.`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2.5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 text-xs font-bold text-white shadow-sm transition hover:bg-emerald-700"
+                <div className="mt-8 flex items-center justify-center">
+                  <button
+                    onClick={handleReset}
+                    className="rounded-full bg-ink px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-accent transition active:scale-[0.99]"
                   >
-                    <WhatsAppIcon className="h-4 w-4 text-white" />
-                    <span>Chat on WhatsApp (+91 91746-91846)</span>
-                  </a>
+                    Done &amp; Close Window
+                  </button>
                 </div>
-
-                <button
-                  onClick={handleReset}
-                  className="mt-6 text-xs font-bold text-stone-500 underline hover:text-ink"
-                >
-                  Done & Close Window
-                </button>
               </div>
             ) : (
               /* Clean, Minimalist, Bespoke Intake Form */
@@ -279,25 +265,8 @@ export default function EnquiryModal() {
                   </h3>
 
                   <p className="mt-1.5 text-xs text-stone-600 sm:text-sm">
-                    Direct consultation with our senior strategy team. Leave your details below or connect immediately via WhatsApp.
+                    Direct consultation with our senior strategy team. Leave your contact details below and we will reach out within 2 hours.
                   </p>
-                </div>
-
-                {/* Instant WhatsApp Ribbon */}
-                <div className="mt-4 flex items-center justify-between rounded-xl border border-emerald-200/80 bg-emerald-50/60 px-3.5 py-2.5 text-xs">
-                  <div className="flex items-center gap-2 text-emerald-900 font-medium">
-                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-                    <span>Prefer instant WhatsApp consultation?</span>
-                  </div>
-                  <a
-                    href={`https://wa.me/919174691846?text=Hi%20CreateVerse%2C%20I%20would%20like%20to%20consult%20regarding%20${encodeURIComponent(service)}.`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 font-bold text-emerald-700 hover:text-emerald-800 transition shrink-0 underline ml-2"
-                  >
-                    <WhatsAppIcon className="h-3.5 w-3.5" />
-                    <span>+91 91746-91846</span>
-                  </a>
                 </div>
 
                 {/* Form Body */}
