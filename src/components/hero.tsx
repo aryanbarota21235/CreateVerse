@@ -2,6 +2,8 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Reveal from "@/components/reveal";
 import HeroVisual from "@/components/hero-visual";
+import { priorityServices } from "@/lib/services";
+import { iconMap } from "@/components/services-grid";
 
 export default function Hero() {
   return (
@@ -68,6 +70,41 @@ export default function Hero() {
             <HeroVisual />
           </div>
         </div>
+
+        {/* Services quick-strip — visible on first screen */}
+        <Reveal delay={0.5}>
+          <div className="mt-16 lg:mt-20">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">
+              What we can build for you
+            </p>
+            <div className="mt-4 grid grid-cols-2 gap-2.5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 lg:gap-3">
+              {priorityServices.map((s, i) => {
+                const Icon = iconMap[s.icon];
+                return (
+                  <Link
+                    key={s.slug}
+                    href={`/services/${s.slug}`}
+                    className="group flex items-center gap-2.5 rounded-xl border border-paper-line bg-white px-3.5 py-3 shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:shadow-lift"
+                  >
+                    <span
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-white transition-transform duration-300 group-hover:scale-110 ${
+                        i % 2 === 0 ? "bg-accent" : "bg-brand-orange"
+                      }`}
+                    >
+                      {Icon && <Icon className="h-4 w-4" />}
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block text-[13px] font-semibold leading-tight text-ink group-hover:text-accent">
+                        {s.shortName ?? s.name}
+                      </span>
+                      <span className="block text-[10px] uppercase tracking-wide text-ink/35">{s.category}</span>
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
