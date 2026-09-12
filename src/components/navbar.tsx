@@ -28,13 +28,13 @@ export default function Navbar() {
   useEffect(() => setOpen(false), [pathname]);
 
   return (
-    <header className="fixed inset-x-0 top-4 sm:top-5 z-50 px-4 sm:px-6 md:px-8 pointer-events-none">
-      {/* Generous width floating pill dock */}
+    <header className="fixed inset-x-0 top-3 sm:top-5 z-50 px-4 sm:px-8 pointer-events-none">
+      {/* Maximum luxury width floating pill dock */}
       <div
         className={`mx-auto flex items-center justify-between rounded-full bg-white/95 shadow-[0_10px_35px_rgba(13,20,32,0.08)] backdrop-blur-2xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-auto border border-ink/[0.08] ${
           scrolled
-            ? "max-w-5xl py-2.5 px-6 sm:px-8 shadow-[0_16px_44px_rgba(13,20,32,0.12)] border-ink/[0.12]"
-            : "max-w-6xl py-3.5 px-7 sm:px-10"
+            ? "max-w-6xl py-2.5 px-6 sm:px-10 shadow-[0_16px_44px_rgba(13,20,32,0.12)] border-ink/[0.12]"
+            : "max-w-7xl py-3.5 px-8 sm:px-12"
         }`}
       >
         {/* Brand Logo */}
@@ -56,7 +56,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden items-center gap-7 lg:gap-9 md:flex" aria-label="Primary navigation">
+        <nav className="hidden items-center gap-8 lg:gap-10 md:flex" aria-label="Primary navigation">
           {site.nav.map((item) => {
             const active = pathname === item.href || pathname.startsWith(item.href + "/");
             return (
@@ -64,7 +64,7 @@ export default function Navbar() {
                 key={item.href}
                 href={item.href}
                 className={`relative py-1 text-xs font-bold uppercase tracking-[0.2em] transition-colors duration-300 group ${
-                  active ? "text-accent" : "text-ink/75 hover:text-accent"
+                  active ? "text-accent" : "text-ink/80 hover:text-accent"
                 }`}
               >
                 <span>{item.label}</span>
@@ -80,19 +80,18 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Right CTAs: WhatsApp + Enquire Now */}
-        <div className="hidden items-center gap-3 sm:flex shrink-0">
-          {/* WhatsApp Direct Connect */}
+        {/* Right CTAs: Clean WhatsApp Link (no green pill) + Enquire Now */}
+        <div className="hidden items-center gap-4 sm:flex shrink-0">
+          {/* Clean WhatsApp Link - No cheap green capsule */}
           <a
             href={site.whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-50/90 px-4 py-2 text-xs font-bold text-emerald-800 transition-all hover:bg-emerald-100 hover:border-emerald-500/50"
-            title="Chat directly on WhatsApp"
+            className="inline-flex items-center gap-2 py-2 px-3 text-xs font-bold text-ink transition-colors hover:text-accent"
+            title="Chat on WhatsApp"
           >
-            <WhatsAppIcon className="h-4 w-4 text-emerald-600" />
-            <span className="hidden xl:inline">{site.phone}</span>
-            <span className="xl:hidden">WhatsApp</span>
+            <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
+            <span className="tracking-wide">{site.phone}</span>
           </a>
 
           {/* Enquire Now Button (Opens Grand Modal) */}
@@ -105,7 +104,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Hamburger Button */}
+        {/* Mobile Buttons */}
         <div className="flex items-center gap-2 sm:hidden">
           <button
             onClick={() => openEnquiry()}
@@ -163,7 +162,7 @@ export default function Navbar() {
                   href={site.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-sm"
+                  className="flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-sm"
                 >
                   <WhatsAppIcon className="h-4 w-4 text-white" />
                   WhatsApp ({site.phone})

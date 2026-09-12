@@ -1,7 +1,7 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Building2, Plane, Megaphone, TrendingUp } from "lucide-react";
+import { ArrowRight, ArrowDown, Building2, Plane, Megaphone, TrendingUp, ArrowUpRight } from "lucide-react";
 import Reveal from "@/components/reveal";
 import { site } from "@/lib/site";
 import { useEnquiry } from "@/context/enquiry-context";
@@ -99,31 +99,22 @@ export default function Hero() {
                 href={site.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2.5 rounded-full border border-emerald-500/30 bg-white px-7 py-4 text-xs font-bold uppercase tracking-[0.18em] text-emerald-800 shadow-xs transition-all duration-300 hover:bg-emerald-50 hover:border-emerald-500/60 sm:text-xs"
+                className="group inline-flex items-center gap-2.5 rounded-full border border-paper-line bg-white px-7 py-4 text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-xs transition-all duration-300 hover:border-accent hover:text-accent sm:text-xs"
               >
-                <WhatsAppIcon className="h-4 w-4 text-emerald-600" />
+                <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
                 <span>WhatsApp ({site.phone})</span>
               </a>
             </div>
           </Reveal>
         </div>
 
-        {/* 4 Core Acquisition Pillars - Luxury Agency Grid */}
+        {/* 4 Core Acquisition Pillars */}
         <Reveal delay={0.4}>
           <div className="mt-16 sm:mt-20">
-            <div className="flex items-center justify-between border-b border-paper-line/80 pb-4 mb-6">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-ink/40">
-                  Specialized Acquisition Practice Areas
-                </p>
-              </div>
-              <Link
-                href="/services"
-                className="group hidden sm:inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.18em] text-accent hover:underline"
-              >
-                <span>Browse All 13+ Services</span>
-                <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
+            <div className="mb-6">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-ink/40">
+                Specialized Acquisition Practice Areas
+              </p>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -167,14 +158,15 @@ export default function Hero() {
               })}
             </div>
 
-            <div className="mt-6 text-center sm:hidden">
-              <Link
-                href="/services"
-                className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.18em] text-accent hover:underline"
+            {/* Placed at the bottom as requested: smooth scroll to all services below */}
+            <div className="mt-10 flex items-center justify-center">
+              <a
+                href="#services"
+                className="group inline-flex items-center gap-2 rounded-full border border-paper-line bg-white px-7 py-3 text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-xs transition-all duration-300 hover:border-accent hover:text-accent hover:shadow-card"
               >
                 <span>Browse All 13+ Services</span>
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </Link>
+                <ArrowDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-y-0.5" />
+              </a>
             </div>
           </div>
         </Reveal>
