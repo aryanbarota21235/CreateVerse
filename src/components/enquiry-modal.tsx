@@ -6,6 +6,7 @@ import { X, CheckCircle2, Phone, Mail, ArrowRight, ShieldCheck } from "lucide-re
 import { useEnquiry } from "@/context/enquiry-context";
 import { site } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
+import { saveEnquiry } from "@/lib/admin-store";
 
 const servicesList = [
   "Real Estate Lead Gen",
@@ -60,6 +61,21 @@ export default function EnquiryModal() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
+    try {
+      saveEnquiry({
+        name,
+        phone,
+        email,
+        company,
+        service,
+        budget,
+        source: typeof window !== "undefined" ? `${window.location.pathname} (Modal Popup)` : "Website Modal Popup",
+        channel: "Direct Traffic",
+        message,
+      });
+    } catch (err) {
+      console.error("Failed to save enquiry", err);
+    }
     setTimeout(() => {
       setSubmitting(false);
       setSubmitted(true);

@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { services } from "@/lib/services";
+import { saveEnquiry } from "@/lib/admin-store";
 
 const inputCls =
   "w-full rounded-xl border border-stone-200 bg-[#F8FAFC] px-4 py-3.5 text-sm text-ink placeholder:text-ink/40 outline-none transition-all focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-medium";
@@ -15,7 +16,27 @@ export default function LeadForm({ compact = false }: { compact?: boolean }) {
     e.preventDefault();
     setSending(true);
     const data = new FormData(e.currentTarget);
-    console.log("CreateVerse lead:", Object.fromEntries(data.entries()));
+    const name = String(data.get("name") || "");
+    const phone = String(data.get("phone") || "");
+    const email = String(data.get("email") || "");
+    const interest = String(data.get("interest") || "");
+    const message = String(data.get("message") || "");
+
+    try {
+      saveEnquiry({
+        name,
+        phone,
+        email,
+        service: interest || "General Inquiry",
+        budget: "₹1L - ₹3 Lakhs",
+        source: typeof window !== "undefined" ? `${window.location.pathname} (Inline Lead Form)` : "Inline Lead Form",
+        channel: "Direct Traffic",
+        message,
+      });
+    } catch (err) {
+      console.error("Failed to save enquiry", err);
+    }
+
     setTimeout(() => {
       setSending(false);
       setSubmitted(true);

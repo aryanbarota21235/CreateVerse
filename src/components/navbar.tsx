@@ -27,6 +27,10 @@ export default function Navbar() {
 
   useEffect(() => setOpen(false), [pathname]);
 
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <header className="fixed inset-x-0 top-3 sm:top-5 z-50 px-4 sm:px-8 pointer-events-none">
       {/* Maximum luxury width floating pill dock */}

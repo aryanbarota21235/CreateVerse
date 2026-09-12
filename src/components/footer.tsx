@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ArrowUpRight, Phone, Mail } from "lucide-react";
 import { site } from "@/lib/site";
 import { services } from "@/lib/services";
@@ -8,8 +9,13 @@ import { useEnquiry } from "@/context/enquiry-context";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 export default function Footer() {
+  const pathname = usePathname();
   const featured = services.filter((s) => s.priority);
   const { openEnquiry } = useEnquiry();
+
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   return (
     <footer className="bg-ink text-white">
