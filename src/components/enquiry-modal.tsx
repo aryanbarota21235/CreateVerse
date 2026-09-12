@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, CheckCircle2, MessageCircle, Phone, Mail, ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
+import { X, CheckCircle2, Phone, Mail, ArrowRight, ShieldCheck } from "lucide-react";
 import { useEnquiry } from "@/context/enquiry-context";
 import { site } from "@/lib/site";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 const servicesList = [
   "Real Estate Lead Gen",
@@ -59,7 +60,6 @@ export default function EnquiryModal() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    // Simulate lead submission
     setTimeout(() => {
       setSubmitting(false);
       setSubmitted(true);
@@ -91,10 +91,10 @@ export default function EnquiryModal() {
 
           {/* Modal Card */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            initial={{ opacity: 0, scale: 0.96, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ type: "spring", duration: 0.5, bounce: 0.15 }}
+            exit={{ opacity: 0, scale: 0.96, y: 16 }}
+            transition={{ type: "spring", duration: 0.45, bounce: 0.12 }}
             className="relative w-full max-w-4xl overflow-hidden rounded-[2rem] border border-paper-line bg-white shadow-2xl z-10 my-auto"
           >
             {/* Close Button */}
@@ -112,27 +112,27 @@ export default function EnquiryModal() {
                   <CheckCircle2 className="h-9 w-9" />
                 </div>
                 <h3 className="mt-5 font-display text-2xl sm:text-3xl font-bold text-ink">
-                  Enquiry Received!
+                  Enquiry Received
                 </h3>
                 <p className="mx-auto mt-2 max-w-md text-sm text-ink/65 sm:text-base">
-                  Thank you, <span className="font-semibold text-ink">{name || "there"}</span>. Our lead strategist is reviewing your requirements and will reach out within 2 hours.
+                  Thank you, <span className="font-semibold text-ink">{name || "there"}</span>. Our strategist is reviewing your requirements and will reach out within 2 hours.
                 </p>
 
                 {/* Instant WhatsApp Card */}
                 <div className="mx-auto mt-8 max-w-md rounded-2xl border border-emerald-500/20 bg-emerald-50/70 p-5 text-left">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-emerald-800">
-                    Want an instant reply?
+                  <p className="text-xs font-bold uppercase tracking-wider text-emerald-900">
+                    Direct WhatsApp Connect
                   </p>
-                  <p className="mt-1 text-sm text-emerald-900">
-                    Connect directly on WhatsApp with our founder for immediate project scoping.
+                  <p className="mt-1 text-sm text-emerald-900/80">
+                    Connect directly on WhatsApp with our team for immediate project scoping.
                   </p>
                   <a
                     href={`https://wa.me/919174691846?text=Hi%20CreateVerse%2C%20I%20just%20submitted%20an%20enquiry%20for%20${encodeURIComponent(service)}.%20My%20name%20is%20${encodeURIComponent(name)}.`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-3.5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-md transition-all hover:bg-emerald-700"
+                    className="mt-3.5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white shadow-md transition-all hover:bg-emerald-700"
                   >
-                    <MessageCircle className="h-4 w-4" />
+                    <WhatsAppIcon className="h-5 w-5 text-white" />
                     <span>Chat on WhatsApp (+91 91746-91846)</span>
                   </a>
                 </div>
@@ -149,9 +149,8 @@ export default function EnquiryModal() {
                 {/* Left Side: Agency Pitch & Direct Contact */}
                 <div className="lg:col-span-5 bg-ink p-6 sm:p-8 md:p-10 text-white flex flex-col justify-between">
                   <div>
-                    <div className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-brand-orange backdrop-blur-sm">
-                      <Sparkles className="h-3.5 w-3.5" />
-                      <span>Free Growth Consultation</span>
+                    <div className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-white/60">
+                      <span>Growth Consultation</span>
                     </div>
 
                     <h3 className="mt-5 font-display text-2xl sm:text-3xl font-bold leading-tight">
@@ -162,8 +161,8 @@ export default function EnquiryModal() {
                       Share your goals and challenges. We&apos;ll audit your current acquisition funnel and deliver a clear, measurable roadmap.
                     </p>
 
-                    <div className="mt-8 space-y-4">
-                      {/* WhatsApp Direct */}
+                    <div className="mt-8 space-y-3.5">
+                      {/* WhatsApp Direct with Official Icon */}
                       <a
                         href={site.whatsappUrl}
                         target="_blank"
@@ -171,11 +170,11 @@ export default function EnquiryModal() {
                         className="group flex items-center gap-3.5 rounded-2xl border border-emerald-500/30 bg-emerald-500/15 p-3.5 transition-all hover:bg-emerald-500/25"
                       >
                         <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-500 text-white shadow-md">
-                          <MessageCircle className="h-5 w-5" />
+                          <WhatsAppIcon className="h-5 w-5 text-white" />
                         </span>
                         <div>
-                          <span className="block text-[11px] font-medium uppercase tracking-wider text-emerald-300">
-                            Instant WhatsApp Connect
+                          <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-300">
+                            WhatsApp Connect
                           </span>
                           <span className="block text-sm font-bold text-white group-hover:underline">
                             +91 91746-91846
@@ -192,8 +191,8 @@ export default function EnquiryModal() {
                           <Phone className="h-4 w-4" />
                         </span>
                         <div>
-                          <span className="block text-[11px] font-medium uppercase tracking-wider text-white/40">
-                            Direct Call
+                          <span className="block text-[10px] font-bold uppercase tracking-wider text-white/40">
+                            Direct Phone
                           </span>
                           <span className="block text-sm font-semibold text-white">
                             {site.phone}
@@ -210,8 +209,8 @@ export default function EnquiryModal() {
                           <Mail className="h-4 w-4" />
                         </span>
                         <div>
-                          <span className="block text-[11px] font-medium uppercase tracking-wider text-white/40">
-                            Email
+                          <span className="block text-[10px] font-bold uppercase tracking-wider text-white/40">
+                            Official Email
                           </span>
                           <span className="block text-sm font-semibold text-white">
                             {site.email}
@@ -223,26 +222,26 @@ export default function EnquiryModal() {
 
                   <div className="mt-8 border-t border-white/10 pt-4 text-xs text-white/45 flex items-center gap-2">
                     <ShieldCheck className="h-4 w-4 text-emerald-400" />
-                    <span>100% Confidential · Strict NDA Guarantee</span>
+                    <span>Confidential Consultation · NDA Protected</span>
                   </div>
                 </div>
 
-                {/* Right Side: Comprehensive Big Form */}
+                {/* Right Side: Comprehensive Form */}
                 <div className="lg:col-span-7 p-6 sm:p-8 md:p-10">
                   <div className="mb-6">
                     <h4 className="font-display text-xl font-bold text-ink sm:text-2xl">
                       Project Enquiry Details
                     </h4>
                     <p className="mt-1 text-xs text-ink/50 sm:text-sm">
-                      Fill out this quick form or reach out directly via WhatsApp.
+                      Submit your requirements below or reach out directly on WhatsApp.
                     </p>
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Service Selection Pills */}
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-ink/60 mb-2">
-                        I Need Help With
+                      <label className="block text-xs font-bold uppercase tracking-wider text-ink/60 mb-2">
+                        Practice Area Required
                       </label>
                       <div className="flex flex-wrap gap-1.5">
                         {servicesList.map((item) => (
@@ -250,7 +249,7 @@ export default function EnquiryModal() {
                             type="button"
                             key={item}
                             onClick={() => setService(item)}
-                            className={`rounded-xl px-3 py-1.5 text-xs font-medium transition-all ${
+                            className={`rounded-xl px-3 py-1.5 text-xs font-semibold transition-all ${
                               service === item
                                 ? "bg-accent text-white shadow-sm ring-1 ring-accent"
                                 : "bg-paper text-ink/75 hover:bg-paper-soft hover:text-ink"
@@ -273,7 +272,7 @@ export default function EnquiryModal() {
                           required
                           value={name}
                           onChange={(e) => setName(e.target.value)}
-                          placeholder="e.g. Aryan Sharma"
+                          placeholder="Your Name"
                           className="w-full rounded-xl border border-paper-line bg-paper/40 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink/30 outline-none transition-colors focus:border-accent focus:bg-white"
                         />
                       </div>
@@ -286,7 +285,7 @@ export default function EnquiryModal() {
                           required
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          placeholder="e.g. +91 98765-43210"
+                          placeholder="+91 00000 00000"
                           className="w-full rounded-xl border border-paper-line bg-paper/40 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink/30 outline-none transition-colors focus:border-accent focus:bg-white"
                         />
                       </div>
@@ -315,7 +314,7 @@ export default function EnquiryModal() {
                           type="text"
                           value={company}
                           onChange={(e) => setCompany(e.target.value)}
-                          placeholder="Brand / Agency / Firm"
+                          placeholder="Company or Organization"
                           className="w-full rounded-xl border border-paper-line bg-paper/40 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink/30 outline-none transition-colors focus:border-accent focus:bg-white"
                         />
                       </div>
@@ -323,8 +322,8 @@ export default function EnquiryModal() {
 
                     {/* Budget Selection Pills */}
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-ink/60 mb-2">
-                        Estimated Monthly Ad Spend / Budget
+                      <label className="block text-xs font-bold uppercase tracking-wider text-ink/60 mb-2">
+                        Estimated Monthly Marketing Budget
                       </label>
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                         {budgetList.map((b) => (
@@ -332,9 +331,9 @@ export default function EnquiryModal() {
                             type="button"
                             key={b}
                             onClick={() => setBudget(b)}
-                            className={`rounded-xl px-2.5 py-2 text-xs font-medium transition-all text-center ${
+                            className={`rounded-xl px-2.5 py-2 text-xs font-semibold transition-all text-center ${
                               budget === b
-                                ? "bg-ink text-white font-semibold shadow-sm"
+                                ? "bg-ink text-white shadow-sm"
                                 : "bg-paper text-ink/70 hover:bg-paper-soft hover:text-ink"
                             }`}
                           >
@@ -347,7 +346,7 @@ export default function EnquiryModal() {
                     {/* Message / Brief */}
                     <div>
                       <label className="block text-xs font-medium text-ink/70 mb-1">
-                        What are your specific acquisition goals?
+                        Specific Goals / Overview
                       </label>
                       <textarea
                         rows={3}
@@ -363,7 +362,7 @@ export default function EnquiryModal() {
                       <button
                         type="submit"
                         disabled={submitting}
-                        className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-ink px-6 py-3.5 text-sm font-bold text-white shadow-lg transition-all hover:bg-accent hover:shadow-accent/25 disabled:opacity-60"
+                        className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-ink px-6 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-white shadow-md transition-all hover:bg-accent hover:shadow-accent/25 disabled:opacity-60"
                       >
                         {submitting ? (
                           <span>Submitting...</span>
@@ -377,7 +376,7 @@ export default function EnquiryModal() {
                     </div>
 
                     <p className="text-center text-[11px] text-ink/40">
-                      ⚡ We respect your time. Guaranteed response within 2 hours.
+                      We respect your time. Guaranteed response within 2 hours.
                     </p>
                   </form>
                 </div>

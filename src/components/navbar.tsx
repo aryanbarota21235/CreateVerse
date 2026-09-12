@@ -5,9 +5,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowUpRight, MessageCircle } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { site } from "@/lib/site";
 import { useEnquiry } from "@/context/enquiry-context";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -28,7 +29,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-4 sm:top-5 z-50 px-4 sm:px-6 md:px-8 pointer-events-none">
-      {/* Generous width floating pill dock - Smooth, spacious & luxury */}
+      {/* Generous width floating pill dock */}
       <div
         className={`mx-auto flex items-center justify-between rounded-full bg-white/95 shadow-[0_10px_35px_rgba(13,20,32,0.08)] backdrop-blur-2xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-auto border border-ink/[0.08] ${
           scrolled
@@ -89,10 +90,7 @@ export default function Navbar() {
             className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-50/90 px-4 py-2 text-xs font-bold text-emerald-800 transition-all hover:bg-emerald-100 hover:border-emerald-500/50"
             title="Chat directly on WhatsApp"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-            </span>
+            <WhatsAppIcon className="h-4 w-4 text-emerald-600" />
             <span className="hidden xl:inline">{site.phone}</span>
             <span className="xl:hidden">WhatsApp</span>
           </a>
@@ -139,9 +137,6 @@ export default function Navbar() {
             <div className="flex flex-col gap-2">
               <div className="mb-2 flex items-center justify-between border-b border-paper-line/70 pb-3">
                 <span className="text-xs font-bold uppercase tracking-wider text-ink/40">Navigation</span>
-                <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Active
-                </span>
               </div>
               {site.nav.map((item) => (
                 <Link
@@ -170,7 +165,7 @@ export default function Navbar() {
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-sm"
                 >
-                  <MessageCircle className="h-4 w-4" />
+                  <WhatsAppIcon className="h-4 w-4 text-white" />
                   WhatsApp ({site.phone})
                 </a>
               </div>

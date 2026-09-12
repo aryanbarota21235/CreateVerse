@@ -1,10 +1,11 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, MessageCircle, Building2, Plane, Megaphone, TrendingUp } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Building2, Plane, Megaphone, TrendingUp } from "lucide-react";
 import Reveal from "@/components/reveal";
 import { site } from "@/lib/site";
 import { useEnquiry } from "@/context/enquiry-context";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 const acquisitionPillars = [
   {
@@ -100,7 +101,7 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2.5 rounded-full border border-emerald-500/30 bg-white px-7 py-4 text-xs font-bold uppercase tracking-[0.18em] text-emerald-800 shadow-xs transition-all duration-300 hover:bg-emerald-50 hover:border-emerald-500/60 sm:text-xs"
               >
-                <MessageCircle className="h-4 w-4 text-emerald-600" />
+                <WhatsAppIcon className="h-4 w-4 text-emerald-600" />
                 <span>WhatsApp ({site.phone})</span>
               </a>
             </div>

@@ -1,10 +1,11 @@
-﻿import type { Metadata } from "next";
-import { Mail, MapPin, MessageSquare, Phone } from "lucide-react";
+import type { Metadata } from "next";
+import { Mail, MapPin, Phone } from "lucide-react";
 import PageHero from "@/components/page-hero";
 import Reveal from "@/components/reveal";
 import Faq from "@/components/faq";
 import LeadForm from "@/components/lead-form";
 import { site } from "@/lib/site";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 export const metadata: Metadata = {
   title: "Contact & Enquiry — CreateVerse",
@@ -40,7 +41,7 @@ export default function ContactPage() {
                   className="group flex items-center gap-4 rounded-2xl border border-emerald-500/20 bg-emerald-50/70 p-5 shadow-xs transition-all hover:-translate-y-0.5 hover:shadow-md"
                 >
                   <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-600 text-white">
-                    <MessageSquare className="h-5 w-5" />
+                    <WhatsAppIcon className="h-6 w-6 text-white" />
                   </span>
                   <div>
                     <span className="block text-xs font-semibold text-emerald-800">Chat on WhatsApp (Instant)</span>

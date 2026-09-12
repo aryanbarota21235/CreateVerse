@@ -1,10 +1,11 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
-import { ArrowUpRight, MessageCircle, Phone, Mail } from "lucide-react";
+import { ArrowUpRight, Phone, Mail } from "lucide-react";
 import { site } from "@/lib/site";
 import { services } from "@/lib/services";
 import { useEnquiry } from "@/context/enquiry-context";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 export default function Footer() {
   const featured = services.filter((s) => s.priority);
@@ -44,7 +45,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-4 py-2.5 text-xs font-bold text-emerald-300 transition-all hover:bg-emerald-500/25"
               >
-                <MessageCircle className="h-4 w-4 text-emerald-400" />
+                <WhatsAppIcon className="h-4 w-4 text-emerald-400" />
                 <span>WhatsApp ({site.phone})</span>
               </a>
             </div>
@@ -86,7 +87,7 @@ export default function Footer() {
             <ul className="mt-5 space-y-3 text-sm text-white/65">
               <li>
                 <a href={site.whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-emerald-400 hover:underline">
-                  <MessageCircle className="h-4 w-4" />
+                  <WhatsAppIcon className="h-4 w-4" />
                   <span>{site.phone}</span>
                 </a>
               </li>
