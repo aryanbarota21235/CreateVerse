@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-paper text-ink antialiased;
+  }
+  ::selection {
+    background-color: #0b93d8;
+    color: #ffffff;
+  }
+}
+
+@layer utilities {
+  .container-site {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-brand-gradient {
+    @apply bg-gradient-to-r from-accent to-brand-orange bg-clip-text text-transparent;
+  }
+  .grid-texture {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .grid-texture-light {
+    background-image:
+      linear-gradient(to right, rgba(13, 20, 32, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(13, 20, 32, 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .dot-texture {
+    background-image: radial-gradient(rgba(13, 20, 32, 0.09) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+}
