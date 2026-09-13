@@ -255,7 +255,7 @@ export default function EnquiryModal() {
                         }`}
                       >
                         <option value="" className="text-stone-400">
-                          -- Select a Practice Area (or leave open) --
+                          -- Select a Practice Area (or leave blank) --
                         </option>
                         {services.map((s) => (
                           <option key={s.slug} value={s.name} className="text-ink font-medium">
