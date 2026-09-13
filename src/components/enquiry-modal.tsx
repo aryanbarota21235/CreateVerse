@@ -283,7 +283,7 @@ export default function EnquiryModal() {
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="e.g. Rahul Sharma"
+                        placeholder="Enter your name"
                         className={inputCls}
                       />
                     </div>
@@ -297,7 +297,7 @@ export default function EnquiryModal() {
                         required
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        placeholder="+91 98765 43210"
+                        placeholder="Enter your mobile number"
                         className={inputCls}
                       />
                     </div>
@@ -313,7 +313,7 @@ export default function EnquiryModal() {
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="name@company.com"
+                        placeholder="Enter your email address"
                         className={inputCls}
                       />
                     </div>
@@ -326,7 +326,7 @@ export default function EnquiryModal() {
                         type="text"
                         value={company}
                         onChange={(e) => setCompany(e.target.value)}
-                        placeholder="Organization or brand name"
+                        placeholder="Enter company or project name"
                         className={inputCls}
                       />
                     </div>
@@ -341,7 +341,7 @@ export default function EnquiryModal() {
                       rows={2}
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      placeholder="Briefly mention your target audience, timeline, or current monthly goals..."
+                      placeholder="Enter project requirements or goals..."
                       className={`${inputCls} resize-none`}
                     />
                   </div>

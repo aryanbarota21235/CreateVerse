@@ -13,9 +13,10 @@ export default function PageHero({
 }) {
   return (
     <section className={`relative overflow-hidden bg-paper pt-[76px] ${className}`}>
-      <div className="dot-texture absolute inset-0" />
-      <div className="absolute -right-40 -top-40 h-[420px] w-[420px] rounded-full bg-brand-sky blur-3xl" />
-      <div className="absolute -left-40 top-40 h-[320px] w-[320px] rounded-full bg-brand-sun blur-3xl" />
+      <div className="dot-texture absolute inset-0 opacity-80" />
+      <div className="pointer-events-none absolute -right-32 -top-20 h-[380px] w-[380px] rounded-full bg-brand-sky/40 blur-3xl" />
+      <div className="pointer-events-none absolute -left-32 -top-10 h-[320px] w-[320px] rounded-full bg-brand-sun/40 blur-3xl" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-paper" />
       <div className="container-site relative pb-6 sm:pb-8 pt-12 sm:pt-16 lg:pt-20">
         <Reveal>
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent">{eyebrow}</p>
