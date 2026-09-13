@@ -1,11 +1,12 @@
-﻿export const site = {
+export const site = {
   name: "CreateVerse",
   tagline: "Growth & Digital Acquisition Partner",
   email: "info@createverse.in",
   phone: "+91 91746-91846",
   phoneRaw: "+919174691846",
   whatsappUrl: "https://wa.me/919174691846?text=Hi%20CreateVerse%2C%20I%20would%20like%20to%20enquire%20about%20your%20services.",
-  location: "India",
+  location: "Mughal Canal, Karnal - 132001, Haryana, India",
+  address: "Mughal Canal, Karnal - 132001, Haryana, India",
   nav: [
     { label: "Services", href: "/services" },
     { label: "Industries", href: "/industries" },

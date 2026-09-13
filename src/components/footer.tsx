@@ -26,7 +26,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-[#090D15] text-white border-t border-white/[0.08]">
-      <div className="container-site py-16 lg:py-20">
+      <div className="container-site pt-10 pb-14 sm:pt-12 sm:pb-16 lg:pt-12 lg:pb-18">
         <div className="grid gap-12 lg:grid-cols-12">
           {/* Column 1: Brand & Logo */}
           <div className="lg:col-span-5 space-y-6">
@@ -129,9 +129,9 @@ export default function Footer() {
                   <span>{site.email}</span>
                 </a>
               </li>
-              <li className="flex items-center gap-2 text-stone-500 text-xs pt-1">
-                <MapPin className="h-4 w-4 shrink-0" />
-                <span>{site.location}</span>
+              <li className="flex items-start gap-2 text-stone-400 text-xs pt-1">
+                <MapPin className="h-4 w-4 text-stone-500 shrink-0 mt-0.5" />
+                <span className="leading-relaxed">{site.location}</span>
               </li>
             </ul>
           </div>

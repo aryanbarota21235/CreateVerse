@@ -4,7 +4,7 @@ import { Check } from "lucide-react";
 
 export default function FinalCTA() {
   return (
-    <section className="relative overflow-hidden bg-ink py-24 lg:py-32">
+    <section className="relative overflow-hidden bg-ink pt-16 pb-8 sm:pt-20 sm:pb-10 lg:pt-24 lg:pb-12">
       <div className="grid-texture absolute inset-0" />
       <div className="absolute -left-32 top-0 h-[380px] w-[380px] rounded-full bg-accent/15 blur-3xl" />
       <div className="absolute -right-32 bottom-0 h-[380px] w-[380px] rounded-full bg-brand-orange/15 blur-3xl" />

@@ -160,6 +160,30 @@ const secondaryPillars = allAcquisitionPillars.slice(4);
 export default function Hero() {
   const { openEnquiry } = useEnquiry();
   const [showAllServices, setShowAllServices] = useState(false);
+  const originalScrollY = React.useRef<number | null>(null);
+  const sectionRef = React.useRef<HTMLDivElement>(null);
+
+  const toggleServices = () => {
+    if (!showAllServices) {
+      originalScrollY.current = window.scrollY;
+      setShowAllServices(true);
+    } else {
+      const targetY =
+        originalScrollY.current !== null
+          ? originalScrollY.current
+          : sectionRef.current
+          ? sectionRef.current.getBoundingClientRect().top + window.scrollY - 90
+          : 0;
+
+      setShowAllServices(false);
+
+      window.scrollTo({ top: targetY, behavior: "smooth" });
+
+      setTimeout(() => {
+        window.scrollTo({ top: targetY, behavior: "smooth" });
+      }, 450);
+    }
+  };
 
   const renderCard = (p: PillarItem) => {
     const Icon = p.icon;
@@ -268,7 +292,7 @@ export default function Hero() {
 
         {/* Specialized Acquisition Practice Areas */}
         <Reveal delay={0.4}>
-          <div className="mt-8 sm:mt-10">
+          <div ref={sectionRef} className="mt-8 sm:mt-10">
             <div className="mb-6">
               <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-ink/75">
                 Specialized Acquisition Practice Areas
@@ -301,7 +325,7 @@ export default function Hero() {
             <div className="mt-8 sm:mt-10 flex flex-col items-center justify-center">
               <button
                 type="button"
-                onClick={() => setShowAllServices((prev) => !prev)}
+                onClick={toggleServices}
                 className="group inline-flex items-center gap-2 rounded-full border border-black/[0.14] bg-white px-7 py-3 text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-card transition-all duration-300 hover:border-accent hover:text-accent active:scale-[0.99] cursor-pointer"
               >
                 <span>{showAllServices ? "Collapse Services" : "Browse All 13+ Services"}</span>

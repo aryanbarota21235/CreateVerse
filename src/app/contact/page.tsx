@@ -98,8 +98,9 @@ export default function ContactPage() {
                     <MapPin className="h-5 w-5" />
                   </span>
                   <div>
-                    <span className="block text-xs font-bold text-ink/75">Based in</span>
-                    <span className="block text-sm font-semibold text-ink">{site.location} — Operating Pan-India &amp; Global</span>
+                    <span className="block text-xs font-bold text-ink/75">Registered Address</span>
+                    <span className="block text-sm font-semibold text-ink">{site.location}</span>
+                    <span className="block text-xs text-accent font-medium mt-0.5">Operating Pan-India &amp; Global</span>
                   </div>
                 </div>
               </div>
