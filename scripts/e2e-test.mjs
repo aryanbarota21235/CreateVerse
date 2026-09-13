@@ -154,7 +154,7 @@ async function runTests() {
     "/contact",
     "/services",
     "/industries",
-    "/work",
+    "/clients",
     "/admin",
     "/services/real-estate-lead-generation",
     "/services/immigration-lead-generation",

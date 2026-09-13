@@ -60,7 +60,7 @@ export const caseStudies = [
 
 export default function CaseStudies({ className = "" }: { className?: string }) {
   return (
-    <section className={`bg-white ${className || "py-20 lg:py-28"}`}>
+    <section className={`bg-paper ${className || "py-20 lg:py-28"}`}>
       <div className="container-site">
         <SectionHeading
           eyebrow="Case Studies & Impact"
@@ -74,14 +74,14 @@ export default function CaseStudies({ className = "" }: { className?: string }) 
               <Link
                 href={`/services/${c.slug}`}
                 prefetch={true}
-                className="group flex h-full flex-col justify-between rounded-3xl border border-black/[0.12] bg-[#F8FAFC] p-8 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:bg-white hover:shadow-lift sm:p-10"
+                className="group flex h-full flex-col justify-between rounded-3xl border border-black/[0.12] bg-white p-8 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift sm:p-10"
               >
                 <div>
                   <div className="flex items-center justify-between gap-4">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white border border-black/[0.08] px-3.5 py-1 text-xs font-bold text-accent shadow-xs">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-paper border border-black/[0.08] px-3.5 py-1 text-xs font-bold text-accent shadow-xs">
                       {c.category}
                     </span>
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white border border-black/[0.08] text-ink/70 shadow-xs transition-all group-hover:bg-accent group-hover:text-white group-hover:border-accent">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-paper border border-black/[0.08] text-ink/70 shadow-xs transition-all group-hover:bg-accent group-hover:text-white group-hover:border-accent">
                       <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </span>
                   </div>
@@ -95,7 +95,7 @@ export default function CaseStudies({ className = "" }: { className?: string }) 
                 <div className="mt-8 border-t border-stone-200 pt-6">
                   <div className="grid grid-cols-3 gap-2 sm:gap-4">
                     {c.stats.map((s) => (
-                      <div key={s.label} className="rounded-xl border border-black/[0.08] bg-white p-3 shadow-xs">
+                      <div key={s.label} className="rounded-xl border border-black/[0.08] bg-paper p-3 shadow-xs">
                         <p className="font-display text-lg font-bold text-ink sm:text-xl">{s.value}</p>
                         <p className="mt-0.5 text-[11px] font-semibold leading-tight text-ink/75">{s.label}</p>
                       </div>

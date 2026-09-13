@@ -3,7 +3,7 @@ import { services } from "@/lib/services";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://createverse.in";
-  const staticPages = ["", "/services", "/industries", "/work", "/about", "/contact"].map((p) => ({
+  const staticPages = ["", "/services", "/industries", "/clients", "/about", "/contact"].map((p) => ({
     url: `${base}${p}`,
     lastModified: new Date(),
   }));

@@ -10,7 +10,7 @@ export const site = {
   nav: [
     { label: "Services", href: "/services" },
     { label: "Industries", href: "/industries" },
-    { label: "Clients", href: "/work" },
+    { label: "Clients", href: "/clients" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
   ],
