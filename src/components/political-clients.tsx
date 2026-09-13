@@ -7,46 +7,39 @@ import { useEnquiry } from "@/context/enquiry-context";
 
 interface Politician {
   name: string;
-  party: "BJP" | "INC";
-  designation: string;
+  role: string;
   image: string;
 }
 
 const politicians: Politician[] = [
   {
     name: "Umesh Sharma",
-    party: "BJP",
-    designation: "BJP",
+    role: "Senior Leader · BJP",
     image: "/politicians/umesh-sharma.png",
   },
   {
     name: "Bhupinder Lather",
-    party: "INC",
-    designation: "INC",
+    role: "Senior Leader · INC",
     image: "/politicians/bhupinder-lather.png",
   },
   {
     name: "Kawal Singh Dhillon",
-    party: "BJP",
-    designation: "BJP",
+    role: "Senior Leader · BJP",
     image: "/politicians/kawal-singh-dhillon.png",
   },
   {
     name: "Rajiv Mamuram Gondar",
-    party: "INC",
-    designation: "INC",
+    role: "Senior Leader · INC",
     image: "/politicians/rajiv-mamuram-gondar.png",
   },
   {
     name: "Randeep Singh Surjewala",
-    party: "INC",
-    designation: "MP Rajya Sabha",
+    role: "MP Rajya Sabha · INC",
     image: "/politicians/randeep-singh-surjewala.png",
   },
   {
     name: "Shamsher Singh Gogi",
-    party: "INC",
-    designation: "Ex MLA Assandh",
+    role: "Ex MLA Assandh · INC",
     image: "/politicians/shamsher-singh-gogi.png",
   },
 ];
@@ -101,49 +94,29 @@ export default function PoliticalClients() {
           {politicians.map((p) => (
             <StaggerItem key={p.name} className="h-full">
               <div className="group h-full flex flex-col items-center justify-between text-center p-4 sm:p-5 rounded-3xl border border-stone-200/90 bg-[#F8FAFC] transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:bg-white hover:shadow-card">
-                {/* Circular Portrait with Luxury Border */}
-                <div className="relative mb-3.5 shrink-0">
-                  <div className="relative h-24 w-24 sm:h-28 sm:w-28 overflow-hidden rounded-full ring-2 ring-accent/30 transition-all duration-300 group-hover:ring-accent group-hover:scale-105 group-hover:shadow-md bg-white">
-                    <Image
-                      src={p.image}
-                      alt={p.name}
-                      width={112}
-                      height={112}
-                      className="h-full w-full object-cover"
-                    />
+                {/* Circular Portrait with Concentric Clean Ring */}
+                <div className="relative mb-4 shrink-0">
+                  <div className="relative h-24 w-24 sm:h-28 sm:w-28 rounded-full p-[3px] border-[1.5px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
+                    <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
+                      <Image
+                        src={p.image}
+                        alt={p.name}
+                        width={112}
+                        height={112}
+                        className="h-full w-full object-cover scale-[1.14] transition-transform duration-300 group-hover:scale-[1.18]"
+                      />
+                    </div>
                   </div>
                 </div>
 
-                {/* Bottom Content Container with Fixed Alignment Slots */}
-                <div className="flex flex-col items-center w-full grow justify-end">
-                  {/* Party Emblem / Tag - Fixed Height */}
-                  <div className="h-6 flex items-center justify-center mb-2 shrink-0">
-                    {p.party === "BJP" ? (
-                      <span className="inline-flex items-center gap-1 rounded-full border border-amber-500/40 bg-amber-50 px-2.5 py-0.5 text-[10px] font-bold text-amber-900 shadow-xs">
-                        <span className="h-1.5 w-1.5 rounded-full bg-[#FF9933]" />
-                        BJP
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/40 bg-emerald-50 px-2.5 py-0.5 text-[10px] font-bold text-emerald-900 shadow-xs">
-                        <span className="h-1.5 w-1.5 rounded-full bg-[#138808]" />
-                        INC
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Name with fixed height container for 1-line and 2-line names */}
-                  <div className="h-10 flex items-center justify-center w-full px-1">
-                    <h4 className="font-display text-xs sm:text-sm font-bold text-ink leading-tight transition-colors group-hover:text-accent line-clamp-2">
-                      {p.name}
-                    </h4>
-                  </div>
-
-                  {/* Designation / Role with fixed height container */}
-                  <div className="h-5 flex items-center justify-center w-full mt-0.5">
-                    <p className="text-[11px] font-medium text-ink/75 truncate max-w-full">
-                      {p.designation}
-                    </p>
-                  </div>
+                {/* Bottom Content: Name & Real Role (No AI badge, no duplicate party text) */}
+                <div className="flex flex-col items-center w-full grow justify-center text-center">
+                  <h4 className="font-display text-xs sm:text-sm font-bold text-ink leading-snug transition-colors group-hover:text-accent">
+                    {p.name}
+                  </h4>
+                  <p className="mt-1.5 text-[11px] font-semibold text-ink/75">
+                    {p.role}
+                  </p>
                 </div>
               </div>
             </StaggerItem>
