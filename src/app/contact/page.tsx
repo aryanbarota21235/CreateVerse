@@ -142,7 +142,7 @@ export default function ContactPage() {
 
                 {/* Registered Office (Clickable to Google Maps) */}
                 <a
-                  href="https://maps.google.com/?q=Mughal+Canal+Karnal+Haryana+India"
+                  href={site.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex items-center justify-between rounded-2xl border border-stone-200 bg-white p-5 shadow-card transition-all hover:-translate-y-0.5 hover:border-brand-orange hover:shadow-lift"

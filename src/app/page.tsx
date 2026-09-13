@@ -17,7 +17,7 @@ export default function HomePage() {
       <StatsStrip />
       <PoliticalClients />
       <ProcessSection />
-      <CaseStudies />
+      <CaseStudies showHeading={true} />
       <WhyCreateVerse />
       <FinalCTA />
     </>

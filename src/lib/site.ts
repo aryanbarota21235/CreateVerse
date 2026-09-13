@@ -7,6 +7,7 @@ export const site = {
   whatsappUrl: "https://wa.me/919174691846?text=Hi%20CreateVerse%2C%20I%20would%20like%20to%20enquire%20about%20your%20services.",
   location: "Mughal Canal, Karnal - 132001, Haryana, India",
   address: "Mughal Canal, Karnal - 132001, Haryana, India",
+  mapsUrl: "https://maps.app.goo.gl/ndmYW4eHavoMFWHw5",
   nav: [
     { label: "Services", href: "/services" },
     { label: "Industries", href: "/industries" },

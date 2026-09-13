@@ -129,9 +129,16 @@ export default function Footer() {
                   <span>{site.email}</span>
                 </a>
               </li>
-              <li className="flex items-start gap-2 text-stone-400 text-xs pt-1">
-                <MapPin className="h-4 w-4 text-stone-500 shrink-0 mt-0.5" />
-                <span className="leading-relaxed">{site.location}</span>
+              <li className="pt-1">
+                <a
+                  href={site.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-2 text-stone-400 text-xs hover:text-white transition-colors group"
+                >
+                  <MapPin className="h-4 w-4 text-stone-500 shrink-0 mt-0.5 group-hover:text-accent" />
+                  <span className="leading-relaxed">{site.location}</span>
+                </a>
               </li>
             </ul>
           </div>

@@ -58,17 +58,25 @@ export const caseStudies = [
   },
 ];
 
-export default function CaseStudies({ className = "" }: { className?: string }) {
+export default function CaseStudies({
+  className = "",
+  showHeading = false,
+}: {
+  className?: string;
+  showHeading?: boolean;
+}) {
   return (
     <section className={`bg-paper ${className || "py-20 lg:py-28"}`}>
       <div className="container-site">
-        <SectionHeading
-          eyebrow="Case Studies & Impact"
-          title="Proven architectures. Measurable outcomes."
-          description="We evaluate every partnership by one standard: revenue delivered vs. capital deployed. Here is how our growth systems perform in the field."
-        />
+        {showHeading && (
+          <SectionHeading
+            eyebrow="Case Studies"
+            title="Results engineered across core sectors."
+            description="Acquisition systems, verified inquiries, and strategic campaigns executed with precision."
+          />
+        )}
 
-        <Stagger className="mt-16 grid gap-6 md:grid-cols-2" delayChildren={0.1}>
+        <Stagger className={`${showHeading ? "mt-16" : "mt-2 sm:mt-4"} grid gap-6 md:grid-cols-2`} delayChildren={0.1}>
           {caseStudies.map((c, i) => (
             <StaggerItem key={c.category}>
               <Link
