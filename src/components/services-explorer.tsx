@@ -152,7 +152,7 @@ export default function ServicesExplorer() {
                             onClick={(e) => {
                               e.preventDefault();
                               e.stopPropagation();
-                              openEnquiry(item.name);
+                              openEnquiry(item.slug || item.name);
                             }}
                             className="relative z-10 text-[11px] font-bold uppercase tracking-wider text-ink/70 hover:text-accent transition-colors"
                           >

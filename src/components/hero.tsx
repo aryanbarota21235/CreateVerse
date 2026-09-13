@@ -248,7 +248,8 @@ export default function Hero() {
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              openEnquiry(p.title);
+              const serviceSlug = p.href.replace("/services/", "");
+              openEnquiry(serviceSlug || p.title);
             }}
             className="w-full py-1 text-center text-xs font-bold uppercase tracking-[0.2em] text-[#334155] hover:text-accent transition-colors cursor-pointer"
           >

@@ -9,25 +9,168 @@ import { services } from "@/lib/services";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { saveEnquiry } from "@/lib/admin-store";
 
+const SERVICE_ALIAS_MAP: Record<string, string> = {
+  // Real Estate
+  "real estate acquisition": "Real Estate Lead Generation",
+  "real estate lead generation": "Real Estate Lead Generation",
+  "real-estate-lead-generation": "Real Estate Lead Generation",
+  "real estate leads": "Real Estate Lead Generation",
+  "real estate": "Real Estate Lead Generation",
+  "real-estate": "Real Estate Lead Generation",
+  "property": "Real Estate Lead Generation",
+
+  // Immigration & Visa
+  "immigration & visa funnels": "Immigration Lead Generation",
+  "immigration & visa marketing": "Immigration Lead Generation",
+  "immigration lead generation": "Immigration Lead Generation",
+  "immigration-lead-generation": "Immigration Lead Generation",
+  "immigration leads": "Immigration Lead Generation",
+  "immigration": "Immigration Lead Generation",
+  "visa": "Immigration Lead Generation",
+  "study visa": "Immigration Lead Generation",
+
+  // Political Management
+  "political management": "Political Campaign & Management",
+  "political campaign management": "Political Campaign & Management",
+  "political campaign & management": "Political Campaign & Management",
+  "political-management": "Political Campaign & Management",
+  "political": "Political Campaign & Management",
+  "war room operations": "Political Campaign & Management",
+  "election": "Political Campaign & Management",
+
+  // Performance Marketing
+  "performance marketing": "Performance Marketing",
+  "performance-marketing": "Performance Marketing",
+  "performance": "Performance Marketing",
+
+  // Google Ads
+  "google ads management": "Google Ads",
+  "google ads": "Google Ads",
+  "google-ads": "Google Ads",
+  "google": "Google Ads",
+
+  // Social Media Paid Ads / Paid Social
+  "social media paid ads": "Social Media Paid Ads",
+  "social-media-paid-ads": "Social Media Paid Ads",
+  "paid social advertising": "Social Media Paid Ads",
+  "paid-social": "Social Media Paid Ads",
+  "paid social": "Social Media Paid Ads",
+  "meta ads": "Social Media Paid Ads",
+  "facebook ads": "Social Media Paid Ads",
+
+  // Web Development
+  "web development": "Web Development",
+  "web-development": "Web Development",
+  "conversion web development": "Web Development",
+  "website": "Web Development",
+  "web": "Web Development",
+
+  // Lead Generation
+  "lead generation systems": "Lead Generation",
+  "lead generation": "Lead Generation",
+  "lead-generation": "Lead Generation",
+  "b2b & commercial lead gen": "Lead Generation",
+  "lead gen": "Lead Generation",
+
+  // Creative & Brand Design
+  "creative & brand design": "Creative Services & Brand Design",
+  "creative services & brand design": "Creative Services & Brand Design",
+  "creative-services": "Creative Services & Brand Design",
+  "creative services": "Creative Services & Brand Design",
+  "creative": "Creative Services & Brand Design",
+  "brand design": "Creative Services & Brand Design",
+  "graphic design": "Graphic Design",
+  "graphic-design": "Graphic Design",
+
+  // Social Media Management
+  "social media management": "Social Media Management",
+  "social-media-management": "Social Media Management",
+  "social media & content ops": "Social Media Management",
+  "smm": "Social Media Management",
+  "social media marketing": "Social Media Marketing",
+  "social-media-marketing": "Social Media Marketing",
+
+  // Social Media Optimization
+  "social media optimization": "Social Media Optimization",
+  "social-media-optimization": "Social Media Optimization",
+  "smo": "Social Media Optimization",
+
+  // Content Marketing & SEO
+  "content marketing & seo": "Content Marketing",
+  "content marketing": "Content Marketing",
+  "content-marketing": "Content Marketing",
+  "seo": "Content Marketing",
+
+  // Influencer Marketing
+  "influencer marketing": "Influencer Marketing",
+  "influencer-marketing": "Influencer Marketing",
+  "influencer": "Influencer Marketing",
+
+  // Native Advertising
+  "native advertising": "Native Advertising",
+  "native-advertising": "Native Advertising",
+};
+
+function normalizeText(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[&/\\#,+()$~%.'":*?<>{}_-]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function matchService(inputName?: string): string {
   if (!inputName || !inputName.trim()) return "";
-  const cleanInput = inputName.trim().toLowerCase();
+  const rawInput = inputName.trim();
+  const cleanInput = rawInput.toLowerCase();
+  const normInput = normalizeText(rawInput);
 
+  // 1. Exact Name match
   const exact = services.find((s) => s.name.toLowerCase() === cleanInput);
   if (exact) return exact.name;
 
+  // 2. Slug match
   const bySlug = services.find((s) => s.slug.toLowerCase() === cleanInput);
   if (bySlug) return bySlug.name;
 
+  // 3. ShortName match
   const byShort = services.find((s) => s.shortName?.toLowerCase() === cleanInput);
   if (byShort) return byShort.name;
 
-  const partial = services.find(
-    (s) =>
-      s.name.toLowerCase().includes(cleanInput) ||
-      cleanInput.includes(s.name.toLowerCase()) ||
-      (s.shortName && cleanInput.includes(s.shortName.toLowerCase()))
-  );
+  // 4. Direct dictionary lookup
+  if (SERVICE_ALIAS_MAP[cleanInput]) {
+    const mapped = services.find((s) => s.name === SERVICE_ALIAS_MAP[cleanInput]);
+    if (mapped) return mapped.name;
+    return SERVICE_ALIAS_MAP[cleanInput];
+  }
+
+  // 5. Normalized string dictionary lookup
+  for (const [key, val] of Object.entries(SERVICE_ALIAS_MAP)) {
+    if (normalizeText(key) === normInput) {
+      const mapped = services.find((s) => s.name === val);
+      if (mapped) return mapped.name;
+      return val;
+    }
+  }
+
+  // 6. Normalized name or short name match
+  const byNorm = services.find((s) => {
+    const sNorm = normalizeText(s.name);
+    const shortNorm = s.shortName ? normalizeText(s.shortName) : "";
+    return sNorm === normInput || (shortNorm && shortNorm === normInput);
+  });
+  if (byNorm) return byNorm.name;
+
+  // 7. Partial contains match
+  const partial = services.find((s) => {
+    const sNorm = normalizeText(s.name);
+    const shortNorm = s.shortName ? normalizeText(s.shortName) : "";
+    return (
+      sNorm.includes(normInput) ||
+      normInput.includes(sNorm) ||
+      (shortNorm && (shortNorm.includes(normInput) || normInput.includes(shortNorm)))
+    );
+  });
   if (partial) return partial.name;
 
   return "";

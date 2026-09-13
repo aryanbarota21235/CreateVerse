@@ -71,7 +71,7 @@ export default function PoliticalClients() {
 
             <div className="lg:pt-14 shrink-0">
               <button
-                onClick={() => openEnquiry("Political Campaign Management")}
+                onClick={() => openEnquiry("political-management")}
                 className="group inline-flex items-center gap-2.5 rounded-2xl bg-accent px-8 py-4 text-sm font-bold text-white shadow-md transition-all hover:bg-accent-dim hover:shadow-lg hover:shadow-accent/20"
               >
                 <MessageSquare className="h-4 w-4" />

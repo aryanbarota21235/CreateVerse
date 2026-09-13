@@ -141,7 +141,7 @@ export default function ServicesGrid({ showHeading = true }: { showHeading?: boo
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          openEnquiry(s.name);
+                          openEnquiry(s.slug || s.name);
                         }}
                         className="relative z-10 text-[11px] font-bold uppercase tracking-wider text-ink/60 transition-colors hover:text-accent"
                       >
