@@ -128,6 +128,7 @@ export default function ServicesGrid({ showHeading = true }: { showHeading?: boo
               <StaggerItem key={s.slug}>
                 <Link
                   href={`/services/${s.slug}`}
+                  prefetch={true}
                   className="group relative flex h-full flex-col justify-between rounded-3xl border border-stone-200/90 bg-white p-7 sm:p-8 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:border-accent hover:shadow-lift cursor-pointer block"
                 >
                   <div>

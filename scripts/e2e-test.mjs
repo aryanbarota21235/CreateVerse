@@ -7,7 +7,7 @@ async function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function waitForServer(retries = 30) {
+async function waitForServer(retries = 60) {
   for (let i = 0; i < retries; i++) {
     try {
       const res = await fetch(`${BASE_URL}/api/health`);
@@ -22,16 +22,19 @@ async function waitForServer(retries = 30) {
 
 async function runTests() {
   console.log(`Starting CreateVerse production server on port ${PORT}...`);
-  const server = spawn("npx", ["next", "start", "-p", String(PORT)], {
+  const server = spawn("node", ["./node_modules/next/dist/bin/next", "start", "-p", String(PORT)], {
     shell: true,
     stdio: "pipe",
   });
 
   server.stdout.on("data", (d) => {
-    // console.log("[server stdout]", d.toString());
+    const s = d.toString();
+    if (s.includes("Ready in") || s.includes("started server")) {
+      console.log("[server ready]:", s.trim());
+    }
   });
   server.stderr.on("data", (d) => {
-    // console.error("[server stderr]", d.toString());
+    console.error("[server stderr]:", d.toString().trim());
   });
 
   const isReady = await waitForServer();

@@ -1,139 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, CheckCircle2, ArrowRight, ShieldCheck, ChevronDown, Check } from "lucide-react";
+import { X, CheckCircle2, ArrowRight, ShieldCheck, ChevronDown } from "lucide-react";
 import { useEnquiry } from "@/context/enquiry-context";
 import { site } from "@/lib/site";
 import { services } from "@/lib/services";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { saveEnquiry } from "@/lib/admin-store";
-
-// Quick-select sector chips for instant 1-click selection
-const QUICK_SECTORS = [
-  { label: "Real Estate", service: "Real Estate Lead Generation" },
-  { label: "Immigration & Visa", service: "Immigration Lead Generation" },
-  { label: "Political Campaign", service: "Political Campaign & Management" },
-  { label: "Google & Paid Ads", service: "Google Ads Management" },
-  { label: "Web Development", service: "Web Development" },
-  { label: "General Growth", service: "Lead Generation" },
-];
-
-// Fallback high-level objectives when no practice area is selected yet
-const DEFAULT_GROWTH_OBJECTIVES = [
-  "Qualified Lead Generation",
-  "High-Intent Customer Acquisition",
-  "Paid Ads & ROAS Optimization",
-  "Conversion Funnel & CRO",
-  "24/7 Campaign Operations",
-  "Full Growth Architecture",
-];
-
-// Service-specific focus options tailored to each practice area
-const SERVICE_FOCUS_OPTIONS: Record<string, string[]> = {
-  "Real Estate Lead Generation": [
-    "Verified Site Visits",
-    "Pre-Launch Inventory",
-    "HNI Buyer Targeting",
-    "Cost per Booking Optimization",
-  ],
-  "Immigration Lead Generation": [
-    "Study Visa Intake",
-    "PR & Work Permit",
-    "Applicant Pre-Screening",
-    "High-Show Consultation Funnel",
-  ],
-  "Political Campaign & Management": [
-    "24/7 Digital War Room",
-    "Constituency Mobilization",
-    "WhatsApp Voter Outreach",
-    "Crisis & Opposition Desk",
-  ],
-  "Google Ads Management": [
-    "High-Intent Search Leads",
-    "Performance Max & YouTube",
-    "Landing Page CRO",
-    "CPL Reduction & Scale",
-  ],
-  "Social Media Paid Ads": [
-    "Meta Performance Funnel",
-    "High-Converting Video Creatives",
-    "Retargeting Setup",
-    "Omnichannel ROAS",
-  ],
-  "Web Development": [
-    "High-Speed Acquisition Portal",
-    "WhatsApp CRM Sync",
-    "Conversion Rate Overhaul",
-    "Custom Lead Architecture",
-  ],
-  "Lead Generation": [
-    "B2B & High-Ticket Leads",
-    "Automated Qualification",
-    "Multi-Channel Inbound",
-    "Pipeline Acceleration",
-  ],
-  "Social Media Marketing": [
-    "Organic Audience Growth",
-    "Short-Form Video Strategy",
-    "Brand Community Building",
-    "Executive Thought Leadership",
-  ],
-  "Social Media Optimization": [
-    "Profile & Bio Conversion",
-    "Engagement Optimization",
-    "Content Distribution Loop",
-    "Brand Cohesion",
-  ],
-  "Content Marketing": [
-    "Editorial & Case Studies",
-    "High-Intent SEO Content",
-    "Video Scripts & Production",
-    "Educational Lead Magnets",
-  ],
-  "Influencer Marketing": [
-    "Creator Outreach & Vetting",
-    "Performance Sponsorships",
-    "Authentic Endorsements",
-    "Multi-Platform Distribution",
-  ],
-  "Native Advertising": [
-    "Taboola & Outbrain Funnels",
-    "Advertorial Copywriting",
-    "High-Trust Content Reads",
-    "Direct Response Arbitrage",
-  ],
-  "Graphic Design": [
-    "Premium Brand Identity",
-    "High-ROAS Ad Creatives",
-    "Pitch Decks & Collaterals",
-    "Packaging & UI Assets",
-  ],
-  "Creative Services & Brand Design": [
-    "Brand Identity & Guidelines",
-    "Performance Ad Creatives",
-    "Pitch Decks & Collaterals",
-    "Reels & Motion Design",
-  ],
-  "Social Media Management": [
-    "Daily Content Publishing",
-    "Short-Form Reels & Videos",
-    "Community Growth & DMs",
-    "Executive Personal Branding",
-  ],
-  "Performance Marketing": [
-    "Full-Funnel Paid Acquisition",
-    "Landing Page CRO",
-    "Blended ROAS Scaling",
-    "Server-Side Tracking & CAPI",
-  ],
-  "Paid Social Advertising": [
-    "Meta Performance Funnel",
-    "LinkedIn B2B Ads",
-    "Creative Fatigue Defense",
-    "Custom Audience Scale",
-  ],
-};
 
 function matchService(inputName?: string): string {
   if (!inputName || !inputName.trim()) return "";
@@ -166,7 +40,6 @@ export default function EnquiryModal() {
   const { isOpen, closeEnquiry, selectedService } = useEnquiry();
 
   const [service, setService] = useState("");
-  const [selectedFocus, setSelectedFocus] = useState<string[]>([]);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -186,7 +59,6 @@ export default function EnquiryModal() {
       } else {
         setService("");
       }
-      setSelectedFocus([]);
     }
   }, [selectedService, isOpen]);
 
@@ -207,24 +79,9 @@ export default function EnquiryModal() {
     };
   }, [isOpen, closeEnquiry]);
 
-  // Dynamic focus options: tailored to chosen service, or cross-cutting when unselected
-  const currentFocusOptions = useMemo(() => {
-    if (service && SERVICE_FOCUS_OPTIONS[service]) {
-      return SERVICE_FOCUS_OPTIONS[service];
-    }
-    return DEFAULT_GROWTH_OBJECTIVES;
-  }, [service]);
-
-  const toggleFocus = (opt: string) => {
-    setSelectedFocus((prev) =>
-      prev.includes(opt) ? prev.filter((o) => o !== opt) : [...prev, opt]
-    );
-  };
-
   const handleReset = () => {
     setSubmitted(false);
     setService("");
-    setSelectedFocus([]);
     setName("");
     setPhone("");
     setEmail("");
@@ -239,13 +96,6 @@ export default function EnquiryModal() {
 
     setSubmitting(true);
     try {
-      const fullMessage = [
-        selectedFocus.length > 0 ? `Target Focus: ${selectedFocus.join(", ")}` : "",
-        message.trim(),
-      ]
-        .filter(Boolean)
-        .join(" | ");
-
       const resolvedService = service || "General Growth Consultation";
 
       saveEnquiry({
@@ -257,7 +107,7 @@ export default function EnquiryModal() {
         budget: "Flexible / Not Specified",
         source: typeof window !== "undefined" ? `${window.location.pathname} (Modal Intake)` : "Modal Intake",
         channel: "Direct Traffic",
-        message: fullMessage,
+        message: message.trim(),
       });
     } catch (err) {
       console.error("Failed to save enquiry", err);
@@ -288,7 +138,7 @@ export default function EnquiryModal() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 16 }}
             transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full max-w-2xl overflow-hidden rounded-3xl sm:rounded-[32px] border border-stone-200/90 bg-white shadow-[0_30px_70px_rgba(15,23,42,0.28)] z-10 my-auto"
+            className="relative w-full max-w-xl overflow-hidden rounded-3xl border border-stone-200/90 bg-white shadow-[0_30px_70px_rgba(15,23,42,0.28)] z-10 my-auto"
           >
             {/* Executive Close Button */}
             <button
@@ -309,7 +159,7 @@ export default function EnquiryModal() {
                   Mandate Received
                 </h3>
                 <p className="mx-auto mt-2 max-w-md text-sm text-stone-600 font-normal sm:text-base leading-relaxed">
-                  Thank you, <span className="font-semibold text-ink">{name}</span>. Our senior practice lead for{" "}
+                  Thank you, <span className="font-semibold text-ink">{name}</span>. Our practice lead for{" "}
                   <span className="font-semibold text-accent">{service || "Growth Architecture"}</span> will review your scope and connect directly within 2 hours.
                 </p>
 
@@ -323,8 +173,8 @@ export default function EnquiryModal() {
                 </div>
               </div>
             ) : (
-              /* High-End, Bespoke Intake Form */
-              <div className="p-6 sm:p-8 md:p-9 max-h-[88vh] overflow-y-auto">
+              /* High-End, Decluttered Intake Form */
+              <div className="p-6 sm:p-8 md:p-9 max-h-[90vh] overflow-y-auto">
                 {/* Header */}
                 <div className="pr-8">
                   <div className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/[0.06] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-accent">
@@ -332,7 +182,7 @@ export default function EnquiryModal() {
                     <span>Direct Practice Consultation</span>
                   </div>
 
-                  <h3 className="mt-3 font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+                  <h3 className="mt-2.5 font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
                     {service ? (
                       <>
                         Consultation: <span className="text-accent">{service}</span>
@@ -344,62 +194,60 @@ export default function EnquiryModal() {
                     )}
                   </h3>
 
-                  <p className="mt-1.5 text-xs text-stone-600 sm:text-sm font-normal">
-                    Direct access to our senior leadership team. Leave your details below and we will review your mandate within 2 hours.
+                  <p className="mt-1 text-xs text-stone-600 sm:text-sm font-normal">
+                    Direct consultation with our senior strategy team. Leave your details below or connect immediately via WhatsApp.
                   </p>
                 </div>
 
-                {/* Form Body */}
-                <form onSubmit={handleSubmit} className="mt-5 space-y-4">
-                  {/* Practice Area Selection */}
+                {/* Top WhatsApp Quick Connect Bar */}
+                <a
+                  href={site.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group mt-4 flex items-center justify-between rounded-2xl border border-stone-200 bg-[#F8FAFC] p-3.5 sm:px-4 sm:py-3 transition-all hover:border-[#25D366]/50 hover:bg-[#25D366]/5"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#25D366] text-white shadow-xs">
+                      <WhatsAppIcon className="h-5 w-5 text-white" />
+                    </span>
+                    <div className="text-left">
+                      <p className="text-xs font-bold text-ink group-hover:text-emerald-700 transition-colors">
+                        Want to talk on WhatsApp?
+                      </p>
+                      <p className="text-[11px] font-medium text-stone-500">
+                        Instant chat with our senior directors ({site.phone})
+                      </p>
+                    </div>
+                  </div>
+                  <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 group-hover:translate-x-0.5 transition-transform shrink-0">
+                    <span>Chat now</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </span>
+                </a>
+
+                {/* Subtle Divider */}
+                <div className="relative my-4">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-stone-200/80" />
+                  </div>
+                  <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-white px-3 text-[10px] font-bold tracking-wider text-stone-400">
+                      or submit consultation inquiry
+                    </span>
+                  </div>
+                </div>
+
+                {/* Clean, Streamlined Form Body */}
+                <form onSubmit={handleSubmit} className="space-y-3.5">
+                  {/* Single Clean Practice Area Dropdown */}
                   <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <label className="text-xs font-bold uppercase tracking-wider text-stone-700">
-                        Practice Area
-                      </label>
-                      <span className="text-[11px] font-medium text-stone-500">
-                        {service ? "Practice selected" : "Choose your sector (or leave open)"}
-                      </span>
-                    </div>
-
-                    {/* Quick 1-Click Sector Chips */}
-                    <div className="flex flex-wrap gap-1.5 mb-2.5">
-                      {QUICK_SECTORS.map((sec) => {
-                        const isActive = service === sec.service;
-                        return (
-                          <button
-                            type="button"
-                            key={sec.label}
-                            onClick={() => {
-                              if (isActive) {
-                                setService("");
-                                setSelectedFocus([]);
-                              } else {
-                                setService(sec.service);
-                                setSelectedFocus([]);
-                              }
-                            }}
-                            className={`inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-medium transition-all ${
-                              isActive
-                                ? "bg-accent text-white font-semibold shadow-xs"
-                                : "bg-stone-100 text-stone-700 hover:bg-stone-200/80 border border-stone-200/70"
-                            }`}
-                          >
-                            {isActive && <Check className="h-3 w-3" />}
-                            <span>{sec.label}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
-
-                    {/* Full Select Dropdown */}
+                    <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">
+                      Practice Area
+                    </label>
                     <div className="relative">
                       <select
                         value={service}
-                        onChange={(e) => {
-                          setService(e.target.value);
-                          setSelectedFocus([]);
-                        }}
+                        onChange={(e) => setService(e.target.value)}
                         className={`w-full appearance-none rounded-xl border px-3.5 py-2.5 text-xs sm:text-sm font-medium transition-all focus:border-accent focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/15 ${
                           service
                             ? "border-stone-300 bg-white text-ink font-semibold"
@@ -407,7 +255,7 @@ export default function EnquiryModal() {
                         }`}
                       >
                         <option value="" className="text-stone-400">
-                          -- Select a Practice Area (or choose a chip above) --
+                          -- Select a Practice Area (or leave open) --
                         </option>
                         {services.map((s) => (
                           <option key={s.slug} value={s.name} className="text-ink font-medium">
@@ -415,7 +263,7 @@ export default function EnquiryModal() {
                           </option>
                         ))}
                         <option value="General Consultation" className="text-ink font-medium">
-                          Other / Comprehensive Growth Strategy
+                          Other / Multi-disciplinary Growth Strategy
                         </option>
                       </select>
                       <div className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400">
@@ -424,45 +272,7 @@ export default function EnquiryModal() {
                     </div>
                   </div>
 
-                  {/* Dynamic Focus Area Pills */}
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <label className="text-xs font-bold uppercase tracking-wider text-stone-700">
-                        Primary Objectives <span className="font-normal text-stone-500 lowercase">(optional)</span>
-                      </label>
-                      <span className="text-[11px] text-stone-500 font-medium">
-                        Select any that apply
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {currentFocusOptions.map((opt) => {
-                        const isSelected = selectedFocus.includes(opt);
-                        return (
-                          <button
-                            type="button"
-                            key={opt}
-                            onClick={() => toggleFocus(opt)}
-                            className={`inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-medium transition-all ${
-                              isSelected
-                                ? "bg-ink text-white font-semibold shadow-xs"
-                                : "bg-stone-100/90 text-stone-700 hover:bg-stone-200 border border-stone-200/60"
-                            }`}
-                          >
-                            {isSelected ? (
-                              <>
-                                <Check className="h-3 w-3" />
-                                <span>{opt}</span>
-                              </>
-                            ) : (
-                              <span>+ {opt}</span>
-                            )}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Row 1: Name and WhatsApp (Required) */}
+                  {/* Row 1: Name and Phone (Required) */}
                   <div className="grid gap-3 sm:grid-cols-2">
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">
@@ -480,7 +290,7 @@ export default function EnquiryModal() {
 
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">
-                        WhatsApp / Phone *
+                        Phone / WhatsApp *
                       </label>
                       <input
                         type="tel"
@@ -522,7 +332,7 @@ export default function EnquiryModal() {
                     </div>
                   </div>
 
-                  {/* Row 3: Specific Goals / Overview (Optional) */}
+                  {/* Row 3: Message / Goals (Optional) */}
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">
                       Project Overview &amp; Goals <span className="font-normal text-stone-500 lowercase">(optional)</span>
@@ -537,32 +347,20 @@ export default function EnquiryModal() {
                   </div>
 
                   {/* Submit Action */}
-                  <div className="pt-2">
+                  <div className="pt-1.5">
                     <button
                       type="submit"
                       disabled={submitting}
                       className="group flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-bold text-white shadow-[0_10px_25px_rgba(0,102,255,0.25)] transition-all hover:bg-accent-dim hover:shadow-[0_12px_28px_rgba(0,102,255,0.35)] active:scale-[0.99] disabled:opacity-60"
                     >
-                      <span>{submitting ? "Submitting Mandate..." : "Request Growth Consultation"}</span>
+                      <span>{submitting ? "Submitting Inquiry..." : "Submit Growth Inquiry"}</span>
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </button>
 
-                    {/* Bottom Security & Discreet WhatsApp Row */}
-                    <div className="mt-3.5 flex flex-col items-center justify-between gap-2 text-[11px] text-stone-500 sm:flex-row">
-                      <div className="flex items-center gap-1.5 font-medium">
-                        <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
-                        <span>Direct reply within 2 hours. Strictly confidential.</span>
-                      </div>
-
-                      <a
-                        href={site.whatsappUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 font-semibold text-stone-700 hover:text-accent transition-colors"
-                      >
-                        <WhatsAppIcon className="h-3.5 w-3.5 text-emerald-600" />
-                        <span>Prefer WhatsApp? Chat now</span>
-                      </a>
+                    {/* Confidentiality Notice */}
+                    <div className="mt-3 flex items-center justify-center gap-1.5 text-[11px] font-medium text-stone-500">
+                      <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+                      <span>Direct response within 2 hours. Strictly confidential &amp; NDA protected.</span>
                     </div>
                   </div>
                 </form>

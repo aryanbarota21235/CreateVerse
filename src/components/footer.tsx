@@ -30,7 +30,7 @@ export default function Footer() {
         <div className="grid gap-12 lg:grid-cols-12">
           {/* Column 1: Brand & Logo */}
           <div className="lg:col-span-5 space-y-6">
-            <Link href="/" className="inline-block transition-opacity hover:opacity-90" aria-label="CreateVerse home">
+            <Link href="/" prefetch={true} className="inline-block transition-opacity hover:opacity-90" aria-label="CreateVerse home">
               <Image
                 src="/logo.png"
                 alt="CreateVerse"
@@ -66,6 +66,7 @@ export default function Footer() {
                 <li key={s.slug}>
                   <Link
                     href={`/services/${s.slug}`}
+                    prefetch={true}
                     className="text-sm text-stone-400 transition-colors hover:text-white"
                   >
                     {s.name}
@@ -75,6 +76,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/services"
+                  prefetch={true}
                   className="text-sm font-semibold text-white/90 hover:text-accent transition-colors"
                 >
                   All Practice Areas
@@ -93,6 +95,7 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
+                    prefetch={true}
                     className="text-sm text-stone-400 transition-colors hover:text-white"
                   >
                     {item.label}

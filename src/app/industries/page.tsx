@@ -35,6 +35,7 @@ export default function IndustriesPage() {
                   <p className="mt-4 text-lg font-bold leading-snug text-ink">{ind.headline}</p>
                   <Link
                     href={ind.cta.href}
+                    prefetch={true}
                     className="group mt-7 inline-flex items-center gap-2 text-sm font-bold text-accent transition-colors hover:text-accent-dim"
                   >
                     {ind.cta.label}

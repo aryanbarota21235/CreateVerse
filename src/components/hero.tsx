@@ -115,6 +115,7 @@ export default function Hero() {
                   <Link
                     key={p.num}
                     href={p.href}
+                    prefetch={true}
                     className="group relative flex flex-col justify-between rounded-3xl border border-black/[0.12] bg-white p-6 sm:p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
                   >
                     <div>

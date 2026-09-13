@@ -44,6 +44,7 @@ export default function Navbar() {
         {/* Brand Logo */}
         <Link
           href="/"
+          prefetch={true}
           className="group flex items-center transition-transform duration-300 hover:opacity-90 shrink-0"
           aria-label="CreateVerse home"
         >
@@ -67,6 +68,7 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
+                prefetch={true}
                 className={`relative py-1 text-xs font-bold uppercase tracking-[0.2em] transition-colors duration-300 group ${
                   active ? "text-accent" : "text-ink hover:text-accent"
                 }`}
@@ -108,20 +110,20 @@ export default function Navbar() {
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Close menu" : "Open menu"}
           >
-            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {open && (
-          <motion.nav
-            initial={{ opacity: 0, y: -10, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.98 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="mx-auto mt-2 max-w-sm overflow-hidden rounded-3xl border border-black/[0.12] bg-white p-5 shadow-2xl backdrop-blur-2xl pointer-events-auto sm:hidden"
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden border-b border-paper-line bg-white/95 backdrop-blur-md md:hidden px-4 py-6 shadow-xl"
             aria-label="Mobile navigation"
           >
             <div className="flex flex-col gap-2">
@@ -132,6 +134,8 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  prefetch={true}
+                  onClick={() => setOpen(false)}
                   className="rounded-xl px-3.5 py-2.5 text-sm font-bold uppercase tracking-wider text-ink transition-colors hover:bg-[#F8FAFC] hover:text-accent"
                 >
                   {item.label}
@@ -160,7 +164,7 @@ export default function Navbar() {
                 </a>
               </div>
             </div>
-          </motion.nav>
+          </motion.div>
         )}
       </AnimatePresence>
     </header>

@@ -98,6 +98,7 @@ export default function ServiceCta({ service, related }: ServiceCtaProps) {
               </div>
               <Link
                 href="/services"
+                prefetch={true}
                 className="group inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink hover:text-accent transition-colors shrink-0"
               >
                 <span>View all services</span>
@@ -111,6 +112,7 @@ export default function ServiceCta({ service, related }: ServiceCtaProps) {
               <StaggerItem key={r.slug}>
                 <Link
                   href={`/services/${r.slug}`}
+                  prefetch={true}
                   className="group flex h-full flex-col justify-between rounded-2xl border border-stone-200 bg-white p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
                 >
                   <div>

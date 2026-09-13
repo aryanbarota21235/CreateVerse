@@ -41,7 +41,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <div className="container-site relative pb-20 pt-16 sm:pt-24 lg:pb-24 lg:pt-28">
           <Reveal>
             <nav className="flex items-center gap-2 text-xs font-semibold text-ink/70" aria-label="Breadcrumb">
-              <Link href="/services" className="transition-colors hover:text-accent">Services</Link>
+              <Link href="/services" prefetch={true} className="transition-colors hover:text-accent">Services</Link>
               <span>/</span>
               <span className="text-ink font-bold">{service.name}</span>
             </nav>

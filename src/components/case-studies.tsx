@@ -73,6 +73,7 @@ export default function CaseStudies({ className = "" }: { className?: string }) 
             <StaggerItem key={c.category}>
               <Link
                 href={`/services/${c.slug}`}
+                prefetch={true}
                 className="group flex h-full flex-col justify-between rounded-3xl border border-black/[0.12] bg-[#F8FAFC] p-8 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:bg-white hover:shadow-lift sm:p-10"
               >
                 <div>
