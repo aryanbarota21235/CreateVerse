@@ -48,7 +48,7 @@ export default function Footer() {
             <div className="pt-2">
               <button
                 onClick={() => openEnquiry()}
-                className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-xs font-bold text-ink transition-all hover:bg-stone-200 active:scale-[0.98]"
+                className="pressable inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-xs font-bold text-ink transition-all hover:bg-stone-200"
               >
                 <span>Enquire Now</span>
                 <ArrowUpRight className="h-4 w-4" />

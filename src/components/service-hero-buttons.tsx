@@ -23,7 +23,7 @@ export default function ServiceHeroButtons({ serviceName }: ServiceHeroButtonsPr
       <button
         type="button"
         onClick={() => openEnquiry(serviceName)}
-        className="group inline-flex items-center justify-center gap-2 rounded-full bg-ink px-6 sm:px-7 py-3.5 text-sm sm:text-base font-bold text-white transition-all duration-300 hover:bg-accent shadow-sm hover:shadow-md hover:shadow-accent/20 active:scale-[0.99]"
+        className="pressable group inline-flex items-center justify-center gap-2 rounded-full bg-ink px-6 sm:px-7 py-3.5 text-sm sm:text-base font-bold text-white transition-all duration-300 hover:bg-accent shadow-sm hover:shadow-md hover:shadow-accent/20"
       >
         <span>Get a Growth Strategy</span>
         <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -32,7 +32,7 @@ export default function ServiceHeroButtons({ serviceName }: ServiceHeroButtonsPr
       <button
         type="button"
         onClick={scrollToHowWeWork}
-        className="group inline-flex items-center justify-center gap-2 rounded-full border border-black/[0.15] bg-white px-6 sm:px-7 py-3.5 text-sm sm:text-base font-bold text-ink shadow-sm transition-all duration-300 hover:border-accent hover:text-accent hover:shadow-sm active:scale-[0.99]"
+        className="pressable group inline-flex items-center justify-center gap-2 rounded-full border border-black/[0.15] bg-white px-6 sm:px-7 py-3.5 text-sm sm:text-base font-bold text-ink shadow-sm transition-all duration-300 hover:border-accent hover:text-accent hover:shadow-sm"
       >
         <span>See How We Work</span>
         <ChevronDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5 text-ink/70 group-hover:text-accent" />

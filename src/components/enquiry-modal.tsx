@@ -309,7 +309,7 @@ export default function EnquiryModal() {
                 <div className="mt-8 flex items-center justify-center">
                   <button
                     onClick={handleReset}
-                    className="rounded-full bg-ink px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-accent transition active:scale-[0.99] shadow-md"
+                    className="pressable rounded-full bg-ink px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-accent transition shadow-md"
                   >
                     Done &amp; Close Window
                   </button>
@@ -494,7 +494,7 @@ export default function EnquiryModal() {
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="group flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-bold text-white shadow-[0_10px_25px_rgba(0,102,255,0.25)] transition-all hover:bg-accent-dim hover:shadow-[0_12px_28px_rgba(0,102,255,0.35)] active:scale-[0.99] disabled:opacity-60"
+                      className="pressable group flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-bold text-white shadow-[0_10px_25px_rgba(0,102,255,0.25)] transition-all hover:bg-accent-dim hover:shadow-[0_12px_28px_rgba(0,102,255,0.35)] disabled:opacity-60"
                     >
                       <span>{submitting ? "Submitting Inquiry..." : "Submit Growth Inquiry"}</span>
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

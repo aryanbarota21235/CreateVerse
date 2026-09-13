@@ -90,7 +90,7 @@ export default function Navbar() {
         <div className="hidden items-center gap-3 sm:flex shrink-0">
           <button
             onClick={() => openEnquiry()}
-            className="group inline-flex items-center gap-1.5 rounded-full bg-ink px-6 py-2.5 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-sm transition-all duration-300 hover:bg-accent hover:shadow-md hover:shadow-accent/20"
+            className="pressable group inline-flex items-center gap-1.5 rounded-full bg-ink px-6 py-2.5 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-sm transition-all duration-300 hover:bg-accent hover:shadow-md hover:shadow-accent/20"
           >
             <span>Enquire Now</span>
             <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -101,12 +101,12 @@ export default function Navbar() {
         <div className="flex items-center gap-2 sm:hidden">
           <button
             onClick={() => openEnquiry()}
-            className="rounded-full bg-ink px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-white shadow-xs"
+            className="pressable rounded-full bg-ink px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-white shadow-xs"
           >
             Enquire
           </button>
           <button
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-paper-line bg-white text-ink shadow-xs"
+            className="pressable flex h-9 w-9 items-center justify-center rounded-full border border-paper-line bg-white text-ink shadow-xs"
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Close menu" : "Open menu"}
           >
