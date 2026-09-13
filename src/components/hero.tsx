@@ -3,14 +3,38 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ChevronDown, Building2, Plane, Megaphone, TrendingUp } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronDown,
+  Building2,
+  Plane,
+  Megaphone,
+  TrendingUp,
+  Target,
+  Zap,
+  Code2,
+  Filter,
+  Palette,
+  Share2,
+  UserCheck,
+  PenLine,
+  Users,
+} from "lucide-react";
 import Reveal from "@/components/reveal";
 import { site } from "@/lib/site";
 import { useEnquiry } from "@/context/enquiry-context";
-import { services } from "@/lib/services";
-import { iconMap } from "@/components/services-grid";
 
-const acquisitionPillars = [
+interface PillarItem {
+  num: string;
+  tag: string;
+  title: string;
+  desc: string;
+  metric: string;
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+const allAcquisitionPillars: PillarItem[] = [
   {
     num: "01",
     tag: "High-Ticket Property",
@@ -47,11 +71,149 @@ const acquisitionPillars = [
     href: "/services/performance-marketing",
     icon: TrendingUp,
   },
+  {
+    num: "05",
+    tag: "Search Intent",
+    title: "Google Ads Management",
+    desc: "High-intent Search, YouTube, and Performance Max campaigns optimized for cost per qualified conversion, not vanity clicks.",
+    metric: "Top-3 Search Placement",
+    href: "/services/google-ads",
+    icon: Target,
+  },
+  {
+    num: "06",
+    tag: "Paid Social",
+    title: "Social Media Paid Ads",
+    desc: "Creative-led Meta and Instagram campaigns built to stop the scroll, qualify interest, and generate sales pipeline.",
+    metric: "3.8x ROAS Multiplier",
+    href: "/services/social-media-paid-ads",
+    icon: Zap,
+  },
+  {
+    num: "07",
+    tag: "High-Speed Web",
+    title: "Web Development",
+    desc: "Sub-second, conversion-first digital experiences, landing pages, and web apps built to maximize ad ROI and organic traffic.",
+    metric: "<800ms Sub-Second Load",
+    href: "/services/web-development",
+    icon: Code2,
+  },
+  {
+    num: "08",
+    tag: "Full-Funnel Pipeline",
+    title: "Lead Generation Systems",
+    desc: "Complete inbound inquiry architectures connecting paid ads, qualification logic, CRM routing, and automated follow-ups.",
+    metric: "Verified Prospect Handoff",
+    href: "/services/lead-generation",
+    icon: Filter,
+  },
+  {
+    num: "09",
+    tag: "Brand Identity",
+    title: "Creative & Brand Design",
+    desc: "Bespoke visual identity, typography, performance ad creatives, brochures, and luxury brand design assets that command authority.",
+    metric: "Bespoke Design Systems",
+    href: "/services/creative-services",
+    icon: Palette,
+  },
+  {
+    num: "10",
+    tag: "Community Growth",
+    title: "Social Media Management",
+    desc: "Platform-native content calendars, reels, and active community management that build loyal followings and compound brand trust.",
+    metric: "Daily Content Operations",
+    href: "/services/social-media-management",
+    icon: Share2,
+  },
+  {
+    num: "11",
+    tag: "Profile Optimization",
+    title: "Social Media Optimization",
+    desc: "Strategic bio engineering, highlight funnels, and discoverability enhancements converting profile visits into leads.",
+    metric: "Profile-to-Lead Conversion",
+    href: "/services/social-media-optimization",
+    icon: UserCheck,
+  },
+  {
+    num: "12",
+    tag: "Compounding Demand",
+    title: "Content Marketing & SEO",
+    desc: "Long-form editorial guides, SEO thought leadership, and email sequences that create sustainable organic customer demand.",
+    metric: "Top-Ranked Search Equity",
+    href: "/services/content-marketing",
+    icon: PenLine,
+  },
+  {
+    num: "13",
+    tag: "Creator Networks",
+    title: "Influencer Marketing",
+    desc: "Vetted influencer sourcing, campaign briefing, and creator collaborations that lend third-party trust to your offers.",
+    metric: "Authentic Creator Reach",
+    href: "/services/influencer-marketing",
+    icon: Users,
+  },
 ];
+
+const primaryPillars = allAcquisitionPillars.slice(0, 4);
+const secondaryPillars = allAcquisitionPillars.slice(4);
 
 export default function Hero() {
   const { openEnquiry } = useEnquiry();
   const [showAllServices, setShowAllServices] = useState(false);
+
+  const renderCard = (p: PillarItem) => {
+    const Icon = p.icon;
+    return (
+      <Link
+        key={p.num}
+        href={p.href}
+        prefetch={true}
+        className="group relative flex flex-col justify-between rounded-3xl border border-black/[0.12] bg-white p-6 sm:p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
+      >
+        <div>
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-accent">
+              {p.num}
+            </span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#F1F5F9] text-ink transition-all duration-300 group-hover:bg-accent group-hover:text-white">
+              <Icon className="h-4 w-4" />
+            </span>
+          </div>
+
+          <span className="mt-4 block text-[10px] font-bold uppercase tracking-wider text-ink/70">
+            {p.tag}
+          </span>
+          <h3 className="mt-1 font-display text-lg font-bold text-ink group-hover:text-accent transition-colors">
+            {p.title}
+          </h3>
+          <p className="mt-2 text-xs leading-relaxed text-ink/80 font-normal">
+            {p.desc}
+          </p>
+
+          {/* Number written with '-' inside the box as requested */}
+          <div className="mt-3.5 flex items-center gap-1.5 text-xs font-bold text-ink/90 bg-[#F8FAFC] border border-stone-200/80 rounded-xl px-3 py-1.5">
+            <span className="text-accent font-extrabold">-</span>
+            <span>{p.metric}</span>
+          </div>
+        </div>
+
+        {/* Bottom CTA: ENQUIRE matching the user uploaded reference photo */}
+        <div className="mt-5 pt-3.5 border-t border-stone-200/90 flex items-center justify-center">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              openEnquiry(p.title);
+            }}
+            className="w-full py-1 text-center text-xs font-bold uppercase tracking-[0.2em] text-[#334155] hover:text-accent transition-colors cursor-pointer"
+          >
+            ENQUIRE
+          </button>
+        </div>
+      </Link>
+    );
+  };
 
   return (
     <section className="relative overflow-hidden bg-paper pt-20 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20">
@@ -104,7 +266,7 @@ export default function Hero() {
           </Reveal>
         </div>
 
-        {/* 4 Core Acquisition Pillars - Brought above the fold */}
+        {/* Specialized Acquisition Practice Areas */}
         <Reveal delay={0.4}>
           <div className="mt-8 sm:mt-10">
             <div className="mb-6">
@@ -113,155 +275,42 @@ export default function Hero() {
               </p>
             </div>
 
+            {/* Primary 4 Cards */}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {acquisitionPillars.map((p) => {
-                const Icon = p.icon;
-                return (
-                  <Link
-                    key={p.num}
-                    href={p.href}
-                    prefetch={true}
-                    className="group relative flex flex-col justify-between rounded-3xl border border-black/[0.12] bg-white p-6 sm:p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-accent">
-                          {p.num}
-                        </span>
-                        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#F1F5F9] text-ink transition-all duration-300 group-hover:bg-accent group-hover:text-white">
-                          <Icon className="h-4 w-4" />
-                        </span>
-                      </div>
-
-                      <span className="mt-4 block text-[10px] font-bold uppercase tracking-wider text-ink/70">
-                        {p.tag}
-                      </span>
-                      <h3 className="mt-1 font-display text-lg font-bold text-ink group-hover:text-accent transition-colors">
-                        {p.title}
-                      </h3>
-                      <p className="mt-2 text-xs leading-relaxed text-ink/80 font-normal">
-                        {p.desc}
-                      </p>
-
-                      {/* Number written with '-' inside the box as requested */}
-                      <div className="mt-3.5 flex items-center gap-1.5 text-xs font-bold text-ink/90 bg-[#F8FAFC] border border-stone-200/80 rounded-xl px-3 py-1.5">
-                        <span className="text-accent font-extrabold">-</span>
-                        <span>{p.metric}</span>
-                      </div>
-                    </div>
-
-                    {/* Bottom CTA: Replaced with Enquire Now as requested */}
-                    <div className="mt-5 pt-3.5 border-t border-stone-200">
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          openEnquiry(p.title);
-                        }}
-                        className="group/btn inline-flex w-full items-center justify-center gap-2 rounded-xl bg-ink px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-xs transition-all hover:bg-accent active:scale-[0.99]"
-                      >
-                        <span>Enquire Now</span>
-                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-0.5" />
-                      </button>
-                    </div>
-                  </Link>
-                );
-              })}
+              {primaryPillars.map((p) => renderCard(p))}
             </div>
 
-            {/* In-place expandable Browse All 13+ Services as requested */}
+            {/* In-place dropdown animation with identical card boxes */}
+            <AnimatePresence>
+              {showAllServices && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 pt-4">
+                    {secondaryPillars.map((p) => renderCard(p))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Button shifts downwards when dropdown expands */}
             <div className="mt-8 sm:mt-10 flex flex-col items-center justify-center">
               <button
                 type="button"
                 onClick={() => setShowAllServices((prev) => !prev)}
-                className="group inline-flex items-center gap-2 rounded-full border border-black/[0.14] bg-white px-7 py-3 text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-card transition-all duration-300 hover:border-accent hover:text-accent active:scale-[0.99]"
+                className="group inline-flex items-center gap-2 rounded-full border border-black/[0.14] bg-white px-7 py-3 text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-card transition-all duration-300 hover:border-accent hover:text-accent active:scale-[0.99] cursor-pointer"
               >
                 <span>{showAllServices ? "Collapse Services" : "Browse All 13+ Services"}</span>
-                <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${showAllServices ? "rotate-180" : ""}`} />
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform duration-300 ${
+                    showAllServices ? "rotate-180" : ""
+                  }`}
+                />
               </button>
-
-              {/* Expanded Services Grid right underneath */}
-              <AnimatePresence>
-                {showAllServices && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                    className="overflow-hidden w-full mt-8 pt-8 border-t border-stone-200/90"
-                  >
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
-                      <div>
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-accent">
-                          Complete Practice Portfolio
-                        </span>
-                        <h3 className="mt-1 font-display text-2xl font-bold tracking-tight text-ink">
-                          All 13+ Specialized Practices
-                        </h3>
-                      </div>
-                      <Link
-                        href="/services"
-                        prefetch={true}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-accent hover:text-accent-dim transition-colors"
-                      >
-                        <span>Open Full Directory</span>
-                        <ArrowRight className="h-3.5 w-3.5" />
-                      </Link>
-                    </div>
-
-                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                      {services.map((s) => {
-                        const Icon = iconMap[s.icon] || Building2;
-                        return (
-                          <div
-                            key={s.slug}
-                            className="group/card flex flex-col justify-between rounded-2xl border border-stone-200 bg-white p-5 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
-                          >
-                            <div>
-                              <div className="flex items-center justify-between">
-                                <span className="text-[10px] font-bold uppercase tracking-wider text-accent bg-accent/10 rounded-full px-2.5 py-0.5">
-                                  {s.category}
-                                </span>
-                                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-stone-100 text-stone-600 group-hover/card:bg-accent group-hover/card:text-white transition-colors">
-                                  <Icon className="h-3.5 w-3.5" />
-                                </span>
-                              </div>
-
-                              <Link href={`/services/${s.slug}`} prefetch={true} className="block mt-3">
-                                <h4 className="font-display text-base font-bold text-ink group-hover/card:text-accent transition-colors">
-                                  {s.name}
-                                </h4>
-                                <p className="mt-1.5 text-xs text-stone-600 line-clamp-2 font-normal">
-                                  {s.tagline}
-                                </p>
-                              </Link>
-                            </div>
-
-                            <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between gap-2">
-                              <Link
-                                href={`/services/${s.slug}`}
-                                prefetch={true}
-                                className="text-xs font-bold text-accent hover:text-accent-dim transition-colors flex items-center gap-1"
-                              >
-                                <span>Explore Scope</span>
-                                <ArrowRight className="h-3 w-3" />
-                              </Link>
-                              <button
-                                type="button"
-                                onClick={() => openEnquiry(s.name)}
-                                className="rounded-lg bg-ink px-3 py-1 text-xs font-bold text-white hover:bg-accent transition-colors"
-                              >
-                                Enquire
-                              </button>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </div>
           </div>
         </Reveal>
