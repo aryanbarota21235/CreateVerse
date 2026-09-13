@@ -168,20 +168,40 @@ export default function Hero() {
       originalScrollY.current = window.scrollY;
       setShowAllServices(true);
     } else {
-      const targetY =
-        originalScrollY.current !== null
-          ? originalScrollY.current
-          : sectionRef.current
-          ? sectionRef.current.getBoundingClientRect().top + window.scrollY - 90
-          : 0;
+      const targetY = sectionRef.current
+        ? sectionRef.current.getBoundingClientRect().top + window.scrollY - 85
+        : (originalScrollY.current ?? 0);
 
-      setShowAllServices(false);
+      const isScrolledPastTop = window.scrollY > targetY + 80;
 
-      window.scrollTo({ top: targetY, behavior: "smooth" });
+      if (isScrolledPastTop) {
+        let hasCollapsed = false;
+        const doCollapse = () => {
+          if (!hasCollapsed) {
+            hasCollapsed = true;
+            setShowAllServices(false);
+          }
+        };
 
-      setTimeout(() => {
+        // Smoothly glide up to the top of the practice areas section first
         window.scrollTo({ top: targetY, behavior: "smooth" });
-      }, 450);
+
+        const onScrollEnd = () => {
+          window.removeEventListener("scrollend", onScrollEnd);
+          doCollapse();
+        };
+
+        window.addEventListener("scrollend", onScrollEnd, { once: true });
+
+        // Fallback timer once viewport glides to the top
+        setTimeout(() => {
+          window.removeEventListener("scrollend", onScrollEnd);
+          doCollapse();
+        }, 300);
+      } else {
+        // If user is already near the top, collapse immediately in place
+        setShowAllServices(false);
+      }
     }
   };
 
@@ -309,9 +329,8 @@ export default function Hero() {
               {showAllServices && (
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  animate={{ opacity: 1, height: "auto", transition: { duration: 0.38, ease: [0.16, 1, 0.3, 1] } }}
+                  exit={{ opacity: 0, height: 0, transition: { duration: 0.26, ease: [0.16, 1, 0.3, 1] } }}
                   className="overflow-hidden"
                 >
                   <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 pt-4">
