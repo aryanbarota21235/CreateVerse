@@ -1,10 +1,14 @@
 "use client";
 
+import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowDown, Building2, Plane, Megaphone, TrendingUp, ArrowUpRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, ChevronDown, Building2, Plane, Megaphone, TrendingUp } from "lucide-react";
 import Reveal from "@/components/reveal";
 import { site } from "@/lib/site";
 import { useEnquiry } from "@/context/enquiry-context";
+import { services } from "@/lib/services";
+import { iconMap } from "@/components/services-grid";
 
 const acquisitionPillars = [
   {
@@ -40,13 +44,14 @@ const acquisitionPillars = [
     title: "Performance Marketing",
     desc: "Full-funnel Google and Meta acquisition architecture designed around one North Star: verified revenue vs. capital deployed.",
     metric: "4.2x Blended ROAS Delivered",
-    href: "/services/lead-generation",
+    href: "/services/performance-marketing",
     icon: TrendingUp,
   },
 ];
 
 export default function Hero() {
   const { openEnquiry } = useEnquiry();
+  const [showAllServices, setShowAllServices] = useState(false);
 
   return (
     <section className="relative overflow-hidden bg-paper pt-20 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20">
@@ -134,41 +139,129 @@ export default function Hero() {
                       <h3 className="mt-1 font-display text-lg font-bold text-ink group-hover:text-accent transition-colors">
                         {p.title}
                       </h3>
-                      <p className="mt-2 text-xs leading-relaxed text-ink/80">
+                      <p className="mt-2 text-xs leading-relaxed text-ink/80 font-normal">
                         {p.desc}
                       </p>
+
+                      {/* Number written with '-' inside the box as requested */}
+                      <div className="mt-3.5 flex items-center gap-1.5 text-xs font-bold text-ink/90 bg-[#F8FAFC] border border-stone-200/80 rounded-xl px-3 py-1.5">
+                        <span className="text-accent font-extrabold">-</span>
+                        <span>{p.metric}</span>
+                      </div>
                     </div>
 
-                    <div className="mt-6 pt-4 border-t border-stone-200 flex items-center justify-between">
-                      <span className="text-[11px] font-bold text-emerald-700">
-                        {p.metric}
-                      </span>
-                      <ArrowUpRight className="h-4 w-4 text-ink/60 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
+                    {/* Bottom CTA: Replaced with Enquire Now as requested */}
+                    <div className="mt-5 pt-3.5 border-t border-stone-200">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          openEnquiry(p.title);
+                        }}
+                        className="group/btn inline-flex w-full items-center justify-center gap-2 rounded-xl bg-ink px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-xs transition-all hover:bg-accent active:scale-[0.99]"
+                      >
+                        <span>Enquire Now</span>
+                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-0.5" />
+                      </button>
                     </div>
                   </Link>
                 );
               })}
             </div>
 
-            {/* Placed at the bottom as requested: smooth scroll to all services below with slight lower landing */}
-            <div className="mt-8 sm:mt-10 flex items-center justify-center">
+            {/* In-place expandable Browse All 13+ Services as requested */}
+            <div className="mt-8 sm:mt-10 flex flex-col items-center justify-center">
               <button
                 type="button"
-                onClick={() => {
-                  const el = document.getElementById("services");
-                  if (el) {
-                    const navOffset = 80;
-                    const elementTop = el.getBoundingClientRect().top + window.pageYOffset;
-                    // Landing slightly lower into the services cards
-                    const targetPosition = elementTop - navOffset + 140;
-                    window.scrollTo({ top: targetPosition, behavior: "smooth" });
-                  }
-                }}
-                className="group inline-flex items-center gap-2 rounded-full border border-black/[0.14] bg-white px-6 sm:px-7 py-3 text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-card transition-all duration-300 hover:border-accent hover:text-accent active:scale-[0.99]"
+                onClick={() => setShowAllServices((prev) => !prev)}
+                className="group inline-flex items-center gap-2 rounded-full border border-black/[0.14] bg-white px-7 py-3 text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-card transition-all duration-300 hover:border-accent hover:text-accent active:scale-[0.99]"
               >
-                <span>Browse All 13+ Services</span>
-                <ArrowDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-y-0.5" />
+                <span>{showAllServices ? "Collapse Services" : "Browse All 13+ Services"}</span>
+                <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${showAllServices ? "rotate-180" : ""}`} />
               </button>
+
+              {/* Expanded Services Grid right underneath */}
+              <AnimatePresence>
+                {showAllServices && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                    className="overflow-hidden w-full mt-8 pt-8 border-t border-stone-200/90"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+                      <div>
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-accent">
+                          Complete Practice Portfolio
+                        </span>
+                        <h3 className="mt-1 font-display text-2xl font-bold tracking-tight text-ink">
+                          All 13+ Specialized Practices
+                        </h3>
+                      </div>
+                      <Link
+                        href="/services"
+                        prefetch={true}
+                        className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-accent hover:text-accent-dim transition-colors"
+                      >
+                        <span>Open Full Directory</span>
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </Link>
+                    </div>
+
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      {services.map((s) => {
+                        const Icon = iconMap[s.icon] || Building2;
+                        return (
+                          <div
+                            key={s.slug}
+                            className="group/card flex flex-col justify-between rounded-2xl border border-stone-200 bg-white p-5 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
+                          >
+                            <div>
+                              <div className="flex items-center justify-between">
+                                <span className="text-[10px] font-bold uppercase tracking-wider text-accent bg-accent/10 rounded-full px-2.5 py-0.5">
+                                  {s.category}
+                                </span>
+                                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-stone-100 text-stone-600 group-hover/card:bg-accent group-hover/card:text-white transition-colors">
+                                  <Icon className="h-3.5 w-3.5" />
+                                </span>
+                              </div>
+
+                              <Link href={`/services/${s.slug}`} prefetch={true} className="block mt-3">
+                                <h4 className="font-display text-base font-bold text-ink group-hover/card:text-accent transition-colors">
+                                  {s.name}
+                                </h4>
+                                <p className="mt-1.5 text-xs text-stone-600 line-clamp-2 font-normal">
+                                  {s.tagline}
+                                </p>
+                              </Link>
+                            </div>
+
+                            <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between gap-2">
+                              <Link
+                                href={`/services/${s.slug}`}
+                                prefetch={true}
+                                className="text-xs font-bold text-accent hover:text-accent-dim transition-colors flex items-center gap-1"
+                              >
+                                <span>Explore Scope</span>
+                                <ArrowRight className="h-3 w-3" />
+                              </Link>
+                              <button
+                                type="button"
+                                onClick={() => openEnquiry(s.name)}
+                                className="rounded-lg bg-ink px-3 py-1 text-xs font-bold text-white hover:bg-accent transition-colors"
+                              >
+                                Enquire
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </Reveal>
