@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 interface EnquiryContextType {
   isOpen: boolean;
@@ -15,42 +15,9 @@ export function EnquiryProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedService, setSelectedService] = useState("");
 
-  // Universal tactile press listener matching e:\capsnpills
-  useEffect(() => {
-    const handlePointerDown = (e: PointerEvent) => {
-      const target = (e.target as HTMLElement | null)?.closest(
-        'button, [role="button"], .pressable, a.rounded-full, a.rounded-2xl, a.rounded-xl'
-      ) as HTMLElement | null;
-
-      if (!target) return;
-      if (target.hasAttribute("disabled") || target.getAttribute("aria-disabled") === "true") return;
-
-      target.classList.add("pressed");
-
-      const handlePointerUp = () => {
-        setTimeout(() => {
-          target.classList.remove("pressed");
-        }, 160);
-        window.removeEventListener("pointerup", handlePointerUp);
-        window.removeEventListener("pointercancel", handlePointerUp);
-      };
-
-      window.addEventListener("pointerup", handlePointerUp, { once: true });
-      window.addEventListener("pointercancel", handlePointerUp, { once: true });
-    };
-
-    window.addEventListener("pointerdown", handlePointerDown, { passive: true });
-    return () => {
-      window.removeEventListener("pointerdown", handlePointerDown);
-    };
-  }, []);
-
   const openEnquiry = (defaultService = "") => {
     setSelectedService(defaultService);
-    // 140ms delay allows the tactile button press animation to visibly complete
-    setTimeout(() => {
-      setIsOpen(true);
-    }, 140);
+    setIsOpen(true);
   };
 
   const closeEnquiry = () => {

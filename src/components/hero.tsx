@@ -251,7 +251,7 @@ export default function Hero() {
               const serviceSlug = p.href.replace("/services/", "");
               openEnquiry(serviceSlug || p.title);
             }}
-            className="pressable w-full py-1 text-center text-xs font-bold uppercase tracking-[0.2em] text-[#334155] hover:text-accent transition-colors cursor-pointer"
+            className="pressable w-full py-1 text-center text-xs font-bold uppercase tracking-[0.2em] text-[#334155] hover:text-accent transition-all duration-150 cursor-pointer"
           >
             ENQUIRE
           </button>
@@ -302,7 +302,7 @@ export default function Hero() {
               {/* Grand Enquire Button */}
               <button
                 onClick={() => openEnquiry()}
-                className="pressable group inline-flex items-center gap-2 rounded-full border-[1.5px] border-ink bg-ink px-9 py-4 text-xs font-bold uppercase tracking-[0.22em] text-white shadow-md transition-all duration-300 hover:bg-accent hover:border-accent hover:shadow-lg"
+                className="pressable group inline-flex items-center gap-2 rounded-full border-[1.5px] border-ink bg-ink px-9 py-4 text-xs font-bold uppercase tracking-[0.22em] text-white shadow-md transition-all duration-150 hover:-translate-y-0.5 hover:bg-accent hover:border-accent hover:shadow-lg"
               >
                 <span>Enquire Now</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -346,7 +346,7 @@ export default function Hero() {
               <button
                 type="button"
                 onClick={toggleServices}
-                className="pressable group inline-flex items-center gap-2 rounded-full border border-black/[0.14] bg-white px-7 py-3 text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-card transition-all duration-300 hover:border-accent hover:text-accent cursor-pointer"
+                className="pressable group inline-flex items-center gap-2 rounded-full border border-black/[0.14] bg-white px-7 py-3 text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-card transition-all duration-150 hover:-translate-y-0.5 hover:border-accent hover:text-accent cursor-pointer"
               >
                 <span>{showAllServices ? "Collapse Services" : "Browse All 13+ Services"}</span>
                 <ChevronDown
