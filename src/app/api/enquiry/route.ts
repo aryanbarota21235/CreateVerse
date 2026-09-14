@@ -50,6 +50,37 @@ export async function POST(request: Request) {
 
     console.log("[CreateVerse API] New Inquiry Received:", record);
 
+    // Forward lead payload to Make.com Webhook
+    const MAKE_WEBHOOK_URL =
+      process.env.MAKE_WEBHOOK_URL ||
+      "https://hook.eu1.make.com/cbyanw6vlwgsn0sq9mu10vkfipajqdyb";
+
+    try {
+      const webhookRes = await fetch(MAKE_WEBHOOK_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "User-Agent": "CreateVerse-Lead-Engine/1.0",
+        },
+        body: JSON.stringify({
+          leadId: record.id,
+          name: record.name,
+          phone: record.phone,
+          email: record.email,
+          company: record.company,
+          service: record.service,
+          budget: record.budget,
+          source: record.source,
+          channel: record.channel,
+          message: record.message,
+          submittedAt: record.createdAt,
+        }),
+      });
+      console.log("[CreateVerse Webhook] Make.com trigger status:", webhookRes.status);
+    } catch (webhookError) {
+      console.error("[CreateVerse Webhook Error] Failed to trigger Make.com webhook:", webhookError);
+    }
+
     return NextResponse.json(
       {
         success: true,

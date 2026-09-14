@@ -273,7 +273,14 @@ export function saveEnquiry(
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newRecord),
-      }).catch((err) => console.warn("API enquiry sync notice:", err));
+      }).catch((err) => {
+        console.warn("API enquiry sync notice, triggering direct webhook fallback:", err);
+        fetch("https://hook.eu1.make.com/cbyanw6vlwgsn0sq9mu10vkfipajqdyb", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newRecord),
+        }).catch((wErr) => console.warn("Direct webhook notice:", wErr));
+      });
     } catch (e) {
       console.error("Failed to save enquiry to storage", e);
     }
