@@ -51,11 +51,11 @@ export default function Navbar() {
           <Image
             src="/logo.png"
             alt="CreateVerse — Redefining Digital"
-            width={320}
-            height={132}
+            width={360}
+            height={148}
             priority
             className={`w-auto transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              scrolled ? "h-8 sm:h-9" : "h-9 sm:h-11"
+              scrolled ? "h-9 sm:h-11" : "h-11 sm:h-[50px] lg:h-[54px]"
             }`}
           />
         </Link>

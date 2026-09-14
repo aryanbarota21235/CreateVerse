@@ -33,10 +33,10 @@ export default function Footer() {
             <Link href="/" prefetch={true} className="inline-block transition-opacity hover:opacity-90" aria-label="CreateVerse home">
               <Image
                 src="/logo.png"
-                alt="CreateVerse"
-                width={280}
-                height={115}
-                className="h-10 w-auto brightness-0 invert"
+                alt="CreateVerse — Redefining Digital"
+                width={360}
+                height={148}
+                className="h-11 sm:h-12 w-auto"
               />
             </Link>
 
