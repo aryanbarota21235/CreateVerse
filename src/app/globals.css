@@ -10,6 +10,9 @@
     @apply bg-paper text-ink antialiased;
     color: #0B0F19;
   }
+  *:not(input):not(textarea):not([contenteditable="true"]) {
+    caret-color: transparent;
+  }
   ::selection {
     background-color: #0284C7;
     color: #ffffff;
