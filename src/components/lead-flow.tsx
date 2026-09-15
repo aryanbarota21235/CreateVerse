@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, ArrowDown, Globe, LayoutTemplate, MousePointerClick, CheckCircle2, MessageSquare, Handshake } from "lucide-react";
+import { ArrowRight, ArrowDownLeft, Globe, LayoutTemplate, MousePointerClick, CheckCircle2, MessageSquare, Handshake } from "lucide-react";
 import SectionHeading from "@/components/section-heading";
 import Reveal from "@/components/reveal";
 import { useEnquiry } from "@/context/enquiry-context";
@@ -56,17 +56,17 @@ export default function LeadFlow() {
                       {s.desc}
                     </p>
 
-                    {/* Mobile-ONLY Connector Arrow across columns (left to right) */}
+                    {/* Mobile-ONLY Connector Arrow: Left column to Right column (1 -> 2, 3 -> 4, 5 -> 6) */}
                     {isLeftColumn && (
                       <div className="lg:hidden absolute -right-2 top-1/2 -translate-y-1/2 z-10 flex h-4 w-4 items-center justify-center rounded-full bg-white border border-stone-200 text-accent shadow-xs pointer-events-none">
                         <ArrowRight className="h-2.5 w-2.5" />
                       </div>
                     )}
 
-                    {/* Mobile-ONLY Connector Arrow across rows (right column down to next row) */}
+                    {/* Mobile-ONLY Connector Arrow: Right column down-left to next row (2 -> 3, 4 -> 5) */}
                     {isRightColumn && !isLast && (
-                      <div className="lg:hidden absolute -bottom-2.5 left-1/2 -translate-x-1/2 z-10 flex h-4 w-4 items-center justify-center rounded-full bg-white border border-stone-200 text-accent shadow-xs pointer-events-none">
-                        <ArrowDown className="h-2.5 w-2.5" />
+                      <div className="lg:hidden absolute -bottom-2.5 -left-2.5 z-20 flex h-5 w-5 items-center justify-center rounded-full bg-white border border-stone-200 text-accent shadow-xs pointer-events-none">
+                        <ArrowDownLeft className="h-3 w-3" />
                       </div>
                     )}
                   </div>
