@@ -212,37 +212,37 @@ export default function Hero() {
         key={p.num}
         href={p.href}
         prefetch={true}
-        className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-black/[0.12] bg-white p-4 sm:p-6 lg:p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
+        className="group relative flex flex-col justify-between rounded-xl sm:rounded-3xl border border-black/[0.1] sm:border-black/[0.12] bg-white p-3 sm:p-6 lg:p-7 shadow-xs sm:shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
       >
         <div>
           <div className="flex items-center justify-between">
-            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] sm:tracking-[0.22em] text-accent">
+            <span className="text-[9.5px] sm:text-[11px] font-bold uppercase tracking-[0.16em] sm:tracking-[0.22em] text-accent">
               {p.num}
             </span>
-            <span className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg sm:rounded-xl bg-[#F1F5F9] text-ink transition-all duration-300 group-hover:bg-accent group-hover:text-white">
+            <span className="flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-lg sm:rounded-xl bg-[#F1F5F9] text-ink transition-all duration-300 group-hover:bg-accent group-hover:text-white">
               <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </span>
           </div>
 
-          <span className="mt-2.5 sm:mt-4 block text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-ink/70">
+          <span className="mt-2 sm:mt-4 block text-[8.5px] sm:text-[10px] font-bold uppercase tracking-wider text-ink/70 truncate">
             {p.tag}
           </span>
-          <h3 className="mt-1 font-display text-base sm:text-lg font-bold text-ink group-hover:text-accent transition-colors leading-snug">
+          <h3 className="mt-0.5 sm:mt-1 font-display text-xs sm:text-lg font-bold text-ink group-hover:text-accent transition-colors leading-snug line-clamp-2">
             {p.title}
           </h3>
-          <p className="mt-1.5 sm:mt-2 text-xs leading-relaxed text-ink/80 font-normal line-clamp-2 sm:line-clamp-none">
+          <p className="hidden sm:block mt-2 text-xs leading-relaxed text-ink/80 font-normal">
             {p.desc}
           </p>
 
           {/* Metric chip */}
-          <div className="mt-2.5 sm:mt-3.5 flex items-center gap-1.5 text-[11px] sm:text-xs font-bold text-ink/90 bg-[#F8FAFC] border border-stone-200/80 rounded-lg sm:rounded-xl px-2.5 py-1 sm:px-3 sm:py-1.5">
+          <div className="mt-2 sm:mt-3.5 flex items-center gap-1 text-[9.5px] sm:text-xs font-bold text-ink/90 bg-[#F8FAFC] border border-stone-200/80 rounded-md sm:rounded-xl px-2 py-0.5 sm:px-3 sm:py-1.5">
             <span className="text-accent font-extrabold">-</span>
             <span className="truncate">{p.metric}</span>
           </div>
         </div>
 
         {/* Bottom CTA: ENQUIRE */}
-        <div className="mt-3 sm:mt-5 pt-2.5 sm:pt-3.5 border-t border-stone-200/90 flex items-center justify-center">
+        <div className="mt-2.5 sm:mt-5 pt-2 sm:pt-3.5 border-t border-stone-200/90 flex items-center justify-center">
           <button
             type="button"
             onClick={(e) => {
@@ -251,7 +251,7 @@ export default function Hero() {
               const serviceSlug = p.href.replace("/services/", "");
               openEnquiry(serviceSlug || p.title);
             }}
-            className="pressable w-full py-0.5 text-center text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-[#334155] hover:text-accent transition-all duration-150 cursor-pointer"
+            className="pressable w-full py-0.5 text-center text-[10px] sm:text-xs font-bold uppercase tracking-[0.16em] sm:tracking-[0.2em] text-[#334155] hover:text-accent transition-all duration-150 cursor-pointer"
           >
             ENQUIRE
           </button>
@@ -321,7 +321,7 @@ export default function Hero() {
             </div>
 
             {/* Primary 4 Cards */}
-            <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {primaryPillars.map((p) => renderCard(p))}
             </div>
 
@@ -334,7 +334,7 @@ export default function Hero() {
                   exit={{ opacity: 0, height: 0, transition: { duration: 0.26, ease: [0.16, 1, 0.3, 1] } }}
                   className="overflow-hidden"
                 >
-                  <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-4 pt-3 sm:pt-4">
+                  <div className="grid grid-cols-2 gap-2.5 sm:gap-4 sm:grid-cols-2 lg:grid-cols-4 pt-3 sm:pt-4">
                     {secondaryPillars.map((p) => renderCard(p))}
                   </div>
                 </motion.div>

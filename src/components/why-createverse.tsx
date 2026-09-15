@@ -23,15 +23,15 @@ export default function WhyCreateVerse() {
               description="We are deliberately not a generic agency. Everything about how we work is designed around one outcome: measurable growth."
             />
           </div>
-          <Stagger className="grid gap-3 sm:gap-10 sm:grid-cols-2 lg:col-span-8" delayChildren={0.08}>
+          <Stagger className="grid grid-cols-2 gap-2.5 sm:gap-8 lg:col-span-8" delayChildren={0.08}>
             {reasons.map((r, i) => (
-              <StaggerItem key={r.title}>
-                <div className="group p-4 sm:p-0 rounded-2xl sm:rounded-none bg-white sm:bg-transparent border border-stone-200/80 sm:border-0 shadow-xs sm:shadow-none">
-                  <span className={`flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-lg sm:rounded-xl text-white transition-transform duration-300 group-hover:scale-105 ${i % 2 === 0 ? "bg-accent" : "bg-brand-orange"}`}>
-                    <r.icon className="h-4 w-4 sm:h-5 sm:w-5" />
+              <StaggerItem key={r.title} className="h-full">
+                <div className="group h-full flex flex-col justify-start p-3 sm:p-5 rounded-xl sm:rounded-2xl bg-white sm:bg-transparent border border-stone-200/90 sm:border-0 shadow-xs sm:shadow-none transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-card">
+                  <span className={`flex h-7 w-7 sm:h-11 sm:w-11 items-center justify-center rounded-lg sm:rounded-xl text-white transition-transform duration-300 group-hover:scale-105 shrink-0 ${i % 2 === 0 ? "bg-accent" : "bg-brand-orange"}`}>
+                    <r.icon className="h-3.5 w-3.5 sm:h-5 sm:w-5" />
                   </span>
-                  <h3 className="mt-3 sm:mt-5 font-display text-base sm:text-xl font-bold text-ink">{r.title}</h3>
-                  <p className="mt-1 sm:mt-2 text-xs sm:text-sm leading-relaxed text-ink/80 font-normal">{r.desc}</p>
+                  <h3 className="mt-2 sm:mt-5 font-display text-xs sm:text-xl font-bold text-ink leading-snug">{r.title}</h3>
+                  <p className="mt-1 sm:mt-2 text-[10.5px] sm:text-sm leading-relaxed text-ink/80 font-normal line-clamp-3 sm:line-clamp-none">{r.desc}</p>
                 </div>
               </StaggerItem>
             ))}
