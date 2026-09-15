@@ -23,15 +23,31 @@ export default function WhyCreateVerse() {
               description="We are deliberately not a generic agency. Everything about how we work is designed around one outcome: measurable growth."
             />
           </div>
-          <Stagger className="grid grid-cols-2 sm:grid-cols-2 gap-2.5 sm:gap-10 lg:col-span-8" delayChildren={0.08}>
+          {/* Desktop View - 100% Exact Original Design & Markup */}
+          <Stagger className="hidden sm:grid gap-10 sm:grid-cols-2 lg:col-span-8" delayChildren={0.08}>
+            {reasons.map((r, i) => (
+              <StaggerItem key={r.title}>
+                <div className="group">
+                  <span className={`flex h-11 w-11 items-center justify-center rounded-xl text-white transition-transform duration-300 group-hover:scale-105 ${i % 2 === 0 ? "bg-accent" : "bg-brand-orange"}`}>
+                    <r.icon className="h-5 w-5" />
+                  </span>
+                  <h3 className="mt-5 font-display text-xl font-bold text-ink">{r.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink/80 font-normal">{r.desc}</p>
+                </div>
+              </StaggerItem>
+            ))}
+          </Stagger>
+
+          {/* Mobile View - Compact 2-Column Cards */}
+          <Stagger className="grid grid-cols-2 gap-2.5 sm:hidden" delayChildren={0.08}>
             {reasons.map((r, i) => (
               <StaggerItem key={r.title} className="h-full">
-                <div className="group h-full flex flex-col justify-start p-3.5 sm:p-0 rounded-2xl sm:rounded-none bg-white sm:bg-transparent border border-stone-200/90 sm:border-0 shadow-xs sm:shadow-none">
-                  <span className={`flex h-8 w-8 sm:h-11 sm:w-11 items-center justify-center rounded-lg sm:rounded-xl text-white transition-transform duration-300 group-hover:scale-105 shrink-0 ${i % 2 === 0 ? "bg-accent" : "bg-brand-orange"}`}>
-                    <r.icon className="h-4 w-4 sm:h-5 sm:w-5" />
+                <div className="h-full flex flex-col justify-start p-3.5 rounded-2xl bg-white border border-stone-200/90 shadow-xs">
+                  <span className={`flex h-8 w-8 items-center justify-center rounded-lg text-white shrink-0 ${i % 2 === 0 ? "bg-accent" : "bg-brand-orange"}`}>
+                    <r.icon className="h-4 w-4" />
                   </span>
-                  <h3 className="mt-2.5 sm:mt-5 font-display text-xs sm:text-xl font-bold text-ink leading-snug">{r.title}</h3>
-                  <p className="mt-1 sm:mt-2 text-[10.5px] sm:text-sm leading-relaxed text-ink/80 font-normal line-clamp-3 sm:line-clamp-none">{r.desc}</p>
+                  <h3 className="mt-2.5 font-display text-xs font-bold text-ink leading-snug">{r.title}</h3>
+                  <p className="mt-1 text-[10.5px] leading-relaxed text-ink/80 font-normal line-clamp-3">{r.desc}</p>
                 </div>
               </StaggerItem>
             ))}
