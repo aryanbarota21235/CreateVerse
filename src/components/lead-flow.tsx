@@ -29,6 +29,9 @@ export default function LeadFlow() {
         />
 
         <div className="relative mt-10 sm:mt-16 lg:mt-20">
+          {/* Original Desktop Connecting Gradient Line */}
+          <div className="absolute left-0 right-0 top-[34px] hidden h-0.5 bg-gradient-to-r from-transparent via-accent/40 to-transparent lg:block" />
+
           <div className="grid grid-cols-2 gap-3.5 sm:gap-6 lg:grid-cols-6 lg:gap-4 relative">
             {stages.map((s, i) => {
               const isLast = i === stages.length - 1;
@@ -37,54 +40,32 @@ export default function LeadFlow() {
 
               return (
                 <Reveal key={s.title} delay={i * 0.08} className="relative h-full">
-                  <div className="group relative h-full flex flex-col justify-between p-3.5 sm:p-5 rounded-2xl border border-stone-200/90 bg-[#F8FAFC] shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:bg-white hover:shadow-card">
-                    {/* Top Row: Stage Tag + Arrow Indicator */}
-                    <div className="flex items-center justify-between w-full mb-2.5">
-                      <span className="inline-flex items-center gap-1 rounded-md bg-accent/[0.08] px-2 py-0.5 text-[10px] sm:text-xs font-extrabold uppercase tracking-wider text-accent">
-                        Stage 0{i + 1}
+                  <div className="group relative h-full flex flex-col items-center lg:items-start text-center lg:text-left p-3.5 sm:p-4 lg:p-0 rounded-2xl lg:rounded-none bg-[#F8FAFC]/70 lg:bg-transparent border border-stone-200/80 lg:border-0">
+                    {/* Original Circular Icon Container with Orange Number Badge */}
+                    <div className="relative mx-auto flex h-12 w-12 sm:h-14 sm:w-14 lg:h-[68px] lg:w-[68px] items-center justify-center rounded-xl lg:rounded-2xl border border-black/[0.1] lg:border-black/[0.12] bg-white lg:bg-[#F8FAFC] shadow-xs lg:shadow-card transition-all duration-300 group-hover:-translate-y-1 hover:border-accent group-hover:shadow-lift lg:mx-0">
+                      <s.icon className="h-5 w-5 sm:h-6 sm:w-6 text-accent" />
+                      <span className="absolute -right-1.5 -top-1.5 lg:-right-2 lg:-top-2 flex h-5 w-5 lg:h-6 lg:w-6 items-center justify-center rounded-full bg-brand-orange font-display text-[10px] lg:text-[11px] font-bold text-white">
+                        {i + 1}
                       </span>
-                      {!isLast ? (
-                        <span className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-stone-100 text-stone-500 group-hover:bg-accent group-hover:text-white transition-all">
-                          <ArrowRight className="h-2.5 w-2.5 sm:h-3.5 sm:w-3.5" />
-                        </span>
-                      ) : (
-                        <span className="flex items-center gap-1 text-[9.5px] sm:text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-full">
-                          <CheckCircle2 className="h-3 w-3" />
-                          <span>Goal</span>
-                        </span>
-                      )}
                     </div>
 
-                    {/* Middle: Icon & Title */}
-                    <div>
-                      <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl border border-stone-200/90 bg-white text-accent shadow-xs group-hover:border-accent group-hover:bg-accent group-hover:text-white transition-all">
-                        <s.icon className="h-5 w-5 sm:h-6 sm:w-6" />
-                      </div>
-                      <h3 className="mt-2.5 sm:mt-3 font-display text-xs sm:text-base font-bold text-ink leading-snug group-hover:text-accent transition-colors">
-                        {s.title}
-                      </h3>
-                      <p className="mt-1 sm:mt-1.5 text-[10.5px] sm:text-xs leading-relaxed text-stone-600 font-normal line-clamp-3 sm:line-clamp-none">
-                        {s.desc}
-                      </p>
-                    </div>
+                    <h3 className="mt-2.5 lg:mt-5 font-display text-xs sm:text-sm lg:text-lg font-bold text-ink leading-snug">
+                      {s.title}
+                    </h3>
+                    <p className="mt-1 lg:mt-2 text-[10.5px] sm:text-xs lg:text-[13px] leading-relaxed text-ink/80 font-normal line-clamp-3 lg:line-clamp-none">
+                      {s.desc}
+                    </p>
 
-                    {/* Desktop Connector Arrow between stages */}
-                    {!isLast && (
-                      <div className="hidden lg:flex absolute -right-3 top-1/2 -translate-y-1/2 z-20 h-6 w-6 items-center justify-center rounded-full bg-white border border-stone-200 text-accent shadow-xs">
-                        <ArrowRight className="h-3 w-3" />
-                      </div>
-                    )}
-
-                    {/* Mobile Connector Arrow across columns (left to right) */}
+                    {/* Mobile-ONLY Connector Arrow across columns (left to right) */}
                     {isLeftColumn && (
-                      <div className="lg:hidden absolute -right-2.5 top-1/2 -translate-y-1/2 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-white border border-stone-200 text-accent shadow-xs">
+                      <div className="lg:hidden absolute -right-2 top-1/2 -translate-y-1/2 z-10 flex h-4 w-4 items-center justify-center rounded-full bg-white border border-stone-200 text-accent shadow-xs pointer-events-none">
                         <ArrowRight className="h-2.5 w-2.5" />
                       </div>
                     )}
 
-                    {/* Mobile Connector Arrow across rows (right column down to next row) */}
+                    {/* Mobile-ONLY Connector Arrow across rows (right column down to next row) */}
                     {isRightColumn && !isLast && (
-                      <div className="lg:hidden absolute -bottom-2.5 left-1/2 -translate-x-1/2 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-white border border-stone-200 text-accent shadow-xs">
+                      <div className="lg:hidden absolute -bottom-2.5 left-1/2 -translate-x-1/2 z-10 flex h-4 w-4 items-center justify-center rounded-full bg-white border border-stone-200 text-accent shadow-xs pointer-events-none">
                         <ArrowDown className="h-2.5 w-2.5" />
                       </div>
                     )}
