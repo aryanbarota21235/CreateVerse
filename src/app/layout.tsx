@@ -28,15 +28,73 @@ export const metadata: Metadata = {
     "Google Ads agency India",
     "performance marketing",
   ],
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon-48.png", type: "image/png", sizes: "48x48" },
+      { url: "/icon-96.png", type: "image/png", sizes: "96x96" },
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+      { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+  },
   openGraph: {
     siteName: site.name,
+    title: "CreateVerse — Growth & Digital Acquisition Partner",
+    description:
+      "CreateVerse builds digital growth systems for real estate, immigration, political campaigns and ambitious businesses.",
     type: "website",
+    url: "https://createverse.in",
+    images: [
+      {
+        url: "/logo.png",
+        width: 320,
+        height: 132,
+        alt: "CreateVerse — Redefining Digital",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CreateVerse — Growth & Digital Acquisition Partner",
+    description:
+      "CreateVerse builds digital growth systems for real estate, immigration, political campaigns and ambitious businesses.",
+    images: ["/logo.png"],
+  },
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "CreateVerse",
+  alternateName: "CreateVerse Digital",
+  url: "https://createverse.in",
+  logo: "https://createverse.in/logo.png",
+  image: "https://createverse.in/logo.png",
+  description:
+    "CreateVerse builds digital growth systems for real estate, immigration, political campaigns and ambitious businesses.",
+  telephone: site.phone,
+  email: site.email,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: site.location,
+    addressCountry: "IN",
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${grotesk.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+      </head>
       <body className="font-sans bg-paper text-ink">
         <EnquiryProvider>
           <Navbar />
