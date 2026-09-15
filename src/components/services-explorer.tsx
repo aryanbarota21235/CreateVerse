@@ -86,14 +86,14 @@ export default function ServicesExplorer() {
           </p>
         </div>
 
-        {/* 4-Column Large Capsule Pill Tiles Grid */}
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-4.5">
+        {/* 4-Column Balanced Capsule Pill Tiles Grid */}
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-3.5">
           {servicesList.map((item) => (
             <Link
               key={item.slug}
               href={`/services/${item.slug}`}
               prefetch={true}
-              className="group flex min-h-[58px] sm:min-h-[64px] items-center justify-center rounded-full border border-stone-200/90 bg-white px-6 py-4 sm:py-4.5 text-center text-sm sm:text-base font-semibold text-ink shadow-[0_3px_12px_rgba(0,0,0,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:text-accent hover:shadow-[0_10px_28px_rgba(0,0,0,0.1)] active:translate-y-0.5 active:scale-[0.96] cursor-pointer select-none"
+              className="group flex items-center justify-center rounded-full border border-black/[0.09] bg-white px-5 py-3 text-center text-xs sm:text-sm font-semibold text-ink shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:text-accent hover:shadow-lift active:translate-y-0.5 active:scale-[0.96] cursor-pointer select-none"
             >
               <span className="truncate tracking-tight transition-colors">
                 {item.name}
