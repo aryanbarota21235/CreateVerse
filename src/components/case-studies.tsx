@@ -66,7 +66,7 @@ export default function CaseStudies({
   showHeading?: boolean;
 }) {
   return (
-    <section className={`relative overflow-hidden bg-paper ${className || "py-20 lg:py-28"}`}>
+    <section className={`relative overflow-hidden bg-paper ${className || "py-14 sm:py-20 lg:py-28"}`}>
       <div className="dot-texture absolute inset-0 opacity-40 pointer-events-none" />
       <div className="absolute -right-40 top-40 h-[380px] w-[380px] rounded-full bg-brand-sky/25 blur-3xl pointer-events-none" />
       <div className="container-site relative">
@@ -78,36 +78,36 @@ export default function CaseStudies({
           />
         )}
 
-        <Stagger className={`${showHeading ? "mt-16" : "mt-2 sm:mt-4"} grid gap-6 md:grid-cols-2`} delayChildren={0.1}>
+        <Stagger className={`${showHeading ? "mt-8 sm:mt-16" : "mt-2 sm:mt-4"} grid gap-4 sm:gap-6 md:grid-cols-2`} delayChildren={0.1}>
           {caseStudies.map((c, i) => (
             <StaggerItem key={c.category}>
               <Link
                 href={`/services/${c.slug}`}
                 prefetch={true}
-                className="group flex h-full flex-col justify-between rounded-3xl border border-black/[0.12] bg-white p-8 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift sm:p-10"
+                className="group flex h-full flex-col justify-between rounded-2xl sm:rounded-3xl border border-black/[0.12] bg-white p-5 sm:p-8 lg:p-10 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
               >
                 <div>
                   <div className="flex items-center justify-between gap-4">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-paper border border-black/[0.08] px-3.5 py-1 text-xs font-bold text-accent shadow-xs">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-paper border border-black/[0.08] px-3 py-1 text-[11px] sm:text-xs font-bold text-accent shadow-xs">
                       {c.category}
                     </span>
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-paper border border-black/[0.08] text-ink/70 shadow-xs transition-all group-hover:bg-accent group-hover:text-white group-hover:border-accent">
-                      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <span className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-paper border border-black/[0.08] text-ink/70 shadow-xs transition-all group-hover:bg-accent group-hover:text-white group-hover:border-accent">
+                      <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </span>
                   </div>
 
-                  <h3 className="mt-6 font-display text-2xl font-bold leading-snug tracking-tight text-ink group-hover:text-accent transition-colors">
+                  <h3 className="mt-4 sm:mt-6 font-display text-lg sm:text-2xl font-bold leading-snug tracking-tight text-ink group-hover:text-accent transition-colors">
                     {c.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-ink/80 font-normal">{c.summary}</p>
+                  <p className="mt-2 sm:mt-3 text-xs sm:text-sm leading-relaxed text-ink/80 font-normal line-clamp-2 sm:line-clamp-none">{c.summary}</p>
                 </div>
 
-                <div className="mt-8 border-t border-stone-200 pt-6">
+                <div className="mt-5 sm:mt-8 border-t border-stone-200 pt-4 sm:pt-6">
                   <div className="grid grid-cols-3 gap-2 sm:gap-4">
                     {c.stats.map((s) => (
-                      <div key={s.label} className="rounded-xl border border-black/[0.08] bg-paper p-3 shadow-xs">
-                        <p className="font-display text-lg font-bold text-ink sm:text-xl">{s.value}</p>
-                        <p className="mt-0.5 text-[11px] font-semibold leading-tight text-ink/75">{s.label}</p>
+                      <div key={s.label} className="rounded-lg sm:rounded-xl border border-black/[0.08] bg-paper p-2 sm:p-3 shadow-xs">
+                        <p className="font-display text-sm sm:text-xl font-bold text-ink">{s.value}</p>
+                        <p className="mt-0.5 text-[10px] sm:text-[11px] font-semibold leading-tight text-ink/75">{s.label}</p>
                       </div>
                     ))}
                   </div>

@@ -10,16 +10,16 @@ const stats = [
 export default function StatsStrip() {
   return (
     <section className="border-y border-stone-200 bg-white">
-      <div className="container-site py-12 lg:py-16">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
+      <div className="container-site py-8 sm:py-12 lg:py-16">
+        <div className="grid grid-cols-2 gap-3 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4">
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.08}>
-              <div className="relative pl-0 lg:pl-6 lg:border-l lg:border-stone-200">
-                <p className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl lg:text-5xl">
+              <div className="relative p-3.5 sm:p-0 rounded-2xl sm:rounded-none bg-[#F8FAFC] sm:bg-transparent border border-stone-200/80 sm:border-0 lg:pl-6 lg:border-l lg:border-stone-200 shadow-xs sm:shadow-none">
+                <p className="font-display text-2xl font-bold tracking-tight text-ink sm:text-4xl lg:text-5xl">
                   {s.value}
                 </p>
-                <p className="mt-2 text-sm font-bold text-ink">{s.label}</p>
-                <p className="mt-1 text-xs font-medium text-ink/75">{s.note}</p>
+                <p className="mt-1 sm:mt-2 text-xs sm:text-sm font-bold text-ink">{s.label}</p>
+                <p className="mt-0.5 sm:mt-1 text-[10px] sm:text-xs font-medium text-ink/75 leading-tight sm:leading-normal">{s.note}</p>
               </div>
             </Reveal>
           ))}

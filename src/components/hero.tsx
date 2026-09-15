@@ -212,37 +212,37 @@ export default function Hero() {
         key={p.num}
         href={p.href}
         prefetch={true}
-        className="group relative flex flex-col justify-between rounded-3xl border border-black/[0.12] bg-white p-6 sm:p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
+        className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-black/[0.12] bg-white p-4 sm:p-6 lg:p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
       >
         <div>
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-accent">
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] sm:tracking-[0.22em] text-accent">
               {p.num}
             </span>
-            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#F1F5F9] text-ink transition-all duration-300 group-hover:bg-accent group-hover:text-white">
-              <Icon className="h-4 w-4" />
+            <span className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg sm:rounded-xl bg-[#F1F5F9] text-ink transition-all duration-300 group-hover:bg-accent group-hover:text-white">
+              <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </span>
           </div>
 
-          <span className="mt-4 block text-[10px] font-bold uppercase tracking-wider text-ink/70">
+          <span className="mt-2.5 sm:mt-4 block text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-ink/70">
             {p.tag}
           </span>
-          <h3 className="mt-1 font-display text-lg font-bold text-ink group-hover:text-accent transition-colors">
+          <h3 className="mt-1 font-display text-base sm:text-lg font-bold text-ink group-hover:text-accent transition-colors leading-snug">
             {p.title}
           </h3>
-          <p className="mt-2 text-xs leading-relaxed text-ink/80 font-normal">
+          <p className="mt-1.5 sm:mt-2 text-xs leading-relaxed text-ink/80 font-normal line-clamp-2 sm:line-clamp-none">
             {p.desc}
           </p>
 
-          {/* Number written with '-' inside the box as requested */}
-          <div className="mt-3.5 flex items-center gap-1.5 text-xs font-bold text-ink/90 bg-[#F8FAFC] border border-stone-200/80 rounded-xl px-3 py-1.5">
+          {/* Metric chip */}
+          <div className="mt-2.5 sm:mt-3.5 flex items-center gap-1.5 text-[11px] sm:text-xs font-bold text-ink/90 bg-[#F8FAFC] border border-stone-200/80 rounded-lg sm:rounded-xl px-2.5 py-1 sm:px-3 sm:py-1.5">
             <span className="text-accent font-extrabold">-</span>
-            <span>{p.metric}</span>
+            <span className="truncate">{p.metric}</span>
           </div>
         </div>
 
-        {/* Bottom CTA: ENQUIRE matching the user uploaded reference photo */}
-        <div className="mt-5 pt-3.5 border-t border-stone-200/90 flex items-center justify-center">
+        {/* Bottom CTA: ENQUIRE */}
+        <div className="mt-3 sm:mt-5 pt-2.5 sm:pt-3.5 border-t border-stone-200/90 flex items-center justify-center">
           <button
             type="button"
             onClick={(e) => {
@@ -251,7 +251,7 @@ export default function Hero() {
               const serviceSlug = p.href.replace("/services/", "");
               openEnquiry(serviceSlug || p.title);
             }}
-            className="pressable w-full py-1 text-center text-xs font-bold uppercase tracking-[0.2em] text-[#334155] hover:text-accent transition-all duration-150 cursor-pointer"
+            className="pressable w-full py-0.5 text-center text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-[#334155] hover:text-accent transition-all duration-150 cursor-pointer"
           >
             ENQUIRE
           </button>
@@ -261,7 +261,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-paper pt-20 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20">
+    <section className="relative overflow-hidden bg-paper pt-24 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20">
       {/* Clean Ambient Background with Sitewide Uniform Glows */}
       <div className="dot-texture absolute inset-0 opacity-50 pointer-events-none" />
       <div className="grid-texture-light absolute inset-0 opacity-40 pointer-events-none" />
@@ -273,7 +273,7 @@ export default function Hero() {
         {/* Main Editorial Agency Headline */}
         <div className="mx-auto max-w-4xl text-center">
           <Reveal>
-            <div className="inline-flex items-center gap-2 rounded-full border border-black/[0.12] bg-white px-3.5 py-1 sm:px-4 sm:py-1.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-ink shadow-xs backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 rounded-full border border-black/[0.12] bg-white px-3 py-1 sm:px-4 sm:py-1.5 text-[9px] sm:text-[11px] font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-ink shadow-xs backdrop-blur-md">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
@@ -283,14 +283,14 @@ export default function Hero() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <h1 className="text-balance mt-3 sm:mt-4 font-display text-3xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold leading-[1.08] tracking-tightest text-ink">
+            <h1 className="text-balance mt-3 sm:mt-4 font-display text-2xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tightest text-ink">
               Turn Digital Attention into{" "}
               <span className="text-accent">Real Revenue.</span>
             </h1>
           </Reveal>
 
           <Reveal delay={0.2}>
-            <p className="mx-auto mt-3 sm:mt-4 max-w-2xl text-sm leading-relaxed text-ink/85 sm:text-lg font-normal">
+            <p className="mx-auto mt-2.5 sm:mt-4 max-w-2xl text-xs sm:text-lg leading-relaxed text-ink/85 font-normal">
               We design and execute bespoke acquisition systems for luxury real estate developers,
               visa consultancies, political campaigns and high-growth brands — delivering verified
               inquiries and predictable commercial pipeline.
@@ -298,14 +298,14 @@ export default function Hero() {
           </Reveal>
 
           <Reveal delay={0.3}>
-            <div className="mt-6 flex items-center justify-center">
+            <div className="mt-5 sm:mt-6 flex items-center justify-center">
               {/* Grand Enquire Button */}
               <button
                 onClick={() => openEnquiry()}
-                className="pressable group inline-flex items-center gap-2 rounded-full border-[1.5px] border-ink bg-ink px-9 py-4 text-xs font-bold uppercase tracking-[0.22em] text-white shadow-md transition-all duration-150 hover:-translate-y-0.5 hover:bg-accent hover:border-accent hover:shadow-lg"
+                className="pressable group inline-flex items-center gap-2 rounded-full border-[1.5px] border-ink bg-ink px-7 py-3 sm:px-9 sm:py-4 text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.22em] text-white shadow-md transition-all duration-150 hover:-translate-y-0.5 hover:bg-accent hover:border-accent hover:shadow-lg"
               >
                 <span>Enquire Now</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
               </button>
             </div>
           </Reveal>
@@ -314,14 +314,14 @@ export default function Hero() {
         {/* Specialized Acquisition Practice Areas */}
         <Reveal delay={0.4}>
           <div ref={sectionRef} className="mt-8 sm:mt-10">
-            <div className="mb-6">
-              <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-ink/75">
+            <div className="mb-4 sm:mb-6">
+              <p className="text-[11px] sm:text-xs font-extrabold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-ink/75">
                 Specialized Acquisition Practice Areas
               </p>
             </div>
 
             {/* Primary 4 Cards */}
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {primaryPillars.map((p) => renderCard(p))}
             </div>
 
@@ -334,7 +334,7 @@ export default function Hero() {
                   exit={{ opacity: 0, height: 0, transition: { duration: 0.26, ease: [0.16, 1, 0.3, 1] } }}
                   className="overflow-hidden"
                 >
-                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 pt-4">
+                  <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-4 pt-3 sm:pt-4">
                     {secondaryPillars.map((p) => renderCard(p))}
                   </div>
                 </motion.div>
@@ -342,15 +342,15 @@ export default function Hero() {
             </AnimatePresence>
 
             {/* Button shifts downwards when dropdown expands */}
-            <div className="mt-8 sm:mt-10 flex flex-col items-center justify-center">
+            <div className="mt-6 sm:mt-10 flex flex-col items-center justify-center">
               <button
                 type="button"
                 onClick={toggleServices}
-                className="pressable group inline-flex items-center gap-2 rounded-full border border-black/[0.14] bg-white px-7 py-3 text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-card transition-all duration-150 hover:-translate-y-0.5 hover:border-accent hover:text-accent cursor-pointer"
+                className="pressable group inline-flex items-center gap-2 rounded-full border border-black/[0.14] bg-white px-6 py-2.5 sm:px-7 sm:py-3 text-[11px] sm:text-xs font-bold uppercase tracking-[0.16em] sm:tracking-[0.18em] text-ink shadow-card transition-all duration-150 hover:-translate-y-0.5 hover:border-accent hover:text-accent cursor-pointer"
               >
                 <span>{showAllServices ? "Collapse Services" : "Browse All 13+ Services"}</span>
                 <ChevronDown
-                  className={`h-4 w-4 transition-transform duration-300 ${
+                  className={`h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform duration-300 ${
                     showAllServices ? "rotate-180" : ""
                   }`}
                 />

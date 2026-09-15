@@ -27,7 +27,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#090D15] text-white border-t border-white/[0.08]">
       <div className="container-site pt-10 pb-14 sm:pt-12 sm:pb-16 lg:pt-12 lg:pb-18">
-        <div className="grid gap-12 lg:grid-cols-12">
+        <div className="grid gap-8 sm:gap-12 lg:grid-cols-12">
           {/* Column 1: Brand & Logo */}
           <div className="lg:col-span-5 space-y-6">
             <Link href="/" prefetch={true} className="inline-block transition-opacity hover:opacity-90" aria-label="CreateVerse home">
@@ -145,7 +145,7 @@ export default function Footer() {
         </div>
 
         {/* Clean Bottom Bar */}
-        <div className="mt-16 flex flex-col gap-4 border-t border-white/[0.08] pt-8 text-xs text-stone-500 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 sm:mt-16 flex flex-col gap-4 border-t border-white/[0.08] pt-6 sm:pt-8 text-xs text-stone-500 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} CreateVerse. All rights reserved.</p>
           <p className="hidden md:block">
             Strictly Confidential · Data Protected Under Mutual Non-Disclosure

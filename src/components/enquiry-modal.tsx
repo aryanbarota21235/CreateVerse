@@ -177,7 +177,7 @@ function matchService(inputName?: string): string {
 }
 
 const inputCls =
-  "w-full rounded-xl border border-stone-200/90 bg-[#F8FAFC] px-3.5 py-2.5 text-xs sm:text-sm text-ink placeholder:text-stone-400 outline-none transition-all focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-normal";
+  "w-full rounded-xl border border-stone-200/90 bg-[#F8FAFC] px-3 py-2 sm:px-3.5 sm:py-2.5 text-xs sm:text-sm text-ink placeholder:text-stone-400 outline-none transition-all focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-normal";
 
 export default function EnquiryModal() {
   const { isOpen, closeEnquiry, selectedService } = useEnquiry();
@@ -281,12 +281,12 @@ export default function EnquiryModal() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 16 }}
             transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full max-w-xl overflow-hidden rounded-3xl border border-stone-200/90 bg-white shadow-[0_30px_70px_rgba(15,23,42,0.28)] z-10 my-auto"
+            className="relative w-full max-w-xl overflow-hidden rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white shadow-[0_30px_70px_rgba(15,23,42,0.28)] z-10 my-auto"
           >
             {/* Executive Close Button */}
             <button
               onClick={closeEnquiry}
-              className="absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-stone-100 text-stone-500 transition-all hover:bg-ink hover:text-white sm:right-6 sm:top-6"
+              className="absolute right-3 top-3 z-20 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-stone-100 text-stone-500 transition-all hover:bg-ink hover:text-white sm:right-6 sm:top-6"
               aria-label="Close modal"
             >
               <X className="h-4 w-4" />
@@ -294,22 +294,22 @@ export default function EnquiryModal() {
 
             {submitted ? (
               /* Success Confirmation Screen */
-              <div className="p-8 sm:p-12 text-center">
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 text-accent border border-accent/20">
-                  <CheckCircle2 className="h-8 w-8 text-accent" />
+              <div className="p-6 sm:p-12 text-center">
+                <div className="mx-auto flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl sm:rounded-2xl bg-accent/10 text-accent border border-accent/20">
+                  <CheckCircle2 className="h-7 w-7 sm:h-8 sm:w-8 text-accent" />
                 </div>
-                <h3 className="mt-5 font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+                <h3 className="mt-4 sm:mt-5 font-display text-xl sm:text-3xl font-bold tracking-tight text-ink">
                   Mandate Received
                 </h3>
-                <p className="mx-auto mt-2 max-w-md text-sm text-stone-600 font-normal sm:text-base leading-relaxed">
+                <p className="mx-auto mt-2 max-w-md text-xs sm:text-base text-stone-600 font-normal leading-relaxed">
                   Thank you, <span className="font-semibold text-ink">{name}</span>. Our practice lead for{" "}
                   <span className="font-semibold text-accent">{service || "Growth Architecture"}</span> will review your scope and connect directly within 2 hours.
                 </p>
 
-                <div className="mt-8 flex items-center justify-center">
+                <div className="mt-6 sm:mt-8 flex items-center justify-center">
                   <button
                     onClick={handleReset}
-                    className="pressable rounded-full bg-ink px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-accent transition shadow-md"
+                    className="pressable rounded-full bg-ink px-7 py-3 sm:px-8 sm:py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-accent transition shadow-md"
                   >
                     Done &amp; Close Window
                   </button>
@@ -317,15 +317,15 @@ export default function EnquiryModal() {
               </div>
             ) : (
               /* High-End, Decluttered Intake Form */
-              <div className="p-6 sm:p-8 md:p-9 max-h-[90vh] overflow-y-auto">
+              <div className="p-4 sm:p-8 md:p-9 max-h-[88vh] overflow-y-auto">
                 {/* Header */}
                 <div className="pr-8">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/[0.06] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-accent">
+                  <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-accent/20 bg-accent/[0.06] px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-accent">
                     <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
                     <span>Direct Practice Consultation</span>
                   </div>
 
-                  <h3 className="mt-2.5 font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+                  <h3 className="mt-2 font-display text-xl sm:text-3xl font-bold tracking-tight text-ink">
                     {service ? (
                       <>
                         Consultation: <span className="text-accent">{service}</span>
@@ -347,34 +347,34 @@ export default function EnquiryModal() {
                   href={site.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group mt-4 flex items-center justify-between rounded-2xl border border-stone-200 bg-[#F8FAFC] p-3.5 sm:px-4 sm:py-3 transition-all hover:border-[#25D366]/50 hover:bg-[#25D366]/5"
+                  className="group mt-3 sm:mt-4 flex items-center justify-between rounded-xl sm:rounded-2xl border border-stone-200 bg-[#F8FAFC] p-3 sm:px-4 sm:py-3 transition-all hover:border-[#25D366]/50 hover:bg-[#25D366]/5"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#25D366] text-white shadow-xs">
-                      <WhatsAppIcon className="h-5 w-5 text-white" />
+                  <div className="flex items-center gap-2.5 sm:gap-3">
+                    <span className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-lg sm:rounded-xl bg-[#25D366] text-white shadow-xs">
+                      <WhatsAppIcon className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                     </span>
                     <div className="text-left">
                       <p className="text-xs font-bold text-ink group-hover:text-emerald-700 transition-colors">
                         Want to talk on WhatsApp?
                       </p>
-                      <p className="text-[11px] font-medium text-stone-500">
+                      <p className="text-[10px] sm:text-[11px] font-medium text-stone-500">
                         Instant chat with our senior directors ({site.phone})
                       </p>
                     </div>
                   </div>
-                  <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 group-hover:translate-x-0.5 transition-transform shrink-0">
+                  <span className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold text-emerald-700 group-hover:translate-x-0.5 transition-transform shrink-0">
                     <span>Chat now</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
+                    <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                   </span>
                 </a>
 
                 {/* Subtle Divider */}
-                <div className="relative my-4">
+                <div className="relative my-3 sm:my-4">
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-stone-200/80" />
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-white px-3 text-[10px] font-bold tracking-wider text-stone-400">
+                    <span className="bg-white px-2.5 sm:px-3 text-[9px] sm:text-[10px] font-bold tracking-wider text-stone-400">
                       or submit consultation inquiry
                     </span>
                   </div>
@@ -494,7 +494,7 @@ export default function EnquiryModal() {
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="pressable group flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-bold text-white shadow-[0_10px_25px_rgba(0,102,255,0.25)] transition-all hover:bg-accent-dim hover:shadow-[0_12px_28px_rgba(0,102,255,0.35)] disabled:opacity-60"
+                      className="pressable group flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 sm:py-3.5 text-xs sm:text-sm font-bold text-white shadow-[0_10px_25px_rgba(0,102,255,0.25)] transition-all hover:bg-accent-dim hover:shadow-[0_12px_28px_rgba(0,102,255,0.35)] disabled:opacity-60"
                     >
                       <span>{submitting ? "Submitting Inquiry..." : "Submit Growth Inquiry"}</span>
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

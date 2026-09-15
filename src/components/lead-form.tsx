@@ -6,7 +6,7 @@ import { services } from "@/lib/services";
 import { saveEnquiry } from "@/lib/admin-store";
 
 const inputCls =
-  "w-full rounded-xl border border-stone-200 bg-[#F8FAFC] px-4 py-3.5 text-sm text-ink placeholder:text-ink/40 outline-none transition-all focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-medium";
+  "w-full rounded-xl border border-stone-200 bg-[#F8FAFC] px-3.5 py-3 sm:px-4 sm:py-3.5 text-xs sm:text-sm text-ink placeholder:text-ink/40 outline-none transition-all focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-medium";
 
 export default function LeadForm({
   compact = false,
@@ -53,10 +53,10 @@ export default function LeadForm({
 
   if (submitted) {
     return (
-      <div className={`flex flex-col items-center text-center ${embedded ? "py-8" : "rounded-3xl border border-accent/30 bg-white p-10 shadow-2xl"}`}>
+      <div className={`flex flex-col items-center text-center ${embedded ? "py-8" : "rounded-2xl sm:rounded-3xl border border-accent/30 bg-white p-6 sm:p-10 shadow-2xl"}`}>
         <CheckCircle2 className="h-10 w-10 text-accent" />
-        <h3 className="mt-4 font-display text-2xl font-bold text-ink">Request received.</h3>
-        <p className="mt-2 max-w-sm text-sm text-ink/75 font-normal">
+        <h3 className="mt-4 font-display text-xl sm:text-2xl font-bold text-ink">Request received.</h3>
+        <p className="mt-2 max-w-sm text-xs sm:text-sm text-ink/75 font-normal">
           Our senior directors will reach out shortly to review your requirements and schedule an intake call.
         </p>
       </div>
@@ -65,11 +65,11 @@ export default function LeadForm({
 
   const containerCls = embedded
     ? `text-ink ${className}`
-    : `rounded-3xl border border-stone-200 bg-white p-6 shadow-2xl sm:p-8 text-ink ${className}`;
+    : `rounded-2xl sm:rounded-3xl border border-stone-200 bg-white p-5 sm:p-8 shadow-xl sm:shadow-2xl text-ink ${className}`;
 
   return (
     <form onSubmit={onSubmit} className={containerCls}>
-      <div className={`grid gap-4 ${compact ? "" : "sm:grid-cols-2"}`}>
+      <div className={`grid gap-3 sm:gap-4 ${compact ? "" : "sm:grid-cols-2"}`}>
         <input name="name" required placeholder="Enter your name" className={inputCls} aria-label="Enter your name" />
         <input name="phone" required type="tel" placeholder="Enter your mobile number" className={inputCls} aria-label="Enter your mobile number" />
         <input
@@ -97,12 +97,12 @@ export default function LeadForm({
       <button
         type="submit"
         disabled={sending}
-        className="group mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-7 py-4 text-sm font-bold text-white transition-all hover:bg-accent-dim disabled:opacity-60 shadow-md hover:shadow-lg hover:shadow-accent/20"
+        className="group mt-5 sm:mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 sm:px-7 sm:py-4 text-xs sm:text-sm font-bold text-white transition-all hover:bg-accent-dim disabled:opacity-60 shadow-md hover:shadow-lg hover:shadow-accent/20"
       >
         {sending ? "Submitting Inquiry..." : "Submit Growth Inquiry"}
         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
       </button>
-      <p className="mt-4 text-center text-xs text-ink/60 font-medium">
+      <p className="mt-3 sm:mt-4 text-center text-[11px] sm:text-xs text-ink/60 font-medium">
         Direct reply from our senior strategy team within 2 hours. Strictly confidential &amp; NDA protected.
       </p>
     </form>

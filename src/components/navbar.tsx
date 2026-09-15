@@ -32,13 +32,13 @@ export default function Navbar() {
   }
 
   return (
-    <header className="fixed inset-x-0 top-3 sm:top-5 z-50 px-4 sm:px-8 pointer-events-none">
+    <header className="fixed inset-x-0 top-2.5 sm:top-5 z-50 px-3 sm:px-8 pointer-events-none">
       {/* Maximum luxury width floating pill dock */}
       <div
         className={`mx-auto flex items-center justify-between rounded-full bg-white/98 shadow-[0_10px_35px_rgba(11,15,25,0.08)] backdrop-blur-2xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-auto border ${
           scrolled
-            ? "max-w-6xl py-2.5 px-6 sm:px-10 shadow-[0_16px_44px_rgba(11,15,25,0.12)] border-black/[0.15]"
-            : "max-w-7xl py-3.5 px-8 sm:px-12 border-black/[0.12]"
+            ? "max-w-6xl py-2 px-4 sm:py-2.5 sm:px-10 shadow-[0_16px_44px_rgba(11,15,25,0.12)] border-black/[0.15]"
+            : "max-w-7xl py-2.5 px-4 sm:py-3.5 sm:px-12 border-black/[0.12]"
         }`}
       >
         {/* Brand Logo */}
@@ -55,7 +55,7 @@ export default function Navbar() {
             height={148}
             priority
             className={`w-auto transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              scrolled ? "h-9 sm:h-11" : "h-11 sm:h-[50px] lg:h-[54px]"
+              scrolled ? "h-8 sm:h-11" : "h-9 sm:h-[50px] lg:h-[54px]"
             }`}
           />
         </Link>
@@ -98,19 +98,19 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Buttons */}
-        <div className="flex items-center gap-2 sm:hidden">
+        <div className="flex items-center gap-1.5 sm:hidden">
           <button
             onClick={() => openEnquiry()}
-            className="pressable rounded-full bg-ink px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-white shadow-xs"
+            className="pressable rounded-full bg-ink px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-white shadow-xs"
           >
             Enquire
           </button>
           <button
-            className="pressable flex h-9 w-9 items-center justify-center rounded-full border border-paper-line bg-white text-ink shadow-xs"
+            className="pressable flex h-8 w-8 items-center justify-center rounded-full border border-paper-line bg-white text-ink shadow-xs"
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Close menu" : "Open menu"}
           >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
         </div>
       </div>
@@ -119,16 +119,16 @@ export default function Navbar() {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-b border-paper-line bg-white/95 backdrop-blur-md md:hidden px-4 py-6 shadow-xl"
+            initial={{ opacity: 0, scale: 0.96, y: -8 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: -8 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            className="pointer-events-auto mt-2 max-w-sm mx-auto overflow-hidden rounded-2xl border border-stone-200/90 bg-white/98 backdrop-blur-2xl md:hidden px-4 py-5 shadow-2xl"
             aria-label="Mobile navigation"
           >
-            <div className="flex flex-col gap-2">
-              <div className="mb-2 flex items-center justify-between border-b border-stone-200 pb-3">
-                <span className="text-xs font-bold uppercase tracking-wider text-ink/75">Navigation</span>
+            <div className="flex flex-col gap-1.5">
+              <div className="mb-1 flex items-center justify-between border-b border-stone-200 pb-2.5">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-ink/75">Navigation</span>
               </div>
               {site.nav.map((item) => (
                 <Link
@@ -136,28 +136,28 @@ export default function Navbar() {
                   href={item.href}
                   prefetch={true}
                   onClick={() => setOpen(false)}
-                  className="rounded-xl px-3.5 py-2.5 text-sm font-bold uppercase tracking-wider text-ink transition-colors hover:bg-[#F8FAFC] hover:text-accent"
+                  className="rounded-xl px-3 py-2 text-xs font-bold uppercase tracking-wider text-ink transition-colors hover:bg-[#F8FAFC] hover:text-accent"
                 >
                   {item.label}
                 </Link>
               ))}
 
-              <div className="mt-3 pt-3 border-t border-stone-200 flex flex-col gap-2">
+              <div className="mt-2 pt-2.5 border-t border-stone-200 flex flex-col gap-2">
                 <button
                   onClick={() => {
                     setOpen(false);
                     openEnquiry();
                   }}
-                  className="flex items-center justify-center gap-2 rounded-xl bg-ink px-4 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-sm"
+                  className="flex items-center justify-center gap-2 rounded-xl bg-ink px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-sm"
                 >
-                  Enquire Now <ArrowUpRight className="h-4 w-4" />
+                  Enquire Now <ArrowUpRight className="h-3.5 w-3.5" />
                 </button>
 
                 <a
                   href={site.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-sm"
+                  className="flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-sm"
                 >
                   <WhatsAppIcon className="h-4 w-4 text-white" />
                   Chat on WhatsApp

@@ -13,9 +13,9 @@ const reasons = [
 
 export default function WhyCreateVerse() {
   return (
-    <section className="bg-paper py-24 lg:py-32">
+    <section className="bg-paper py-14 sm:py-24 lg:py-32">
       <div className="container-site">
-        <div className="grid gap-14 lg:grid-cols-12">
+        <div className="grid gap-8 sm:gap-14 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <SectionHeading
               eyebrow="Why CreateVerse"
@@ -23,15 +23,15 @@ export default function WhyCreateVerse() {
               description="We are deliberately not a generic agency. Everything about how we work is designed around one outcome: measurable growth."
             />
           </div>
-          <Stagger className="grid gap-10 sm:grid-cols-2 lg:col-span-8" delayChildren={0.08}>
+          <Stagger className="grid gap-3 sm:gap-10 sm:grid-cols-2 lg:col-span-8" delayChildren={0.08}>
             {reasons.map((r, i) => (
               <StaggerItem key={r.title}>
-                <div className="group">
-                  <span className={`flex h-11 w-11 items-center justify-center rounded-xl text-white transition-transform duration-300 group-hover:scale-105 ${i % 2 === 0 ? "bg-accent" : "bg-brand-orange"}`}>
-                    <r.icon className="h-5 w-5" />
+                <div className="group p-4 sm:p-0 rounded-2xl sm:rounded-none bg-white sm:bg-transparent border border-stone-200/80 sm:border-0 shadow-xs sm:shadow-none">
+                  <span className={`flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-lg sm:rounded-xl text-white transition-transform duration-300 group-hover:scale-105 ${i % 2 === 0 ? "bg-accent" : "bg-brand-orange"}`}>
+                    <r.icon className="h-4 w-4 sm:h-5 sm:w-5" />
                   </span>
-                  <h3 className="mt-5 font-display text-xl font-bold text-ink">{r.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink/80 font-normal">{r.desc}</p>
+                  <h3 className="mt-3 sm:mt-5 font-display text-base sm:text-xl font-bold text-ink">{r.title}</h3>
+                  <p className="mt-1 sm:mt-2 text-xs sm:text-sm leading-relaxed text-ink/80 font-normal">{r.desc}</p>
                 </div>
               </StaggerItem>
             ))}
