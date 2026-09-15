@@ -14,28 +14,30 @@ const capabilities = [
 
 export default function WhatWeDo() {
   return (
-    <section className="bg-paper py-24 lg:py-32">
+    <section className="bg-paper py-14 sm:py-24 lg:py-32">
       <div className="container-site">
         <SectionHeading
           eyebrow="What We Do"
           title="Not a marketing agency. A growth and acquisition partner."
           description="We don't sell posts and impressions. We design, build and run the systems that produce customers — combining strategy, media, creative and technology under one roof."
         />
-        <Stagger className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <Stagger className="mt-8 sm:mt-16 grid grid-cols-2 gap-2.5 sm:gap-5 lg:grid-cols-3" delayChildren={0.08}>
           {capabilities.map((c) => (
-            <StaggerItem key={c.title}>
-              <div className="group h-full rounded-2xl border border-black/[0.12] bg-white p-8 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-lift">
-                <span className={`flex h-12 w-12 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 ${c.tint}`}>
-                  <c.icon className="h-5 w-5" />
-                </span>
-                <h3 className="mt-6 font-display text-xl font-bold text-ink">{c.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-ink/80 font-normal">{c.desc}</p>
+            <StaggerItem key={c.title} className="h-full">
+              <div className="group h-full flex flex-col justify-between rounded-xl sm:rounded-2xl border border-stone-200/90 bg-white p-3.5 sm:p-8 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-lift">
+                <div>
+                  <span className={`flex h-8 w-8 sm:h-12 sm:w-12 items-center justify-center rounded-lg sm:rounded-xl transition-transform duration-300 group-hover:scale-110 ${c.tint}`}>
+                    <c.icon className="h-4 w-4 sm:h-5 sm:w-5" />
+                  </span>
+                  <h3 className="mt-2.5 sm:mt-6 font-display text-xs sm:text-xl font-bold text-ink leading-snug">{c.title}</h3>
+                  <p className="mt-1 sm:mt-3 text-[10.5px] sm:text-sm leading-relaxed text-ink/80 font-normal line-clamp-3 sm:line-clamp-none">{c.desc}</p>
+                </div>
               </div>
             </StaggerItem>
           ))}
-          <StaggerItem>
-            <div className="flex h-full items-center justify-center rounded-2xl border border-black bg-ink p-8 shadow-card">
-              <p className="text-center font-display text-2xl font-bold leading-snug tracking-tight text-white">
+          <StaggerItem className="col-span-2 sm:col-span-1 h-full">
+            <div className="flex h-full items-center justify-center rounded-xl sm:rounded-2xl border border-black bg-ink p-4 sm:p-8 shadow-card text-center">
+              <p className="font-display text-xs sm:text-2xl font-bold leading-snug tracking-tight text-white">
                 One partner.<br />
                 <span className="text-accent">Strategy → Creative → Media → Tech.</span>
               </p>

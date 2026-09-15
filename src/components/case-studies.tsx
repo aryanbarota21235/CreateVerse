@@ -78,36 +78,36 @@ export default function CaseStudies({
           />
         )}
 
-        <Stagger className={`${showHeading ? "mt-8 sm:mt-16" : "mt-2 sm:mt-4"} grid gap-4 sm:gap-6 md:grid-cols-2`} delayChildren={0.1}>
+        <Stagger className={`${showHeading ? "mt-6 sm:mt-16" : "mt-2 sm:mt-4"} grid gap-3 sm:gap-6 md:grid-cols-2`} delayChildren={0.1}>
           {caseStudies.map((c, i) => (
             <StaggerItem key={c.category}>
               <Link
                 href={`/services/${c.slug}`}
                 prefetch={true}
-                className="group flex h-full flex-col justify-between rounded-2xl sm:rounded-3xl border border-black/[0.12] bg-white p-5 sm:p-8 lg:p-10 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
+                className="group flex h-full flex-col justify-between rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white p-3.5 sm:p-8 lg:p-10 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
               >
                 <div>
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-paper border border-black/[0.08] px-3 py-1 text-[11px] sm:text-xs font-bold text-accent shadow-xs">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-paper border border-black/[0.08] px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-xs font-bold text-accent shadow-xs">
                       {c.category}
                     </span>
-                    <span className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-paper border border-black/[0.08] text-ink/70 shadow-xs transition-all group-hover:bg-accent group-hover:text-white group-hover:border-accent">
-                      <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <span className="flex h-7 w-7 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-paper border border-black/[0.08] text-ink/70 shadow-xs transition-all group-hover:bg-accent group-hover:text-white group-hover:border-accent">
+                      <ArrowUpRight className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </span>
                   </div>
 
-                  <h3 className="mt-4 sm:mt-6 font-display text-lg sm:text-2xl font-bold leading-snug tracking-tight text-ink group-hover:text-accent transition-colors">
+                  <h3 className="mt-2.5 sm:mt-6 font-display text-sm sm:text-2xl font-bold leading-snug tracking-tight text-ink group-hover:text-accent transition-colors">
                     {c.title}
                   </h3>
-                  <p className="mt-2 sm:mt-3 text-xs sm:text-sm leading-relaxed text-ink/80 font-normal line-clamp-2 sm:line-clamp-none">{c.summary}</p>
+                  <p className="mt-1.5 sm:mt-3 text-xs sm:text-sm leading-relaxed text-ink/80 font-normal line-clamp-2">{c.summary}</p>
                 </div>
 
-                <div className="mt-5 sm:mt-8 border-t border-stone-200 pt-4 sm:pt-6">
-                  <div className="grid grid-cols-3 gap-2 sm:gap-4">
+                <div className="mt-3.5 sm:mt-8 border-t border-stone-200 pt-3 sm:pt-6">
+                  <div className="grid grid-cols-3 gap-1.5 sm:gap-4">
                     {c.stats.map((s) => (
-                      <div key={s.label} className="rounded-lg sm:rounded-xl border border-black/[0.08] bg-paper p-2 sm:p-3 shadow-xs">
-                        <p className="font-display text-sm sm:text-xl font-bold text-ink">{s.value}</p>
-                        <p className="mt-0.5 text-[10px] sm:text-[11px] font-semibold leading-tight text-ink/75">{s.label}</p>
+                      <div key={s.label} className="rounded-lg sm:rounded-xl border border-stone-200/90 bg-paper p-1.5 sm:p-3 shadow-xs text-center sm:text-left">
+                        <p className="font-display text-xs sm:text-xl font-bold text-ink leading-tight">{s.value}</p>
+                        <p className="mt-0.5 text-[9px] sm:text-[11px] font-semibold leading-tight text-ink/75 truncate">{s.label}</p>
                       </div>
                     ))}
                   </div>

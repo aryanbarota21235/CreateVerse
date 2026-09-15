@@ -27,17 +27,17 @@ export default function AboutPage() {
         description="CreateVerse is a growth and digital acquisition partner. We combine strategy, media, creative and technology to generate leads, acquire customers and run high-impact campaigns — for real estate companies, immigration businesses, political organizations and ambitious brands."
       />
 
-      <section className="bg-paper pb-24 lg:pb-32">
+      <section className="bg-paper pb-16 sm:pb-24 lg:pb-32">
         <div className="container-site">
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-6">
             {principles.map((p, i) => (
-              <Reveal key={p.title} delay={i * 0.08}>
-                <div className="h-full rounded-2xl border border-black/[0.12] bg-white p-8 shadow-card transition-all hover:-translate-y-1 hover:border-accent hover:shadow-lift">
-                  <span className={`font-display text-sm font-bold tracking-widest ${i % 2 === 0 ? "text-accent" : "text-brand-orange"}`}>
+              <Reveal key={p.title} delay={i * 0.08} className="h-full">
+                <div className="h-full rounded-xl sm:rounded-2xl border border-stone-200/90 bg-white p-3.5 sm:p-8 shadow-card transition-all hover:-translate-y-1 hover:border-accent hover:shadow-lift">
+                  <span className={`font-display text-xs sm:text-sm font-bold tracking-widest ${i % 2 === 0 ? "text-accent" : "text-brand-orange"}`}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h2 className="mt-4 font-display text-2xl font-bold text-ink">{p.title}</h2>
-                  <p className="mt-3 text-sm leading-relaxed text-ink/80 font-normal">{p.desc}</p>
+                  <h2 className="mt-2 sm:mt-4 font-display text-xs sm:text-2xl font-bold text-ink leading-snug">{p.title}</h2>
+                  <p className="mt-1 sm:mt-3 text-[10.5px] sm:text-sm leading-relaxed text-ink/80 font-normal line-clamp-3 sm:line-clamp-none">{p.desc}</p>
                 </div>
               </Reveal>
             ))}

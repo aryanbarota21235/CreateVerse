@@ -12,18 +12,18 @@ export default function PageHero({
   className?: string;
 }) {
   return (
-    <section className={`relative overflow-hidden bg-paper pt-[76px] ${className}`}>
+    <section className={`relative overflow-hidden bg-paper pt-[68px] sm:pt-[76px] ${className}`}>
       <div className="dot-texture absolute inset-0 opacity-80" />
-      <div className="pointer-events-none absolute -left-28 top-16 h-[450px] w-[450px] rounded-full bg-brand-sun/70 blur-[100px]" />
-      <div className="pointer-events-none absolute -right-28 top-12 h-[450px] w-[450px] rounded-full bg-brand-sky/60 blur-[120px]" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-paper" />
-      <div className="container-site relative pb-6 sm:pb-8 pt-12 sm:pt-16 lg:pt-20">
+      <div className="pointer-events-none absolute -left-28 top-16 h-[350px] sm:h-[450px] w-[350px] sm:w-[450px] rounded-full bg-brand-sun/70 blur-[80px] sm:blur-[100px]" />
+      <div className="pointer-events-none absolute -right-28 top-12 h-[350px] sm:h-[450px] w-[350px] sm:w-[450px] rounded-full bg-brand-sky/60 blur-[90px] sm:blur-[120px]" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-b from-transparent to-paper" />
+      <div className="container-site relative pb-5 sm:pb-8 pt-7 sm:pt-16 lg:pt-20">
         <Reveal>
-          <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent">{eyebrow}</p>
-          <h1 className="text-balance mt-3 max-w-3xl font-display text-4xl font-bold tracking-tightest text-ink sm:text-5xl lg:text-6xl">
+          <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.22em] text-accent">{eyebrow}</p>
+          <h1 className="text-balance mt-2.5 sm:mt-3 max-w-3xl font-display text-2xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-ink leading-[1.18] sm:leading-tight">
             {title}
           </h1>
-          {description && <p className="mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-ink/80 font-normal">{description}</p>}
+          {description && <p className="mt-2.5 sm:mt-4 max-w-2xl text-xs sm:text-lg leading-relaxed text-ink/80 font-normal">{description}</p>}
         </Reveal>
       </div>
     </section>
