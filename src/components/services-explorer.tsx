@@ -86,16 +86,16 @@ export default function ServicesExplorer() {
           </p>
         </div>
 
-        {/* 4-Column Balanced Capsule Pill Tiles Grid */}
+        {/* 4-Column Balanced Capsule Pill Tiles Grid (Authentic Capsnpills Physics) */}
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-3.5">
           {servicesList.map((item) => (
             <Link
               key={item.slug}
               href={`/services/${item.slug}`}
               prefetch={true}
-              className="group flex items-center justify-center rounded-full border border-black/[0.09] bg-white px-5 py-3 text-center text-xs sm:text-sm font-semibold text-ink shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:text-accent hover:shadow-lift active:translate-y-0.5 active:scale-[0.96] cursor-pointer select-none"
+              className="capsnpills-pill group flex items-center justify-center rounded-full px-5 py-3 text-center text-xs sm:text-sm font-semibold select-none cursor-pointer"
             >
-              <span className="truncate tracking-tight transition-colors">
+              <span className="truncate tracking-tight">
                 {item.name}
               </span>
             </Link>
