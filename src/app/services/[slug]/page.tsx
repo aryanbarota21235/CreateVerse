@@ -140,13 +140,13 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               <span className="text-ink font-bold">{service.name}</span>
             </nav>
 
-            <div className="mt-4 sm:mt-6 inline-flex items-center gap-2 rounded-full border border-black/[0.12] bg-white px-3.5 py-1.5 shadow-xs">
-              <span className="relative flex h-2 w-2">
+            <div className="mt-3.5 sm:mt-6 inline-flex max-w-full items-center gap-1.5 sm:gap-2 rounded-full border border-black/[0.12] bg-white px-3 sm:px-3.5 py-1 sm:py-1.5 shadow-xs">
+              <span className="relative flex h-2 w-2 shrink-0">
                 <span className="hidden sm:inline-flex absolute h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
-              {Icon && <Icon className="h-3.5 w-3.5 text-accent" />}
-              <span className="text-[10.5px] sm:text-xs font-bold uppercase tracking-[0.2em] text-ink">
+              {Icon && <Icon className="h-3.5 w-3.5 text-accent shrink-0" />}
+              <span className="text-[9px] min-[360px]:text-[10px] min-[390px]:text-[10.5px] sm:text-xs font-bold uppercase tracking-[0.08em] min-[390px]:tracking-[0.14em] sm:tracking-[0.2em] text-ink whitespace-nowrap">
                 {service.category} Practice · Verified Architecture
               </span>
             </div>
@@ -166,16 +166,20 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             <ServiceHeroButtons serviceName={service.name} />
           </Reveal>
 
-          {/* 4 Verified Performance Metric Cards */}
-          <div className="mt-12 sm:mt-16 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
+          {/* 4 Verified Performance Metric Cards (Uniform equal-sized boxes) */}
+          <div className="mt-10 sm:mt-16 grid grid-cols-2 gap-2.5 sm:gap-6 lg:grid-cols-4 items-stretch">
             {metrics.map((m, idx) => (
-              <Reveal key={m.label} delay={idx * 0.08}>
-                <div className="rounded-2xl border border-stone-200/90 bg-white p-4 sm:p-6 shadow-card hover:border-accent/40 transition-all duration-200 hover:-translate-y-0.5">
-                  <span className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-accent">
+              <Reveal key={m.label} delay={idx * 0.08} className="h-full">
+                <div className="h-full flex flex-col justify-start min-h-[160px] sm:min-h-[190px] rounded-2xl border border-stone-200/90 bg-white p-3.5 sm:p-6 shadow-card hover:border-accent/40 transition-all duration-200 hover:-translate-y-0.5">
+                  <span className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-accent leading-none">
                     {m.value}
                   </span>
-                  <p className="mt-1 font-display text-xs sm:text-sm font-bold text-ink">{m.label}</p>
-                  <p className="mt-0.5 text-[11px] sm:text-xs text-stone-500 font-normal">{m.desc}</p>
+                  <p className="mt-2 font-display text-xs sm:text-sm font-bold text-ink leading-snug min-h-[32px] sm:min-h-[38px] flex items-start">
+                    {m.label}
+                  </p>
+                  <p className="mt-1 text-[10.5px] sm:text-xs text-stone-500 font-normal leading-relaxed">
+                    {m.desc}
+                  </p>
                 </div>
               </Reveal>
             ))}

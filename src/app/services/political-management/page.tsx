@@ -174,12 +174,12 @@ export default function PoliticalManagementPage() {
               <span className="text-ink font-bold">Political Campaign</span>
             </nav>
 
-            <div className="mt-4 sm:mt-6 inline-flex items-center gap-2 rounded-full border border-black/[0.12] bg-white px-3.5 py-1.5 shadow-xs">
-              <span className="relative flex h-2 w-2">
+            <div className="mt-3.5 sm:mt-6 inline-flex max-w-full items-center gap-1.5 sm:gap-2 rounded-full border border-black/[0.12] bg-white px-3 sm:px-3.5 py-1 sm:py-1.5 shadow-xs">
+              <span className="relative flex h-2 w-2 shrink-0">
                 <span className="hidden sm:inline-flex absolute h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
-              <span className="text-[10.5px] sm:text-xs font-bold uppercase tracking-[0.2em] text-ink">
+              <span className="text-[9px] min-[360px]:text-[10px] min-[390px]:text-[10.5px] sm:text-xs font-bold uppercase tracking-[0.08em] min-[390px]:tracking-[0.14em] sm:tracking-[0.2em] text-ink whitespace-nowrap">
                 24/7 Digital Campaign &amp; Electoral Strategy
               </span>
             </div>
@@ -200,16 +200,20 @@ export default function PoliticalManagementPage() {
             <PoliticalHeroButtons />
           </Reveal>
 
-          {/* 4 Core Impact Metrics */}
-          <div className="mt-12 sm:mt-16 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
+          {/* 4 Core Impact Metrics (Uniform equal-sized boxes) */}
+          <div className="mt-10 sm:mt-16 grid grid-cols-2 gap-2.5 sm:gap-6 lg:grid-cols-4 items-stretch">
             {stats.map((s, idx) => (
-              <Reveal key={s.label} delay={idx * 0.08}>
-                <div className="rounded-2xl border border-stone-200/90 bg-white p-4 sm:p-6 shadow-card hover:border-accent/40 transition-all duration-200 hover:-translate-y-0.5">
-                  <span className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-accent">
+              <Reveal key={s.label} delay={idx * 0.08} className="h-full">
+                <div className="h-full flex flex-col justify-start min-h-[160px] sm:min-h-[190px] rounded-2xl border border-stone-200/90 bg-white p-3.5 sm:p-6 shadow-card hover:border-accent/40 transition-all duration-200 hover:-translate-y-0.5">
+                  <span className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-accent leading-none">
                     {s.value}
                   </span>
-                  <p className="mt-1 font-display text-xs sm:text-sm font-bold text-ink">{s.label}</p>
-                  <p className="mt-0.5 text-[11px] sm:text-xs text-stone-500 font-normal">{s.desc}</p>
+                  <p className="mt-2 font-display text-xs sm:text-sm font-bold text-ink leading-snug min-h-[32px] sm:min-h-[38px] flex items-start">
+                    {s.label}
+                  </p>
+                  <p className="mt-1 text-[10.5px] sm:text-xs text-stone-500 font-normal leading-relaxed">
+                    {s.desc}
+                  </p>
                 </div>
               </Reveal>
             ))}
