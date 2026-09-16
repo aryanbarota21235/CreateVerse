@@ -149,3 +149,12 @@ button:not(:disabled):active,
   }
 }
 
+/* ==========================================================================
+   Floating Navbar Pill Dock
+   Guarantees 100% solid white background on mobile and desktop (never transparent)
+   ========================================================================== */
+.navbar-dock {
+  background-color: #ffffff !important;
+}
+
+
