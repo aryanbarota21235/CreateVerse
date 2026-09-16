@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, ShieldCheck, Clock, Award } from "lucide-react";
+import { ArrowRight, ArrowUpRight, MessageSquare } from "lucide-react";
 import { type Service } from "@/lib/services";
 import { site } from "@/lib/site";
 import { useEnquiry } from "@/context/enquiry-context";
@@ -21,65 +21,42 @@ export default function ServiceCta({ service, related }: ServiceCtaProps) {
   );
 
   return (
-    <section className="bg-paper py-20 lg:py-28 border-t border-stone-200">
+    <section className="bg-paper py-16 sm:py-24 border-t border-stone-200">
       <div className="container-site">
-        {/* Executive Consultation Card */}
+        {/* Executive Consultation CTA - Clean Light Aesthetic matching Political CTA */}
         <Reveal>
-          <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-ink p-5 sm:p-12 lg:p-16 text-white shadow-lift border border-white/10">
-            {/* Ambient Lighting */}
-            <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(2,132,199,0.35)_0%,rgba(2,132,199,0.1)_45%,transparent_70%)] pointer-events-none" />
-            <div className="absolute -left-24 -bottom-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(234,88,12,0.25)_0%,rgba(234,88,12,0.06)_45%,transparent_70%)] pointer-events-none" />
+          <div className="text-center max-w-3xl mx-auto py-2 sm:py-4">
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
+              Executive Strategy Consultation
+            </span>
 
-            <div className="relative z-10 max-w-3xl">
-              <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.22em] text-accent">
-                Executive Strategy Consultation
-              </p>
+            <h2 className="mt-3 font-display text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-ink">
+              Scale your <span className="text-accent">{service.shortName ?? service.name}</span> with precision.
+            </h2>
 
-              <h2 className="mt-2.5 sm:mt-4 font-display text-xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
-                Scale your <span className="text-accent">{service.shortName ?? service.name}</span> with precision.
-              </h2>
+            <p className="mt-3 text-xs sm:text-base leading-relaxed text-ink/80 font-normal">
+              Schedule a confidential consultation with our senior campaign team. We audit your target market, analyze acquisition funnels, and construct an execution roadmap engineered for real revenue.
+            </p>
 
-              <p className="mt-2.5 sm:mt-5 text-xs sm:text-lg leading-relaxed text-white/80 font-normal">
-                Schedule a confidential consultation with our senior campaign team. We audit your target market, analyze acquisition funnels, and construct an execution roadmap engineered for real revenue.
-              </p>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              <button
+                onClick={() => openEnquiry(service.name)}
+                className="pressable group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 sm:px-8 sm:py-3.5 text-xs sm:text-sm font-bold text-white shadow-md transition-all duration-150 hover:-translate-y-0.5 hover:bg-accent-dim hover:shadow-lg hover:shadow-accent/25 cursor-pointer"
+              >
+                <MessageSquare className="h-4 w-4" />
+                <span>Enquire for {service.shortName ?? service.name}</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </button>
 
-              {/* Trust badges */}
-              <div className="mt-5 sm:mt-8 flex flex-wrap gap-2 sm:gap-4 text-[11px] sm:text-xs font-semibold text-white/90">
-                <div className="flex items-center gap-1.5 sm:gap-2 rounded-lg sm:rounded-xl bg-white/10 px-2.5 py-1.5 sm:px-3.5 sm:py-2 border border-white/10">
-                  <Clock className="h-3.5 w-3.5 text-accent" />
-                  <span>2-Hour Guaranteed Response</span>
-                </div>
-                <div className="flex items-center gap-1.5 sm:gap-2 rounded-lg sm:rounded-xl bg-white/10 px-2.5 py-1.5 sm:px-3.5 sm:py-2 border border-white/10">
-                  <ShieldCheck className="h-3.5 w-3.5 text-accent" />
-                  <span>Strict NDA &amp; Data Privacy</span>
-                </div>
-                <div className="flex items-center gap-1.5 sm:gap-2 rounded-lg sm:rounded-xl bg-white/10 px-2.5 py-1.5 sm:px-3.5 sm:py-2 border border-white/10">
-                  <Award className="h-3.5 w-3.5 text-accent" />
-                  <span>Senior Partner Oversight</span>
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="mt-6 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-4">
-                <button
-                  onClick={() => openEnquiry(service.name)}
-                  className="group inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 sm:px-8 sm:py-4 text-xs sm:text-sm font-bold text-white shadow-md transition-all duration-300 hover:bg-accent-dim hover:shadow-lg hover:shadow-accent/20"
-                >
-                  <span>Enquire for {service.shortName ?? service.name}</span>
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </button>
-
-                <a
-                  href={`https://wa.me/${site.phoneRaw.replace("+", "")}?text=${whatsappMessage}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 sm:px-7 sm:py-4 text-xs sm:text-sm font-bold text-white transition-all duration-300 hover:bg-white/15 hover:border-white/40 shadow-xs"
-                >
-                  <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
-                  <span>Chat on WhatsApp</span>
-                  <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-white/70 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
-              </div>
+              <a
+                href={`https://wa.me/${site.phoneRaw.replace("+", "")}?text=${whatsappMessage}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pressable inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white px-5 py-3 sm:px-6 sm:py-3.5 text-xs sm:text-sm font-bold text-ink shadow-xs transition-all duration-150 hover:-translate-y-0.5 hover:border-[#25D366] hover:text-emerald-700"
+              >
+                <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
+                <span>Direct Strategy Hotline</span>
+              </a>
             </div>
           </div>
         </Reveal>

@@ -458,7 +458,7 @@ export default function PoliticalManagementPage() {
               Book a private briefing with our Senior Political Directors to review your constituency data, current digital footprint, and deployment timeline.
             </p>
             <div className="mt-8 flex justify-center">
-              <PoliticalHeroButtons />
+              <PoliticalHeroButtons center={true} />
             </div>
           </Reveal>
         </div>
