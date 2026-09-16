@@ -12,7 +12,7 @@ import PoliticalClients from "@/components/political-clients";
 import { caseStudies } from "@/components/case-studies";
 
 export function generateStaticParams() {
-  return services.map((s) => ({ slug: s.slug }));
+  return services.filter((s) => s.slug !== "political-management").map((s) => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
