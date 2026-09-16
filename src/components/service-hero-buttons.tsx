@@ -35,8 +35,7 @@ export default function ServiceHeroButtons({ serviceName }: ServiceHeroButtonsPr
         className="pressable flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-full border border-stone-300 bg-white px-2.5 py-2.5 sm:px-6 sm:py-3.5 text-[11px] sm:text-sm font-bold text-ink shadow-xs transition-all duration-150 hover:-translate-y-0.5 hover:border-[#25D366] hover:text-emerald-700 whitespace-nowrap"
       >
         <WhatsAppIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 text-[#25D366]" />
-        <span className="hidden min-[380px]:inline">Direct Strategy Hotline</span>
-        <span className="min-[380px]:hidden">Strategy Hotline</span>
+        <span>Talk on WhatsApp</span>
       </a>
     </div>
   );

@@ -55,7 +55,7 @@ export default function ServiceCta({ service, related }: ServiceCtaProps) {
                 className="pressable inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white px-5 py-3 sm:px-6 sm:py-3.5 text-xs sm:text-sm font-bold text-ink shadow-xs transition-all duration-150 hover:-translate-y-0.5 hover:border-[#25D366] hover:text-emerald-700"
               >
                 <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
-                <span>Direct Strategy Hotline</span>
+                <span>Talk on WhatsApp</span>
               </a>
             </div>
           </div>

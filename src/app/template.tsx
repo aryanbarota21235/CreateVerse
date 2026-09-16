@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
 let isBackNavigation = false;
+let isBFCacheRestore = false;
 let isInitialMount = true;
 let resetTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -13,25 +14,24 @@ const markBackNavigation = () => {
   if (resetTimer) clearTimeout(resetTimer);
   resetTimer = setTimeout(() => {
     isBackNavigation = false;
-  }, 1500);
+  }, 1200);
 };
 
 if (typeof window !== "undefined") {
-  // Capture browser back/forward buttons and touch/swipe back gestures
+  // Capture browser back/forward buttons
   window.addEventListener("popstate", markBackNavigation, { capture: true, passive: true });
 
-  // Capture BFCache restores (e.g. Safari iOS swipe-back)
+  // Capture BFCache restores (e.g. Safari iOS swipe-back where page is already painted)
   window.addEventListener(
     "pageshow",
     (event) => {
       if (event.persisted) {
-        markBackNavigation();
+        isBFCacheRestore = true;
       }
     },
     { capture: true, passive: true }
   );
 
-  // Check performance navigation timing
   try {
     const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
     if (nav?.type === "back_forward") {
@@ -47,20 +47,19 @@ export default function Template({ children }: { children: React.ReactNode }) {
   const shouldReduceMotion = useReducedMotion();
 
   // Snapshot navigation direction at the moment this Template mounts
-  const [navDirection] = useState<"forward" | "back">(() => {
-    return isBackNavigation ? "back" : "forward";
-  });
+  const [navDirection] = useState<"forward" | "back">(() => (isBackNavigation ? "back" : "forward"));
 
-  // Skip animation only on initial mount (first SSR paint / hard refresh) to prevent white flash
-  const [isFirstLoad] = useState(() => isInitialMount);
+  // Skip animation on initial mount (first SSR paint) or BFCache restore to completely eliminate white flash/blink
+  const [skipTransition] = useState(() => isInitialMount || isBFCacheRestore);
 
   useEffect(() => {
     isInitialMount = false;
     isBackNavigation = false;
+    isBFCacheRestore = false;
     if (resetTimer) clearTimeout(resetTimer);
   }, [pathname]);
 
-  if (pathname?.startsWith("/admin") || shouldReduceMotion || isFirstLoad) {
+  if (pathname?.startsWith("/admin") || shouldReduceMotion || skipTransition) {
     return <>{children}</>;
   }
 
@@ -71,14 +70,14 @@ export default function Template({ children }: { children: React.ReactNode }) {
       key={pathname}
       initial={{
         opacity: 0,
-        y: isBack ? -18 : 22,
+        y: isBack ? -8 : 12,
       }}
       animate={{
         opacity: 1,
         y: 0,
       }}
       transition={{
-        duration: 0.32,
+        duration: 0.28,
         ease: [0.16, 1, 0.3, 1],
       }}
     >
