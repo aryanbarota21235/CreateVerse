@@ -203,6 +203,8 @@ export default function EnquiryModal() {
     setPrevSelectedService(selectedService);
     if (isOpen) {
       setService(selectedService ? matchService(selectedService) : "");
+    } else {
+      setSubmitted(false);
     }
   }
 
@@ -272,8 +274,11 @@ export default function EnquiryModal() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: reduceMotion ? 0 : 0.16, ease: "easeOut" }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto no-scrollbar bg-black/60"
-          style={{ isolation: "isolate" }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-hidden no-scrollbar bg-black/60"
+          style={{
+            WebkitBackfaceVisibility: "hidden",
+            backfaceVisibility: "hidden",
+          }}
           onClick={closeEnquiry}
         >
           {/* Compact Centered Modal Card */}
@@ -282,9 +287,15 @@ export default function EnquiryModal() {
             initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: reduceMotion ? 0 : 8 }}
-            transition={{ duration: reduceMotion ? 0 : 0.16, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: reduceMotion ? 0 : 0.16, ease: "easeOut" }}
             onClick={(e) => e.stopPropagation()}
-            className="mobile-no-hover relative z-10 w-full max-w-[min(100%,430px)] sm:max-w-[520px] bg-white rounded-2xl sm:rounded-3xl border border-white/70 sm:border-stone-200/90 shadow-xl sm:shadow-2xl overflow-hidden max-h-[85vh] flex flex-col no-scrollbar my-auto"
+            style={{
+              WebkitBackfaceVisibility: "hidden",
+              backfaceVisibility: "hidden",
+              WebkitTransform: "translate3d(0, 0, 0)",
+              transform: "translate3d(0, 0, 0)",
+            }}
+            className="relative z-10 w-full max-w-[min(100%,430px)] sm:max-w-[520px] bg-white rounded-2xl sm:rounded-3xl border border-white/70 sm:border-stone-200/90 shadow-xl sm:shadow-2xl overflow-hidden max-h-[85vh] flex flex-col no-scrollbar my-auto"
           >
             {/* Tactile Close Button */}
             <button

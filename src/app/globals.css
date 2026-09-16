@@ -175,10 +175,6 @@ button:not(:disabled):not(.no-press):active,
     transform: none;
   }
 
-  .mobile-no-hover,
-  .mobile-no-hover * {
-    transition-duration: 120ms !important;
-  }
 }
 
 
