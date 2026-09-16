@@ -26,13 +26,13 @@ export default function PoliticalClients() {
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/[0.06] px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-accent mb-2 sm:mb-3">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
-                <span>24/7 Digital War Room Operations</span>
+                <span>24/7 Digital Campaign Operations</span>
               </div>
               <h2 className="font-display text-3xl sm:text-5xl lg:text-[52px] font-bold tracking-tightest text-ink">
-                Political Campaign &amp; War Room
+                Political Campaign
               </h2>
               <p className="mt-3 sm:mt-5 text-sm sm:text-lg leading-relaxed text-ink/80 font-normal">
-                In today&apos;s digital battlefield, political leaders need unmatched narrative dominance, booth-level voter mobilization, and rapid response crisis management. At CreateVerse, we specialize in high-stakes political branding, digital war rooms, grassroots WhatsApp networks, and election campaign strategy to build decisive electoral mandates.
+                In today&apos;s digital battlefield, political leaders need unmatched narrative dominance, booth-level voter mobilization, and rapid response crisis management. At CreateVerse, we specialize in high-stakes political branding, digital campaign infrastructure, grassroots WhatsApp networks, and election campaign strategy to build decisive electoral mandates.
               </p>
             </div>
 
@@ -55,15 +55,6 @@ export default function PoliticalClients() {
                 <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
                 <span>WhatsApp Strategy</span>
               </a>
-
-              <Link
-                href="/services/political-management"
-                prefetch={true}
-                className="pressable group inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl sm:rounded-2xl border border-stone-200 bg-[#F8FAFC] px-5 sm:px-6 py-3 sm:py-3.5 text-xs sm:text-sm font-bold text-ink hover:border-accent hover:text-accent transition-all duration-150 hover:-translate-y-0.5 shadow-2xs"
-              >
-                <span>Full War Room Page</span>
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-              </Link>
             </div>
           </div>
         </Reveal>

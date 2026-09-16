@@ -69,7 +69,7 @@ const initialEnquiries: Enquiry[] = [
     phone: "+91 97184-90022",
     email: "atanwar.office@gmail.com",
     company: "Constituency Campaign Committee",
-    service: "Political Campaign & Management",
+    service: "Political Campaign",
     budget: "₹10 Lakhs+",
     source: "Political Clients Section (Homepage)",
     channel: "Direct Referral",
@@ -142,7 +142,7 @@ const initialEnquiries: Enquiry[] = [
 const initialFinancials: FinancialRecord[] = [
   {
     id: "FIN-101",
-    service: "Political Campaign & Management",
+    service: "Political Campaign",
     client: "Randeep Surjewala Campaign Office",
     revenue: 1850000,
     cost: 540000,
@@ -194,7 +194,7 @@ const initialFinancials: FinancialRecord[] = [
   },
   {
     id: "FIN-105",
-    service: "Political Campaign & Management",
+    service: "Political Campaign",
     client: "Shamsher Singh Gogi Assembly Desk",
     revenue: 1200000,
     cost: 380000,

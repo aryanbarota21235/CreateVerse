@@ -123,9 +123,9 @@ export const services: Service[] = [
   },
   {
     slug: "political-management",
-    name: "Political Campaign & Management",
-    shortName: "Political Management",
-    tagline: "War-room digital operations for campaigns that need to win.",
+    name: "Political Campaign",
+    shortName: "Political Campaign",
+    tagline: "High-impact digital operations for campaigns that need to win.",
     description:
       "Digital campaign strategy, social media management, voter outreach and communication — run with the discipline of a performance marketing operation.",
     icon: "Megaphone",
@@ -133,7 +133,7 @@ export const services: Service[] = [
     category: "Campaigns",
     problem: {
       title: "Modern campaigns are won or lost on digital ground.",
-      desc: "Voters form opinions on their phones long before rally day. Without a coordinated digital war room — narrative, content, outreach and rapid response — campaigns cede the narrative to opponents.",
+      desc: "Voters form opinions on their phones long before rally day. Without coordinated digital campaign operations — narrative, content, outreach and rapid response — campaigns cede the narrative to opponents.",
     },
     deliverables: [
       "Campaign narrative & communication strategy",

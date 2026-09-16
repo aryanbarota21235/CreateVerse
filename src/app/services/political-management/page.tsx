@@ -25,17 +25,17 @@ import PoliticalFaq from "./political-faq";
 import { serviceSeoKeywords, getPoliticalManagementJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Political Campaign Management & 24/7 Digital War Room | CreateVerse",
+  title: "Political Campaign Management | CreateVerse",
   description:
-    "Elite political campaign management, booth-level voter micro-targeting, narrative engineering, and 24/7 rapid response digital war rooms for elected Members of Parliament, State MLAs, and political candidates across India.",
+    "Elite political campaign management, booth-level voter micro-targeting, narrative engineering, and 24/7 rapid response digital campaign operations for elected Members of Parliament, State MLAs, and political candidates across India.",
   keywords: serviceSeoKeywords["political-management"],
   alternates: {
     canonical: "https://createverse.in/services/political-management",
   },
   openGraph: {
-    title: "Political Campaign Management & Digital War Room — CreateVerse",
+    title: "Political Campaign Management — CreateVerse",
     description:
-      "Constituency intelligence, viral speech engines, and 24/7 rapid response war rooms engineered for decisive political mandates.",
+      "Constituency intelligence, viral speech engines, and 24/7 rapid response operations engineered for decisive political mandates.",
     url: "https://createverse.in/services/political-management",
     siteName: "CreateVerse",
     type: "website",
@@ -66,7 +66,7 @@ const stats = [
   { value: "14.2M+", label: "Verified Targeted Reach", desc: "Constituency-wide hyper-targeted digital reach" },
   { value: "65+", label: "Constituencies Managed", desc: "Parliamentary, Assembly & Municipal campaigns" },
   { value: "< 12 Mins", label: "Rapid Counter-Response", desc: "Real-time fact-checking and opposition deflection" },
-  { value: "24/7", label: "Active War Room Operations", desc: "Continuous monitoring, production and dispatch" },
+  { value: "24/7", label: "Active Campaign Operations", desc: "Continuous monitoring, production and dispatch" },
 ];
 
 const capabilities = [
@@ -171,7 +171,7 @@ export default function PoliticalManagementPage() {
             <nav className="flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-ink/70" aria-label="Breadcrumb">
               <Link href="/services" prefetch={true} className="transition-colors hover:text-accent">Services</Link>
               <span>/</span>
-              <span className="text-ink font-bold">Political Management</span>
+              <span className="text-ink font-bold">Political Campaign</span>
             </nav>
 
             <div className="mt-4 sm:mt-6 inline-flex items-center gap-2 rounded-full border border-black/[0.12] bg-white px-3.5 py-1.5 shadow-xs">
@@ -180,7 +180,7 @@ export default function PoliticalManagementPage() {
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
               <span className="text-[10.5px] sm:text-xs font-bold uppercase tracking-[0.2em] text-ink">
-                24/7 Digital War Room &amp; Electoral Strategy
+                24/7 Digital Campaign &amp; Electoral Strategy
               </span>
             </div>
 
@@ -190,7 +190,7 @@ export default function PoliticalManagementPage() {
             </h1>
 
             <p className="mt-3 sm:mt-6 max-w-3xl text-sm sm:text-xl font-bold leading-snug text-ink/90">
-              Constituency intelligence, viral speech engines, and 24/7 rapid response war rooms engineered for decisive political victories.
+              Constituency intelligence, viral speech engines, and rapid response operations engineered for decisive political victories.
             </p>
 
             <p className="mt-2.5 sm:mt-4 max-w-3xl text-xs sm:text-base leading-relaxed text-ink/80 font-normal">

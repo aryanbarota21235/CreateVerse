@@ -56,7 +56,7 @@ import { WhatsAppIcon } from "@/components/whatsapp-icon";
 const SERVICES_OPTIONS = [
   "Real Estate Lead Generation",
   "Immigration Lead Generation",
-  "Political Campaign & Management",
+  "Political Campaign",
   "Google Ads Management",
   "Social Media Paid Ads",
   "Web Development & CRO",

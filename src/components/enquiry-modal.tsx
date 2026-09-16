@@ -29,14 +29,16 @@ const SERVICE_ALIAS_MAP: Record<string, string> = {
   "visa": "Immigration Lead Generation",
   "study visa": "Immigration Lead Generation",
 
-  // Political Management
-  "political management": "Political Campaign & Management",
-  "political campaign management": "Political Campaign & Management",
-  "political campaign & management": "Political Campaign & Management",
-  "political-management": "Political Campaign & Management",
-  "political": "Political Campaign & Management",
-  "war room operations": "Political Campaign & Management",
-  "election": "Political Campaign & Management",
+  // Political Campaign
+  "political campaign": "Political Campaign",
+  "political management": "Political Campaign",
+  "political campaign management": "Political Campaign",
+  "political campaign & management": "Political Campaign",
+  "political-management": "Political Campaign",
+  "political": "Political Campaign",
+  "war room operations": "Political Campaign",
+  "war room": "Political Campaign",
+  "election": "Political Campaign",
 
   // Performance Marketing
   "performance marketing": "Performance Marketing",
@@ -177,7 +179,7 @@ function matchService(inputName?: string): string {
 }
 
 const inputCls =
-  "w-full rounded-xl border border-stone-200/90 bg-[#F8FAFC] px-3.5 py-2 sm:px-4 sm:py-2.5 text-base sm:text-sm text-ink placeholder:text-stone-400 outline-none transition-all duration-150 hover:border-stone-300 focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-normal";
+  "w-full rounded-xl border border-stone-200/90 bg-[#F8FAFC] px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs sm:text-sm text-ink placeholder:text-stone-400 outline-none transition-all duration-150 hover:border-stone-300 focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-normal";
 
 export default function EnquiryModal() {
   const { isOpen, closeEnquiry, selectedService } = useEnquiry();
@@ -190,6 +192,36 @@ export default function EnquiryModal() {
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const isHistoryPushed = React.useRef(false);
+
+  // Close handler: pops the pushed history state if active, then closes
+  const handleModalClose = React.useCallback(() => {
+    if (isHistoryPushed.current) {
+      isHistoryPushed.current = false;
+      window.history.back();
+    }
+    closeEnquiry();
+  }, [closeEnquiry]);
+
+  // Mobile Back Button Navigation Interception:
+  // When modal opens, push history state. If user presses hardware/browser Back, close the modal instead of navigating away.
+  useEffect(() => {
+    if (isOpen) {
+      window.history.pushState({ enquiryModal: true }, "", window.location.href);
+      isHistoryPushed.current = true;
+
+      const handlePopState = () => {
+        isHistoryPushed.current = false;
+        closeEnquiry();
+      };
+
+      window.addEventListener("popstate", handlePopState);
+      return () => {
+        window.removeEventListener("popstate", handlePopState);
+      };
+    }
+  }, [isOpen, closeEnquiry]);
 
   // When modal opens:
   // If selectedService is provided from a specific service page/card -> pre-select it
@@ -208,7 +240,7 @@ export default function EnquiryModal() {
   // Handle ESC key to close & background scroll lock
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeEnquiry();
+      if (e.key === "Escape") handleModalClose();
     };
     if (isOpen) {
       document.body.classList.add("modal-open");
@@ -217,7 +249,7 @@ export default function EnquiryModal() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isOpen, closeEnquiry]);
+  }, [isOpen, handleModalClose]);
 
   // Safety cleanup if unmounted unexpectedly
   useEffect(() => {
@@ -234,7 +266,7 @@ export default function EnquiryModal() {
     setEmail("");
     setCompany("");
     setMessage("");
-    closeEnquiry();
+    handleModalClose();
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -279,80 +311,75 @@ export default function EnquiryModal() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.18, ease: "easeOut" }}
-          className="fixed inset-0 z-50 flex flex-col justify-end sm:justify-center sm:items-center p-0 sm:p-4 md:p-6"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3.5 sm:p-5 md:p-6"
           style={{ isolation: "isolate" }}
         >
-          {/* Subtle Luxury Backdrop - Instant tap dismissal, no pointerdown cancellation */}
+          {/* Subtle Luxury Backdrop - Instant tap dismissal */}
           <div
             className="fixed inset-0 bg-ink/70 backdrop-blur-[2px] cursor-pointer touch-none"
-            onClick={closeEnquiry}
+            onClick={handleModalClose}
             aria-hidden="true"
           />
 
-          {/* Modal Container - Mobile Sheet Bottom Dock / Desktop Centered Dialog */}
+          {/* Compact Centered Modal Card - Sleek, controlled height, doesn't cover full screen */}
           <motion.div
             key="enquiry-modal-card"
-            initial={{ opacity: 0, y: 32, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 24, scale: 0.98 }}
-            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, scale: 0.96, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.97, y: 12 }}
+            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-xl sm:max-w-2xl bg-white rounded-t-[26px] sm:rounded-3xl border-t sm:border border-stone-200/90 shadow-2xl z-10 overflow-hidden flex flex-col max-h-[90vh] sm:max-h-[85vh] touch-auto"
+            className="relative w-full max-w-[460px] sm:max-w-xl bg-white rounded-2xl sm:rounded-3xl border border-stone-200/90 shadow-2xl z-10 overflow-hidden flex flex-col max-h-[82vh] sm:max-h-[85vh] touch-auto my-auto"
             style={{ willChange: "transform, opacity" }}
           >
-            {/* Mobile Sheet Grab Indicator */}
-            <div className="sm:hidden pt-2.5 pb-0.5 flex justify-center shrink-0">
-              <div className="h-1 w-11 rounded-full bg-stone-300/90" />
-            </div>
-
-            {/* Tactile Close Button - Instant response, zero hover/rotate glitches */}
+            {/* Tactile Close Button - Compact, fast, instant feedback */}
             <button
               type="button"
-              onClick={closeEnquiry}
-              className="no-press absolute right-3.5 top-3.5 sm:right-5 sm:top-5 z-20 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-stone-100 hover:bg-stone-200 active:bg-stone-300 active:scale-95 text-stone-700 transition-all duration-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30"
+              onClick={handleModalClose}
+              className="no-press absolute right-3 top-3 sm:right-4 sm:top-4 z-20 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-stone-100 hover:bg-stone-200 active:bg-stone-300 active:scale-95 text-stone-700 transition-all duration-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30"
               aria-label="Close modal"
             >
-              <X className="h-4 w-4 sm:h-5 sm:w-5" />
+              <X className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
             </button>
 
             {submitted ? (
               /* Success Confirmation Screen */
-              <div className="p-6 sm:p-12 text-center my-auto">
+              <div className="p-6 sm:p-10 text-center my-auto">
                 <div className="mx-auto flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl sm:rounded-2xl bg-accent/10 text-accent border border-accent/20">
                   <CheckCircle2 className="h-7 w-7 sm:h-8 sm:w-8 text-accent" />
                 </div>
-                <h3 className="mt-4 sm:mt-5 font-display text-xl sm:text-3xl font-bold tracking-tight text-ink">
+                <h3 className="mt-3.5 sm:mt-4 font-display text-xl sm:text-2xl font-bold tracking-tight text-ink">
                   Mandate Received
                 </h3>
-                <p className="mx-auto mt-2 max-w-md text-xs sm:text-base text-stone-600 font-normal leading-relaxed">
+                <p className="mx-auto mt-2 max-w-md text-xs sm:text-sm text-stone-600 font-normal leading-relaxed">
                   Thank you, <span className="font-semibold text-ink">{name}</span>. Our practice lead for{" "}
                   <span className="font-semibold text-accent">{service || "Growth Architecture"}</span> will review your scope and connect directly within 2 hours.
                 </p>
 
-                <div className="mt-6 sm:mt-8 flex items-center justify-center">
+                <div className="mt-5 sm:mt-7 flex items-center justify-center">
                   <button
                     type="button"
                     onClick={handleReset}
-                    className="no-press rounded-full bg-ink px-7 py-3 sm:px-8 sm:py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-accent active:scale-95 transition-all duration-150 shadow-md cursor-pointer"
+                    className="no-press rounded-full bg-ink px-6 py-2.5 sm:px-7 sm:py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-accent active:scale-95 transition-all duration-150 shadow-md cursor-pointer"
                   >
                     Done &amp; Close Window
                   </button>
                 </div>
               </div>
             ) : (
-              /* High-End, Streamlined Intake Form - Smooth iOS Momentum Scroll */
+              /* Compact Streamlined Form Body - Smooth Momentum Scroll */
               <div
-                className="p-4 sm:p-7 md:p-8 overflow-y-auto overscroll-contain flex-1"
+                className="p-3.5 sm:p-6 overflow-y-auto overscroll-contain flex-1"
                 style={{ WebkitOverflowScrolling: "touch" }}
               >
                 {/* Header */}
-                <div className="pr-10 sm:pr-10">
-                  <div className="inline-flex items-center gap-1.5 rounded-full border border-accent/20 bg-accent/[0.06] px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-accent mb-1.5 sm:mb-2">
+                <div className="pr-8 sm:pr-9">
+                  <div className="inline-flex items-center gap-1.5 rounded-full border border-accent/20 bg-accent/[0.06] px-2 py-0.5 sm:px-2.5 sm:py-0.5 text-[9.5px] sm:text-[10.5px] font-bold uppercase tracking-wider text-accent mb-1">
                     <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
                     <span>Direct Practice Consultation</span>
                   </div>
 
-                  <h3 className="font-display text-xl sm:text-2xl lg:text-[26px] font-bold tracking-tight text-ink leading-snug sm:leading-tight">
+                  <h3 className="font-display text-lg sm:text-2xl font-bold tracking-tight text-ink leading-snug">
                     {service ? (
                       <>
                         Consultation: <span className="text-accent">{service}</span>
@@ -364,56 +391,56 @@ export default function EnquiryModal() {
                     )}
                   </h3>
 
-                  <p className="mt-1 sm:mt-1.5 text-xs sm:text-sm text-stone-600 font-normal leading-relaxed">
+                  <p className="mt-0.5 text-[11px] sm:text-xs text-stone-500 font-normal">
                     Connect directly with our senior strategy directors.
                   </p>
                 </div>
 
-                {/* Top WhatsApp Quick Connect Bar */}
+                {/* Compact WhatsApp Quick Connect Bar */}
                 <a
                   href={site.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group mt-3 sm:mt-3.5 flex items-center justify-between rounded-xl border border-stone-200 bg-[#F8FAFC] px-3 py-2 sm:px-4 sm:py-2.5 transition-all duration-150 hover:border-[#25D366] hover:bg-[#25D366]/[0.04] active:bg-[#25D366]/[0.08] cursor-pointer"
+                  className="group mt-2 sm:mt-2.5 flex items-center justify-between rounded-xl border border-stone-200 bg-[#F8FAFC] px-3 py-1.5 sm:px-3.5 sm:py-2 transition-all duration-150 hover:border-[#25D366] hover:bg-[#25D366]/[0.04] active:bg-[#25D366]/[0.08] cursor-pointer"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-lg bg-[#25D366] text-white shadow-xs">
-                      <WhatsAppIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-white" />
+                    <span className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-lg bg-[#25D366] text-white shadow-xs">
+                      <WhatsAppIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-white" />
                     </span>
-                    <p className="text-xs sm:text-xs font-bold text-ink group-hover:text-emerald-700 transition-colors">
-                      Fastest: Chat on WhatsApp <span className="hidden sm:inline text-stone-500 font-normal">({site.phone})</span>
+                    <p className="text-[11.5px] sm:text-xs font-bold text-ink group-hover:text-emerald-700 transition-colors">
+                      Fastest: Chat on WhatsApp <span className="hidden sm:inline text-stone-400 font-normal">({site.phone})</span>
                     </p>
                   </div>
-                  <span className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold text-emerald-700 group-hover:translate-x-0.5 transition-transform shrink-0">
+                  <span className="inline-flex items-center gap-1 text-[10.5px] sm:text-xs font-bold text-emerald-700 group-hover:translate-x-0.5 transition-transform shrink-0">
                     <span>Chat now</span>
                     <ArrowRight className="h-3 w-3" />
                   </span>
                 </a>
 
                 {/* Subtle Divider */}
-                <div className="relative my-2.5 sm:my-3.5">
+                <div className="relative my-2 sm:my-2.5">
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-stone-200/80" />
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-white px-2.5 text-[9.5px] sm:text-[10px] font-bold tracking-wider text-stone-400">
+                    <span className="bg-white px-2 text-[9px] sm:text-[9.5px] font-bold tracking-wider text-stone-400">
                       or inquiry form
                     </span>
                   </div>
                 </div>
 
-                {/* Clean, Streamlined Form Body */}
-                <form onSubmit={handleSubmit} className="space-y-2 sm:space-y-3">
+                {/* Clean, Compact Form Body */}
+                <form onSubmit={handleSubmit} className="space-y-1.5 sm:space-y-2">
                   {/* Single Clean Practice Area Dropdown */}
                   <div>
-                    <label className="block text-[10.5px] sm:text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5 sm:mb-1">
+                    <label className="block text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-stone-600 mb-0.5">
                       Practice Area
                     </label>
                     <div className="relative">
                       <select
                         value={service}
                         onChange={(e) => setService(e.target.value)}
-                        className={`w-full appearance-none rounded-xl border px-3 py-2 sm:px-4 sm:py-2.5 text-base sm:text-sm font-medium transition-all duration-150 hover:border-stone-300 cursor-pointer focus:border-accent focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/15 ${
+                        className={`w-full appearance-none rounded-xl border px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs sm:text-sm font-medium transition-all duration-150 hover:border-stone-300 cursor-pointer focus:border-accent focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/15 ${
                           service
                             ? "border-stone-300 bg-white text-ink font-semibold"
                             : "border-stone-200 bg-[#F8FAFC] text-stone-500"
@@ -432,15 +459,15 @@ export default function EnquiryModal() {
                         </option>
                       </select>
                       <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-stone-400">
-                        <ChevronDown className="h-4 w-4" />
+                        <ChevronDown className="h-3.5 w-3.5" />
                       </div>
                     </div>
                   </div>
 
                   {/* Row 1: Name and Phone (Required) */}
-                  <div className="grid gap-2 sm:gap-3 sm:grid-cols-2">
+                  <div className="grid gap-1.5 sm:gap-2 sm:grid-cols-2">
                     <div>
-                      <label className="block text-[10.5px] sm:text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5 sm:mb-1">
+                      <label className="block text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-stone-600 mb-0.5">
                         Full Name *
                       </label>
                       <input
@@ -454,7 +481,7 @@ export default function EnquiryModal() {
                     </div>
 
                     <div>
-                      <label className="block text-[10.5px] sm:text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5 sm:mb-1">
+                      <label className="block text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-stone-600 mb-0.5">
                         Phone / WhatsApp *
                       </label>
                       <input
@@ -469,10 +496,10 @@ export default function EnquiryModal() {
                   </div>
 
                   {/* Row 2: Email and Company (Optional) */}
-                  <div className="grid gap-2 sm:gap-3 sm:grid-cols-2">
+                  <div className="grid gap-1.5 sm:gap-2 sm:grid-cols-2">
                     <div>
-                      <label className="block text-[10.5px] sm:text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5 sm:mb-1">
-                        Email <span className="font-normal text-stone-500 lowercase">(optional)</span>
+                      <label className="block text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-stone-600 mb-0.5">
+                        Email <span className="font-normal text-stone-400 lowercase">(optional)</span>
                       </label>
                       <input
                         type="email"
@@ -484,8 +511,8 @@ export default function EnquiryModal() {
                     </div>
 
                     <div>
-                      <label className="block text-[10.5px] sm:text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5 sm:mb-1">
-                        Company / Project <span className="font-normal text-stone-500 lowercase">(optional)</span>
+                      <label className="block text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-stone-600 mb-0.5">
+                        Company / Project <span className="font-normal text-stone-400 lowercase">(optional)</span>
                       </label>
                       <input
                         type="text"
@@ -499,11 +526,11 @@ export default function EnquiryModal() {
 
                   {/* Row 3: Message / Goals (Optional) */}
                   <div>
-                    <label className="block text-[10.5px] sm:text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5 sm:mb-1">
-                      Project Goals <span className="font-normal text-stone-500 lowercase">(optional)</span>
+                    <label className="block text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-stone-600 mb-0.5">
+                      Project Goals <span className="font-normal text-stone-400 lowercase">(optional)</span>
                     </label>
                     <textarea
-                      rows={2}
+                      rows={1}
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       placeholder="Brief overview of goals..."
@@ -512,19 +539,19 @@ export default function EnquiryModal() {
                   </div>
 
                   {/* Submit Action */}
-                  <div className="pt-1">
+                  <div className="pt-0.5">
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="group flex w-full items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 sm:py-3.5 text-xs sm:text-sm font-bold text-white shadow-[0_8px_20px_rgba(0,102,255,0.22)] active:scale-[0.98] transition-all duration-150 hover:bg-accent-dim hover:shadow-[0_12px_28px_rgba(0,102,255,0.3)] cursor-pointer disabled:opacity-60"
+                      className="group flex w-full items-center justify-center gap-2 rounded-full bg-accent px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-[0_6px_18px_rgba(0,102,255,0.2)] active:scale-[0.98] transition-all duration-150 hover:bg-accent-dim hover:shadow-[0_10px_24px_rgba(0,102,255,0.28)] cursor-pointer disabled:opacity-60"
                     >
                       <span>{submitting ? "Submitting..." : "Submit Growth Inquiry"}</span>
-                      <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                     </button>
 
                     {/* Confidentiality Notice */}
-                    <div className="mt-2 flex items-center justify-center gap-1.5 text-[10px] sm:text-[11px] font-medium text-stone-500">
-                      <ShieldCheck className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-emerald-600" />
+                    <div className="mt-1.5 flex items-center justify-center gap-1.5 text-[9.5px] sm:text-[10px] font-medium text-stone-500">
+                      <ShieldCheck className="h-3 w-3 text-emerald-600" />
                       <span>Response within 2 hours. Strictly confidential &amp; NDA protected.</span>
                     </div>
                   </div>
