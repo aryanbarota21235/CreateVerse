@@ -177,7 +177,7 @@ function matchService(inputName?: string): string {
 }
 
 const inputCls =
-  "w-full rounded-xl border border-stone-200/90 bg-[#F8FAFC] px-3 py-2 sm:px-4 sm:py-2.5 text-base sm:text-sm text-ink placeholder:text-stone-400 outline-none transition-all duration-200 hover:border-stone-300 focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-normal";
+  "w-full rounded-xl border border-stone-200/90 bg-[#F8FAFC] px-3.5 py-2 sm:px-4 sm:py-2.5 text-base sm:text-sm text-ink placeholder:text-stone-400 outline-none transition-all duration-150 hover:border-stone-300 focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-normal";
 
 export default function EnquiryModal() {
   const { isOpen, closeEnquiry, selectedService } = useEnquiry();
@@ -205,25 +205,26 @@ export default function EnquiryModal() {
     }
   }, [selectedService, isOpen]);
 
-  // Handle ESC key to close & universal scroll lock without Safari chrome redraw blink
+  // Handle ESC key to close & background scroll lock
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeEnquiry();
     };
     if (isOpen) {
-      document.documentElement.classList.add("modal-open");
       document.body.classList.add("modal-open");
       window.addEventListener("keydown", handleKeyDown);
-    } else {
-      document.documentElement.classList.remove("modal-open");
-      document.body.classList.remove("modal-open");
     }
     return () => {
-      document.documentElement.classList.remove("modal-open");
-      document.body.classList.remove("modal-open");
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, closeEnquiry]);
+
+  // Safety cleanup if unmounted unexpectedly
+  useEffect(() => {
+    return () => {
+      document.body.classList.remove("modal-open");
+    };
+  }, []);
 
   const handleReset = () => {
     setSubmitted(false);
@@ -266,72 +267,57 @@ export default function EnquiryModal() {
   };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence
+      onExitComplete={() => {
+        document.body.classList.remove("modal-open");
+      }}
+    >
       {isOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6"
+        <motion.div
+          key="enquiry-modal-overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.18, ease: "easeOut" }}
+          className="fixed inset-0 z-50 flex flex-col justify-end sm:justify-center sm:items-center p-0 sm:p-4 md:p-6"
           style={{ isolation: "isolate" }}
-          onTouchMove={(e) => {
-            if (e.target === e.currentTarget) {
-              e.preventDefault();
-            }
-          }}
-          onPointerDown={(e) => {
-            if (e.target === e.currentTarget) {
-              e.preventDefault();
-              e.stopPropagation();
-            }
-          }}
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              e.preventDefault();
-              e.stopPropagation();
-              closeEnquiry();
-            }
-          }}
         >
-          {/* Subtle Luxury Backdrop with hardware acceleration and stable chrome */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            onPointerDown={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-            }}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              closeEnquiry();
-            }}
-            style={{ transform: "translateZ(0)" }}
-            className="fixed inset-0 bg-ink/70 cursor-pointer"
+          {/* Subtle Luxury Backdrop - Instant tap dismissal, no pointerdown cancellation */}
+          <div
+            className="fixed inset-0 bg-ink/70 backdrop-blur-[2px] cursor-pointer touch-none"
+            onClick={closeEnquiry}
+            aria-hidden="true"
           />
 
-          {/* Modal Container - Ultra smooth 60fps GPU animation */}
+          {/* Modal Container - Mobile Sheet Bottom Dock / Desktop Centered Dialog */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 8 }}
-            transition={{ duration: 0.16, ease: "easeOut" }}
-            style={{ willChange: "transform, opacity" }}
+            key="enquiry-modal-card"
+            initial={{ opacity: 0, y: 32, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 24, scale: 0.98 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
             onClick={(e) => e.stopPropagation()}
-            onPointerDown={(e) => e.stopPropagation()}
-            className="relative w-full max-w-xl sm:max-w-2xl overflow-hidden rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white shadow-2xl sm:shadow-[0_30px_70px_rgba(15,23,42,0.28)] z-10 my-auto touch-auto"
+            className="relative w-full max-w-xl sm:max-w-2xl bg-white rounded-t-[26px] sm:rounded-3xl border-t sm:border border-stone-200/90 shadow-2xl z-10 overflow-hidden flex flex-col max-h-[90vh] sm:max-h-[85vh] touch-auto"
+            style={{ willChange: "transform, opacity" }}
           >
-            {/* Executive Close Button - Highly Accessible on Mobile & Luxury Desktop */}
+            {/* Mobile Sheet Grab Indicator */}
+            <div className="sm:hidden pt-2.5 pb-0.5 flex justify-center shrink-0">
+              <div className="h-1 w-11 rounded-full bg-stone-300/90" />
+            </div>
+
+            {/* Tactile Close Button - Instant response, zero hover/rotate glitches */}
             <button
+              type="button"
               onClick={closeEnquiry}
-              className="pressable group absolute right-3 top-3 z-20 flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-stone-100/90 active:bg-stone-200 text-stone-700 sm:text-stone-500 transition-all duration-200 hover:bg-ink hover:text-white hover:rotate-90 hover:scale-105 sm:right-5 sm:top-5 shadow-xs cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30"
+              className="no-press absolute right-3.5 top-3.5 sm:right-5 sm:top-5 z-20 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-stone-100 hover:bg-stone-200 active:bg-stone-300 active:scale-95 text-stone-700 transition-all duration-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30"
               aria-label="Close modal"
             >
-              <X className="h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-200" />
+              <X className="h-4 w-4 sm:h-5 sm:w-5" />
             </button>
 
             {submitted ? (
               /* Success Confirmation Screen */
-              <div className="p-6 sm:p-12 text-center">
+              <div className="p-6 sm:p-12 text-center my-auto">
                 <div className="mx-auto flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl sm:rounded-2xl bg-accent/10 text-accent border border-accent/20">
                   <CheckCircle2 className="h-7 w-7 sm:h-8 sm:w-8 text-accent" />
                 </div>
@@ -345,18 +331,22 @@ export default function EnquiryModal() {
 
                 <div className="mt-6 sm:mt-8 flex items-center justify-center">
                   <button
+                    type="button"
                     onClick={handleReset}
-                    className="pressable rounded-full bg-ink px-7 py-3 sm:px-8 sm:py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-accent transition shadow-md"
+                    className="no-press rounded-full bg-ink px-7 py-3 sm:px-8 sm:py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-accent active:scale-95 transition-all duration-150 shadow-md cursor-pointer"
                   >
                     Done &amp; Close Window
                   </button>
                 </div>
               </div>
             ) : (
-              /* High-End, Streamlined Intake Form - Enhanced typography and breathing room on Mobile */
-              <div className="p-4 sm:p-7 md:p-8 max-h-[82vh] sm:max-h-[85vh] overflow-y-auto overscroll-contain">
+              /* High-End, Streamlined Intake Form - Smooth iOS Momentum Scroll */
+              <div
+                className="p-4 sm:p-7 md:p-8 overflow-y-auto overscroll-contain flex-1"
+                style={{ WebkitOverflowScrolling: "touch" }}
+              >
                 {/* Header */}
-                <div className="pr-8 sm:pr-8">
+                <div className="pr-10 sm:pr-10">
                   <div className="inline-flex items-center gap-1.5 rounded-full border border-accent/20 bg-accent/[0.06] px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-accent mb-1.5 sm:mb-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
                     <span>Direct Practice Consultation</span>
@@ -379,12 +369,12 @@ export default function EnquiryModal() {
                   </p>
                 </div>
 
-                {/* Top WhatsApp Quick Connect Bar - Enhanced touch target on mobile */}
+                {/* Top WhatsApp Quick Connect Bar */}
                 <a
                   href={site.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group mt-3 sm:mt-3.5 flex items-center justify-between rounded-xl border border-stone-200 bg-[#F8FAFC] px-3 py-2 sm:px-4 sm:py-2.5 transition-all duration-200 hover:border-[#25D366] hover:bg-[#25D366]/[0.04] hover:shadow-xs cursor-pointer"
+                  className="group mt-3 sm:mt-3.5 flex items-center justify-between rounded-xl border border-stone-200 bg-[#F8FAFC] px-3 py-2 sm:px-4 sm:py-2.5 transition-all duration-150 hover:border-[#25D366] hover:bg-[#25D366]/[0.04] active:bg-[#25D366]/[0.08] cursor-pointer"
                 >
                   <div className="flex items-center gap-2">
                     <span className="flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-lg bg-[#25D366] text-white shadow-xs">
@@ -423,7 +413,7 @@ export default function EnquiryModal() {
                       <select
                         value={service}
                         onChange={(e) => setService(e.target.value)}
-                        className={`w-full appearance-none rounded-xl border px-3 py-1.5 sm:px-4 sm:py-2.5 text-base sm:text-sm font-medium transition-all duration-200 hover:border-stone-300 cursor-pointer focus:border-accent focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/15 ${
+                        className={`w-full appearance-none rounded-xl border px-3 py-2 sm:px-4 sm:py-2.5 text-base sm:text-sm font-medium transition-all duration-150 hover:border-stone-300 cursor-pointer focus:border-accent focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/15 ${
                           service
                             ? "border-stone-300 bg-white text-ink font-semibold"
                             : "border-stone-200 bg-[#F8FAFC] text-stone-500"
@@ -526,7 +516,7 @@ export default function EnquiryModal() {
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="pressable group flex w-full items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 sm:py-3.5 text-xs sm:text-sm font-bold text-white shadow-[0_8px_20px_rgba(0,102,255,0.22)] transition-all duration-200 hover:bg-accent-dim hover:shadow-[0_12px_28px_rgba(0,102,255,0.3)] hover:-translate-y-0.5 cursor-pointer disabled:opacity-60"
+                      className="group flex w-full items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 sm:py-3.5 text-xs sm:text-sm font-bold text-white shadow-[0_8px_20px_rgba(0,102,255,0.22)] active:scale-[0.98] transition-all duration-150 hover:bg-accent-dim hover:shadow-[0_12px_28px_rgba(0,102,255,0.3)] cursor-pointer disabled:opacity-60"
                     >
                       <span>{submitting ? "Submitting..." : "Submit Growth Inquiry"}</span>
                       <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
@@ -542,7 +532,7 @@ export default function EnquiryModal() {
               </div>
             )}
           </motion.div>
-        </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );
