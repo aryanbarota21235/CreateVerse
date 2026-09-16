@@ -35,13 +35,13 @@ export default function Navbar() {
   }
 
   return (
-    <header className="fixed inset-x-0 top-2.5 sm:top-5 z-50 px-3 sm:px-8 pointer-events-none">
+    <header className="fixed inset-x-0 top-3 sm:top-5 z-50 px-3.5 sm:px-8 pointer-events-none">
       {/* Maximum luxury width floating pill dock */}
       <div
         className={`navbar-dock mx-auto flex items-center justify-between rounded-full bg-white transition-all duration-300 pointer-events-auto border ${
           scrolled
-            ? "max-w-6xl py-1.5 px-3.5 sm:py-2.5 sm:px-10 shadow-[0_8px_25px_rgba(0,0,0,0.08)] border-black/[0.12]"
-            : "max-w-7xl py-2 px-4 sm:py-3.5 sm:px-12 border-stone-200/90 sm:border-black/[0.12] shadow-[0_4px_20px_rgba(0,0,0,0.06)] sm:shadow-[0_10px_35px_rgba(11,15,25,0.08)]"
+            ? "max-w-6xl py-2 px-4 sm:py-2.5 sm:px-10 shadow-[0_12px_32px_rgba(11,15,25,0.1)] border-black/[0.12]"
+            : "max-w-7xl py-2.5 px-4 sm:py-3.5 sm:px-12 border-stone-200/90 sm:border-black/[0.12] shadow-[0_8px_30px_rgba(11,15,25,0.08)]"
         }`}
       >
         {/* Brand Logo */}
@@ -58,7 +58,7 @@ export default function Navbar() {
             height={148}
             priority
             className={`w-auto transition-all duration-300 ${
-              scrolled ? "h-7 sm:h-11" : "h-[34px] sm:h-[50px] lg:h-[54px]"
+              scrolled ? "h-[32px] sm:h-11" : "h-[40px] sm:h-[50px] lg:h-[54px]"
             }`}
           />
         </Link>
@@ -100,11 +100,11 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Action Button (Strictly 'Enquire' Only, Clean Pill) */}
+        {/* Mobile Action Button (Strictly 'Enquire' Only, Prominent Pill) */}
         <div className="flex items-center sm:hidden">
           <button
             onClick={() => openEnquiry()}
-            className="pressable rounded-full bg-ink px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider text-white shadow-xs active:bg-accent transition-colors cursor-pointer"
+            className="pressable rounded-full bg-ink px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-white shadow-xs active:bg-accent transition-colors cursor-pointer"
           >
             Enquire
           </button>
