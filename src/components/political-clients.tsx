@@ -19,7 +19,7 @@ export default function PoliticalClients() {
       <div className="dot-texture absolute inset-0 opacity-40" />
       <div className="hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 h-[450px] w-[600px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(224,242,254,0.65)_0%,rgba(224,242,254,0.2)_45%,transparent_70%)] pointer-events-none" />
 
-      <div className="mx-auto w-full max-w-[1400px] px-3 sm:px-6 lg:px-8 relative">
+      <div className="container-site relative">
         {/* Top Header Row with Title, Copy, and CTAs */}
         <Reveal>
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 sm:gap-8 pb-8 sm:pb-14 border-b border-stone-200">
@@ -72,93 +72,95 @@ export default function PoliticalClients() {
         </div>
 
         {/* 6 Circular Politician Cards with Social Media Handles */}
-        <Stagger className="grid grid-cols-2 gap-2.5 sm:gap-4 lg:gap-3 xl:gap-3.5 sm:grid-cols-3 lg:grid-cols-6 items-stretch" delayChildren={0.08}>
-          {politicianClients.map((p) => (
-            <StaggerItem key={p.name} className="h-full">
-              <div className="group h-full flex flex-col items-center justify-between text-center p-3 sm:py-5 sm:px-2 lg:px-2.5 xl:px-3.5 rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:bg-white hover:shadow-card">
-                {/* Circular Portrait with Concentric Clean Ring */}
-                <div className="relative mb-3 sm:mb-4 shrink-0">
-                  <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
-                    <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
-                      <Image
-                        src={p.image}
-                        alt={p.name}
-                        width={140}
-                        height={140}
-                        sizes="(max-width: 640px) 112px, 140px"
-                        loading="lazy"
-                        className="h-full w-full object-cover scale-[1.08] transition-transform duration-300 group-hover:scale-[1.12]"
-                      />
+        <div className="-mx-1 sm:-mx-2 lg:-mx-4">
+          <Stagger className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-2.5 xl:gap-3.5 sm:grid-cols-3 lg:grid-cols-6 items-stretch" delayChildren={0.08}>
+            {politicianClients.map((p) => (
+              <StaggerItem key={p.name} className="h-full">
+                <div className="group h-full flex flex-col items-center justify-between text-center p-3 sm:py-5 sm:px-2 xl:px-3 rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:bg-white hover:shadow-card">
+                  {/* Circular Portrait with Concentric Clean Ring */}
+                  <div className="relative mb-3 sm:mb-4 shrink-0">
+                    <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
+                      <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
+                        <Image
+                          src={p.image}
+                          alt={p.name}
+                          width={140}
+                          height={140}
+                          sizes="(max-width: 640px) 112px, 140px"
+                          loading="lazy"
+                          className="h-full w-full object-cover scale-[1.08] transition-transform duration-300 group-hover:scale-[1.12]"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  {/* Party Tag Badge */}
-                  {p.party && (
-                    <span
-                      className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-xs ${
-                        p.party === "BJP"
-                          ? "bg-amber-500 text-white border border-amber-600/30"
-                          : "bg-sky-600 text-white border border-sky-700/30"
-                      }`}
-                    >
-                      {p.party}
-                    </span>
-                  )}
-                </div>
-
-                {/* Content: Name and Designation */}
-                <div className="flex flex-col items-center w-full grow justify-center text-center mt-1 sm:mt-2">
-                  <h4 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-sm font-bold text-ink leading-snug transition-colors group-hover:text-accent tracking-tight whitespace-nowrap">
-                    {p.name}
-                  </h4>
-                  {p.role && (
-                    <p className="mt-1 text-[10px] sm:text-[11px] font-medium text-stone-600 leading-tight">
-                      {p.role}
-                    </p>
-                  )}
-                </div>
-
-                {/* Social Media Links Pills - Only shown if link exists */}
-                {Boolean(p.socials?.instagram || p.socials?.facebook || p.socials?.twitter) && (
-                  <div className="mt-3 pt-2.5 sm:mt-4 sm:pt-3 border-t border-stone-200/80 w-full flex items-center justify-center gap-1.5 sm:gap-2">
-                    {p.socials.instagram && (
-                      <a
-                        href={p.socials.instagram}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-[#E4405F] hover:border-[#E4405F]/40 hover:bg-[#E4405F]/[0.05] transition-all shadow-2xs hover:scale-110"
-                        aria-label={`${p.name} Instagram`}
+                    {/* Party Tag Badge */}
+                    {p.party && (
+                      <span
+                        className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-xs ${
+                          p.party === "BJP"
+                            ? "bg-amber-500 text-white border border-amber-600/30"
+                            : "bg-sky-600 text-white border border-sky-700/30"
+                        }`}
                       >
-                        <InstagramIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                      </a>
-                    )}
-                    {p.socials.facebook && (
-                      <a
-                        href={p.socials.facebook}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-[#1877F2] hover:border-[#1877F2]/40 hover:bg-[#1877F2]/[0.05] transition-all shadow-2xs hover:scale-110"
-                        aria-label={`${p.name} Facebook`}
-                      >
-                        <FacebookIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                      </a>
-                    )}
-                    {p.socials.twitter && (
-                      <a
-                        href={p.socials.twitter}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-black hover:border-black/40 hover:bg-stone-100 transition-all shadow-2xs hover:scale-110"
-                        aria-label={`${p.name} X (Twitter)`}
-                      >
-                        <XIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                      </a>
+                        {p.party}
+                      </span>
                     )}
                   </div>
-                )}
-              </div>
-            </StaggerItem>
-          ))}
-        </Stagger>
+
+                  {/* Content: Name and Designation */}
+                  <div className="flex flex-col items-center w-full grow justify-center text-center mt-1 sm:mt-2">
+                    <h4 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-sm font-bold text-ink leading-snug transition-colors group-hover:text-accent tracking-tight whitespace-nowrap">
+                      {p.name}
+                    </h4>
+                    {p.role && (
+                      <p className="mt-1 text-[10px] sm:text-[11px] font-medium text-stone-600 leading-tight">
+                        {p.role}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Social Media Links Pills - Only shown if link exists */}
+                  {Boolean(p.socials?.instagram || p.socials?.facebook || p.socials?.twitter) && (
+                    <div className="mt-3 pt-2.5 sm:mt-4 sm:pt-3 border-t border-stone-200/80 w-full flex items-center justify-center gap-1.5 sm:gap-2">
+                      {p.socials.instagram && (
+                        <a
+                          href={p.socials.instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-[#E4405F] hover:border-[#E4405F]/40 hover:bg-[#E4405F]/[0.05] transition-all shadow-2xs hover:scale-110"
+                          aria-label={`${p.name} Instagram`}
+                        >
+                          <InstagramIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                        </a>
+                      )}
+                      {p.socials.facebook && (
+                        <a
+                          href={p.socials.facebook}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-[#1877F2] hover:border-[#1877F2]/40 hover:bg-[#1877F2]/[0.05] transition-all shadow-2xs hover:scale-110"
+                          aria-label={`${p.name} Facebook`}
+                        >
+                          <FacebookIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                        </a>
+                      )}
+                      {p.socials.twitter && (
+                        <a
+                          href={p.socials.twitter}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-black hover:border-black/40 hover:bg-stone-100 transition-all shadow-2xs hover:scale-110"
+                          aria-label={`${p.name} X (Twitter)`}
+                        >
+                          <XIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                        </a>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </StaggerItem>
+            ))}
+          </Stagger>
+        </div>
       </div>
     </section>
   );
