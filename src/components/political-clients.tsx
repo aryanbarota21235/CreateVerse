@@ -74,14 +74,14 @@ export default function PoliticalClients() {
             <StaggerItem key={p.name} className="h-full">
               <div className="group h-full flex flex-col items-center justify-between text-center p-3 sm:p-5 rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:bg-white hover:shadow-card">
                 {/* Circular Portrait with Concentric Clean Ring */}
-                <div className="relative mb-2.5 sm:mb-4 shrink-0">
-                  <div className="relative h-20 w-20 sm:h-28 sm:w-28 rounded-full p-[2.5px] sm:p-[3px] border-[1.5px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
+                <div className="relative mb-3 sm:mb-4 shrink-0">
+                  <div className="relative h-28 w-28 sm:h-32 sm:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
                     <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
                       <Image
                         src={p.image}
                         alt={p.name}
-                        width={112}
-                        height={112}
+                        width={140}
+                        height={140}
                         priority
                         className="h-full w-full object-cover scale-[1.08] transition-transform duration-300 group-hover:scale-[1.12]"
                       />
@@ -89,7 +89,7 @@ export default function PoliticalClients() {
                   </div>
                   {/* Party Tag Badge */}
                   <span
-                    className={`absolute -bottom-1 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider shadow-xs ${
+                    className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-xs ${
                       p.party === "BJP"
                         ? "bg-amber-500 text-white border border-amber-600/30"
                         : "bg-sky-600 text-white border border-sky-700/30"

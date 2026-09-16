@@ -203,16 +203,16 @@ export default function PoliticalManagementPage() {
                 <div className="group h-full flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/60 hover:bg-white hover:shadow-card">
                   {/* Top Row: Portrait & Identity */}
                   <div>
-                    <div className="flex items-start gap-4">
+                    <div className="flex items-center sm:items-start gap-4 sm:gap-5">
                       {/* High-Res Portrait */}
                       <div className="relative shrink-0">
-                        <div className="relative h-20 w-20 sm:h-24 sm:w-24 rounded-full p-[2.5px] border-[1.5px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
+                        <div className="relative h-24 w-24 sm:h-28 sm:w-28 lg:h-32 lg:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
                           <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
                             <Image
                               src={p.image}
                               alt={p.name}
-                              width={96}
-                              height={96}
+                              width={136}
+                              height={136}
                               priority
                               className="h-full w-full object-cover scale-[1.08] transition-transform duration-300 group-hover:scale-[1.14]"
                             />
