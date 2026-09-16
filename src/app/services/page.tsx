@@ -42,13 +42,6 @@ export const metadata: Metadata = {
   },
 };
 
-const serviceStats = [
-  { value: "₹48.6 Cr+", label: "Property Inventory Closed", desc: "Real estate buyer & investor acquisition" },
-  { value: "14.2M+", label: "Voter Attention Reached", desc: "Constituency-level political war rooms" },
-  { value: "3,850+", label: "Pre-Screened Visa Leads", desc: "High-attendance immigration consultations" },
-  { value: "4.2x", label: "Blended Capital ROAS", desc: "Verified performance marketing efficiency" },
-];
-
 const globalPlaybook = [
   {
     phase: "Phase 01",
@@ -84,29 +77,6 @@ export default function ServicesPage() {
         title={<>Everything growth needs, <span className="text-accent">under one roof.</span></>}
         description="Acquisition, advertising, creative, and technology — engineered so every service feeds the same goal: verified revenue, not just clicks."
       />
-
-      {/* 4 High-Impact Practice Benchmark Metrics */}
-      <section className="bg-paper pb-10 sm:pb-16 -mt-2 sm:-mt-4">
-        <div className="container-site">
-          <div className="grid grid-cols-2 gap-2.5 sm:gap-6 lg:grid-cols-4 items-stretch">
-            {serviceStats.map((s, idx) => (
-              <Reveal key={s.label} delay={idx * 0.08} className="h-full">
-                <div className="h-full flex flex-col justify-start min-h-[160px] sm:min-h-[190px] rounded-2xl border border-stone-200/90 bg-white p-3.5 sm:p-6 shadow-card hover:border-accent/40 transition-all duration-200 hover:-translate-y-0.5">
-                  <span className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-accent leading-none">
-                    {s.value}
-                  </span>
-                  <p className="mt-2 font-display text-xs sm:text-sm font-bold text-ink leading-snug min-h-[32px] sm:min-h-[38px] flex items-start">
-                    {s.label}
-                  </p>
-                  <p className="mt-1 text-[10.5px] sm:text-xs text-stone-500 font-normal leading-relaxed">
-                    {s.desc}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Services Grid with Practice Filters */}
       <ServicesGrid showHeading={false} />

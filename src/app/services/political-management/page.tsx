@@ -166,7 +166,7 @@ export default function PoliticalManagementPage() {
         <div className="hidden sm:block absolute -left-28 top-16 h-[450px] w-[450px] rounded-full bg-[radial-gradient(circle,rgba(255,237,213,0.7)_0%,rgba(255,237,213,0.2)_40%,transparent_70%)] pointer-events-none" />
         <div className="hidden sm:block absolute -right-28 top-12 h-[450px] w-[450px] rounded-full bg-[radial-gradient(circle,rgba(224,242,254,0.6)_0%,rgba(224,242,254,0.2)_40%,transparent_70%)] pointer-events-none" />
 
-        <div className="container-site relative pb-12 sm:pb-20 pt-6 sm:pt-7 lg:pt-8 lg:pb-24">
+        <div className="container-site relative pb-12 sm:pb-20 pt-6 sm:pt-16 lg:pt-20 lg:pb-24">
           <Reveal>
             <nav className="flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-ink/70" aria-label="Breadcrumb">
               <Link href="/services" prefetch={true} className="transition-colors hover:text-accent">Services</Link>
