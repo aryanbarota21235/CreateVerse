@@ -64,7 +64,7 @@ export default function IndustriesPage() {
       />
 
       {/* 4 High-Impact Industry Benchmark Metrics */}
-      <section className="bg-paper pb-10 sm:pb-16 -mt-2 sm:-mt-4">
+      <section className="relative z-10 bg-paper pt-1 sm:pt-2 pb-10 sm:pb-16">
         <div className="container-site">
           <div className="grid grid-cols-2 gap-2.5 sm:gap-6 lg:grid-cols-4 items-stretch">
             {industryStats.map((s, idx) => (

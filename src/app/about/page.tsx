@@ -63,17 +63,17 @@ export default function AboutPage() {
       />
 
       {/* 4 Core Agency Metrics */}
-      <section className="bg-paper pb-10 sm:pb-16 -mt-2 sm:-mt-4">
+      <section className="relative z-10 bg-paper pt-1 sm:pt-2 pb-10 sm:pb-16">
         <div className="container-site">
-          <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-6 lg:grid-cols-4 items-stretch">
             {agencyStats.map((s, idx) => (
-              <Reveal key={s.label} delay={idx * 0.08}>
-                <div className="rounded-2xl border border-stone-200/90 bg-white p-4 sm:p-6 shadow-card hover:border-accent/40 transition-all duration-200 hover:-translate-y-0.5">
-                  <span className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-accent">
+              <Reveal key={s.label} delay={idx * 0.08} className="h-full">
+                <div className="h-full flex flex-col justify-start rounded-2xl border border-stone-200/90 bg-white p-3.5 sm:p-6 shadow-card hover:border-accent/40 transition-all duration-200 hover:-translate-y-0.5">
+                  <span className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-accent leading-none">
                     {s.value}
                   </span>
-                  <p className="mt-1 font-display text-xs sm:text-sm font-bold text-ink">{s.label}</p>
-                  <p className="mt-0.5 text-[11px] sm:text-xs text-stone-500 font-normal">{s.desc}</p>
+                  <p className="mt-2 font-display text-xs sm:text-sm font-bold text-ink leading-snug">{s.label}</p>
+                  <p className="mt-1 text-[10.5px] sm:text-xs text-stone-500 font-normal leading-relaxed">{s.desc}</p>
                 </div>
               </Reveal>
             ))}
