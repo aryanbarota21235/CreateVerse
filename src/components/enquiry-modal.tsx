@@ -323,7 +323,7 @@ export default function EnquiryModal() {
             {/* Executive Close Button - Highly Accessible on Mobile & Luxury Desktop */}
             <button
               onClick={closeEnquiry}
-              className="pressable group absolute right-2.5 top-2.5 z-20 flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-stone-100/90 active:bg-stone-200 text-stone-700 sm:text-stone-500 transition-all duration-200 hover:bg-ink hover:text-white hover:rotate-90 hover:scale-105 sm:right-5 sm:top-5 shadow-xs cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30"
+              className="pressable group absolute right-3 top-3 z-20 flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-stone-100/90 active:bg-stone-200 text-stone-700 sm:text-stone-500 transition-all duration-200 hover:bg-ink hover:text-white hover:rotate-90 hover:scale-105 sm:right-5 sm:top-5 shadow-xs cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30"
               aria-label="Close modal"
             >
               <X className="h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-200" />
@@ -353,16 +353,16 @@ export default function EnquiryModal() {
                 </div>
               </div>
             ) : (
-              /* High-End, Streamlined Intake Form - Compact & Neat on Mobile with stable viewport sizing */
-              <div className="p-3.5 sm:p-7 md:p-8 max-h-[80vh] sm:max-h-[85vh] overflow-y-auto overscroll-contain">
+              /* High-End, Streamlined Intake Form - Enhanced typography and breathing room on Mobile */
+              <div className="p-4 sm:p-7 md:p-8 max-h-[82vh] sm:max-h-[85vh] overflow-y-auto overscroll-contain">
                 {/* Header */}
-                <div className="pr-9 sm:pr-8">
-                  <div className="hidden sm:inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-accent/20 bg-accent/[0.06] px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-accent">
-                    <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                <div className="pr-8 sm:pr-8">
+                  <div className="inline-flex items-center gap-1.5 rounded-full border border-accent/20 bg-accent/[0.06] px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-accent mb-1.5 sm:mb-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
                     <span>Direct Practice Consultation</span>
                   </div>
 
-                  <h3 className="mt-0.5 sm:mt-2 font-display text-base sm:text-2xl font-bold tracking-tight text-ink">
+                  <h3 className="font-display text-xl sm:text-2xl lg:text-[26px] font-bold tracking-tight text-ink leading-snug sm:leading-tight">
                     {service ? (
                       <>
                         Consultation: <span className="text-accent">{service}</span>
@@ -374,39 +374,39 @@ export default function EnquiryModal() {
                     )}
                   </h3>
 
-                  <p className="mt-0.5 sm:mt-1 text-[11px] sm:text-sm text-stone-600 font-normal">
+                  <p className="mt-1 sm:mt-1.5 text-xs sm:text-sm text-stone-600 font-normal leading-relaxed">
                     Connect directly with our senior strategy directors.
                   </p>
                 </div>
 
-                {/* Top WhatsApp Quick Connect Bar - Compact 1-line on mobile */}
+                {/* Top WhatsApp Quick Connect Bar - Enhanced touch target on mobile */}
                 <a
                   href={site.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group mt-2 sm:mt-3.5 flex items-center justify-between rounded-xl border border-stone-200 bg-[#F8FAFC] px-2.5 py-1.5 sm:px-4 sm:py-2.5 transition-all duration-200 hover:border-[#25D366] hover:bg-[#25D366]/[0.04] hover:shadow-xs cursor-pointer"
+                  className="group mt-3 sm:mt-3.5 flex items-center justify-between rounded-xl border border-stone-200 bg-[#F8FAFC] px-3 py-2 sm:px-4 sm:py-2.5 transition-all duration-200 hover:border-[#25D366] hover:bg-[#25D366]/[0.04] hover:shadow-xs cursor-pointer"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="flex h-6 w-6 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-lg bg-[#25D366] text-white shadow-xs">
+                    <span className="flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-lg bg-[#25D366] text-white shadow-xs">
                       <WhatsAppIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-white" />
                     </span>
-                    <p className="text-[11px] sm:text-xs font-bold text-ink group-hover:text-emerald-700 transition-colors">
+                    <p className="text-xs sm:text-xs font-bold text-ink group-hover:text-emerald-700 transition-colors">
                       Fastest: Chat on WhatsApp <span className="hidden sm:inline text-stone-500 font-normal">({site.phone})</span>
                     </p>
                   </div>
-                  <span className="inline-flex items-center gap-1 text-[10.5px] sm:text-xs font-bold text-emerald-700 group-hover:translate-x-0.5 transition-transform shrink-0">
+                  <span className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold text-emerald-700 group-hover:translate-x-0.5 transition-transform shrink-0">
                     <span>Chat now</span>
                     <ArrowRight className="h-3 w-3" />
                   </span>
                 </a>
 
                 {/* Subtle Divider */}
-                <div className="relative my-2 sm:my-3">
+                <div className="relative my-2.5 sm:my-3.5">
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-stone-200/80" />
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-white px-2 text-[9px] font-bold tracking-wider text-stone-400">
+                    <span className="bg-white px-2.5 text-[9.5px] sm:text-[10px] font-bold tracking-wider text-stone-400">
                       or inquiry form
                     </span>
                   </div>
@@ -526,7 +526,7 @@ export default function EnquiryModal() {
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="pressable group flex w-full items-center justify-center gap-2 rounded-full bg-accent px-5 py-2.5 sm:py-3.5 text-xs sm:text-sm font-bold text-white shadow-[0_8px_20px_rgba(0,102,255,0.22)] transition-all duration-200 hover:bg-accent-dim hover:shadow-[0_12px_28px_rgba(0,102,255,0.3)] hover:-translate-y-0.5 cursor-pointer disabled:opacity-60"
+                      className="pressable group flex w-full items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 sm:py-3.5 text-xs sm:text-sm font-bold text-white shadow-[0_8px_20px_rgba(0,102,255,0.22)] transition-all duration-200 hover:bg-accent-dim hover:shadow-[0_12px_28px_rgba(0,102,255,0.3)] hover:-translate-y-0.5 cursor-pointer disabled:opacity-60"
                     >
                       <span>{submitting ? "Submitting..." : "Submit Growth Inquiry"}</span>
                       <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
