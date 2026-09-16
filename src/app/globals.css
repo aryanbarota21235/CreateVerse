@@ -121,9 +121,25 @@ button:not(:disabled):active,
 }
 
 @media (hover: none) {
+  .reveal-wrapper {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .capsnpills-pill {
+    transform: none !important;
+  }
   .capsnpills-pill:active {
     transform: none !important;
     box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05) !important;
+  }
+  button,
+  [role="button"],
+  .pressable,
+  a.rounded-full,
+  a.rounded-2xl,
+  a.rounded-xl,
+  .capsnpills-pill {
+    transition: background-color 150ms ease, color 150ms ease !important;
   }
   button:not(:disabled):active,
   [role="button"]:not(:disabled):active,

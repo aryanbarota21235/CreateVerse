@@ -16,6 +16,7 @@ export default function Navbar() {
   useEffect(() => {
     let ticking = false;
     const onScroll = () => {
+      if (window.innerWidth < 640) return;
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const isScrolled = window.scrollY > 30;
