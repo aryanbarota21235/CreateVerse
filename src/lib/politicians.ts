@@ -19,7 +19,7 @@ export const politicianClients: PoliticianClient[] = [
     role: "Member of Parliament (Rajya Sabha). General Secretary,INC",
     party: "INC",
     partyName: "Indian National Congress",
-    image: "/politicians/randeep-singh-surjewala.png",
+    image: "/politicians/randeep-singh-surjewala.webp",
     socials: {
       instagram: "https://www.instagram.com/rssurjewala",
     },
@@ -29,7 +29,7 @@ export const politicianClients: PoliticianClient[] = [
     role: "MLA, Kaithal Vidhan Sabha",
     party: "INC",
     partyName: "Indian National Congress",
-    image: "/politicians/aditya-surjewala.png",
+    image: "/politicians/aditya-surjewala.webp",
     socials: {
       instagram: "https://www.instagram.com/adityasurjewala/",
     },
@@ -39,7 +39,7 @@ export const politicianClients: PoliticianClient[] = [
     role: "Former MLA, Khanna",
     party: "INC",
     partyName: "Indian National Congress",
-    image: "/politicians/gurkirat-singh-kotli.png",
+    image: "/politicians/gurkirat-singh-kotli.webp",
     socials: {
       instagram: "https://www.instagram.com/gurkiratskotli",
     },
@@ -49,7 +49,7 @@ export const politicianClients: PoliticianClient[] = [
     role: "EX-MLA, Assandh",
     party: "INC",
     partyName: "Indian National Congress",
-    image: "/politicians/shamsher-singh-gogi.png",
+    image: "/politicians/shamsher-singh-gogi.webp",
     socials: {
       facebook: "https://www.facebook.com/ssgogiofficial",
     },
@@ -59,7 +59,7 @@ export const politicianClients: PoliticianClient[] = [
     role: "Gharaunda Constituency",
     party: "INC",
     partyName: "Indian National Congress",
-    image: "/politicians/bhupinder-lather.png",
+    image: "/politicians/bhupinder-lather.webp",
     socials: {
       instagram: "https://www.instagram.com/latherbhupi",
     },
@@ -67,7 +67,7 @@ export const politicianClients: PoliticianClient[] = [
   {
     name: "Umesh Sharma",
     role: "Senior Leader",
-    image: "/politicians/umesh-sharma.png",
+    image: "/politicians/umesh-sharma.webp",
     socials: {
       facebook: "https://www.facebook.com/UmeshSharmaSnp",
     },

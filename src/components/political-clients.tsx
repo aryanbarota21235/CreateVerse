@@ -73,7 +73,7 @@ export default function PoliticalClients() {
 
         {/* 6 Circular Politician Cards with Social Media Handles */}
         <div className="-mx-1 sm:-mx-2 lg:-mx-4">
-          <Stagger className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-2.5 xl:gap-3.5 sm:grid-cols-3 lg:grid-cols-6 items-stretch" delayChildren={0.08}>
+          <Stagger className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-2.5 xl:gap-3.5 sm:grid-cols-3 lg:grid-cols-6 items-stretch" delayChildren={0.02}>
             {politicianClients.map((p) => (
               <StaggerItem key={p.name} className="h-full">
                 <div className="group h-full flex flex-col items-center justify-between text-center p-3 sm:py-5 sm:px-2 xl:px-3 rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:bg-white hover:shadow-card">
@@ -87,7 +87,8 @@ export default function PoliticalClients() {
                           width={140}
                           height={140}
                           sizes="(max-width: 640px) 112px, 140px"
-                          loading="lazy"
+                          priority
+                          quality={85}
                           className="h-full w-full object-cover scale-[1.08] transition-transform duration-300 group-hover:scale-[1.12]"
                         />
                       </div>

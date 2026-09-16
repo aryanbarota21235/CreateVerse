@@ -247,7 +247,8 @@ export default function PoliticalManagementPage() {
                               width={136}
                               height={136}
                               sizes="(max-width: 640px) 96px, 136px"
-                              loading="lazy"
+                              priority
+                              quality={85}
                               className="h-full w-full object-cover scale-[1.08] transition-transform duration-300 group-hover:scale-[1.14]"
                             />
                           </div>
