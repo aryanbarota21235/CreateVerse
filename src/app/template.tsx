@@ -23,28 +23,28 @@ export default function Template({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  // Mobile: 100% buttery smooth native 60fps/120fps route transitions without Framer Motion lag/blink
-  // Admin & reduced motion also bypass animation
-  if (pathname?.startsWith("/admin") || shouldReduceMotion || isMobile) {
+  // Admin & reduced motion bypass animation.
+  if (pathname?.startsWith("/admin") || shouldReduceMotion) {
     return <>{children}</>;
   }
 
-  // Desktop: elegant slide-up with opacity (kept exactly as preferred)
+  const transition = isMobile
+    ? { duration: 0.18, ease: [0.22, 1, 0.36, 1] as const }
+    : { duration: 0.28, ease: [0.16, 1, 0.3, 1] as const };
+
   return (
     <motion.div
       key={pathname}
       initial={{
         opacity: 0,
-        y: 12,
+        y: isMobile ? 6 : 12,
       }}
       animate={{
         opacity: 1,
         y: 0,
       }}
-      transition={{
-        duration: 0.28,
-        ease: [0.16, 1, 0.3, 1],
-      }}
+      transition={transition}
+      style={{ willChange: "opacity, transform", transform: "translate3d(0, 0, 0)" }}
     >
       {children}
     </motion.div>

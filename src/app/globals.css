@@ -30,10 +30,10 @@
     background-color: #0284C7;
     color: #ffffff;
   }
-  @media (min-width: 768px) {
-    body.modal-open {
-      overflow: hidden;
-    }
+  body.modal-open {
+    overflow: hidden;
+    overscroll-behavior: none;
+    touch-action: none;
   }
 }
 
@@ -141,6 +141,11 @@ button:not(:disabled):not(.no-press):active,
 }
 
 @media (max-width: 767px), (hover: none) {
+  html,
+  body {
+    overscroll-behavior-x: none;
+  }
+
   .capsnpills-pill {
     transform: none !important;
   }
@@ -168,6 +173,11 @@ button:not(:disabled):not(.no-press):active,
     border-color: inherit;
     box-shadow: none;
     transform: none;
+  }
+
+  .mobile-no-hover,
+  .mobile-no-hover * {
+    transition-duration: 120ms !important;
   }
 }
 

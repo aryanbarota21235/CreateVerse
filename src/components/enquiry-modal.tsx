@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X, CheckCircle2, ArrowRight, ShieldCheck, ChevronDown } from "lucide-react";
 import { useEnquiry } from "@/context/enquiry-context";
 import { site } from "@/lib/site";
@@ -183,6 +183,7 @@ const inputCls =
 
 export default function EnquiryModal() {
   const { isOpen, closeEnquiry, selectedService } = useEnquiry();
+  const reduceMotion = useReducedMotion();
 
   const [service, setService] = useState("");
   const [name, setName] = useState("");
@@ -268,30 +269,31 @@ export default function EnquiryModal() {
     <AnimatePresence>
       {isOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 py-8 sm:p-6 overflow-y-auto no-scrollbar"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto no-scrollbar"
           style={{ isolation: "isolate" }}
           onClick={closeEnquiry}
         >
-          {/* Subtle Clean Backdrop - Desktop only to eliminate mobile status bar & browser tab repaint lag */}
+          {/* Subtle clean backdrop on every viewport so the form keeps the same premium focus on mobile. */}
           <motion.div
             key="modal-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
-            className="hidden sm:block fixed inset-0 bg-black/65 cursor-pointer"
+            transition={{ duration: reduceMotion ? 0 : 0.16, ease: "easeOut" }}
+            className="fixed inset-0 bg-black/55 backdrop-blur-[2px] sm:bg-black/65 cursor-pointer"
             aria-hidden="true"
           />
 
           {/* Compact Centered Modal Card - Beautiful floating card with plenty of room above & below */}
           <motion.div
             key="modal-card"
-            initial={{ opacity: 0, scale: 0.94, y: 10 }}
+            initial={{ opacity: 0, scale: reduceMotion ? 1 : 0.97, y: reduceMotion ? 0 : 8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 8 }}
-            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+            exit={{ opacity: 0, scale: reduceMotion ? 1 : 0.98, y: reduceMotion ? 0 : 6 }}
+            transition={{ duration: reduceMotion ? 0 : 0.18, ease: [0.16, 1, 0.3, 1] }}
             onClick={(e) => e.stopPropagation()}
-            className="relative z-10 w-full max-w-[420px] sm:max-w-[520px] bg-white rounded-3xl border border-stone-300/80 sm:border-stone-200/90 shadow-[0_20px_50px_rgba(0,0,0,0.25)] sm:shadow-2xl overflow-hidden max-h-[68vh] sm:max-h-[85vh] flex flex-col no-scrollbar my-auto"
+            className="mobile-no-hover relative z-10 w-full max-w-[min(100%,430px)] sm:max-w-[520px] bg-white rounded-2xl sm:rounded-3xl border border-white/70 sm:border-stone-200/90 shadow-[0_20px_50px_rgba(0,0,0,0.28)] sm:shadow-2xl overflow-hidden max-h-[calc(100dvh-24px)] sm:max-h-[85vh] flex flex-col no-scrollbar my-auto"
+            style={{ willChange: "opacity, transform", transform: "translate3d(0, 0, 0)" }}
           >
             {/* Tactile Close Button */}
             <button
@@ -330,8 +332,8 @@ export default function EnquiryModal() {
             ) : (
               /* Form Body with Smooth Momentum Scroll & Hidden Scrollbar */
               <div
-                className="p-3.5 sm:p-6 overflow-y-auto overscroll-contain flex-1 no-scrollbar"
-                style={{ WebkitOverflowScrolling: "touch" }}
+                className="p-4 sm:p-6 overflow-y-auto overscroll-contain flex-1 no-scrollbar"
+                style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-y" }}
               >
                 {/* Header */}
                 <div className="pr-8 sm:pr-9">
@@ -391,7 +393,7 @@ export default function EnquiryModal() {
                 </div>
 
                 {/* Clean, Streamlined Form Body */}
-                <form onSubmit={handleSubmit} className="space-y-1.5 sm:space-y-2.5">
+                <form onSubmit={handleSubmit} className="space-y-2 sm:space-y-2.5">
                   {/* Practice Area Dropdown */}
                   <div>
                     <label className="block text-[10px] sm:text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5 sm:mb-1">
@@ -426,7 +428,7 @@ export default function EnquiryModal() {
                   </div>
 
                   {/* Row 1: Name and Phone (Required) - Compact 2-col on all screens */}
-                  <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
+                  <div className="grid grid-cols-1 min-[380px]:grid-cols-2 gap-2 sm:gap-2.5">
                     <div>
                       <label className="block text-[10px] sm:text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5 sm:mb-1">
                         Full Name *
@@ -457,7 +459,7 @@ export default function EnquiryModal() {
                   </div>
 
                   {/* Row 2: Email and Company (Optional) - Compact 2-col on all screens */}
-                  <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
+                  <div className="grid grid-cols-1 min-[380px]:grid-cols-2 gap-2 sm:gap-2.5">
                     <div>
                       <label className="block text-[10px] sm:text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5 sm:mb-1 truncate">
                         Email <span className="font-normal text-stone-400 lowercase">(opt)</span>
