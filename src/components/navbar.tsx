@@ -35,16 +35,16 @@ export default function Navbar() {
   }
 
   return (
-    <header className="fixed inset-x-0 top-3 sm:top-5 z-50 px-3.5 sm:px-8 pointer-events-none">
+    <header className="fixed inset-x-0 top-3 sm:top-5 z-50 px-3 sm:px-8 pointer-events-none">
       {/* Maximum luxury width floating pill dock */}
       <div
-        className={`navbar-dock mx-auto flex items-center justify-between rounded-full bg-white transition-all duration-300 pointer-events-auto border ${
+        className={`navbar-dock mx-auto flex items-center justify-between rounded-full bg-white transition-all duration-300 pointer-events-auto border border-stone-200/90 sm:border-black/[0.12] shadow-[0_8px_30px_rgba(11,15,25,0.09)] ${
           scrolled
-            ? "max-w-6xl py-2 px-4 sm:py-2.5 sm:px-10 shadow-[0_12px_32px_rgba(11,15,25,0.1)] border-black/[0.12]"
-            : "max-w-7xl py-2.5 px-4 sm:py-3.5 sm:px-12 border-stone-200/90 sm:border-black/[0.12] shadow-[0_8px_30px_rgba(11,15,25,0.08)]"
+            ? "max-w-6xl py-2.5 px-4.5 sm:py-2.5 sm:px-10 sm:shadow-[0_12px_32px_rgba(11,15,25,0.1)]"
+            : "max-w-7xl py-2.5 px-4.5 sm:py-3.5 sm:px-12"
         }`}
       >
-        {/* Brand Logo */}
+        {/* Brand Logo - Fixed prominent 42px height on mobile (no shrink/grow on scroll) */}
         <Link
           href="/"
           prefetch={true}
@@ -57,8 +57,8 @@ export default function Navbar() {
             width={360}
             height={148}
             priority
-            className={`w-auto transition-all duration-300 ${
-              scrolled ? "h-[32px] sm:h-11" : "h-[40px] sm:h-[50px] lg:h-[54px]"
+            className={`w-auto transition-all duration-300 h-[42px] ${
+              scrolled ? "sm:h-11" : "sm:h-[50px] lg:h-[54px]"
             }`}
           />
         </Link>
@@ -100,7 +100,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Action Button (Strictly 'Enquire' Only, Prominent Pill) */}
+        {/* Mobile Action Button (Strictly 'Enquire' Only, Bold Pill, Fixed Size) */}
         <div className="flex items-center sm:hidden">
           <button
             onClick={() => openEnquiry()}
