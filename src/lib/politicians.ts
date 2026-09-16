@@ -16,7 +16,7 @@ export interface PoliticianClient {
 export const politicianClients: PoliticianClient[] = [
   {
     name: "Randeep Singh Surjewala",
-    role: "Member of Parliament (Rajya Sabha). General Secretary, Indian National Congress. Member, CWC.",
+    role: "Member of Parliament (Rajya Sabha). General Secretary,INC",
     party: "INC",
     partyName: "Indian National Congress",
     image: "/politicians/randeep-singh-surjewala.png",
