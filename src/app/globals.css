@@ -70,6 +70,12 @@
     background-image: radial-gradient(rgba(11, 15, 25, 0.04) 1px, transparent 1px);
     background-size: 24px 24px;
   }
+  .reveal-wrapper {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 /* ==========================================================================

@@ -268,8 +268,9 @@ export default function EnquiryModal() {
     <AnimatePresence>
       {isOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center px-4 py-8 sm:p-6 overflow-y-auto no-scrollbar"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 py-8 sm:p-6 overflow-y-auto no-scrollbar"
           style={{ isolation: "isolate" }}
+          onClick={closeEnquiry}
         >
           {/* Subtle Clean Backdrop - Easy dismiss on tap */}
           <motion.div
@@ -277,35 +278,34 @@ export default function EnquiryModal() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
             className="fixed inset-0 bg-black/70 cursor-pointer"
-            onClick={closeEnquiry}
             aria-hidden="true"
           />
 
           {/* Compact Centered Modal Card - Beautiful floating card with plenty of room above & below */}
           <motion.div
             key="modal-card"
-            initial={{ opacity: 0, scale: 0.95, y: 14 }}
+            initial={{ opacity: 0, scale: 0.94, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: 10 }}
-            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            exit={{ opacity: 0, scale: 0.95, y: 8 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
             onClick={(e) => e.stopPropagation()}
-            className="relative z-10 w-full max-w-[480px] sm:max-w-[540px] bg-white rounded-3xl border border-stone-200/90 shadow-2xl overflow-hidden my-auto max-h-[82vh] sm:max-h-[88vh] flex flex-col no-scrollbar"
+            className="relative z-10 w-full max-w-[420px] sm:max-w-[520px] bg-white rounded-3xl border border-stone-200/90 shadow-2xl overflow-hidden max-h-[68vh] sm:max-h-[85vh] flex flex-col no-scrollbar my-auto"
           >
             {/* Tactile Close Button */}
             <button
               type="button"
               onClick={closeEnquiry}
-              className="absolute right-3.5 top-3.5 sm:right-4 sm:top-4 z-20 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-stone-100 hover:bg-stone-200 active:scale-95 text-stone-600 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30"
+              className="absolute right-3 top-3 sm:right-4 sm:top-4 z-20 flex h-7 w-7 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-stone-100 hover:bg-stone-200 active:scale-95 text-stone-600 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30"
               aria-label="Close modal"
             >
-              <X className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
+              <X className="h-3.5 w-3.5 sm:h-4.5 sm:w-4.5" />
             </button>
 
             {submitted ? (
               /* Success Confirmation Screen */
-              <div className="p-7 sm:p-10 text-center my-auto">
+              <div className="p-6 sm:p-10 text-center my-auto">
                 <div className="mx-auto flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-accent/10 text-accent border border-accent/20">
                   <CheckCircle2 className="h-7 w-7 sm:h-8 sm:w-8 text-accent" />
                 </div>
@@ -330,17 +330,17 @@ export default function EnquiryModal() {
             ) : (
               /* Form Body with Smooth Momentum Scroll & Hidden Scrollbar */
               <div
-                className="p-4 sm:p-7 overflow-y-auto overscroll-contain flex-1 no-scrollbar"
+                className="p-3.5 sm:p-6 overflow-y-auto overscroll-contain flex-1 no-scrollbar"
                 style={{ WebkitOverflowScrolling: "touch" }}
               >
                 {/* Header */}
-                <div className="pr-9">
-                  <div className="inline-flex items-center gap-1.5 rounded-full border border-accent/20 bg-accent/[0.06] px-2 py-0.5 sm:px-2.5 sm:py-0.5 text-[9.5px] sm:text-[10.5px] font-bold uppercase tracking-wider text-accent mb-1">
+                <div className="pr-8 sm:pr-9">
+                  <div className="inline-flex items-center gap-1 rounded-full border border-accent/20 bg-accent/[0.06] px-2 py-0.5 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-accent mb-1">
                     <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
                     <span>Direct Practice Consultation</span>
                   </div>
 
-                  <h3 className="font-display text-lg sm:text-2xl font-bold tracking-tight text-ink leading-snug">
+                  <h3 className="font-display text-base sm:text-2xl font-bold tracking-tight text-ink leading-snug">
                     {service ? (
                       <>
                         Consultation: <span className="text-accent">{service}</span>
@@ -352,7 +352,7 @@ export default function EnquiryModal() {
                     )}
                   </h3>
 
-                  <p className="mt-0.5 text-[11px] sm:text-xs text-stone-500 font-normal">
+                  <p className="mt-0.5 text-[10.5px] sm:text-xs text-stone-500 font-normal">
                     Connect directly with our senior strategy directors.
                   </p>
                 </div>
@@ -362,24 +362,24 @@ export default function EnquiryModal() {
                   href={site.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group mt-2.5 sm:mt-3 flex items-center justify-between rounded-xl border border-stone-200 bg-[#F8FAFC] px-3 py-1.5 sm:px-3.5 sm:py-2 transition-all duration-150 hover:border-[#25D366] hover:bg-[#25D366]/[0.04] active:bg-[#25D366]/[0.08] cursor-pointer"
+                  className="group mt-2 sm:mt-3 flex items-center justify-between rounded-xl border border-stone-200 bg-[#F8FAFC] px-2.5 py-1.5 sm:px-3.5 sm:py-2 transition-all duration-150 hover:border-[#25D366] hover:bg-[#25D366]/[0.04] active:bg-[#25D366]/[0.08] cursor-pointer"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-lg bg-[#25D366] text-white shadow-xs">
-                      <WhatsAppIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-white" />
+                    <span className="flex h-5 w-5 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-lg bg-[#25D366] text-white shadow-xs">
+                      <WhatsAppIcon className="h-2.5 w-2.5 sm:h-3.5 sm:w-3.5 text-white" />
                     </span>
-                    <p className="text-[11.5px] sm:text-xs font-bold text-ink group-hover:text-emerald-700 transition-colors">
+                    <p className="text-[11px] sm:text-xs font-bold text-ink group-hover:text-emerald-700 transition-colors">
                       Fastest: Chat on WhatsApp <span className="hidden sm:inline text-stone-400 font-normal">({site.phone})</span>
                     </p>
                   </div>
-                  <span className="inline-flex items-center gap-1 text-[10.5px] sm:text-xs font-bold text-emerald-700 group-hover:translate-x-0.5 transition-transform shrink-0">
+                  <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-emerald-700 group-hover:translate-x-0.5 transition-transform shrink-0">
                     <span>Chat now</span>
                     <ArrowRight className="h-3 w-3" />
                   </span>
                 </a>
 
                 {/* Divider */}
-                <div className="relative my-2 sm:my-3">
+                <div className="relative my-1.5 sm:my-2.5">
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-stone-200/80" />
                   </div>
