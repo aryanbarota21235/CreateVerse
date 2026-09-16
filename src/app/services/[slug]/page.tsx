@@ -427,7 +427,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       <section className="relative bg-[#090D15] py-14 sm:py-20 text-white">
         <div className="container-site">
           <Reveal>
-            <div className="max-w-4xl mx-auto rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-12 backdrop-blur-sm">
+            <div className="max-w-4xl mx-auto rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-12">
               <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 pb-6 border-b border-white/10">
                 <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-accent/20 text-accent border border-accent/30 shrink-0">
                   <Lock className="h-6 w-6" />

@@ -81,7 +81,6 @@ export default function Template({ children }: { children: React.ReactNode }) {
         duration: 0.32,
         ease: [0.16, 1, 0.3, 1],
       }}
-      style={{ willChange: "transform, opacity" }}
     >
       {children}
     </motion.div>

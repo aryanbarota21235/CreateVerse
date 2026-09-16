@@ -85,7 +85,8 @@ export default function PoliticalClients() {
                         alt={p.name}
                         width={140}
                         height={140}
-                        priority
+                        sizes="(max-width: 640px) 112px, 140px"
+                        loading="lazy"
                         className="h-full w-full object-cover scale-[1.08] transition-transform duration-300 group-hover:scale-[1.12]"
                       />
                     </div>
