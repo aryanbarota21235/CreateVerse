@@ -35,13 +35,13 @@ export default function Navbar() {
   }
 
   return (
-    <header className="fixed inset-x-0 top-3 sm:top-5 z-50 px-3 sm:px-8 pointer-events-none">
+    <header className="fixed inset-x-0 top-1.5 sm:top-5 z-50 px-3.5 sm:px-8 pointer-events-none">
       {/* Maximum luxury width floating pill dock */}
       <div
         className={`navbar-dock mx-auto flex items-center justify-between rounded-full bg-white transition-all duration-300 pointer-events-auto border border-stone-200/90 sm:border-black/[0.12] shadow-[0_8px_30px_rgba(11,15,25,0.09)] ${
           scrolled
-            ? "max-w-6xl py-2.5 px-4.5 sm:py-2.5 sm:px-10 sm:shadow-[0_12px_32px_rgba(11,15,25,0.1)]"
-            : "max-w-7xl py-2.5 px-4.5 sm:py-3.5 sm:px-12"
+            ? "max-w-6xl py-2.5 px-6 sm:py-2.5 sm:px-10 sm:shadow-[0_12px_32px_rgba(11,15,25,0.1)]"
+            : "max-w-7xl py-2.5 px-6 sm:py-3.5 sm:px-12"
         }`}
       >
         {/* Brand Logo - Fixed prominent 42px height on mobile (no shrink/grow on scroll) */}
