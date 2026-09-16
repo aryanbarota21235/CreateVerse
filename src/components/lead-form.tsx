@@ -6,7 +6,7 @@ import { services } from "@/lib/services";
 import { saveEnquiry } from "@/lib/admin-store";
 
 const inputCls =
-  "w-full rounded-xl border border-stone-200 bg-[#F8FAFC] px-3.5 py-3 sm:px-4 sm:py-3.5 text-xs sm:text-sm text-ink placeholder:text-ink/40 outline-none transition-all focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-medium";
+  "w-full rounded-xl border border-stone-200 bg-[#F8FAFC] px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-base sm:text-sm text-ink placeholder:text-ink/40 outline-none transition-all focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-medium";
 
 export default function LeadForm({
   compact = false,
@@ -65,7 +65,7 @@ export default function LeadForm({
 
   const containerCls = embedded
     ? `text-ink ${className}`
-    : `rounded-2xl sm:rounded-3xl border border-stone-200 bg-white p-5 sm:p-8 shadow-xl sm:shadow-2xl text-ink ${className}`;
+    : `rounded-2xl sm:rounded-3xl border border-stone-200 bg-white p-4 sm:p-8 shadow-xl sm:shadow-2xl text-ink ${className}`;
 
   return (
     <form onSubmit={onSubmit} className={containerCls}>

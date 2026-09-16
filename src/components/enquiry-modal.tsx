@@ -177,7 +177,7 @@ function matchService(inputName?: string): string {
 }
 
 const inputCls =
-  "w-full rounded-xl border border-stone-200/90 bg-[#F8FAFC] px-3 py-2 sm:px-3.5 sm:py-2.5 text-xs sm:text-sm text-ink placeholder:text-stone-400 outline-none transition-all focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-normal";
+  "w-full rounded-xl border border-stone-200/90 bg-[#F8FAFC] px-3.5 py-2.5 sm:px-3.5 sm:py-2.5 text-base sm:text-sm text-ink placeholder:text-stone-400 outline-none transition-all focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-normal";
 
 export default function EnquiryModal() {
   const { isOpen, closeEnquiry, selectedService } = useEnquiry();
@@ -283,13 +283,13 @@ export default function EnquiryModal() {
             transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
             className="relative w-full max-w-xl overflow-hidden rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white shadow-[0_30px_70px_rgba(15,23,42,0.28)] z-10 my-auto"
           >
-            {/* Executive Close Button */}
+            {/* Executive Close Button - Highly Accessible on Mobile */}
             <button
               onClick={closeEnquiry}
-              className="absolute right-3 top-3 z-20 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-stone-100 text-stone-500 transition-all hover:bg-ink hover:text-white sm:right-6 sm:top-6"
+              className="pressable absolute right-2.5 top-2.5 z-20 flex h-9 w-9 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-stone-100 active:bg-stone-200 text-stone-700 sm:text-stone-500 transition-all hover:bg-ink hover:text-white sm:right-6 sm:top-6 shadow-xs"
               aria-label="Close modal"
             >
-              <X className="h-4 w-4" />
+              <X className="h-5 w-5 sm:h-4 sm:w-4" />
             </button>
 
             {submitted ? (
@@ -317,9 +317,9 @@ export default function EnquiryModal() {
               </div>
             ) : (
               /* High-End, Decluttered Intake Form */
-              <div className="p-4 sm:p-8 md:p-9 max-h-[88vh] overflow-y-auto">
+              <div className="p-4 sm:p-8 md:p-9 max-h-[92vh] sm:max-h-[88vh] overflow-y-auto overscroll-contain">
                 {/* Header */}
-                <div className="pr-8">
+                <div className="pr-12 sm:pr-8">
                   <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-accent/20 bg-accent/[0.06] px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-accent">
                     <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
                     <span>Direct Practice Consultation</span>
@@ -347,7 +347,7 @@ export default function EnquiryModal() {
                   href={site.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group mt-3 sm:mt-4 flex items-center justify-between rounded-xl sm:rounded-2xl border border-stone-200 bg-[#F8FAFC] p-3 sm:px-4 sm:py-3 transition-all hover:border-[#25D366]/50 hover:bg-[#25D366]/5"
+                  className="group mt-2.5 sm:mt-4 flex items-center justify-between rounded-xl sm:rounded-2xl border border-stone-200 bg-[#F8FAFC] p-2.5 sm:px-4 sm:py-3 transition-all hover:border-[#25D366]/50 hover:bg-[#25D366]/5"
                 >
                   <div className="flex items-center gap-2.5 sm:gap-3">
                     <span className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-lg sm:rounded-xl bg-[#25D366] text-white shadow-xs">
@@ -391,7 +391,7 @@ export default function EnquiryModal() {
                       <select
                         value={service}
                         onChange={(e) => setService(e.target.value)}
-                        className={`w-full appearance-none rounded-xl border px-3.5 py-2.5 text-xs sm:text-sm font-medium transition-all focus:border-accent focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/15 ${
+                        className={`w-full appearance-none rounded-xl border px-3.5 py-2.5 text-base sm:text-sm font-medium transition-all focus:border-accent focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/15 ${
                           service
                             ? "border-stone-300 bg-white text-ink font-semibold"
                             : "border-stone-200 bg-[#F8FAFC] text-stone-500"
