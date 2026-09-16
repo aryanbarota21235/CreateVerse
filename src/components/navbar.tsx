@@ -18,7 +18,7 @@ export default function Navbar() {
     const onScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const isScrolled = window.scrollY > 20;
+          const isScrolled = window.scrollY > 30;
           setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
           ticking = false;
         });
@@ -35,16 +35,20 @@ export default function Navbar() {
   }
 
   return (
-    <header className="fixed inset-x-0 top-1.5 sm:top-5 z-50 px-3.5 sm:px-8 pointer-events-none">
+    <header
+      className={`fixed inset-x-0 z-50 px-3.5 sm:px-8 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        scrolled ? "top-1.5 sm:top-5" : "top-2.5 sm:top-5"
+      }`}
+    >
       {/* Maximum luxury width floating pill dock */}
       <div
-        className={`navbar-dock mx-auto flex items-center justify-between rounded-full bg-white transition-all duration-300 pointer-events-auto border border-stone-200/90 sm:border-black/[0.12] shadow-[0_8px_30px_rgba(11,15,25,0.09)] ${
+        className={`navbar-dock mx-auto flex items-center justify-between rounded-full bg-white pointer-events-auto transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] border ${
           scrolled
-            ? "max-w-6xl py-2.5 px-6 sm:py-2.5 sm:px-10 sm:shadow-[0_12px_32px_rgba(11,15,25,0.1)]"
-            : "max-w-7xl py-2.5 px-6 sm:py-3.5 sm:px-12"
+            ? "max-w-6xl py-2 px-5 sm:py-2.5 sm:px-10 border-stone-300/80 sm:border-black/[0.12] shadow-[0_12px_32px_rgba(11,15,25,0.12)] sm:shadow-[0_12px_32px_rgba(11,15,25,0.1)]"
+            : "max-w-7xl py-3 px-6 sm:py-3.5 sm:px-12 border-stone-200/90 sm:border-black/[0.12] shadow-[0_8px_30px_rgba(11,15,25,0.08)]"
         }`}
       >
-        {/* Brand Logo - Fixed prominent 42px height on mobile (no shrink/grow on scroll) */}
+        {/* Brand Logo - Smooth luxury scale transition on mobile and desktop */}
         <Link
           href="/"
           prefetch={true}
@@ -57,8 +61,10 @@ export default function Navbar() {
             width={360}
             height={148}
             priority
-            className={`w-auto transition-all duration-300 h-[42px] ${
-              scrolled ? "sm:h-11" : "sm:h-[50px] lg:h-[54px]"
+            className={`w-auto transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              scrolled
+                ? "h-[36px] sm:h-11"
+                : "h-[42px] sm:h-[50px] lg:h-[54px]"
             }`}
           />
         </Link>
@@ -100,11 +106,15 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Action Button (Strictly 'Enquire' Only, Bold Pill, Fixed Size) */}
+        {/* Mobile Action Button (Strictly 'Enquire' Only, Bold Pill with Proportional Scaling) */}
         <div className="flex items-center sm:hidden">
           <button
             onClick={() => openEnquiry()}
-            className="pressable rounded-full bg-ink px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-white shadow-xs active:bg-accent transition-colors cursor-pointer"
+            className={`pressable rounded-full bg-ink font-bold uppercase text-white shadow-xs active:bg-accent transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-pointer ${
+              scrolled
+                ? "px-3.5 py-1.5 text-[11px] tracking-[0.12em]"
+                : "px-4.5 py-2 text-xs tracking-[0.14em]"
+            }`}
           >
             Enquire
           </button>

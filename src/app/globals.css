@@ -134,17 +134,6 @@ button:not(:disabled):active,
   }
 }
 
-/* ==========================================================================
-   Mobile Zero-Blink & Solid Scroll Rendering
-   Guarantees 100% immediate content visibility on mobile without opacity pop-in
-   ========================================================================== */
-@media (max-width: 767px) {
-  .reveal-wrapper {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
   button:not(:disabled):active,
