@@ -161,12 +161,12 @@ export default function PoliticalManagementPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(politicalJsonLd) }}
       />
       {/* 1. Grand Hero Section */}
-      <section className="relative overflow-hidden bg-paper pt-[58px] sm:pt-[76px]">
+      <section className="relative overflow-hidden bg-paper pt-[68px] sm:pt-[76px]">
         <div className="dot-texture absolute inset-0 opacity-80 pointer-events-none" />
         <div className="hidden sm:block absolute -left-28 top-16 h-[450px] w-[450px] rounded-full bg-[radial-gradient(circle,rgba(255,237,213,0.7)_0%,rgba(255,237,213,0.2)_40%,transparent_70%)] pointer-events-none" />
         <div className="hidden sm:block absolute -right-28 top-12 h-[450px] w-[450px] rounded-full bg-[radial-gradient(circle,rgba(224,242,254,0.6)_0%,rgba(224,242,254,0.2)_40%,transparent_70%)] pointer-events-none" />
 
-        <div className="container-site relative pb-12 sm:pb-20 pt-2.5 sm:pt-16 lg:pb-24 lg:pt-24">
+        <div className="container-site relative pb-12 sm:pb-20 pt-6 sm:pt-7 lg:pt-8 lg:pb-24">
           <Reveal>
             <nav className="flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-ink/70" aria-label="Breadcrumb">
               <Link href="/services" prefetch={true} className="transition-colors hover:text-accent">Services</Link>
@@ -174,17 +174,7 @@ export default function PoliticalManagementPage() {
               <span className="text-ink font-bold">Political Campaign</span>
             </nav>
 
-            <div className="mt-3.5 sm:mt-6 inline-flex max-w-full items-center gap-1.5 sm:gap-2 rounded-full border border-black/[0.12] bg-white px-3 sm:px-3.5 py-1 sm:py-1.5 shadow-xs">
-              <span className="relative flex h-2 w-2 shrink-0">
-                <span className="hidden sm:inline-flex absolute h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-              </span>
-              <span className="text-[9px] min-[360px]:text-[10px] min-[390px]:text-[10.5px] sm:text-xs font-bold uppercase tracking-[0.08em] min-[390px]:tracking-[0.14em] sm:tracking-[0.2em] text-ink whitespace-nowrap">
-                24/7 Digital Campaign &amp; Electoral Strategy
-              </span>
-            </div>
-
-            <h1 className="text-balance mt-3 sm:mt-5 max-w-4xl font-display text-3xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold tracking-tightest text-ink leading-[1.08]">
+            <h1 className="text-balance mt-4 sm:mt-6 max-w-4xl font-display text-3xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold tracking-tightest text-ink leading-[1.08]">
               Turning Voter Attention into{" "}
               <span className="text-accent">Electoral Mandates.</span>
             </h1>

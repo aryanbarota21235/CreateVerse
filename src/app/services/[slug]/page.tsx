@@ -127,12 +127,12 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
       />
       {/* 1. Grand Editorial Hero Section */}
-      <section className="relative overflow-hidden bg-paper pt-[58px] sm:pt-[76px]">
+      <section className="relative overflow-hidden bg-paper pt-[68px] sm:pt-[76px]">
         <div className="dot-texture absolute inset-0 opacity-80 pointer-events-none" />
         <div className="hidden sm:block absolute -left-28 top-16 h-[450px] w-[450px] rounded-full bg-[radial-gradient(circle,rgba(255,237,213,0.7)_0%,rgba(255,237,213,0.2)_40%,transparent_70%)] pointer-events-none" />
         <div className="hidden sm:block absolute -right-28 top-12 h-[450px] w-[450px] rounded-full bg-[radial-gradient(circle,rgba(224,242,254,0.6)_0%,rgba(224,242,254,0.2)_40%,transparent_70%)] pointer-events-none" />
 
-        <div className="container-site relative pb-12 sm:pb-20 pt-2.5 sm:pt-16 lg:pb-24 lg:pt-24">
+        <div className="container-site relative pb-12 sm:pb-20 pt-6 sm:pt-7 lg:pt-8 lg:pb-24">
           <Reveal>
             <nav className="flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-ink/70" aria-label="Breadcrumb">
               <Link href="/services" prefetch={true} className="transition-colors hover:text-accent">Services</Link>
@@ -140,18 +140,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               <span className="text-ink font-bold">{service.name}</span>
             </nav>
 
-            <div className="mt-3.5 sm:mt-6 inline-flex max-w-full items-center gap-1.5 sm:gap-2 rounded-full border border-black/[0.12] bg-white px-3 sm:px-3.5 py-1 sm:py-1.5 shadow-xs">
-              <span className="relative flex h-2 w-2 shrink-0">
-                <span className="hidden sm:inline-flex absolute h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-              </span>
-              {Icon && <Icon className="h-3.5 w-3.5 text-accent shrink-0" />}
-              <span className="text-[9px] min-[360px]:text-[10px] min-[390px]:text-[10.5px] sm:text-xs font-bold uppercase tracking-[0.08em] min-[390px]:tracking-[0.14em] sm:tracking-[0.2em] text-ink whitespace-nowrap">
-                {service.category} Practice · Verified Architecture
-              </span>
-            </div>
-
-            <h1 className="text-balance mt-3 sm:mt-5 max-w-4xl font-display text-3xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold tracking-tightest text-ink leading-[1.08]">
+            <h1 className="text-balance mt-4 sm:mt-6 max-w-4xl font-display text-3xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold tracking-tightest text-ink leading-[1.08]">
               {service.name}
             </h1>
 
@@ -267,26 +256,26 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             </div>
           </Reveal>
 
-          <Stagger className="mt-8 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-6" delayChildren={0.06}>
+          <Stagger className="mt-8 sm:mt-12 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-6 items-stretch" delayChildren={0.06}>
             {service.deliverables.map((d, idx) => (
               <StaggerItem key={d} className="h-full">
-                <div className="group h-full flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white p-5 sm:p-6 shadow-card transition-all duration-200 hover:-translate-y-1 hover:border-accent hover:shadow-lift">
+                <div className="group h-full flex flex-col justify-between rounded-xl sm:rounded-3xl border border-stone-200/90 bg-white p-3.5 sm:p-6 shadow-card transition-all duration-200 hover:-translate-y-1 hover:border-accent hover:shadow-lift">
                   <div>
                     <div className="flex items-center justify-between">
-                      <span className="flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-xl sm:rounded-2xl bg-accent/[0.08] text-accent transition-colors group-hover:bg-accent group-hover:text-white">
-                        <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5" />
+                      <span className="flex h-7 w-7 sm:h-11 sm:w-11 items-center justify-center rounded-lg sm:rounded-2xl bg-accent/[0.08] text-accent transition-colors group-hover:bg-accent group-hover:text-white">
+                        <CheckCircle2 className="h-3.5 w-3.5 sm:h-5 sm:w-5" />
                       </span>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-stone-400 bg-stone-100 rounded-full px-2.5 py-1">
+                      <span className="text-[9px] min-[380px]:text-[10px] font-bold uppercase tracking-wider text-stone-400 bg-stone-100 rounded-full px-2 py-0.5 sm:px-2.5 sm:py-1">
                         Module 0{idx + 1}
                       </span>
                     </div>
 
-                    <h3 className="mt-4 font-display text-sm sm:text-base font-bold text-ink group-hover:text-accent transition-colors">
+                    <h3 className="mt-2.5 sm:mt-4 font-display text-xs min-[380px]:text-[13px] sm:text-base font-bold text-ink group-hover:text-accent transition-colors leading-snug">
                       {d}
                     </h3>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-stone-100 flex items-center gap-1 text-[11px] font-bold text-accent">
+                  <div className="mt-3 pt-2 sm:mt-4 sm:pt-3 border-t border-stone-100 flex items-center gap-1 text-[10px] sm:text-[11px] font-bold text-accent">
                     <span>Verified Deliverable</span>
                     <ChevronRight className="h-3 w-3" />
                   </div>
