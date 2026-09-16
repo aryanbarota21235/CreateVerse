@@ -262,17 +262,19 @@ export default function PoliticalManagementPage() {
 
                       {/* Name & Party Info */}
                       <div className="grow">
-                        <div className="flex items-center gap-2">
-                          <span
-                            className={`px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider ${
-                              p.party === "BJP"
-                                ? "bg-amber-500 text-white"
-                                : "bg-sky-600 text-white"
-                            }`}
-                          >
-                            {p.party}
-                          </span>
-                        </div>
+                        {p.party && (
+                          <div className="flex items-center gap-2">
+                            <span
+                              className={`px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider ${
+                                p.party === "BJP"
+                                  ? "bg-amber-500 text-white"
+                                  : "bg-sky-600 text-white"
+                              }`}
+                            >
+                              {p.party}
+                            </span>
+                          </div>
+                        )}
 
                         <h3 className="mt-1 font-display text-sm sm:text-base font-bold text-ink leading-snug transition-colors group-hover:text-accent">
                           {p.name}

@@ -92,15 +92,17 @@ export default function PoliticalClients() {
                     </div>
                   </div>
                   {/* Party Tag Badge */}
-                  <span
-                    className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-xs ${
-                      p.party === "BJP"
-                        ? "bg-amber-500 text-white border border-amber-600/30"
-                        : "bg-sky-600 text-white border border-sky-700/30"
-                    }`}
-                  >
-                    {p.party}
-                  </span>
+                  {p.party && (
+                    <span
+                      className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-xs ${
+                        p.party === "BJP"
+                          ? "bg-amber-500 text-white border border-amber-600/30"
+                          : "bg-sky-600 text-white border border-sky-700/30"
+                      }`}
+                    >
+                      {p.party}
+                    </span>
+                  )}
                 </div>
 
                 {/* Content: Name and Designation */}

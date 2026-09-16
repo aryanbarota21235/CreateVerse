@@ -1,8 +1,8 @@
 export interface PoliticianClient {
   name: string;
   role?: string;
-  party: "INC" | "BJP";
-  partyName: string;
+  party?: "INC" | "BJP";
+  partyName?: string;
   image: string;
   badge?: string;
   reach?: string;
@@ -16,19 +16,23 @@ export interface PoliticianClient {
 export const politicianClients: PoliticianClient[] = [
   {
     name: "Randeep Singh Surjewala",
-    role: "MP, Rajya Sabha",
+    role: "Member of Parliament (Rajya Sabha). General Secretary, Indian National Congress. Member, CWC.",
     party: "INC",
     partyName: "Indian National Congress",
     image: "/politicians/randeep-singh-surjewala.png",
-    socials: {},
+    socials: {
+      instagram: "https://www.instagram.com/rssurjewala",
+    },
   },
   {
     name: "Aditya Surjewala",
-    role: "MLA, Kaithal",
+    role: "MLA, Kaithal Vidhan Sabha",
     party: "INC",
     partyName: "Indian National Congress",
     image: "/politicians/aditya-surjewala.png",
-    socials: {},
+    socials: {
+      instagram: "https://www.instagram.com/adityasurjewala/",
+    },
   },
   {
     name: "Gurkirat Singh Kotli",
@@ -46,7 +50,9 @@ export const politicianClients: PoliticianClient[] = [
     party: "INC",
     partyName: "Indian National Congress",
     image: "/politicians/shamsher-singh-gogi.png",
-    socials: {},
+    socials: {
+      facebook: "https://www.facebook.com/ssgogiofficial",
+    },
   },
   {
     name: "Bhupinder Lather",
@@ -60,8 +66,7 @@ export const politicianClients: PoliticianClient[] = [
   },
   {
     name: "Umesh Sharma",
-    party: "BJP",
-    partyName: "Bharatiya Janata Party",
+    role: "Senior Leader",
     image: "/politicians/umesh-sharma.png",
     socials: {
       facebook: "https://www.facebook.com/UmeshSharmaSnp",
