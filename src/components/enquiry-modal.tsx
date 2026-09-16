@@ -273,23 +273,23 @@ export default function EnquiryModal() {
           style={{ isolation: "isolate" }}
           onClick={closeEnquiry}
         >
-          {/* Subtle clean backdrop on every viewport so the form keeps the same premium focus on mobile. */}
+          {/* Same clean black backdrop on every viewport. */}
           <motion.div
             key="modal-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: reduceMotion ? 0 : 0.16, ease: "easeOut" }}
-            className="fixed inset-0 bg-black/55 backdrop-blur-[2px] sm:bg-black/65 cursor-pointer"
+            transition={{ duration: reduceMotion ? 0 : 0.18, ease: "easeOut" }}
+            className="fixed inset-0 bg-black/65 cursor-pointer"
             aria-hidden="true"
           />
 
           {/* Compact Centered Modal Card - Beautiful floating card with plenty of room above & below */}
           <motion.div
             key="modal-card"
-            initial={{ opacity: 0, scale: reduceMotion ? 1 : 0.97, y: reduceMotion ? 0 : 8 }}
+            initial={{ opacity: 0, scale: reduceMotion ? 1 : 0.94, y: reduceMotion ? 0 : 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: reduceMotion ? 1 : 0.98, y: reduceMotion ? 0 : 6 }}
+            exit={{ opacity: 0, scale: reduceMotion ? 1 : 0.95, y: reduceMotion ? 0 : 8 }}
             transition={{ duration: reduceMotion ? 0 : 0.18, ease: [0.16, 1, 0.3, 1] }}
             onClick={(e) => e.stopPropagation()}
             className="mobile-no-hover relative z-10 w-full max-w-[min(100%,430px)] sm:max-w-[520px] bg-white rounded-2xl sm:rounded-3xl border border-white/70 sm:border-stone-200/90 shadow-[0_20px_50px_rgba(0,0,0,0.28)] sm:shadow-2xl overflow-hidden max-h-[calc(100dvh-24px)] sm:max-h-[85vh] flex flex-col no-scrollbar my-auto"

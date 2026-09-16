@@ -28,22 +28,21 @@ export default function Template({ children }: { children: React.ReactNode }) {
     return <>{children}</>;
   }
 
-  const transition = isMobile
-    ? { duration: 0.18, ease: [0.22, 1, 0.36, 1] as const }
-    : { duration: 0.28, ease: [0.16, 1, 0.3, 1] as const };
-
   return (
     <motion.div
       key={pathname}
       initial={{
-        opacity: 0,
-        y: isMobile ? 6 : 12,
+        opacity: isMobile ? 0.98 : 0,
+        y: 12,
       }}
       animate={{
         opacity: 1,
         y: 0,
       }}
-      transition={transition}
+      transition={{
+        duration: 0.28,
+        ease: [0.16, 1, 0.3, 1],
+      }}
       style={{ willChange: "opacity, transform", transform: "translate3d(0, 0, 0)" }}
     >
       {children}
