@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { getService, services } from "@/lib/services";
 import { getServiceMetrics } from "@/lib/service-metrics";
+import { getServiceDiagnosis } from "@/lib/service-diagnosis";
 import { iconMap } from "@/components/services-grid";
 import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
 import Faq from "@/components/faq";
@@ -45,6 +46,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   const Icon = iconMap[service.icon];
   const metrics = getServiceMetrics(service.slug);
+  const diagnosis = getServiceDiagnosis(service.slug, service.category);
   const related = services.filter((s) => s.slug !== service.slug && s.priority).slice(0, 3);
   const relatedCase = caseStudies.find((c) => c.slug === service.slug);
 
@@ -140,13 +142,13 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <Reveal>
             <div className="max-w-3xl">
               <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-brand-orange">
-                Strategic Diagnosis
+                {diagnosis.eyebrow}
               </span>
               <h2 className="mt-2 font-display text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-ink">
-                Why Generic Campaigns Fail
+                {diagnosis.sectionTitle}
               </h2>
               <p className="mt-3 text-xs sm:text-base leading-relaxed text-ink/80 font-normal">
-                Most agencies focus on vanity clicks, bloated impressions, and unverified form fills. Here is how we engineer actual commercial outcomes.
+                {diagnosis.sectionDesc}
               </p>
             </div>
           </Reveal>
@@ -168,7 +170,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 </div>
 
                 <div className="mt-6 pt-4 border-t border-rose-200/60 text-xs font-semibold text-rose-800">
-                  Result: High ad spend, junk inquiries, and exhausted sales teams.
+                  {diagnosis.problemResult}
                 </div>
               </div>
             </Reveal>
@@ -178,18 +180,18 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               <div className="h-full rounded-2xl sm:rounded-3xl border border-accent/30 bg-accent/[0.03] p-6 sm:p-8 shadow-card flex flex-col justify-between">
                 <div>
                   <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-accent">
-                    <span>The CreateVerse Standard</span>
+                    <span>{diagnosis.solutionBadge}</span>
                   </div>
                   <h3 className="mt-4 font-display text-lg sm:text-2xl font-bold text-ink">
-                    Verified Pipeline &amp; Precision Acquisition
+                    {diagnosis.solutionTitle}
                   </h3>
                   <p className="mt-3 text-xs sm:text-base leading-relaxed text-ink/80 font-normal">
-                    We replace vanity clicks with qualification gates, CRM automation, and performance-led creative systems. Every inquiry is verified for budget, intent, and timeline before your team spends time calling.
+                    {diagnosis.solutionDesc}
                   </p>
                 </div>
 
                 <div className="mt-6 pt-4 border-t border-accent/20 text-xs font-semibold text-accent">
-                  Result: Higher close rates, verified commercial pipeline, and predictable ROI.
+                  {diagnosis.solutionResult}
                 </div>
               </div>
             </Reveal>
@@ -209,7 +211,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 Everything Included, End-to-End
               </h2>
               <p className="mt-3 text-xs sm:text-base leading-relaxed text-ink/80 font-normal">
-                No fragmented agencies. We handle strategy, creative production, ad buying, tracking, and qualification under one roof.
+                {diagnosis.deliverablesIntro}
               </p>
             </div>
           </Reveal>

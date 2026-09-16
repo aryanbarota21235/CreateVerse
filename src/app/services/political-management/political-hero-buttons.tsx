@@ -1,12 +1,20 @@
 "use client";
 
-import { MessageSquare, ArrowRight, Phone } from "lucide-react";
+import { MessageSquare, ArrowRight, ChevronDown } from "lucide-react";
 import { useEnquiry } from "@/context/enquiry-context";
 import { site } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 export default function PoliticalHeroButtons() {
   const { openEnquiry } = useEnquiry();
+
+  const scrollToHowWeWork = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const el = document.getElementById("how-we-work");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-3">
@@ -28,6 +36,15 @@ export default function PoliticalHeroButtons() {
         <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
         <span>Direct Strategy Hotline</span>
       </a>
+
+      <button
+        type="button"
+        onClick={scrollToHowWeWork}
+        className="pressable group inline-flex items-center justify-center gap-1.5 rounded-full border border-stone-200 bg-[#F8FAFC] px-4 py-3 text-xs sm:text-sm font-bold text-ink/80 transition-all duration-150 hover:border-accent hover:text-accent cursor-pointer"
+      >
+        <span>See How We Work</span>
+        <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:translate-y-0.5" />
+      </button>
     </div>
   );
 }

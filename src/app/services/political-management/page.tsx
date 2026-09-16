@@ -353,7 +353,7 @@ export default function PoliticalManagementPage() {
       </section>
 
       {/* 4. 4-Phase Election Playbook (Timeline) */}
-      <section className="relative bg-white py-14 sm:py-20 lg:py-28 border-t border-stone-200">
+      <section id="how-we-work" className="relative bg-white py-14 sm:py-20 lg:py-28 border-t border-stone-200 scroll-mt-24">
         <div className="container-site">
           <Reveal>
             <div className="text-center max-w-3xl mx-auto">

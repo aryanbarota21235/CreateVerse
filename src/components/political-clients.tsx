@@ -7,6 +7,8 @@ import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
 import { useEnquiry } from "@/context/enquiry-context";
 import { politicianClients } from "@/lib/politicians";
 import { InstagramIcon, FacebookIcon, XIcon } from "@/components/social-icons";
+import { site } from "@/lib/site";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 export default function PoliticalClients() {
   const { openEnquiry } = useEnquiry();
@@ -34,20 +36,30 @@ export default function PoliticalClients() {
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row lg:flex-col gap-3 lg:pt-10 shrink-0">
+            <div className="flex flex-col sm:flex-row lg:flex-col gap-2.5 sm:gap-3 lg:pt-6 shrink-0">
               <button
                 onClick={() => openEnquiry("political-management")}
-                className="pressable group inline-flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-xl sm:rounded-2xl bg-accent px-6 sm:px-8 py-3.5 sm:py-4 text-xs sm:text-sm font-bold text-white shadow-md transition-all duration-150 hover:-translate-y-0.5 hover:bg-accent-dim hover:shadow-lg hover:shadow-accent/20 cursor-pointer"
+                className="pressable group inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl sm:rounded-2xl bg-accent px-5 sm:px-7 py-3 sm:py-3.5 text-xs sm:text-sm font-bold text-white shadow-md transition-all duration-150 hover:-translate-y-0.5 hover:bg-accent-dim hover:shadow-lg hover:shadow-accent/20 cursor-pointer"
               >
                 <MessageSquare className="h-4 w-4" />
                 <span>Let&apos;s talk</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
 
+              <a
+                href={site.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pressable inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl sm:rounded-2xl border border-stone-300 bg-white px-5 sm:px-6 py-3 sm:py-3.5 text-xs sm:text-sm font-bold text-ink shadow-xs transition-all duration-150 hover:-translate-y-0.5 hover:border-[#25D366] hover:text-emerald-700"
+              >
+                <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
+                <span>WhatsApp Strategy</span>
+              </a>
+
               <Link
                 href="/services/political-management"
                 prefetch={true}
-                className="pressable group inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl sm:rounded-2xl border border-stone-300 bg-white px-5 sm:px-6 py-3 sm:py-3.5 text-xs sm:text-sm font-bold text-ink hover:border-accent hover:text-accent transition-all duration-150 hover:-translate-y-0.5 shadow-xs"
+                className="pressable group inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl sm:rounded-2xl border border-stone-200 bg-[#F8FAFC] px-5 sm:px-6 py-3 sm:py-3.5 text-xs sm:text-sm font-bold text-ink hover:border-accent hover:text-accent transition-all duration-150 hover:-translate-y-0.5 shadow-2xs"
               >
                 <span>Full War Room Page</span>
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
