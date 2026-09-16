@@ -275,7 +275,7 @@ export default function Hero() {
           <Reveal>
             <div className="inline-flex items-center gap-2 rounded-full border border-black/[0.12] bg-white px-3 py-1 sm:px-4 sm:py-1.5 text-[9px] sm:text-[11px] font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-ink shadow-xs backdrop-blur-md">
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="hidden sm:inline-flex absolute h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
               <span>CreateVerse • Digital Acquisition Partner</span>

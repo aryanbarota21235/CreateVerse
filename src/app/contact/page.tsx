@@ -71,7 +71,7 @@ export default function ContactPage() {
               {/* Live Desk Indicator */}
               <div className="mb-3 sm:mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-500/25 bg-emerald-50/80 px-3 py-1.5 sm:px-4 sm:py-2 text-[11px] sm:text-xs font-semibold text-emerald-900 shadow-xs">
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="hidden sm:inline-flex absolute h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-600"></span>
                 </span>
                 <span>Direct Desk Active · Mon – Sat, 9:30 AM – 7:30 PM IST</span>

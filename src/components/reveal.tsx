@@ -11,11 +11,11 @@ interface RevealProps {
   once?: boolean;
 }
 
-export default function Reveal({ children, delay = 0, y = 8, className, once = true }: RevealProps) {
+export default function Reveal({ children, delay = 0, y = 8, className = "", once = true }: RevealProps) {
   const reduce = useReducedMotion();
   return (
     <motion.div
-      className={className}
+      className={`reveal-wrapper ${className}`}
       initial={{ opacity: 0, y: reduce ? 0 : y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once, margin: "120px" }}
@@ -28,7 +28,7 @@ export default function Reveal({ children, delay = 0, y = 8, className, once = t
 
 export function Stagger({
   children,
-  className,
+  className = "",
   delayChildren = 0.04,
 }: {
   children: ReactNode;
@@ -37,7 +37,7 @@ export function Stagger({
 }) {
   return (
     <motion.div
-      className={className}
+      className={`reveal-wrapper ${className}`}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: "120px" }}
@@ -48,11 +48,11 @@ export function Stagger({
   );
 }
 
-export function StaggerItem({ children, className }: { children: ReactNode; className?: string }) {
+export function StaggerItem({ children, className = "" }: { children: ReactNode; className?: string }) {
   const reduce = useReducedMotion();
   return (
     <motion.div
-      className={className}
+      className={`reveal-wrapper ${className}`}
       variants={{
         hidden: { opacity: 0, y: reduce ? 0 : 8 },
         show: { opacity: 1, y: 0, transition: { duration: 0.28, ease: [0.21, 0.65, 0.35, 1] } },

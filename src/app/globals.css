@@ -19,8 +19,6 @@
     color: #0B0F19;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
   }
   *:not(input):not(textarea):not([contenteditable="true"]) {
     caret-color: transparent;
@@ -118,8 +116,25 @@ button:not(:disabled):active,
 
 @media (hover: none) {
   .capsnpills-pill:active {
-    transform: translateY(2.5px) scale(0.88) !important;
-    transition: transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    transform: none !important;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05) !important;
+  }
+  button:not(:disabled):active,
+  [role="button"]:not(:disabled):active,
+  .pressable:not(:disabled):active {
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   Mobile Zero-Blink & Solid Scroll Rendering
+   Guarantees 100% immediate content visibility on mobile without opacity pop-in
+   ========================================================================== */
+@media (max-width: 767px) {
+  .reveal-wrapper {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
 
