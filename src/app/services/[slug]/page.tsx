@@ -127,12 +127,12 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
       />
       {/* 1. Grand Editorial Hero Section */}
-      <section className="relative overflow-hidden bg-paper pt-[76px]">
+      <section className="relative overflow-hidden bg-paper pt-[58px] sm:pt-[76px]">
         <div className="dot-texture absolute inset-0 opacity-80 pointer-events-none" />
         <div className="hidden sm:block absolute -left-28 top-16 h-[450px] w-[450px] rounded-full bg-[radial-gradient(circle,rgba(255,237,213,0.7)_0%,rgba(255,237,213,0.2)_40%,transparent_70%)] pointer-events-none" />
         <div className="hidden sm:block absolute -right-28 top-12 h-[450px] w-[450px] rounded-full bg-[radial-gradient(circle,rgba(224,242,254,0.6)_0%,rgba(224,242,254,0.2)_40%,transparent_70%)] pointer-events-none" />
 
-        <div className="container-site relative pb-12 sm:pb-20 pt-10 sm:pt-20 lg:pb-24 lg:pt-24">
+        <div className="container-site relative pb-12 sm:pb-20 pt-2.5 sm:pt-16 lg:pb-24 lg:pt-24">
           <Reveal>
             <nav className="flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-ink/70" aria-label="Breadcrumb">
               <Link href="/services" prefetch={true} className="transition-colors hover:text-accent">Services</Link>
