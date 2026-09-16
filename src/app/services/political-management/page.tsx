@@ -10,6 +10,7 @@ import {
   BarChart3,
   Flame,
   ArrowRight,
+  ArrowUpRight,
   MessageSquare,
   Lock,
   Clock,
@@ -19,6 +20,7 @@ import {
 } from "lucide-react";
 import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
 import { politicianClients } from "@/lib/politicians";
+import { services } from "@/lib/services";
 import { InstagramIcon, FacebookIcon, XIcon } from "@/components/social-icons";
 import PoliticalHeroButtons from "./political-hero-buttons";
 import PoliticalFaq from "./political-faq";
@@ -153,6 +155,7 @@ const playbook = [
 
 export default function PoliticalManagementPage() {
   const politicalJsonLd = getPoliticalManagementJsonLd();
+  const related = services.filter((s) => s.slug !== "political-management" && s.priority).slice(0, 3);
 
   return (
     <>
@@ -480,23 +483,85 @@ export default function PoliticalManagementPage() {
       {/* 6. Political FAQs */}
       <PoliticalFaq />
 
-      {/* 7. Final Consultation CTA */}
+      {/* 7. Final Consultation CTA & Complementary Practice Areas */}
       <section className="relative bg-paper py-16 sm:py-24 border-t border-stone-200">
-        <div className="container-site text-center max-w-3xl mx-auto">
-          <Reveal>
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
-              Confidential Intake
-            </span>
-            <h2 className="mt-3 font-display text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-ink">
-              Ready to Command Your Constituency?
-            </h2>
-            <p className="mt-3 text-xs sm:text-base leading-relaxed text-ink/80 font-normal">
-              Book a private briefing with our Senior Political Directors to review your constituency data, current digital footprint, and deployment timeline.
-            </p>
-            <div className="mt-8 flex justify-center">
-              <PoliticalHeroButtons center={true} />
-            </div>
-          </Reveal>
+        <div className="container-site">
+          <div className="text-center max-w-3xl mx-auto">
+            <Reveal>
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
+                Confidential Intake
+              </span>
+              <h2 className="mt-3 font-display text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-ink">
+                Ready to Command Your Constituency?
+              </h2>
+              <p className="mt-3 text-xs sm:text-base leading-relaxed text-ink/80 font-normal">
+                Book a private briefing with our Senior Political Directors to review your constituency data, current digital footprint, and deployment timeline.
+              </p>
+              <div className="mt-8 flex justify-center">
+                <PoliticalHeroButtons center={true} />
+              </div>
+            </Reveal>
+          </div>
+
+          {/* Complementary Practice Areas */}
+          <div className="mt-16 sm:mt-24">
+            <Reveal>
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-4 border-b border-stone-200 pb-4 sm:pb-6 mb-6 sm:mb-10">
+                <div>
+                  <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.22em] text-accent">
+                    Complementary Practice Areas
+                  </p>
+                  <h3 className="mt-1.5 sm:mt-2 font-display text-lg sm:text-3xl font-bold tracking-tight text-ink">
+                    Explore other specialized capabilities
+                  </h3>
+                </div>
+                <Link
+                  href="/services"
+                  prefetch={true}
+                  className="group inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink hover:text-accent transition-colors shrink-0"
+                >
+                  <span>View all services</span>
+                  <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
+            </Reveal>
+
+            <Stagger className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-6" delayChildren={0.08}>
+              {related.map((r, idx) => (
+                <StaggerItem key={r.slug} className={`h-full ${idx === 2 ? "col-span-2 sm:col-span-1" : ""}`}>
+                  <Link
+                    href={`/services/${r.slug}`}
+                    prefetch={true}
+                    className="group flex h-full flex-col justify-between rounded-xl sm:rounded-2xl border border-stone-200 bg-white p-3.5 sm:p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift text-left"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <span className="inline-flex rounded-full bg-paper px-2 py-0.5 sm:px-3 sm:py-1 text-[9.5px] sm:text-[11px] font-bold text-accent border border-stone-200 truncate max-w-[100px] sm:max-w-none">
+                          {r.category}
+                        </span>
+                        <span className="flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-paper text-ink/70 transition-colors group-hover:bg-accent group-hover:text-white">
+                          <ArrowUpRight className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        </span>
+                      </div>
+
+                      <h4 className="mt-2.5 sm:mt-5 font-display text-xs sm:text-lg font-bold text-ink transition-colors group-hover:text-accent leading-snug line-clamp-2">
+                        {r.name}
+                      </h4>
+
+                      <p className="mt-1 sm:mt-2.5 text-[10.5px] sm:text-sm leading-relaxed text-ink/75 font-normal line-clamp-2">
+                        {r.tagline}
+                      </p>
+                    </div>
+
+                    <div className="mt-3 sm:mt-6 pt-2.5 sm:pt-4 border-t border-stone-100 flex items-center text-[10px] sm:text-xs font-bold text-accent">
+                      <span>Explore practice</span>
+                      <ArrowRight className="ml-1 h-3 w-3 sm:h-3.5 sm:w-3.5 transition-transform group-hover:translate-x-1" />
+                    </div>
+                  </Link>
+                </StaggerItem>
+              ))}
+            </Stagger>
+          </div>
         </div>
       </section>
     </>

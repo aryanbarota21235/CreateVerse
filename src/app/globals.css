@@ -44,6 +44,13 @@
   .text-balance {
     text-wrap: balance;
   }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none !important;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+  }
   .text-brand-gradient {
     @apply bg-gradient-to-r from-accent to-brand-orange bg-clip-text text-transparent font-extrabold;
   }
