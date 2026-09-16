@@ -179,7 +179,7 @@ function matchService(inputName?: string): string {
 }
 
 const inputCls =
-  "w-full rounded-xl border border-stone-200/90 bg-[#F8FAFC] px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs sm:text-sm text-ink placeholder:text-stone-400 outline-none transition-all duration-150 hover:border-stone-300 focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-normal";
+  "w-full rounded-xl border border-stone-200/90 bg-[#F8FAFC] px-3 py-2 sm:py-2 text-[16px] sm:text-sm text-ink placeholder:text-stone-400 outline-none transition-all duration-150 hover:border-stone-300 focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-normal";
 
 export default function EnquiryModal() {
   const { isOpen, closeEnquiry, selectedService } = useEnquiry();
@@ -314,9 +314,9 @@ export default function EnquiryModal() {
           className="fixed inset-0 z-50 flex items-center justify-center p-3.5 sm:p-5 md:p-6"
           style={{ isolation: "isolate" }}
         >
-          {/* Subtle Luxury Backdrop - Instant tap dismissal */}
+          {/* Subtle Clean Backdrop - Instant tap dismissal, no heavy GPU blur */}
           <div
-            className="fixed inset-0 bg-ink/70 backdrop-blur-[2px] cursor-pointer touch-none"
+            className="fixed inset-0 bg-black/65 cursor-pointer touch-none"
             onClick={handleModalClose}
             aria-hidden="true"
           />
@@ -440,7 +440,7 @@ export default function EnquiryModal() {
                       <select
                         value={service}
                         onChange={(e) => setService(e.target.value)}
-                        className={`w-full appearance-none rounded-xl border px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs sm:text-sm font-medium transition-all duration-150 hover:border-stone-300 cursor-pointer focus:border-accent focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/15 ${
+                        className={`w-full appearance-none rounded-xl border px-3 py-2 sm:py-2 text-[16px] sm:text-sm font-medium transition-all duration-150 hover:border-stone-300 cursor-pointer focus:border-accent focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/15 ${
                           service
                             ? "border-stone-300 bg-white text-ink font-semibold"
                             : "border-stone-200 bg-[#F8FAFC] text-stone-500"

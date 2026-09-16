@@ -173,4 +173,18 @@ button:not(:disabled):not(.no-press):active,
   background-color: #ffffff !important;
 }
 
+/* ==========================================================================
+   Prevent iOS Safari Auto-Zoom on Input Focus
+   iOS Safari automatically zooms the viewport when focusing inputs with font-size < 16px.
+   Enforcing 16px minimum font size on mobile screens strictly eliminates auto-zoom.
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+
 
