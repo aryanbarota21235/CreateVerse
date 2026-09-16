@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -159,9 +159,26 @@ const secondaryPillars = allAcquisitionPillars.slice(4);
 
 export default function Hero() {
   const { openEnquiry } = useEnquiry();
-  const [showAllServices, setShowAllServices] = useState(false);
+  const [showAllServices, setShowAllServices] = useState(() => {
+    if (typeof window !== "undefined") {
+      try {
+        return sessionStorage.getItem("cv_services_expanded") === "true";
+      } catch {}
+    }
+    return false;
+  });
   const originalScrollY = React.useRef<number | null>(null);
   const sectionRef = React.useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    try {
+      if (showAllServices) {
+        sessionStorage.setItem("cv_services_expanded", "true");
+      } else {
+        sessionStorage.removeItem("cv_services_expanded");
+      }
+    } catch {}
+  }, [showAllServices]);
 
   const toggleServices = () => {
     if (!showAllServices) {
@@ -326,7 +343,7 @@ export default function Hero() {
             </div>
 
             {/* In-place dropdown animation with identical card boxes */}
-            <AnimatePresence>
+            <AnimatePresence initial={false}>
               {showAllServices && (
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
