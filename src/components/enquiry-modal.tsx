@@ -272,15 +272,38 @@ export default function EnquiryModal() {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 touch-none">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6"
+          onPointerDown={(e) => {
+            if (e.target === e.currentTarget) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+          }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              e.preventDefault();
+              e.stopPropagation();
+              closeEnquiry();
+            }
+          }}
+        >
           {/* Subtle Luxury Backdrop without filter thrashing */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
-            onClick={closeEnquiry}
-            className="fixed inset-0 bg-ink/75 touch-none"
+            onPointerDown={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              closeEnquiry();
+            }}
+            className="fixed inset-0 bg-ink/75 cursor-pointer"
           />
 
           {/* Modal Container - Ultra smooth 60fps GPU animation */}
@@ -290,6 +313,8 @@ export default function EnquiryModal() {
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.16, ease: "easeOut" }}
             style={{ willChange: "transform, opacity" }}
+            onClick={(e) => e.stopPropagation()}
+            onPointerDown={(e) => e.stopPropagation()}
             className="relative w-full max-w-xl sm:max-w-2xl overflow-hidden rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white shadow-2xl sm:shadow-[0_30px_70px_rgba(15,23,42,0.28)] z-10 my-auto touch-auto"
           >
             {/* Executive Close Button - Highly Accessible on Mobile & Luxury Desktop */}

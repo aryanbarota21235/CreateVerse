@@ -212,14 +212,14 @@ export default function Hero() {
         key={p.num}
         href={p.href}
         prefetch={true}
-        className="group relative flex flex-col justify-between rounded-xl sm:rounded-3xl border border-black/[0.1] sm:border-black/[0.12] bg-white p-3 sm:p-6 lg:p-7 shadow-xs sm:shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
+        className="group relative flex flex-col justify-between rounded-xl sm:rounded-3xl border border-black/[0.1] sm:border-black/[0.12] bg-white p-3 sm:p-6 lg:p-7 shadow-xs sm:shadow-card transition-all duration-300 sm:hover:-translate-y-1 sm:hover:border-accent sm:hover:shadow-lift active:border-accent"
       >
         <div>
           <div className="flex items-center justify-between">
             <span className="text-[9.5px] sm:text-[11px] font-bold uppercase tracking-[0.16em] sm:tracking-[0.22em] text-accent">
               {p.num}
             </span>
-            <span className="flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-lg sm:rounded-xl bg-[#F1F5F9] text-ink transition-all duration-300 group-hover:bg-accent group-hover:text-white">
+            <span className="flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-lg sm:rounded-xl bg-[#F1F5F9] text-ink transition-all duration-300 sm:group-hover:bg-accent sm:group-hover:text-white active:bg-accent active:text-white">
               <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </span>
           </div>
@@ -227,7 +227,7 @@ export default function Hero() {
           <span className="mt-2 sm:mt-4 block text-[8.5px] sm:text-[10px] font-bold uppercase tracking-wider text-ink/70 truncate">
             {p.tag}
           </span>
-          <h3 className="mt-0.5 sm:mt-1 font-display text-xs sm:text-lg font-bold text-ink group-hover:text-accent transition-colors leading-snug line-clamp-2">
+          <h3 className="mt-0.5 sm:mt-1 font-display text-xs sm:text-lg font-bold text-ink sm:group-hover:text-accent active:text-accent transition-colors leading-snug line-clamp-2">
             {p.title}
           </h3>
           <p className="hidden sm:block mt-2 text-xs leading-relaxed text-ink/80 font-normal">

@@ -125,6 +125,13 @@ button:not(:disabled):active,
   .pressable:not(:disabled):active {
     transform: none !important;
   }
+  /* Eliminate sticky touch hover borders and transforms on mobile screens during scroll */
+  a:hover:not(:active),
+  .group:hover:not(:active) {
+    border-color: inherit;
+    box-shadow: none;
+    transform: none;
+  }
 }
 
 /* ==========================================================================
