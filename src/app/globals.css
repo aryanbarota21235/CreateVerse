@@ -200,6 +200,7 @@ button:not(:disabled):not(.no-press):active,
   background-color: #ffffff !important;
 }
 
+
 /* ==========================================================================
    Prevent iOS Safari Auto-Zoom on Input Focus
    iOS Safari automatically zooms the viewport when focusing inputs with font-size < 16px.
@@ -213,5 +214,38 @@ button:not(:disabled):not(.no-press):active,
   }
 }
 
+/* ==========================================================================
+   iOS WebKit & Desktop Smooth Transition Architecture
+   - Desktop: Smooth subtle GPU slide-up
+   - iOS/Mobile: 120fps Native App Speed, zero CALayer tear-down, zero blink
+   ========================================================================== */
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
 
+@media (min-width: 768px) {
+  @keyframes desktopPageEnter {
+    from {
+      opacity: 0.85;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  main {
+    animation: desktopPageEnter 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
 
+@media (max-width: 767px) {
+  main {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}
