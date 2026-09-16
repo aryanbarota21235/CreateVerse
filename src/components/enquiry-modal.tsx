@@ -272,14 +272,14 @@ export default function EnquiryModal() {
           style={{ isolation: "isolate" }}
           onClick={closeEnquiry}
         >
-          {/* Subtle Clean Backdrop - Easy dismiss on tap */}
+          {/* Subtle Clean Backdrop - Desktop only to eliminate mobile status bar & browser tab repaint lag */}
           <motion.div
             key="modal-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="fixed inset-0 bg-black/70 cursor-pointer"
+            className="hidden sm:block fixed inset-0 bg-black/65 cursor-pointer"
             aria-hidden="true"
           />
 
@@ -289,9 +289,9 @@ export default function EnquiryModal() {
             initial={{ opacity: 0, scale: 0.94, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 8 }}
-            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
             onClick={(e) => e.stopPropagation()}
-            className="relative z-10 w-full max-w-[420px] sm:max-w-[520px] bg-white rounded-3xl border border-stone-200/90 shadow-2xl overflow-hidden max-h-[68vh] sm:max-h-[85vh] flex flex-col no-scrollbar my-auto"
+            className="relative z-10 w-full max-w-[420px] sm:max-w-[520px] bg-white rounded-3xl border border-stone-300/80 sm:border-stone-200/90 shadow-[0_20px_50px_rgba(0,0,0,0.25)] sm:shadow-2xl overflow-hidden max-h-[68vh] sm:max-h-[85vh] flex flex-col no-scrollbar my-auto"
           >
             {/* Tactile Close Button */}
             <button
