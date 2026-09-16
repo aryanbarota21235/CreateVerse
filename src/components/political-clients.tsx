@@ -107,47 +107,51 @@ export default function PoliticalClients() {
                   <h4 className="font-display text-xs sm:text-sm font-bold text-ink leading-snug transition-colors group-hover:text-accent">
                     {p.name}
                   </h4>
-                  <p className="mt-1 text-[10px] sm:text-[11px] font-medium text-stone-600 leading-tight">
-                    {p.role}
-                  </p>
+                  {p.role && (
+                    <p className="mt-1 text-[10px] sm:text-[11px] font-medium text-stone-600 leading-tight">
+                      {p.role}
+                    </p>
+                  )}
                 </div>
 
-                {/* Social Media Links Pills */}
-                <div className="mt-3 pt-2.5 sm:mt-4 sm:pt-3 border-t border-stone-200/80 w-full flex items-center justify-center gap-1.5 sm:gap-2">
-                  {p.socials.instagram && (
-                    <a
-                      href={p.socials.instagram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-[#E4405F] hover:border-[#E4405F]/40 hover:bg-[#E4405F]/[0.05] transition-all shadow-2xs hover:scale-110"
-                      aria-label={`${p.name} Instagram`}
-                    >
-                      <InstagramIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                    </a>
-                  )}
-                  {p.socials.facebook && (
-                    <a
-                      href={p.socials.facebook}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-[#1877F2] hover:border-[#1877F2]/40 hover:bg-[#1877F2]/[0.05] transition-all shadow-2xs hover:scale-110"
-                      aria-label={`${p.name} Facebook`}
-                    >
-                      <FacebookIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                    </a>
-                  )}
-                  {p.socials.twitter && (
-                    <a
-                      href={p.socials.twitter}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-black hover:border-black/40 hover:bg-stone-100 transition-all shadow-2xs hover:scale-110"
-                      aria-label={`${p.name} X (Twitter)`}
-                    >
-                      <XIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                    </a>
-                  )}
-                </div>
+                {/* Social Media Links Pills - Only shown if link exists */}
+                {Boolean(p.socials?.instagram || p.socials?.facebook || p.socials?.twitter) && (
+                  <div className="mt-3 pt-2.5 sm:mt-4 sm:pt-3 border-t border-stone-200/80 w-full flex items-center justify-center gap-1.5 sm:gap-2">
+                    {p.socials.instagram && (
+                      <a
+                        href={p.socials.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-[#E4405F] hover:border-[#E4405F]/40 hover:bg-[#E4405F]/[0.05] transition-all shadow-2xs hover:scale-110"
+                        aria-label={`${p.name} Instagram`}
+                      >
+                        <InstagramIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                      </a>
+                    )}
+                    {p.socials.facebook && (
+                      <a
+                        href={p.socials.facebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-[#1877F2] hover:border-[#1877F2]/40 hover:bg-[#1877F2]/[0.05] transition-all shadow-2xs hover:scale-110"
+                        aria-label={`${p.name} Facebook`}
+                      >
+                        <FacebookIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                      </a>
+                    )}
+                    {p.socials.twitter && (
+                      <a
+                        href={p.socials.twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-black hover:border-black/40 hover:bg-stone-100 transition-all shadow-2xs hover:scale-110"
+                        aria-label={`${p.name} X (Twitter)`}
+                      >
+                        <XIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             </StaggerItem>
           ))}

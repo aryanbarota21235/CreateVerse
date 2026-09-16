@@ -271,65 +271,64 @@ export default function PoliticalManagementPage() {
                           >
                             {p.party}
                           </span>
-                          <span className="text-[10.5px] font-semibold text-stone-500">{p.reach}</span>
                         </div>
 
                         <h3 className="mt-1 font-display text-sm sm:text-base font-bold text-ink leading-snug transition-colors group-hover:text-accent">
                           {p.name}
                         </h3>
 
-                        <p className="mt-1 text-xs font-medium text-stone-600 leading-tight">
-                          {p.role}
-                        </p>
+                        {p.role && (
+                          <p className="mt-1 text-xs font-medium text-stone-600 leading-tight">
+                            {p.role}
+                          </p>
+                        )}
                       </div>
-                    </div>
-
-                    <div className="mt-3 text-[11px] font-medium text-ink/75 bg-white border border-stone-200/80 rounded-xl px-3 py-1.5">
-                      <span className="font-bold text-accent">Mandate:</span> {p.badge} &amp; Constituency Digital Infrastructure
                     </div>
                   </div>
 
                   {/* Bottom Row: Official Social Media Handles */}
-                  <div className="mt-4 pt-3 border-t border-stone-200/80 flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-stone-500 uppercase tracking-wider">
-                      Official Socials:
-                    </span>
-                    <div className="flex items-center gap-2">
-                      {p.socials.instagram && (
-                        <a
-                          href={p.socials.instagram}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex h-8 w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-[#E4405F] hover:border-[#E4405F]/40 hover:bg-[#E4405F]/[0.05] transition-all shadow-2xs hover:scale-110"
-                          aria-label={`${p.name} Instagram`}
-                        >
-                          <InstagramIcon className="h-4 w-4" />
-                        </a>
-                      )}
-                      {p.socials.facebook && (
-                        <a
-                          href={p.socials.facebook}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex h-8 w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-[#1877F2] hover:border-[#1877F2]/40 hover:bg-[#1877F2]/[0.05] transition-all shadow-2xs hover:scale-110"
-                          aria-label={`${p.name} Facebook`}
-                        >
-                          <FacebookIcon className="h-4 w-4" />
-                        </a>
-                      )}
-                      {p.socials.twitter && (
-                        <a
-                          href={p.socials.twitter}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex h-8 w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-black hover:border-black/40 hover:bg-stone-100 transition-all shadow-2xs hover:scale-110"
-                          aria-label={`${p.name} X (Twitter)`}
-                        >
-                          <XIcon className="h-3.5 w-3.5" />
-                        </a>
-                      )}
+                  {Boolean(p.socials?.instagram || p.socials?.facebook || p.socials?.twitter) && (
+                    <div className="mt-4 pt-3 border-t border-stone-200/80 flex items-center justify-between">
+                      <span className="text-[11px] font-bold text-stone-500 uppercase tracking-wider">
+                        Official Socials:
+                      </span>
+                      <div className="flex items-center gap-2">
+                        {p.socials.instagram && (
+                          <a
+                            href={p.socials.instagram}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex h-8 w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-[#E4405F] hover:border-[#E4405F]/40 hover:bg-[#E4405F]/[0.05] transition-all shadow-2xs hover:scale-110"
+                            aria-label={`${p.name} Instagram`}
+                          >
+                            <InstagramIcon className="h-4 w-4" />
+                          </a>
+                        )}
+                        {p.socials.facebook && (
+                          <a
+                            href={p.socials.facebook}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex h-8 w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-[#1877F2] hover:border-[#1877F2]/40 hover:bg-[#1877F2]/[0.05] transition-all shadow-2xs hover:scale-110"
+                            aria-label={`${p.name} Facebook`}
+                          >
+                            <FacebookIcon className="h-4 w-4" />
+                          </a>
+                        )}
+                        {p.socials.twitter && (
+                          <a
+                            href={p.socials.twitter}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex h-8 w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-black hover:border-black/40 hover:bg-stone-100 transition-all shadow-2xs hover:scale-110"
+                            aria-label={`${p.name} X (Twitter)`}
+                          >
+                            <XIcon className="h-3.5 w-3.5" />
+                          </a>
+                        )}
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </StaggerItem>
             ))}
