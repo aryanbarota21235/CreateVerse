@@ -68,7 +68,7 @@ export default function CaseStudies({
   return (
     <section className={`relative overflow-hidden bg-paper ${className || "py-14 sm:py-20 lg:py-28"}`}>
       <div className="dot-texture absolute inset-0 opacity-40 pointer-events-none" />
-      <div className="absolute -right-40 top-40 h-[380px] w-[380px] rounded-full bg-brand-sky/25 blur-3xl pointer-events-none" />
+      <div className="hidden sm:block absolute -right-40 top-40 h-[380px] w-[380px] rounded-full bg-brand-sky/25 blur-3xl pointer-events-none" />
       <div className="container-site relative">
         {showHeading && (
           <SectionHeading

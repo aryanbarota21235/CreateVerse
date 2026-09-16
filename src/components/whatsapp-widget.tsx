@@ -44,8 +44,8 @@ export default function WhatsAppWidget() {
         aria-label="Chat with CreateVerse on WhatsApp"
       >
         <span className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 flex h-3.5 w-3.5 sm:h-4 sm:w-4">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
-          <span className="relative inline-flex h-3.5 w-3.5 sm:h-4 sm:w-4 rounded-full bg-white text-[8px] sm:text-[9px] font-bold text-emerald-600 items-center justify-center">
+          <span className="hidden sm:inline-flex absolute h-full w-full animate-ping rounded-full bg-white opacity-75" />
+          <span className="relative inline-flex h-3.5 w-3.5 sm:h-4 sm:w-4 rounded-full bg-white text-[8px] sm:text-[9px] font-bold text-emerald-600 items-center justify-center shadow-xs">
             1
           </span>
         </span>

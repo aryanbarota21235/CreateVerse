@@ -51,7 +51,7 @@ export default function PoliticalClients() {
     <section className="relative overflow-hidden bg-white py-14 sm:py-20 lg:py-32 border-t border-stone-200">
       {/* Subtle background ambient map texture */}
       <div className="dot-texture absolute inset-0 opacity-40" />
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 h-[450px] w-[600px] rounded-full bg-brand-sky/40 blur-3xl pointer-events-none" />
+      <div className="hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 h-[450px] w-[600px] rounded-full bg-brand-sky/40 blur-3xl pointer-events-none" />
 
       <div className="container-site relative">
         {/* Top Header Row with Title, Copy, and Let's Talk CTA */}

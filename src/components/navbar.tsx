@@ -35,7 +35,7 @@ export default function Navbar() {
     <header className="fixed inset-x-0 top-2.5 sm:top-5 z-50 px-3 sm:px-8 pointer-events-none">
       {/* Maximum luxury width floating pill dock */}
       <div
-        className={`mx-auto flex items-center justify-between rounded-full bg-white/98 shadow-[0_10px_35px_rgba(11,15,25,0.08)] backdrop-blur-2xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-auto border ${
+        className={`mx-auto flex items-center justify-between rounded-full bg-white/98 shadow-[0_10px_35px_rgba(11,15,25,0.08)] backdrop-blur-md sm:backdrop-blur-2xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-auto border ${
           scrolled
             ? "max-w-6xl py-2 px-4 sm:py-2.5 sm:px-10 shadow-[0_16px_44px_rgba(11,15,25,0.12)] border-black/[0.15]"
             : "max-w-7xl py-2.5 px-4 sm:py-3.5 sm:px-12 border-black/[0.12]"

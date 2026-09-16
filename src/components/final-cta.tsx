@@ -6,8 +6,8 @@ export default function FinalCTA() {
   return (
     <section className="relative overflow-hidden bg-paper border-t border-stone-200/80 pt-12 pb-10 sm:pt-20 sm:pb-16 lg:pt-24 lg:pb-20">
       <div className="grid-texture-light absolute inset-0 opacity-40 pointer-events-none" />
-      <div className="absolute -left-32 top-0 h-[380px] w-[380px] rounded-full bg-brand-sun/20 blur-3xl pointer-events-none" />
-      <div className="absolute -right-32 bottom-0 h-[380px] w-[380px] rounded-full bg-accent/15 blur-3xl pointer-events-none" />
+      <div className="hidden sm:block absolute -left-32 top-0 h-[380px] w-[380px] rounded-full bg-brand-sun/20 blur-3xl pointer-events-none" />
+      <div className="hidden sm:block absolute -right-32 bottom-0 h-[380px] w-[380px] rounded-full bg-accent/15 blur-3xl pointer-events-none" />
       <div className="container-site relative">
         <div className="grid items-center gap-8 sm:gap-14 lg:grid-cols-2">
           <Reveal>
