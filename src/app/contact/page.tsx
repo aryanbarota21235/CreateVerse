@@ -10,7 +10,33 @@ import { WhatsAppIcon } from "@/components/whatsapp-icon";
 export const metadata: Metadata = {
   title: "Contact & Strategic Consultation — CreateVerse",
   description:
-    "Talk directly with CreateVerse directors about performance marketing, real estate lead generation, immigration pipelines, political campaigns, or modern web architecture.",
+    "Talk directly with CreateVerse managing directors about performance marketing, real estate buyer pipelines, visa funnels, political war rooms, or custom web development. 2-hour response SLA.",
+  keywords: [
+    "contact CreateVerse",
+    "hire digital marketing agency India",
+    "lead generation consultation",
+    "real estate marketing consultant",
+    "political war room booking",
+    "CreateVerse phone email office",
+  ],
+  alternates: {
+    canonical: "https://createverse.in/contact",
+  },
+  openGraph: {
+    title: "Contact & Strategic Consultation — CreateVerse",
+    description: "Talk directly with CreateVerse directors about growth, acquisition systems, and verified ROI.",
+    url: "https://createverse.in/contact",
+    siteName: "CreateVerse",
+    locale: "en_IN",
+    type: "website",
+    images: [{ url: "/logo.png", width: 1200, height: 630, alt: "Contact CreateVerse" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact & Strategic Consultation — CreateVerse",
+    description: "Talk directly with CreateVerse directors about growth, acquisition systems, and verified ROI.",
+    images: ["/logo.png"],
+  },
 };
 
 const contactFaqs = [
@@ -51,8 +77,25 @@ const guarantees = [
 ];
 
 export default function ContactPage() {
+  const contactFaqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: contactFaqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: f.a,
+      },
+    })),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactFaqJsonLd) }}
+      />
       <PageHero
         eyebrow="Contact & Consultations"
         title={

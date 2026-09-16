@@ -7,9 +7,37 @@ import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
 import { industries } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Industries — Real Estate, Immigration, Political & Business Growth",
+  title: "Specialized Industries — Real Estate, Immigration, Political & Business | CreateVerse",
   description:
-    "CreateVerse goes deep in four arenas: real estate lead generation, immigration & visa marketing, political campaign management, and performance marketing for ambitious businesses.",
+    "Deep acquisition expertise across four critical sectors: real estate lead generation, immigration & visa funnels, political campaign management, and performance marketing for high-growth businesses.",
+  keywords: [
+    "real estate marketing agency India",
+    "immigration visa leads company",
+    "political campaign digital agency",
+    "performance marketing for businesses",
+    "specialized growth agency India",
+    "B2B industry lead generation",
+  ],
+  alternates: {
+    canonical: "https://createverse.in/industries",
+  },
+  openGraph: {
+    title: "Specialized Industries — CreateVerse",
+    description:
+      "Deep expertise where growth is won. Real estate, immigration, political campaigns, and high-growth businesses.",
+    url: "https://createverse.in/industries",
+    siteName: "CreateVerse",
+    locale: "en_IN",
+    type: "website",
+    images: [{ url: "/logo.png", width: 1200, height: 630, alt: "CreateVerse Industries" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Specialized Industries — CreateVerse",
+    description:
+      "Deep expertise where growth is won. Real estate, immigration, political campaigns, and high-growth businesses.",
+    images: ["/logo.png"],
+  },
 };
 
 const industryStats = [

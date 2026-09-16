@@ -24,6 +24,7 @@ import Faq from "@/components/faq";
 import ServiceCta from "@/components/service-cta";
 import ServiceHeroButtons from "@/components/service-hero-buttons";
 import { caseStudies } from "@/components/case-studies";
+import { serviceSeoKeywords, getServiceJsonLd } from "@/lib/seo";
 
 export function generateStaticParams() {
   return services.filter((s) => s.slug !== "political-management").map((s) => ({ slug: s.slug }));
@@ -33,9 +34,50 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const service = getService(slug);
   if (!service) return {};
+
+  const keywords = serviceSeoKeywords[service.slug] ?? [
+    service.name,
+    `${service.name} agency India`,
+    `${service.name} services`,
+    "performance marketing agency",
+    "lead generation company India",
+  ];
+
+  const serviceUrl = `https://createverse.in/services/${service.slug}`;
+
   return {
-    title: `${service.name} — Growth & Acquisition Partner`,
+    title: `${service.name} — Growth & Digital Acquisition | CreateVerse`,
     description: service.description,
+    keywords,
+    alternates: {
+      canonical: serviceUrl,
+    },
+    openGraph: {
+      title: `${service.name} — CreateVerse`,
+      description: service.tagline,
+      url: serviceUrl,
+      siteName: "CreateVerse",
+      type: "website",
+      locale: "en_IN",
+      images: [
+        {
+          url: "/logo.png",
+          width: 1200,
+          height: 630,
+          alt: `${service.name} — CreateVerse`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${service.name} — CreateVerse`,
+      description: service.tagline,
+      images: ["/logo.png"],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
   };
 }
 
@@ -49,6 +91,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const diagnosis = getServiceDiagnosis(service.slug, service.category);
   const related = services.filter((s) => s.slug !== service.slug && s.priority).slice(0, 3);
   const relatedCase = caseStudies.find((c) => c.slug === service.slug);
+  const serviceJsonLd = getServiceJsonLd(service);
 
   const playbookPhases = [
     {
@@ -79,6 +122,10 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
       {/* 1. Grand Editorial Hero Section */}
       <section className="relative overflow-hidden bg-paper pt-[76px]">
         <div className="dot-texture absolute inset-0 opacity-80 pointer-events-none" />

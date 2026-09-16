@@ -7,9 +7,36 @@ import ProcessSection from "@/components/process-section";
 import Reveal from "@/components/reveal";
 
 export const metadata: Metadata = {
-  title: "About CreateVerse — A Growth & Digital Acquisition Partner",
+  title: "About CreateVerse — Growth & Digital Acquisition Partner",
   description:
-    "CreateVerse is a growth and digital acquisition partner helping real estate, immigration, political organizations and ambitious businesses generate leads and scale campaigns.",
+    "Learn about CreateVerse: our operating philosophy, leadership standards, data sovereignty principles, and track record turning digital attention into verified commercial revenue.",
+  keywords: [
+    "about CreateVerse",
+    "growth marketing leadership",
+    "digital acquisition partner India",
+    "data sovereignty marketing",
+    "performance marketing agency team",
+  ],
+  alternates: {
+    canonical: "https://createverse.in/about",
+  },
+  openGraph: {
+    title: "About CreateVerse — Growth & Digital Acquisition Partner",
+    description:
+      "We exist to turn attention into revenue. Systems over stunts, revenue is the brief, and depth over breadth.",
+    url: "https://createverse.in/about",
+    siteName: "CreateVerse",
+    locale: "en_IN",
+    type: "website",
+    images: [{ url: "/logo.png", width: 1200, height: 630, alt: "About CreateVerse" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About CreateVerse — Growth & Digital Acquisition Partner",
+    description:
+      "We exist to turn attention into revenue. Systems over stunts, revenue is the brief, and depth over breadth.",
+    images: ["/logo.png"],
+  },
 };
 
 const agencyStats = [

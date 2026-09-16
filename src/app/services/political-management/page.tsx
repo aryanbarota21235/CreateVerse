@@ -22,11 +22,44 @@ import { politicianClients } from "@/lib/politicians";
 import { InstagramIcon, FacebookIcon, XIcon } from "@/components/social-icons";
 import PoliticalHeroButtons from "./political-hero-buttons";
 import PoliticalFaq from "./political-faq";
+import { serviceSeoKeywords, getPoliticalManagementJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Political Campaign Management & 24/7 Digital War Room",
+  title: "Political Campaign Management & 24/7 Digital War Room | CreateVerse",
   description:
-    "Elite political campaign management, booth-level voter micro-targeting, narrative engineering, and 24/7 rapid response digital war rooms for elected leaders and ambitious candidates.",
+    "Elite political campaign management, booth-level voter micro-targeting, narrative engineering, and 24/7 rapid response digital war rooms for elected Members of Parliament, State MLAs, and political candidates across India.",
+  keywords: serviceSeoKeywords["political-management"],
+  alternates: {
+    canonical: "https://createverse.in/services/political-management",
+  },
+  openGraph: {
+    title: "Political Campaign Management & Digital War Room — CreateVerse",
+    description:
+      "Constituency intelligence, viral speech engines, and 24/7 rapid response war rooms engineered for decisive political mandates.",
+    url: "https://createverse.in/services/political-management",
+    siteName: "CreateVerse",
+    type: "website",
+    locale: "en_IN",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Political Campaign Management — CreateVerse",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Political Campaign Management & Digital War Room — CreateVerse",
+    description:
+      "Constituency intelligence, viral speech engines, and 24/7 rapid response war rooms engineered for decisive political mandates.",
+    images: ["/logo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 const stats = [
@@ -119,8 +152,14 @@ const playbook = [
 ];
 
 export default function PoliticalManagementPage() {
+  const politicalJsonLd = getPoliticalManagementJsonLd();
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(politicalJsonLd) }}
+      />
       {/* 1. Grand Hero Section */}
       <section className="relative overflow-hidden bg-paper pt-[76px]">
         <div className="dot-texture absolute inset-0 opacity-80 pointer-events-none" />

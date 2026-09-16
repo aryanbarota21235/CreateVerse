@@ -7,9 +7,39 @@ import PageHero from "@/components/page-hero";
 import Reveal from "@/components/reveal";
 
 export const metadata: Metadata = {
-  title: "Services & Practices — Lead Generation, Paid Ads & Political Management",
+  title: "Services & Practices — Lead Generation, Paid Ads & Political Management | CreateVerse",
   description:
-    "Explore CreateVerse services: real estate lead generation, immigration funnels, Google Ads, paid social, political war rooms, web development, and full-funnel acquisition systems.",
+    "Explore CreateVerse specialized practices: real estate lead generation, immigration funnels, Google Ads, paid social, 24/7 political war rooms, conversion web development, and full-funnel acquisition systems.",
+  keywords: [
+    "digital marketing services India",
+    "real estate lead generation services",
+    "immigration visa marketing",
+    "political management services",
+    "Google Ads management agency",
+    "Meta ads paid social",
+    "web development services",
+    "SEO services India",
+    "performance marketing practices",
+  ],
+  alternates: {
+    canonical: "https://createverse.in/services",
+  },
+  openGraph: {
+    title: "Services & Practices — CreateVerse",
+    description:
+      "Everything growth needs, under one roof. Acquisition, advertising, creative, and technology engineered for verified revenue.",
+    url: "https://createverse.in/services",
+    siteName: "CreateVerse",
+    locale: "en_IN",
+    type: "website",
+    images: [{ url: "/logo.png", width: 1200, height: 630, alt: "CreateVerse Services" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Services & Practices — CreateVerse",
+    description: "Everything growth needs, under one roof. Acquisition, advertising, creative, and technology.",
+    images: ["/logo.png"],
+  },
 };
 
 const serviceStats = [

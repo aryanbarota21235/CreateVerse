@@ -9,25 +9,38 @@ import { EnquiryProvider } from "@/context/enquiry-context";
 import EnquiryModal from "@/components/enquiry-modal";
 import WhatsAppWidget from "@/components/whatsapp-widget";
 
+import { siteKeywords, getOrganizationJsonLd } from "@/lib/seo";
+
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://createverse.in"),
   title: {
-    default: "CreateVerse — Growth & Digital Acquisition Partner",
+    default: "CreateVerse — Growth & Digital Acquisition Partner | Performance Marketing & War Rooms",
     template: "%s | CreateVerse",
   },
   description:
-    "CreateVerse builds digital growth systems for real estate, immigration, political campaigns and ambitious businesses — lead generation, performance marketing, political management, web development and creative services.",
-  keywords: [
-    "lead generation agency",
-    "real estate lead generation",
-    "immigration lead generation",
-    "political campaign management",
-    "Google Ads agency India",
-    "performance marketing",
-  ],
+    "CreateVerse is an elite growth & digital acquisition partner. We build end-to-end performance marketing systems, real estate buyer pipelines, immigration lead funnels, 24/7 political digital war rooms, Google & Meta Ads, and conversion-first web architectures that turn digital attention into verified revenue.",
+  keywords: siteKeywords,
+  alternates: {
+    canonical: "https://createverse.in",
+  },
+  authors: [{ name: "CreateVerse", url: "https://createverse.in" }],
+  creator: "CreateVerse",
+  publisher: "CreateVerse",
+  category: "technology",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   verification: {
     other: {
       "facebook-domain-verification": "arjcquzxxrc2rljqusg27q97siy066",
@@ -51,14 +64,15 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: "CreateVerse — Growth & Digital Acquisition Partner",
     description:
-      "CreateVerse builds digital growth systems for real estate, immigration, political campaigns and ambitious businesses.",
+      "Turn digital attention into real revenue. Specialized acquisition systems for real estate developers, immigration consultancies, political campaigns, and high-growth brands.",
     type: "website",
+    locale: "en_IN",
     url: "https://createverse.in",
     images: [
       {
         url: "/logo.png",
-        width: 320,
-        height: 132,
+        width: 1200,
+        height: 630,
         alt: "CreateVerse — Redefining Digital",
       },
     ],
@@ -67,27 +81,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "CreateVerse — Growth & Digital Acquisition Partner",
     description:
-      "CreateVerse builds digital growth systems for real estate, immigration, political campaigns and ambitious businesses.",
+      "Turn digital attention into real revenue. Specialized acquisition systems for real estate developers, immigration consultancies, political campaigns, and high-growth brands.",
     images: ["/logo.png"],
-  },
-};
-
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "CreateVerse",
-  alternateName: "CreateVerse Digital",
-  url: "https://createverse.in",
-  logo: "https://createverse.in/logo.png",
-  image: "https://createverse.in/logo.png",
-  description:
-    "CreateVerse builds digital growth systems for real estate, immigration, political campaigns and ambitious businesses.",
-  telephone: site.phone,
-  email: site.email,
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: site.location,
-    addressCountry: "IN",
   },
 };
 
@@ -99,6 +94,8 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const organizationJsonLd = getOrganizationJsonLd();
+
   return (
     <html lang="en" className={`${inter.variable} ${grotesk.variable}`}>
       <head>
@@ -106,9 +103,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="facebook-domain-verification" content="arjcquzxxrc2rljqusg27q97siy066" />
+        <meta name="geo.region" content="IN-HR" />
+        <meta name="geo.placename" content="Karnal" />
+        <meta name="geo.position" content="29.6857;76.9905" />
+        <meta name="ICBM" content="29.6857, 76.9905" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         {/* Meta Pixel Code */}
         <script

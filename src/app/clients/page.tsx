@@ -7,9 +7,37 @@ import FinalCTA from "@/components/final-cta";
 import Reveal from "@/components/reveal";
 
 export const metadata: Metadata = {
-  title: "Clients & Case Studies — Verified Results Across Core Sectors",
+  title: "Clients, Case Studies & Verified Results | CreateVerse",
   description:
-    "Explore CreateVerse clients, partners, and case studies across real estate acquisition, immigration marketing, political campaigns, and high-growth performance marketing.",
+    "Explore CreateVerse clients, verified case studies, and commercial impact across real estate acquisition, immigration pipelines, political campaigns, and high-growth performance marketing.",
+  keywords: [
+    "CreateVerse clients",
+    "digital marketing case studies India",
+    "real estate lead generation results",
+    "political war room case studies",
+    "immigration marketing results",
+    "performance marketing ROI proof",
+  ],
+  alternates: {
+    canonical: "https://createverse.in/clients",
+  },
+  openGraph: {
+    title: "Clients & Verified Case Studies — CreateVerse",
+    description:
+      "Results engineered across core sectors. ₹48.6 Cr+ property closed, 14.2M+ voter reach, 3,850+ visa consultations.",
+    url: "https://createverse.in/clients",
+    siteName: "CreateVerse",
+    locale: "en_IN",
+    type: "website",
+    images: [{ url: "/logo.png", width: 1200, height: 630, alt: "CreateVerse Case Studies" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Clients & Verified Case Studies — CreateVerse",
+    description:
+      "Results engineered across core sectors. ₹48.6 Cr+ property closed, 14.2M+ voter reach, 3,850+ visa consultations.",
+    images: ["/logo.png"],
+  },
 };
 
 const clientStats = [
