@@ -38,10 +38,10 @@ export default function Navbar() {
     <header className="fixed inset-x-0 top-2.5 sm:top-5 z-50 px-3 sm:px-8 pointer-events-none">
       {/* Maximum luxury width floating pill dock */}
       <div
-        className={`navbar-dock mx-auto flex items-center justify-between rounded-full bg-white shadow-[0_10px_35px_rgba(11,15,25,0.08)] sm:backdrop-blur-md transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-auto border ${
+        className={`navbar-dock mx-auto flex items-center justify-between rounded-full bg-white transition-all duration-300 pointer-events-auto border ${
           scrolled
-            ? "max-w-6xl py-2 px-3.5 sm:py-2.5 sm:px-10 shadow-[0_16px_44px_rgba(11,15,25,0.12)] border-black/[0.15]"
-            : "max-w-7xl py-2 px-3.5 sm:py-3.5 sm:px-12 border-black/[0.12]"
+            ? "max-w-6xl py-1.5 px-3.5 sm:py-2.5 sm:px-10 shadow-[0_8px_25px_rgba(0,0,0,0.08)] border-black/[0.12]"
+            : "max-w-7xl py-2 px-4 sm:py-3.5 sm:px-12 border-stone-200/90 sm:border-black/[0.12] shadow-[0_4px_20px_rgba(0,0,0,0.06)] sm:shadow-[0_10px_35px_rgba(11,15,25,0.08)]"
         }`}
       >
         {/* Brand Logo */}
@@ -57,8 +57,8 @@ export default function Navbar() {
             width={360}
             height={148}
             priority
-            className={`w-auto transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              scrolled ? "h-[38px] sm:h-11" : "h-[42px] sm:h-[50px] lg:h-[54px]"
+            className={`w-auto transition-all duration-300 ${
+              scrolled ? "h-7 sm:h-11" : "h-[34px] sm:h-[50px] lg:h-[54px]"
             }`}
           />
         </Link>
@@ -89,7 +89,7 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Right CTA: Enquire Now */}
+        {/* Right CTA: Enquire Now (Desktop Only) */}
         <div className="hidden items-center gap-3 sm:flex shrink-0">
           <button
             onClick={() => openEnquiry()}
@@ -100,14 +100,13 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Action Button (Desktop-matched Enquire Now + Arrow) */}
+        {/* Mobile Action Button (Strictly 'Enquire' Only, Clean Pill) */}
         <div className="flex items-center sm:hidden">
           <button
             onClick={() => openEnquiry()}
-            className="pressable group inline-flex items-center gap-1.5 rounded-full bg-ink px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-white shadow-xs active:bg-accent transition-all duration-150 cursor-pointer shrink-0"
+            className="pressable rounded-full bg-ink px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider text-white shadow-xs active:bg-accent transition-colors cursor-pointer"
           >
-            <span>Enquire Now</span>
-            <ArrowUpRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            Enquire
           </button>
         </div>
       </div>

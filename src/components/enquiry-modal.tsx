@@ -210,17 +210,21 @@ export default function EnquiryModal() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeEnquiry();
     };
+    const isDesktop = typeof window !== "undefined" && window.innerWidth >= 768;
     if (isOpen) {
-      const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-      if (!isMobile) {
+      if (isDesktop) {
         document.body.style.overflow = "hidden";
       }
       window.addEventListener("keydown", handleKeyDown);
     } else {
-      document.body.style.overflow = "";
+      if (isDesktop) {
+        document.body.style.overflow = "";
+      }
     }
     return () => {
-      document.body.style.overflow = "";
+      if (isDesktop) {
+        document.body.style.overflow = "";
+      }
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, closeEnquiry]);
@@ -268,24 +272,25 @@ export default function EnquiryModal() {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 touch-none">
           {/* Subtle Luxury Backdrop without filter thrashing */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.15 }}
             onClick={closeEnquiry}
-            className="fixed inset-0 bg-ink/75"
+            className="fixed inset-0 bg-ink/75 touch-none"
           />
 
-          {/* Modal Container */}
+          {/* Modal Container - Ultra smooth 60fps GPU animation */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: 16 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: 16 }}
-            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full max-w-xl sm:max-w-2xl overflow-hidden rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white shadow-[0_30px_70px_rgba(15,23,42,0.28)] z-10 my-auto"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: 0.16, ease: "easeOut" }}
+            style={{ willChange: "transform, opacity" }}
+            className="relative w-full max-w-xl sm:max-w-2xl overflow-hidden rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white shadow-2xl sm:shadow-[0_30px_70px_rgba(15,23,42,0.28)] z-10 my-auto touch-auto"
           >
             {/* Executive Close Button - Highly Accessible on Mobile & Luxury Desktop */}
             <button
@@ -320,8 +325,8 @@ export default function EnquiryModal() {
                 </div>
               </div>
             ) : (
-              /* High-End, Streamlined Intake Form - Compact & Neat on Mobile */
-              <div className="p-3.5 sm:p-7 md:p-8 max-h-[90vh] sm:max-h-[88vh] overflow-y-auto overscroll-contain">
+              /* High-End, Streamlined Intake Form - Compact & Neat on Mobile with dvh sizing */
+              <div className="p-3.5 sm:p-7 md:p-8 max-h-[78dvh] sm:max-h-[85vh] overflow-y-auto overscroll-contain">
                 {/* Header */}
                 <div className="pr-9 sm:pr-8">
                   <div className="hidden sm:inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-accent/20 bg-accent/[0.06] px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-accent">
