@@ -28,6 +28,11 @@ export const metadata: Metadata = {
     "Google Ads agency India",
     "performance marketing",
   ],
+  verification: {
+    other: {
+      "facebook-domain-verification": "arjcquzxxrc2rljqusg27q97siy066",
+    },
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -90,6 +95,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${grotesk.variable}`}>
       <head>
+        <meta name="facebook-domain-verification" content="arjcquzxxrc2rljqusg27q97siy066" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
