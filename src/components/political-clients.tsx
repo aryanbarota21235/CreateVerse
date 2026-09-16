@@ -19,7 +19,7 @@ export default function PoliticalClients() {
       <div className="dot-texture absolute inset-0 opacity-40" />
       <div className="hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 h-[450px] w-[600px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(224,242,254,0.65)_0%,rgba(224,242,254,0.2)_45%,transparent_70%)] pointer-events-none" />
 
-      <div className="container-site relative">
+      <div className="mx-auto w-full max-w-[1400px] px-3 sm:px-6 lg:px-8 relative">
         {/* Top Header Row with Title, Copy, and CTAs */}
         <Reveal>
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 sm:gap-8 pb-8 sm:pb-14 border-b border-stone-200">
@@ -72,13 +72,13 @@ export default function PoliticalClients() {
         </div>
 
         {/* 6 Circular Politician Cards with Social Media Handles */}
-        <Stagger className="grid grid-cols-2 gap-3 sm:gap-6 sm:grid-cols-3 lg:grid-cols-6 items-stretch" delayChildren={0.08}>
+        <Stagger className="grid grid-cols-2 gap-2.5 sm:gap-4 lg:gap-3 xl:gap-3.5 sm:grid-cols-3 lg:grid-cols-6 items-stretch" delayChildren={0.08}>
           {politicianClients.map((p) => (
             <StaggerItem key={p.name} className="h-full">
-              <div className="group h-full flex flex-col items-center justify-between text-center p-3 sm:p-5 rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:bg-white hover:shadow-card">
+              <div className="group h-full flex flex-col items-center justify-between text-center p-3 sm:py-5 sm:px-2 lg:px-2.5 xl:px-3.5 rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:bg-white hover:shadow-card">
                 {/* Circular Portrait with Concentric Clean Ring */}
                 <div className="relative mb-3 sm:mb-4 shrink-0">
-                  <div className="relative h-28 w-28 sm:h-32 sm:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
+                  <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
                     <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
                       <Image
                         src={p.image}
@@ -107,7 +107,7 @@ export default function PoliticalClients() {
 
                 {/* Content: Name and Designation */}
                 <div className="flex flex-col items-center w-full grow justify-center text-center mt-1 sm:mt-2">
-                  <h4 className="font-display text-xs sm:text-sm font-bold text-ink leading-snug transition-colors group-hover:text-accent">
+                  <h4 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-sm font-bold text-ink leading-snug transition-colors group-hover:text-accent tracking-tight whitespace-nowrap">
                     {p.name}
                   </h4>
                   {p.role && (
