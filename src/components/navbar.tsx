@@ -40,8 +40,8 @@ export default function Navbar() {
       <div
         className={`mx-auto flex items-center justify-between rounded-full bg-white/98 shadow-[0_10px_35px_rgba(11,15,25,0.08)] sm:backdrop-blur-md transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-auto border ${
           scrolled
-            ? "max-w-6xl py-2.5 px-4 sm:py-2.5 sm:px-10 shadow-[0_16px_44px_rgba(11,15,25,0.12)] border-black/[0.15]"
-            : "max-w-7xl py-2.5 px-4 sm:py-3.5 sm:px-12 border-black/[0.12]"
+            ? "max-w-6xl py-2 px-3.5 sm:py-2.5 sm:px-10 shadow-[0_16px_44px_rgba(11,15,25,0.12)] border-black/[0.15]"
+            : "max-w-7xl py-2 px-3.5 sm:py-3.5 sm:px-12 border-black/[0.12]"
         }`}
       >
         {/* Brand Logo */}
@@ -58,7 +58,7 @@ export default function Navbar() {
             height={148}
             priority
             className={`w-auto transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              scrolled ? "h-8 sm:h-11" : "h-8 sm:h-[50px] lg:h-[54px]"
+              scrolled ? "h-[42px] sm:h-11" : "h-[42px] sm:h-[50px] lg:h-[54px]"
             }`}
           />
         </Link>

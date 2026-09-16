@@ -177,7 +177,7 @@ function matchService(inputName?: string): string {
 }
 
 const inputCls =
-  "w-full rounded-xl border border-stone-200/90 bg-[#F8FAFC] px-3.5 py-2.5 sm:px-4 sm:py-3 text-base sm:text-sm text-ink placeholder:text-stone-400 outline-none transition-all duration-200 hover:border-stone-300 focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-normal";
+  "w-full rounded-xl border border-stone-200/90 bg-[#F8FAFC] px-3 py-2 sm:px-4 sm:py-2.5 text-base sm:text-sm text-ink placeholder:text-stone-400 outline-none transition-all duration-200 hover:border-stone-300 focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-normal";
 
 export default function EnquiryModal() {
   const { isOpen, closeEnquiry, selectedService } = useEnquiry();
@@ -205,19 +205,22 @@ export default function EnquiryModal() {
     }
   }, [selectedService, isOpen]);
 
-  // Handle ESC key to close
+  // Handle ESC key to close & desktop-safe scroll lock without mobile redraw blink
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeEnquiry();
     };
     if (isOpen) {
-      document.body.style.overflow = "hidden";
+      const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+      if (!isMobile) {
+        document.body.style.overflow = "hidden";
+      }
       window.addEventListener("keydown", handleKeyDown);
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, closeEnquiry]);
@@ -266,13 +269,14 @@ export default function EnquiryModal() {
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6">
-          {/* Subtle Luxury Backdrop */}
+          {/* Subtle Luxury Backdrop without filter thrashing */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             onClick={closeEnquiry}
-            className="fixed inset-0 bg-ink/70 backdrop-blur-md transition-opacity"
+            className="fixed inset-0 bg-ink/75"
           />
 
           {/* Modal Container */}
@@ -286,10 +290,10 @@ export default function EnquiryModal() {
             {/* Executive Close Button - Highly Accessible on Mobile & Luxury Desktop */}
             <button
               onClick={closeEnquiry}
-              className="pressable group absolute right-2.5 top-2.5 z-20 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-stone-100/90 active:bg-stone-200 text-stone-700 sm:text-stone-500 transition-all duration-200 hover:bg-ink hover:text-white hover:rotate-90 hover:scale-105 sm:right-6 sm:top-6 shadow-xs cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30"
+              className="pressable group absolute right-2.5 top-2.5 z-20 flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-stone-100/90 active:bg-stone-200 text-stone-700 sm:text-stone-500 transition-all duration-200 hover:bg-ink hover:text-white hover:rotate-90 hover:scale-105 sm:right-5 sm:top-5 shadow-xs cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30"
               aria-label="Close modal"
             >
-              <X className="h-5 w-5 sm:h-5 sm:w-5 transition-transform duration-200" />
+              <X className="h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-200" />
             </button>
 
             {submitted ? (
@@ -316,16 +320,16 @@ export default function EnquiryModal() {
                 </div>
               </div>
             ) : (
-              /* High-End, Decluttered Intake Form */
-              <div className="p-4 sm:p-8 md:p-9 max-h-[92vh] sm:max-h-[88vh] overflow-y-auto overscroll-contain">
+              /* High-End, Streamlined Intake Form - Compact & Neat on Mobile */
+              <div className="p-3.5 sm:p-7 md:p-8 max-h-[90vh] sm:max-h-[88vh] overflow-y-auto overscroll-contain">
                 {/* Header */}
-                <div className="pr-12 sm:pr-8">
-                  <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-accent/20 bg-accent/[0.06] px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-accent">
-                    <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+                <div className="pr-9 sm:pr-8">
+                  <div className="hidden sm:inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-accent/20 bg-accent/[0.06] px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-accent">
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                     <span>Direct Practice Consultation</span>
                   </div>
 
-                  <h3 className="mt-2 font-display text-xl sm:text-3xl font-bold tracking-tight text-ink">
+                  <h3 className="mt-0.5 sm:mt-2 font-display text-base sm:text-2xl font-bold tracking-tight text-ink">
                     {service ? (
                       <>
                         Consultation: <span className="text-accent">{service}</span>
@@ -337,68 +341,63 @@ export default function EnquiryModal() {
                     )}
                   </h3>
 
-                  <p className="mt-1 text-xs text-stone-600 sm:text-sm font-normal">
-                    Direct consultation with our senior strategy team. Leave your details below or connect immediately via WhatsApp.
+                  <p className="mt-0.5 sm:mt-1 text-[11px] sm:text-sm text-stone-600 font-normal">
+                    Connect directly with our senior strategy directors.
                   </p>
                 </div>
 
-                {/* Top WhatsApp Quick Connect Bar */}
+                {/* Top WhatsApp Quick Connect Bar - Compact 1-line on mobile */}
                 <a
                   href={site.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group mt-2.5 sm:mt-4 flex items-center justify-between rounded-xl sm:rounded-2xl border border-stone-200 bg-[#F8FAFC] p-2.5 sm:px-5 sm:py-3.5 transition-all duration-200 hover:border-[#25D366] hover:bg-[#25D366]/[0.04] hover:shadow-xs cursor-pointer"
+                  className="group mt-2 sm:mt-3.5 flex items-center justify-between rounded-xl border border-stone-200 bg-[#F8FAFC] px-2.5 py-1.5 sm:px-4 sm:py-2.5 transition-all duration-200 hover:border-[#25D366] hover:bg-[#25D366]/[0.04] hover:shadow-xs cursor-pointer"
                 >
-                  <div className="flex items-center gap-2.5 sm:gap-3">
-                    <span className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-lg sm:rounded-xl bg-[#25D366] text-white shadow-xs">
-                      <WhatsAppIcon className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-6 w-6 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-lg bg-[#25D366] text-white shadow-xs">
+                      <WhatsAppIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-white" />
                     </span>
-                    <div className="text-left">
-                      <p className="text-xs font-bold text-ink group-hover:text-emerald-700 transition-colors">
-                        Want to talk on WhatsApp?
-                      </p>
-                      <p className="text-[10px] sm:text-[11px] font-medium text-stone-500">
-                        Instant chat with our senior directors ({site.phone})
-                      </p>
-                    </div>
+                    <p className="text-[11px] sm:text-xs font-bold text-ink group-hover:text-emerald-700 transition-colors">
+                      Fastest: Chat on WhatsApp <span className="hidden sm:inline text-stone-500 font-normal">({site.phone})</span>
+                    </p>
                   </div>
-                  <span className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold text-emerald-700 group-hover:translate-x-0.5 transition-transform shrink-0">
+                  <span className="inline-flex items-center gap-1 text-[10.5px] sm:text-xs font-bold text-emerald-700 group-hover:translate-x-0.5 transition-transform shrink-0">
                     <span>Chat now</span>
-                    <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                    <ArrowRight className="h-3 w-3" />
                   </span>
                 </a>
 
                 {/* Subtle Divider */}
-                <div className="relative my-3 sm:my-4">
+                <div className="relative my-2 sm:my-3">
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-stone-200/80" />
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-white px-2.5 sm:px-3 text-[9px] sm:text-[10px] font-bold tracking-wider text-stone-400">
-                      or submit consultation inquiry
+                    <span className="bg-white px-2 text-[9px] font-bold tracking-wider text-stone-400">
+                      or inquiry form
                     </span>
                   </div>
                 </div>
 
                 {/* Clean, Streamlined Form Body */}
-                <form onSubmit={handleSubmit} className="space-y-3.5">
+                <form onSubmit={handleSubmit} className="space-y-2 sm:space-y-3">
                   {/* Single Clean Practice Area Dropdown */}
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">
+                    <label className="block text-[10.5px] sm:text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5 sm:mb-1">
                       Practice Area
                     </label>
                     <div className="relative">
                       <select
                         value={service}
                         onChange={(e) => setService(e.target.value)}
-                        className={`w-full appearance-none rounded-xl border px-3.5 py-2.5 sm:px-4 sm:py-3 text-base sm:text-sm font-medium transition-all duration-200 hover:border-stone-300 cursor-pointer focus:border-accent focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/15 ${
+                        className={`w-full appearance-none rounded-xl border px-3 py-1.5 sm:px-4 sm:py-2.5 text-base sm:text-sm font-medium transition-all duration-200 hover:border-stone-300 cursor-pointer focus:border-accent focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/15 ${
                           service
                             ? "border-stone-300 bg-white text-ink font-semibold"
                             : "border-stone-200 bg-[#F8FAFC] text-stone-500"
                         }`}
                       >
                         <option value="" className="text-stone-400">
-                          -- Select a Practice Area (or leave blank) --
+                          Select Practice Area (or leave blank)
                         </option>
                         {services.map((s) => (
                           <option key={s.slug} value={s.name} className="text-ink font-medium">
@@ -406,19 +405,19 @@ export default function EnquiryModal() {
                           </option>
                         ))}
                         <option value="General Consultation" className="text-ink font-medium">
-                          Other / Multi-disciplinary Growth Strategy
+                          Other / Growth Strategy
                         </option>
                       </select>
-                      <div className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400">
+                      <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-stone-400">
                         <ChevronDown className="h-4 w-4" />
                       </div>
                     </div>
                   </div>
 
                   {/* Row 1: Name and Phone (Required) */}
-                  <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="grid gap-2 sm:gap-3 sm:grid-cols-2">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">
+                      <label className="block text-[10.5px] sm:text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5 sm:mb-1">
                         Full Name *
                       </label>
                       <input
@@ -426,13 +425,13 @@ export default function EnquiryModal() {
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Enter your name"
+                        placeholder="Your name"
                         className={inputCls}
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">
+                      <label className="block text-[10.5px] sm:text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5 sm:mb-1">
                         Phone / WhatsApp *
                       </label>
                       <input
@@ -440,36 +439,36 @@ export default function EnquiryModal() {
                         required
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        placeholder="Enter your mobile number"
+                        placeholder="Mobile number"
                         className={inputCls}
                       />
                     </div>
                   </div>
 
                   {/* Row 2: Email and Company (Optional) */}
-                  <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="grid gap-2 sm:gap-3 sm:grid-cols-2">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">
+                      <label className="block text-[10.5px] sm:text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5 sm:mb-1">
                         Email <span className="font-normal text-stone-500 lowercase">(optional)</span>
                       </label>
                       <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Enter your email address"
+                        placeholder="Email address"
                         className={inputCls}
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">
+                      <label className="block text-[10.5px] sm:text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5 sm:mb-1">
                         Company / Project <span className="font-normal text-stone-500 lowercase">(optional)</span>
                       </label>
                       <input
                         type="text"
                         value={company}
                         onChange={(e) => setCompany(e.target.value)}
-                        placeholder="Enter company or project name"
+                        placeholder="Company name"
                         className={inputCls}
                       />
                     </div>
@@ -477,33 +476,33 @@ export default function EnquiryModal() {
 
                   {/* Row 3: Message / Goals (Optional) */}
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">
-                      Project Overview &amp; Goals <span className="font-normal text-stone-500 lowercase">(optional)</span>
+                    <label className="block text-[10.5px] sm:text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5 sm:mb-1">
+                      Project Goals <span className="font-normal text-stone-500 lowercase">(optional)</span>
                     </label>
                     <textarea
                       rows={2}
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      placeholder="Enter project requirements or goals..."
+                      placeholder="Brief overview of goals..."
                       className={`${inputCls} resize-none`}
                     />
                   </div>
 
                   {/* Submit Action */}
-                  <div className="pt-1.5">
+                  <div className="pt-1">
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="pressable group flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 sm:py-4 text-xs sm:text-sm font-bold text-white shadow-[0_10px_25px_rgba(0,102,255,0.25)] transition-all duration-200 hover:bg-accent-dim hover:shadow-[0_14px_32px_rgba(0,102,255,0.35)] hover:-translate-y-0.5 cursor-pointer disabled:opacity-60"
+                      className="pressable group flex w-full items-center justify-center gap-2 rounded-full bg-accent px-5 py-2.5 sm:py-3.5 text-xs sm:text-sm font-bold text-white shadow-[0_8px_20px_rgba(0,102,255,0.22)] transition-all duration-200 hover:bg-accent-dim hover:shadow-[0_12px_28px_rgba(0,102,255,0.3)] hover:-translate-y-0.5 cursor-pointer disabled:opacity-60"
                     >
-                      <span>{submitting ? "Submitting Inquiry..." : "Submit Growth Inquiry"}</span>
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      <span>{submitting ? "Submitting..." : "Submit Growth Inquiry"}</span>
+                      <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
                     </button>
 
                     {/* Confidentiality Notice */}
-                    <div className="mt-3 flex items-center justify-center gap-1.5 text-[11px] font-medium text-stone-500">
-                      <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
-                      <span>Direct response within 2 hours. Strictly confidential &amp; NDA protected.</span>
+                    <div className="mt-2 flex items-center justify-center gap-1.5 text-[10px] sm:text-[11px] font-medium text-stone-500">
+                      <ShieldCheck className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-emerald-600" />
+                      <span>Response within 2 hours. Strictly confidential &amp; NDA protected.</span>
                     </div>
                   </div>
                 </form>
