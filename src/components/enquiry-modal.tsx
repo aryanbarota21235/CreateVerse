@@ -205,26 +205,22 @@ export default function EnquiryModal() {
     }
   }, [selectedService, isOpen]);
 
-  // Handle ESC key to close & desktop-safe scroll lock without mobile redraw blink
+  // Handle ESC key to close & universal scroll lock without Safari chrome redraw blink
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeEnquiry();
     };
-    const isDesktop = typeof window !== "undefined" && window.innerWidth >= 768;
     if (isOpen) {
-      if (isDesktop) {
-        document.body.style.overflow = "hidden";
-      }
+      document.documentElement.classList.add("modal-open");
+      document.body.classList.add("modal-open");
       window.addEventListener("keydown", handleKeyDown);
     } else {
-      if (isDesktop) {
-        document.body.style.overflow = "";
-      }
+      document.documentElement.classList.remove("modal-open");
+      document.body.classList.remove("modal-open");
     }
     return () => {
-      if (isDesktop) {
-        document.body.style.overflow = "";
-      }
+      document.documentElement.classList.remove("modal-open");
+      document.body.classList.remove("modal-open");
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, closeEnquiry]);
@@ -274,6 +270,12 @@ export default function EnquiryModal() {
       {isOpen && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6"
+          style={{ isolation: "isolate" }}
+          onTouchMove={(e) => {
+            if (e.target === e.currentTarget) {
+              e.preventDefault();
+            }
+          }}
           onPointerDown={(e) => {
             if (e.target === e.currentTarget) {
               e.preventDefault();
@@ -288,7 +290,7 @@ export default function EnquiryModal() {
             }
           }}
         >
-          {/* Subtle Luxury Backdrop without filter thrashing */}
+          {/* Subtle Luxury Backdrop with hardware acceleration and stable chrome */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -303,7 +305,8 @@ export default function EnquiryModal() {
               e.stopPropagation();
               closeEnquiry();
             }}
-            className="fixed inset-0 bg-ink/75 cursor-pointer"
+            style={{ transform: "translateZ(0)" }}
+            className="fixed inset-0 bg-ink/70 cursor-pointer"
           />
 
           {/* Modal Container - Ultra smooth 60fps GPU animation */}
@@ -350,8 +353,8 @@ export default function EnquiryModal() {
                 </div>
               </div>
             ) : (
-              /* High-End, Streamlined Intake Form - Compact & Neat on Mobile with dvh sizing */
-              <div className="p-3.5 sm:p-7 md:p-8 max-h-[78dvh] sm:max-h-[85vh] overflow-y-auto overscroll-contain">
+              /* High-End, Streamlined Intake Form - Compact & Neat on Mobile with stable viewport sizing */
+              <div className="p-3.5 sm:p-7 md:p-8 max-h-[80vh] sm:max-h-[85vh] overflow-y-auto overscroll-contain">
                 {/* Header */}
                 <div className="pr-9 sm:pr-8">
                   <div className="hidden sm:inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-accent/20 bg-accent/[0.06] px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-accent">

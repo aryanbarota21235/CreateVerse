@@ -28,6 +28,11 @@
     background-color: #0284C7;
     color: #ffffff;
   }
+  html.modal-open,
+  body.modal-open {
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
 }
 
 @layer utilities {

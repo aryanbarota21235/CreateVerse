@@ -17,7 +17,7 @@ export default function WhatsAppWidget() {
   return (
     <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-2">
       {showTooltip && (
-        <div className="flex items-center gap-2 rounded-2xl border border-stone-200/90 sm:border-black/[0.12] bg-white px-3 py-1.5 sm:px-3.5 sm:py-2 shadow-xl">
+        <div className="hidden sm:flex items-center gap-2 rounded-2xl border border-stone-200/90 sm:border-black/[0.12] bg-white px-3 py-1.5 sm:px-3.5 sm:py-2 shadow-xl">
           <a
             href={site.whatsappUrl}
             target="_blank"

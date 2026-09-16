@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
@@ -91,10 +91,20 @@ const organizationSchema = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#FAF7F2",
+  colorScheme: "light",
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${grotesk.variable}`}>
       <head>
+        <meta name="theme-color" content="#FAF7F2" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="facebook-domain-verification" content="arjcquzxxrc2rljqusg27q97siy066" />
         <script
           type="application/ld+json"
