@@ -27,8 +27,8 @@ export default function ServiceCta({ service, related }: ServiceCtaProps) {
         <Reveal>
           <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-ink p-5 sm:p-12 lg:p-16 text-white shadow-lift border border-white/10">
             {/* Ambient Lighting */}
-            <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-accent/20 blur-3xl pointer-events-none" />
-            <div className="absolute -left-24 -bottom-24 h-80 w-80 rounded-full bg-brand-orange/15 blur-3xl pointer-events-none" />
+            <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(2,132,199,0.35)_0%,rgba(2,132,199,0.1)_45%,transparent_70%)] pointer-events-none" />
+            <div className="absolute -left-24 -bottom-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(234,88,12,0.25)_0%,rgba(234,88,12,0.06)_45%,transparent_70%)] pointer-events-none" />
 
             <div className="relative z-10 max-w-3xl">
               <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.22em] text-accent">

@@ -7,8 +7,12 @@
     -webkit-tap-highlight-color: transparent;
   }
   html {
-    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html:focus-within {
+      scroll-behavior: smooth;
+    }
   }
   body {
     @apply bg-paper text-ink antialiased;

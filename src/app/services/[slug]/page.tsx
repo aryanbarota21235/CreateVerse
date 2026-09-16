@@ -36,8 +36,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       {/* Hero */}
       <section className="relative overflow-hidden bg-paper pt-[76px]">
         <div className="dot-texture absolute inset-0 opacity-80 pointer-events-none" />
-        <div className="absolute -left-28 top-16 h-[450px] w-[450px] rounded-full bg-brand-sun/70 blur-[100px] pointer-events-none" />
-        <div className="absolute -right-28 top-12 h-[450px] w-[450px] rounded-full bg-brand-sky/60 blur-[120px] pointer-events-none" />
+        <div className="absolute -left-28 top-16 h-[450px] w-[450px] rounded-full bg-[radial-gradient(circle,rgba(255,237,213,0.7)_0%,rgba(255,237,213,0.2)_40%,transparent_70%)] pointer-events-none" />
+        <div className="absolute -right-28 top-12 h-[450px] w-[450px] rounded-full bg-[radial-gradient(circle,rgba(224,242,254,0.6)_0%,rgba(224,242,254,0.2)_40%,transparent_70%)] pointer-events-none" />
         <div className="container-site relative pb-10 sm:pb-20 pt-10 sm:pt-24 lg:pb-24 lg:pt-28">
           <Reveal>
             <nav className="flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-ink/70" aria-label="Breadcrumb">
@@ -80,7 +80,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       {/* What we do / deliverables */}
       <section className="relative overflow-hidden bg-paper py-12 sm:py-20 lg:py-28">
         <div className="dot-texture absolute inset-0 opacity-80 pointer-events-none" />
-        <div className="absolute -right-44 bottom-12 h-[380px] w-[380px] rounded-full bg-brand-sky/25 blur-3xl pointer-events-none" />
+        <div className="absolute -right-44 bottom-12 h-[380px] w-[380px] rounded-full bg-[radial-gradient(circle,rgba(224,242,254,0.55)_0%,rgba(224,242,254,0.15)_40%,transparent_70%)] pointer-events-none" />
         <div className="container-site relative">
           <Reveal>
             <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.22em] text-accent">What We Do</p>

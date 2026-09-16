@@ -71,7 +71,7 @@ export default function ServicesGrid({ showHeading = true }: { showHeading?: boo
       }`}
     >
       <div className="dot-texture absolute inset-0 opacity-80 pointer-events-none" />
-      <div className="hidden sm:block absolute -right-44 top-1/2 h-[420px] w-[420px] rounded-full bg-brand-sky/25 blur-3xl pointer-events-none" />
+      <div className="hidden sm:block absolute -right-44 top-1/2 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(224,242,254,0.55)_0%,rgba(224,242,254,0.15)_40%,transparent_70%)] pointer-events-none" />
       <div className="container-site relative">
         {showHeading && (
           <SectionHeading
