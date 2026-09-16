@@ -46,13 +46,13 @@ export default function Template({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const shouldReduceMotion = useReducedMotion();
 
-  // Determine whether to skip transition:
-  // 1. Initial page load (SSR HTML is already present, avoids flash of white on refresh/first open)
-  // 2. Back / forward history navigation or swipe-back (prevents double-render flash)
-  // 3. User requested reduced motion
-  const [skipAnimation] = useState(() => {
-    return isInitialMount || isBackNavigation || !!shouldReduceMotion;
+  // Snapshot navigation direction at the moment this Template mounts
+  const [navDirection] = useState<"forward" | "back">(() => {
+    return isBackNavigation ? "back" : "forward";
   });
+
+  // Skip animation only on initial mount (first SSR paint / hard refresh) to prevent white flash
+  const [isFirstLoad] = useState(() => isInitialMount);
 
   useEffect(() => {
     isInitialMount = false;
@@ -60,15 +60,28 @@ export default function Template({ children }: { children: React.ReactNode }) {
     if (resetTimer) clearTimeout(resetTimer);
   }, [pathname]);
 
-  if (pathname?.startsWith("/admin") || skipAnimation) {
+  if (pathname?.startsWith("/admin") || shouldReduceMotion || isFirstLoad) {
     return <>{children}</>;
   }
 
+  const isBack = navDirection === "back";
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
+      key={pathname}
+      initial={{
+        opacity: 0,
+        y: isBack ? -18 : 22,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      transition={{
+        duration: 0.32,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      style={{ willChange: "transform, opacity" }}
     >
       {children}
     </motion.div>
