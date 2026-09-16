@@ -6,7 +6,7 @@ import { services } from "@/lib/services";
 import { saveEnquiry } from "@/lib/admin-store";
 
 const inputCls =
-  "w-full rounded-xl border border-stone-200 bg-[#F8FAFC] px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-base sm:text-sm text-ink placeholder:text-ink/40 outline-none transition-all focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-medium";
+  "w-full rounded-xl border border-stone-200 bg-[#F8FAFC] px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-base sm:text-sm text-ink placeholder:text-ink/40 outline-none transition-all duration-200 hover:border-stone-300 focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-medium";
 
 export default function LeadForm({
   compact = false,
@@ -79,7 +79,7 @@ export default function LeadForm({
           className={`${inputCls} ${compact ? "" : "sm:col-span-2"}`}
           aria-label="Enter your email address"
         />
-        <select name="interest" defaultValue="" required className={`${inputCls} ${compact ? "" : "sm:col-span-2"}`} aria-label="Practice Area of Interest">
+        <select name="interest" defaultValue="" required className={`${inputCls} cursor-pointer ${compact ? "" : "sm:col-span-2"}`} aria-label="Practice Area of Interest">
           <option value="" disabled className="bg-white text-ink/60">-- Select Practice Area --</option>
           {services.filter((s) => s.priority).map((s) => (
             <option key={s.slug} value={s.slug} className="bg-white text-ink">{s.name}</option>
@@ -97,7 +97,7 @@ export default function LeadForm({
       <button
         type="submit"
         disabled={sending}
-        className="group mt-5 sm:mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 sm:px-7 sm:py-4 text-xs sm:text-sm font-bold text-white transition-all hover:bg-accent-dim disabled:opacity-60 shadow-md hover:shadow-lg hover:shadow-accent/20"
+        className="group mt-5 sm:mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 sm:px-7 sm:py-4 text-xs sm:text-sm font-bold text-white transition-all duration-200 hover:bg-accent-dim hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20 cursor-pointer disabled:opacity-60 shadow-md"
       >
         {sending ? "Submitting Inquiry..." : "Submit Growth Inquiry"}
         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

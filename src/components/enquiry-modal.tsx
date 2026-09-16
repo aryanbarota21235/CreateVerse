@@ -177,7 +177,7 @@ function matchService(inputName?: string): string {
 }
 
 const inputCls =
-  "w-full rounded-xl border border-stone-200/90 bg-[#F8FAFC] px-3.5 py-2.5 sm:px-3.5 sm:py-2.5 text-base sm:text-sm text-ink placeholder:text-stone-400 outline-none transition-all focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-normal";
+  "w-full rounded-xl border border-stone-200/90 bg-[#F8FAFC] px-3.5 py-2.5 sm:px-4 sm:py-3 text-base sm:text-sm text-ink placeholder:text-stone-400 outline-none transition-all duration-200 hover:border-stone-300 focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-normal";
 
 export default function EnquiryModal() {
   const { isOpen, closeEnquiry, selectedService } = useEnquiry();
@@ -281,15 +281,15 @@ export default function EnquiryModal() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 16 }}
             transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full max-w-xl overflow-hidden rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white shadow-[0_30px_70px_rgba(15,23,42,0.28)] z-10 my-auto"
+            className="relative w-full max-w-xl sm:max-w-2xl overflow-hidden rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white shadow-[0_30px_70px_rgba(15,23,42,0.28)] z-10 my-auto"
           >
-            {/* Executive Close Button - Highly Accessible on Mobile */}
+            {/* Executive Close Button - Highly Accessible on Mobile & Luxury Desktop */}
             <button
               onClick={closeEnquiry}
-              className="pressable absolute right-2.5 top-2.5 z-20 flex h-9 w-9 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-stone-100 active:bg-stone-200 text-stone-700 sm:text-stone-500 transition-all hover:bg-ink hover:text-white sm:right-6 sm:top-6 shadow-xs"
+              className="pressable group absolute right-2.5 top-2.5 z-20 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-stone-100/90 active:bg-stone-200 text-stone-700 sm:text-stone-500 transition-all duration-200 hover:bg-ink hover:text-white hover:rotate-90 hover:scale-105 sm:right-6 sm:top-6 shadow-xs cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30"
               aria-label="Close modal"
             >
-              <X className="h-5 w-5 sm:h-4 sm:w-4" />
+              <X className="h-5 w-5 sm:h-5 sm:w-5 transition-transform duration-200" />
             </button>
 
             {submitted ? (
@@ -347,7 +347,7 @@ export default function EnquiryModal() {
                   href={site.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group mt-2.5 sm:mt-4 flex items-center justify-between rounded-xl sm:rounded-2xl border border-stone-200 bg-[#F8FAFC] p-2.5 sm:px-4 sm:py-3 transition-all hover:border-[#25D366]/50 hover:bg-[#25D366]/5"
+                  className="group mt-2.5 sm:mt-4 flex items-center justify-between rounded-xl sm:rounded-2xl border border-stone-200 bg-[#F8FAFC] p-2.5 sm:px-5 sm:py-3.5 transition-all duration-200 hover:border-[#25D366] hover:bg-[#25D366]/[0.04] hover:shadow-xs cursor-pointer"
                 >
                   <div className="flex items-center gap-2.5 sm:gap-3">
                     <span className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-lg sm:rounded-xl bg-[#25D366] text-white shadow-xs">
@@ -391,7 +391,7 @@ export default function EnquiryModal() {
                       <select
                         value={service}
                         onChange={(e) => setService(e.target.value)}
-                        className={`w-full appearance-none rounded-xl border px-3.5 py-2.5 text-base sm:text-sm font-medium transition-all focus:border-accent focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/15 ${
+                        className={`w-full appearance-none rounded-xl border px-3.5 py-2.5 sm:px-4 sm:py-3 text-base sm:text-sm font-medium transition-all duration-200 hover:border-stone-300 cursor-pointer focus:border-accent focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/15 ${
                           service
                             ? "border-stone-300 bg-white text-ink font-semibold"
                             : "border-stone-200 bg-[#F8FAFC] text-stone-500"
@@ -494,7 +494,7 @@ export default function EnquiryModal() {
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="pressable group flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 sm:py-3.5 text-xs sm:text-sm font-bold text-white shadow-[0_10px_25px_rgba(0,102,255,0.25)] transition-all hover:bg-accent-dim hover:shadow-[0_12px_28px_rgba(0,102,255,0.35)] disabled:opacity-60"
+                      className="pressable group flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 sm:py-4 text-xs sm:text-sm font-bold text-white shadow-[0_10px_25px_rgba(0,102,255,0.25)] transition-all duration-200 hover:bg-accent-dim hover:shadow-[0_14px_32px_rgba(0,102,255,0.35)] hover:-translate-y-0.5 cursor-pointer disabled:opacity-60"
                     >
                       <span>{submitting ? "Submitting Inquiry..." : "Submit Growth Inquiry"}</span>
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
