@@ -212,22 +212,22 @@ export default function Hero() {
         key={p.num}
         href={p.href}
         prefetch={true}
-        className="group relative flex flex-col justify-between rounded-xl sm:rounded-3xl border border-black/[0.1] sm:border-black/[0.12] bg-white p-3 sm:p-6 lg:p-7 shadow-xs sm:shadow-card transition-all duration-300 sm:hover:-translate-y-1 sm:hover:border-accent sm:hover:shadow-lift active:border-accent"
+        className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-stone-200/90 sm:border-black/[0.12] bg-white p-3.5 min-[390px]:p-4 sm:p-6 lg:p-7 shadow-xs sm:shadow-card transition-all duration-300 sm:hover:-translate-y-1 sm:hover:border-accent sm:hover:shadow-lift active:border-accent"
       >
         <div>
           <div className="flex items-center justify-between">
-            <span className="text-[9.5px] sm:text-[11px] font-bold uppercase tracking-[0.16em] sm:tracking-[0.22em] text-accent">
+            <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.18em] sm:tracking-[0.22em] text-accent">
               {p.num}
             </span>
-            <span className="flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-lg sm:rounded-xl bg-[#F1F5F9] text-ink transition-all duration-300 sm:group-hover:bg-accent sm:group-hover:text-white active:bg-accent active:text-white">
+            <span className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-xl bg-stone-100 text-ink transition-all duration-300 sm:group-hover:bg-accent sm:group-hover:text-white active:bg-accent active:text-white">
               <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </span>
           </div>
 
-          <span className="mt-2 sm:mt-4 block text-[8.5px] sm:text-[10px] font-bold uppercase tracking-wider text-ink/70 truncate">
+          <span className="mt-2.5 sm:mt-4 block text-[9.5px] min-[390px]:text-[10px] font-extrabold uppercase tracking-wider text-accent sm:text-ink/70 truncate">
             {p.tag}
           </span>
-          <h3 className="mt-0.5 sm:mt-1 font-display text-xs sm:text-lg font-bold text-ink sm:group-hover:text-accent active:text-accent transition-colors leading-snug line-clamp-2">
+          <h3 className="mt-1 font-display text-[14px] min-[390px]:text-[15px] sm:text-lg font-bold text-ink leading-tight sm:leading-snug transition-colors sm:group-hover:text-accent active:text-accent line-clamp-2">
             {p.title}
           </h3>
           <p className="hidden sm:block mt-2 text-xs leading-relaxed text-ink/80 font-normal">
@@ -235,14 +235,14 @@ export default function Hero() {
           </p>
 
           {/* Metric chip */}
-          <div className="mt-2 sm:mt-3.5 flex items-center gap-1 text-[9.5px] sm:text-xs font-bold text-ink/90 bg-[#F8FAFC] border border-stone-200/80 rounded-md sm:rounded-xl px-2 py-0.5 sm:px-3 sm:py-1.5">
-            <span className="text-accent font-extrabold">-</span>
+          <div className="mt-2.5 sm:mt-3.5 flex items-center gap-1.5 text-[10px] min-[390px]:text-[11px] sm:text-xs font-semibold text-stone-700 bg-stone-50 border border-stone-200/90 rounded-lg sm:rounded-xl px-2.5 py-1 sm:px-3 sm:py-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent shrink-0" />
             <span className="truncate">{p.metric}</span>
           </div>
         </div>
 
         {/* Bottom CTA: ENQUIRE */}
-        <div className="mt-2.5 sm:mt-5 pt-2 sm:pt-3.5 border-t border-stone-200/90 flex items-center justify-center">
+        <div className="mt-3 sm:mt-5 pt-2.5 sm:pt-3.5 border-t border-stone-200/90 flex items-center justify-center">
           <button
             type="button"
             onClick={(e) => {
@@ -251,7 +251,7 @@ export default function Hero() {
               const serviceSlug = p.href.replace("/services/", "");
               openEnquiry(serviceSlug || p.title);
             }}
-            className="pressable w-full py-0.5 text-center text-[10px] sm:text-xs font-bold uppercase tracking-[0.16em] sm:tracking-[0.2em] text-[#334155] hover:text-accent transition-all duration-150 cursor-pointer"
+            className="pressable w-full py-0.5 text-center text-[10.5px] sm:text-xs font-bold uppercase tracking-[0.16em] sm:tracking-[0.2em] text-accent sm:text-[#334155] sm:group-hover:text-accent transition-all duration-150 cursor-pointer"
           >
             ENQUIRE
           </button>
