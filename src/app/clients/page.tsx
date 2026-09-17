@@ -1,125 +1,62 @@
 import type { Metadata } from "next";
-import { Lock, ShieldCheck } from "lucide-react";
 import PageHero from "@/components/page-hero";
-import CaseStudies from "@/components/case-studies";
 import PoliticalClients from "@/components/political-clients";
+import OtherServicesClients from "@/components/other-services-clients";
 import FinalCTA from "@/components/final-cta";
-import Reveal from "@/components/reveal";
 
 export const metadata: Metadata = {
-  title: "Clients, Case Studies & Verified Results | CreateVerse",
+  title: "Clients & Strategic Partners | CreateVerse",
   description:
-    "Explore CreateVerse clients, verified case studies, and commercial impact across real estate acquisition, immigration pipelines, political campaigns, and high-growth performance marketing.",
+    "Explore CreateVerse clients across political campaign management, real estate acquisitions, immigration consultancies, and performance marketing operations.",
   keywords: [
     "CreateVerse clients",
-    "digital marketing case studies India",
-    "real estate lead generation results",
-    "political war room case studies",
-    "immigration marketing results",
-    "performance marketing ROI proof",
+    "political clients India",
+    "politician marketing clients",
+    "real estate developer clients",
+    "immigration consultancy clients",
+    "performance marketing roster",
   ],
   alternates: {
     canonical: "https://createverse.in/clients",
   },
   openGraph: {
-    title: "Clients & Verified Case Studies — CreateVerse",
+    title: "Clients & Strategic Partners — CreateVerse",
     description:
-      "Results engineered across core sectors. ₹48.6 Cr+ property closed, 14.2M+ voter reach, 3,850+ visa consultations.",
+      "Explore CreateVerse clients across political campaign management, real estate acquisitions, immigration consultancies, and performance marketing operations.",
     url: "https://createverse.in/clients",
     siteName: "CreateVerse",
     locale: "en_IN",
     type: "website",
-    images: [{ url: "/logo.png", width: 1200, height: 630, alt: "CreateVerse Case Studies" }],
+    images: [{ url: "/logo.png", width: 1200, height: 630, alt: "CreateVerse Clients" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Clients & Verified Case Studies — CreateVerse",
+    title: "Clients & Strategic Partners — CreateVerse",
     description:
-      "Results engineered across core sectors. ₹48.6 Cr+ property closed, 14.2M+ voter reach, 3,850+ visa consultations.",
+      "Explore CreateVerse clients across political campaign management, real estate acquisitions, immigration consultancies, and performance marketing operations.",
     images: ["/logo.png"],
   },
 };
-
-const clientStats = [
-  { value: "₹48.6 Cr+", label: "Real Estate Value Closed", desc: "Verified commercial & plotted inventory" },
-  { value: "14.2M+", label: "Political Voter Reach", desc: "Constituency-level digital war room operations" },
-  { value: "3,850+", label: "Visa Consultations Booked", desc: "Pre-screened applicants with 84% walk-in rate" },
-  { value: "4.2x", label: "Blended Capital ROAS", desc: "Performance marketing return on deployed capital" },
-];
 
 export default function ClientsPage() {
   return (
     <>
       <PageHero
-        eyebrow="Clients & Verified Impact"
+        eyebrow="CreateVerse Clients"
         title={
           <>
-            Results engineered across <span className="text-accent">core sectors.</span>
+            Our <span className="text-accent">Clients</span> &amp; Strategic Partners
           </>
         }
-        description="Acquisition systems, verified inquiries, and strategic campaigns executed with precision. We partner with industry leaders where pipeline quality dictates commercial success."
+        description="Distinguished political leadership, real estate developers, immigration consultancies, and commercial enterprises partnering with CreateVerse to engineer verified growth."
       />
 
-      {/* 4 High-Impact Client Metrics */}
-      <section className="relative z-10 bg-paper pt-1 sm:pt-2 pb-10 sm:pb-16">
-        <div className="container-site">
-          <div className="grid grid-cols-2 gap-2.5 sm:gap-6 lg:grid-cols-4 items-stretch">
-            {clientStats.map((s, idx) => (
-              <Reveal key={s.label} delay={idx * 0.08} className="h-full">
-                <div className="h-full flex flex-col justify-start rounded-2xl border border-stone-200/90 bg-white p-3.5 sm:p-6 shadow-card hover:border-accent/40 transition-all duration-200 hover:-translate-y-0.5">
-                  <span className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-accent leading-none">
-                    {s.value}
-                  </span>
-                  <p className="mt-2 font-display text-xs sm:text-sm font-bold text-ink leading-snug">{s.label}</p>
-                  <p className="mt-1 text-[10.5px] sm:text-xs text-stone-500 font-normal leading-relaxed">{s.desc}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <CaseStudies className="pt-2 sm:pt-4 pb-14 sm:pb-20 lg:pb-28" />
-
-      {/* Air-Gapped Confidentiality & Integrity Banner */}
-      <section className="relative bg-[#090D15] py-14 sm:py-20 text-white">
-        <div className="container-site">
-          <Reveal>
-            <div className="max-w-4xl mx-auto rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-12">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 pb-6 border-b border-white/10">
-                <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-accent/20 text-accent border border-accent/30 shrink-0">
-                  <Lock className="h-6 w-6" />
-                </div>
-                <div>
-                  <h3 className="font-display text-xl sm:text-3xl font-bold text-white">
-                    Client Confidentiality &amp; Proprietary Integrity
-                  </h3>
-                  <p className="mt-1 text-xs sm:text-sm text-stone-400 font-normal">
-                    We maintain strict NDA agreements and never disclose proprietary competitor data or voter intelligence.
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-xs sm:text-sm text-stone-300 font-normal">
-                <div className="flex items-start gap-2.5">
-                  <ShieldCheck className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <span>Sector Exclusivity: We limit client roster per geographic micro-market.</span>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <ShieldCheck className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <span>Direct CRM Ownership: All lead data flows directly into your private CRM.</span>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <ShieldCheck className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <span>Real-Time Reporting: Unfiltered live dashboards with verified attribution.</span>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
+      {/* Political Clients Section - Directly visible right at the top */}
       <PoliticalClients />
+
+      {/* Other Services Practice Client Rosters */}
+      <OtherServicesClients />
+
       <FinalCTA />
     </>
   );

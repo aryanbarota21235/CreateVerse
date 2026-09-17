@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { MessageSquare, ArrowRight, ExternalLink } from "lucide-react";
+import { MessageSquare, ArrowRight } from "lucide-react";
 import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
 import { useEnquiry } from "@/context/enquiry-context";
 import { politicianClients } from "@/lib/politicians";
@@ -10,39 +10,43 @@ import { InstagramIcon, FacebookIcon, XIcon } from "@/components/social-icons";
 import { site } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
-export default function PoliticalClients() {
+export default function PoliticalClients({
+  className = "",
+}: {
+  className?: string;
+} = {}) {
   const { openEnquiry } = useEnquiry();
 
   return (
-    <section className="relative overflow-hidden bg-white py-14 sm:py-20 lg:py-32 border-t border-stone-200">
+    <section className={`relative overflow-hidden bg-white py-12 sm:py-16 lg:py-20 border-t border-stone-200 ${className}`}>
       {/* Subtle background ambient map texture */}
       <div className="dot-texture absolute inset-0 opacity-40" />
       <div className="hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 h-[450px] w-[600px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(224,242,254,0.65)_0%,rgba(224,242,254,0.2)_45%,transparent_70%)] pointer-events-none" />
 
       <div className="container-site relative">
-        {/* Top Header Row with Title, Copy, and CTAs */}
+        {/* Top Header Row with Title on Left and Enquiry CTAs on Right */}
         <Reveal>
-          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 sm:gap-8 pb-8 sm:pb-14 border-b border-stone-200">
-            <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/[0.06] px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-accent mb-2 sm:mb-3">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 pb-6 sm:pb-8 border-b border-stone-200">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/[0.06] px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-[0.18em] text-accent mb-2.5">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
-                <span>24/7 Digital Campaign Operations</span>
+                <span>Political Campaign Division</span>
               </div>
-              <h2 className="font-display text-3xl sm:text-5xl lg:text-[52px] font-bold tracking-tightest text-ink">
-                Political Campaign
+              <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-ink">
+                Political Clients
               </h2>
-              <p className="mt-3 sm:mt-5 text-sm sm:text-lg leading-relaxed text-ink/80 font-normal">
-                In today&apos;s digital battlefield, political leaders need unmatched narrative dominance, booth-level voter mobilization, and rapid response crisis management. At CreateVerse, we specialize in high-stakes political branding, digital campaign infrastructure, grassroots WhatsApp networks, and election campaign strategy to build decisive electoral mandates.
+              <p className="mt-2 text-xs sm:text-base text-stone-600 font-normal leading-relaxed">
+                Trusted by senior Members of Parliament, State MLAs, and constituency leadership across major political parties.
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row lg:flex-col gap-2.5 sm:gap-3 lg:pt-6 shrink-0">
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 shrink-0">
               <button
                 onClick={() => openEnquiry("political-management")}
-                className="pressable group inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl sm:rounded-2xl bg-accent px-5 sm:px-7 py-3 sm:py-3.5 text-xs sm:text-sm font-bold text-white shadow-md transition-all duration-150 hover:-translate-y-0.5 hover:bg-accent-dim hover:shadow-lg hover:shadow-accent/20 cursor-pointer"
+                className="pressable group inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-md transition-all duration-150 hover:bg-accent-dim hover:shadow-lg hover:shadow-accent/20 cursor-pointer"
               >
                 <MessageSquare className="h-4 w-4" />
-                <span>Let&apos;s talk</span>
+                <span>Political War Room Enquiry</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
 
@@ -50,30 +54,18 @@ export default function PoliticalClients() {
                 href={site.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="pressable inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl sm:rounded-2xl border border-stone-300 bg-white px-5 sm:px-6 py-3 sm:py-3.5 text-xs sm:text-sm font-bold text-ink shadow-xs transition-all duration-150 hover:-translate-y-0.5 hover:border-[#25D366] hover:text-emerald-700"
+                className="pressable inline-flex items-center justify-center gap-2 rounded-full border border-stone-300 bg-white px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-ink shadow-xs transition-all duration-150 hover:border-[#25D366] hover:bg-[#25D366]/[0.05] hover:text-[#25D366]"
               >
                 <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
-                <span>WhatsApp Strategy</span>
+                <span>Talk on WhatsApp</span>
               </a>
             </div>
           </div>
         </Reveal>
 
-        {/* Clients Showcase Subheader */}
-        <div className="mt-8 sm:mt-14 mb-5 sm:mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
-          <div>
-            <h3 className="font-display text-xl sm:text-3xl font-bold tracking-tight text-ink">
-              Our Politician <span className="text-accent">Clients</span>
-            </h3>
-            <p className="mt-1 text-xs sm:text-sm text-stone-500 font-normal">
-              Trusted by senior Members of Parliament, State MLAs, and constituency leadership across major political parties.
-            </p>
-          </div>
-        </div>
-
-        {/* 6 Circular Politician Cards with Social Media Handles */}
-        <div className="-mx-1 sm:-mx-2 lg:-mx-4">
-          <Stagger className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-2.5 xl:gap-3.5 sm:grid-cols-3 lg:grid-cols-6 items-stretch" delayChildren={0.02}>
+        {/* 6 Circular Politician Cards Directly Underneath Title */}
+        <div className="mt-8 sm:mt-12 -mx-1 sm:-mx-2 lg:-mx-4">
+          <Stagger className="grid grid-cols-2 gap-2.5 sm:gap-3.5 lg:gap-3 xl:gap-4 sm:grid-cols-3 lg:grid-cols-6 items-stretch" delayChildren={0.02}>
             {politicianClients.map((p) => (
               <StaggerItem key={p.name} className="h-full">
                 <div className="group h-full flex flex-col items-center justify-between text-center p-3 sm:py-5 sm:px-2 xl:px-3 rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:bg-white hover:shadow-card">
@@ -116,9 +108,9 @@ export default function PoliticalClients() {
 
                       {/* Content: Name and Designation */}
                       <div className="flex flex-col items-center w-full grow justify-center text-center mt-1 sm:mt-2">
-                        <h4 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-sm font-bold text-ink leading-snug transition-colors group-hover:text-accent tracking-tight whitespace-nowrap">
+                        <h3 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-sm font-bold text-ink leading-snug transition-colors group-hover:text-accent tracking-tight whitespace-nowrap">
                           {p.name}
-                        </h4>
+                        </h3>
                         {p.role && (
                           <p className="mt-1 text-[10px] sm:text-[11px] font-medium text-stone-600 leading-tight">
                             {p.role}
@@ -163,9 +155,9 @@ export default function PoliticalClients() {
 
                       {/* Content: Name and Designation */}
                       <div className="flex flex-col items-center w-full grow justify-center text-center mt-1 sm:mt-2">
-                        <h4 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-sm font-bold text-ink leading-snug transition-colors group-hover:text-accent tracking-tight whitespace-nowrap">
+                        <h3 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-sm font-bold text-ink leading-snug transition-colors group-hover:text-accent tracking-tight whitespace-nowrap">
                           {p.name}
-                        </h4>
+                        </h3>
                         {p.role && (
                           <p className="mt-1 text-[10px] sm:text-[11px] font-medium text-stone-600 leading-tight">
                             {p.role}
@@ -206,7 +198,7 @@ export default function PoliticalClients() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-black hover:border-black/40 hover:bg-stone-100 transition-all shadow-2xs hover:scale-110"
-                          aria-label={`${p.name} X (Twitter)`}
+                          aria-label={`${p.name} X`}
                         >
                           <XIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                         </a>
