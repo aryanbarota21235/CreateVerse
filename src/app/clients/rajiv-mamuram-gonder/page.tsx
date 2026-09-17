@@ -12,7 +12,7 @@ import {
   Activity,
 } from "lucide-react";
 import Reveal from "@/components/reveal";
-import { InstagramIcon, FacebookIcon } from "@/components/social-icons";
+import { InstagramIcon, FacebookIcon, XIcon } from "@/components/social-icons";
 import ProfileBottomCTA from "@/components/profile-bottom-cta";
 
 export const metadata: Metadata = {
@@ -137,7 +137,7 @@ const faqs = [
   {
     question: "How can I follow Rajiv Mamuram Gonder online?",
     answer:
-      "Official updates, constituency visits, and public announcements are available on his verified social handles: Facebook (facebook.com/RajivGondarOfficial) and Instagram (@rajivgonderofficial).",
+      "Official updates, constituency visits, and public announcements are available on his verified social handles: X (@RajivMGonder), Facebook (facebook.com/RajivGondarOfficial), and Instagram (@rajivgonderofficial).",
   },
 ];
 
@@ -165,6 +165,7 @@ export default function RajivMamuramGonderPage() {
         sameAs: [
           "https://www.facebook.com/RajivGondarOfficial",
           "https://www.instagram.com/rajivgonderofficial",
+          "https://x.com/RajivMGonder",
         ],
         affiliation: {
           "@type": "PoliticalParty",
@@ -320,6 +321,15 @@ export default function RajivMamuramGonderPage() {
                       aria-label="Rajiv Mamuram Gonder Instagram"
                     >
                       <InstagramIcon className="h-4 w-4" />
+                    </a>
+                    <a
+                      href="https://x.com/RajivMGonder"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex h-9 w-9 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-700 hover:text-black hover:border-black/40 hover:bg-stone-100 transition-all shadow-2xs hover:scale-110"
+                      aria-label="Rajiv Mamuram Gonder X"
+                    >
+                      <XIcon className="h-3.5 w-3.5" />
                     </a>
                   </div>
                 </Reveal>

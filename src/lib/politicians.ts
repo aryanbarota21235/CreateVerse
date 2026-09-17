@@ -104,6 +104,7 @@ export const politicianClients: PoliticianClient[] = [
     socials: {
       facebook: "https://www.facebook.com/RajivGondarOfficial",
       instagram: "https://www.instagram.com/rajivgonderofficial",
+      twitter: "https://x.com/RajivMGonder",
     },
   },
   {
