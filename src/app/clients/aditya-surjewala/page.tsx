@@ -5,6 +5,7 @@ import {
   CheckCircle2,
   Quote,
   ChevronRight,
+  Info,
 } from "lucide-react";
 import Reveal from "@/components/reveal";
 import { InstagramIcon, FacebookIcon, XIcon } from "@/components/social-icons";
@@ -553,7 +554,23 @@ export default function AdityaSurjewalaPage() {
         </section>
 
         {/* ==========================================================================
-            SECTION 8: CreateVerse Political Campaign Division & Bottom CTAs (White BG)
+            SECTION 8: Verification Disclaimer Note
+            ========================================================================== */}
+        <section className="py-6 sm:py-8 bg-[#F8FAFC] border-t border-stone-200">
+          <div className="container-site">
+            <Reveal>
+              <div className="rounded-2xl border border-stone-200/80 bg-white p-4 sm:p-5 text-xs text-stone-500 leading-relaxed max-w-4xl mx-auto flex items-start gap-3">
+                <Info className="h-4 w-4 text-stone-400 shrink-0 mt-0.5" />
+                <p>
+                  <strong className="text-stone-700 font-semibold">Note:</strong> The biographical details above are based on the profile information supplied, supplemented with publicly reported information. For a public-facing political website, dates, titles and current organisational positions should be periodically updated and verified.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ==========================================================================
+            SECTION 9: CreateVerse Political Campaign Division & Bottom CTAs (White BG)
             ========================================================================== */}
         <section className="py-12 sm:py-18 bg-white border-t border-stone-200">
           <div className="container-site">

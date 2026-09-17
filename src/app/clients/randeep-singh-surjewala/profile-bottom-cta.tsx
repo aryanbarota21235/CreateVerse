@@ -30,14 +30,6 @@ export default function ProfileBottomCTA() {
         <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
         <span>Talk on WhatsApp</span>
       </a>
-
-      <Link
-        href="/clients"
-        className="pressable inline-flex items-center gap-1.5 rounded-full border border-stone-300 bg-white px-5 py-3 text-xs sm:text-sm font-semibold text-stone-700 hover:border-stone-400 hover:text-ink transition-all shadow-2xs"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        <span>Back to Leaders</span>
-      </Link>
     </div>
   );
 }

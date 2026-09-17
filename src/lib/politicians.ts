@@ -66,7 +66,9 @@ export const politicianClients: PoliticianClient[] = [
   },
   {
     name: "Bhupinder Lather",
-    role: "Gharaunda Constituency",
+    slug: "bhupinder-lather",
+    href: "/clients/bhupinder-lather",
+    role: "Political Leader & Social Worker, Karnal",
     party: "INC",
     partyName: "Indian National Congress",
     image: "/politicians/bhupinder-lather.webp",

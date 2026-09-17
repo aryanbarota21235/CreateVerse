@@ -2,125 +2,103 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Landmark,
   CheckCircle2,
   Quote,
   ChevronRight,
-  ExternalLink,
   Info,
 } from "lucide-react";
 import Reveal from "@/components/reveal";
-import { InstagramIcon, FacebookIcon, XIcon } from "@/components/social-icons";
+import { InstagramIcon } from "@/components/social-icons";
 import ProfileBottomCTA from "./profile-bottom-cta";
 
 export const metadata: Metadata = {
-  title: "Randeep Singh Surjewala — Member of Parliament, Rajya Sabha | Senior Congress Leader",
+  title: "Bhupinder Lather (Bhuppi) — Political Leader & Social Worker | Karnal, Haryana",
   description:
-    "Randeep Singh Surjewala is an Indian politician and lawyer from Haryana and a senior leader of the Indian National Congress. Member of Parliament, Rajya Sabha.",
+    "Bhupinder Lather (Bhuppi) is a political and social worker associated with the Indian National Congress and based in Karnal, Haryana. President, Jat Mahasabha Karnal.",
   keywords: [
-    "Randeep Singh Surjewala",
-    "Randeep Surjewala",
-    "Member of Parliament Rajya Sabha",
-    "Senior Congress Leader",
+    "Bhupinder Lather",
+    "Bhupinder Lather Bhuppi",
+    "Jat Mahasabha Karnal President",
+    "Gharaunda Congress Leader",
+    "Karnal Congress",
+    "NSUI Haryana",
     "Indian National Congress",
-    "AICC General Secretary Karnataka",
-    "Kaithal MLA",
-    "Narwana MLA",
-    "Haryana Cabinet Minister",
   ],
   alternates: {
-    canonical: "https://createverse.in/clients/randeep-singh-surjewala",
+    canonical: "https://createverse.in/clients/bhupinder-lather",
   },
   openGraph: {
-    title: "Randeep Singh Surjewala — Member of Parliament, Rajya Sabha",
+    title: "Bhupinder Lather (Bhuppi) — Political Leader & Social Worker | Karnal",
     description:
-      "Randeep Singh Surjewala is an Indian politician and lawyer from Haryana and a senior leader of the Indian National Congress.",
-    url: "https://createverse.in/clients/randeep-singh-surjewala",
+      "Political leader and social worker associated with the Indian National Congress. President of Jat Mahasabha Karnal.",
+    url: "https://createverse.in/clients/bhupinder-lather",
     siteName: "CreateVerse",
     locale: "en_IN",
     type: "profile",
     images: [
       {
-        url: "/politicians/randeep-singh-surjewala.webp",
+        url: "/politicians/bhupinder-lather.webp",
         width: 800,
         height: 800,
-        alt: "Randeep Singh Surjewala",
+        alt: "Bhupinder Lather (Bhuppi)",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Randeep Singh Surjewala — Member of Parliament, Rajya Sabha",
+    title: "Bhupinder Lather (Bhuppi) — Political Leader & Social Worker | Karnal",
     description:
-      "Randeep Singh Surjewala is an Indian politician and lawyer from Haryana and a senior leader of the Indian National Congress.",
-    images: ["/politicians/randeep-singh-surjewala.webp"],
+      "Political leader and social worker associated with the Indian National Congress. President of Jat Mahasabha Karnal.",
+    images: ["/politicians/bhupinder-lather.webp"],
   },
 };
 
-const portfolios = [
-  "Transport & Civil Aviation",
-  "Power",
-  "Public Works",
-  "Water Supply & Sanitation",
-  "Parliamentary Affairs",
-  "Industries & Commerce",
-  "Electronics & Information Technology",
-  "Science & Technology",
+const journeyRoles = [
+  "State General Secretary, NSUI Haryana — 2000–2002",
+  "General Secretary, District Congress Committee, Karnal — 2002–2006",
+  "In-charge, Membership Drive, Nilokheri Legislative Assembly",
+  "Grassroots Worker, Indian National Congress",
+  "AICC Observer, Karnataka Assembly Election 2023",
+  "Active in Congress Organisational & Public Activities in Karnal & Haryana",
 ];
 
-const educationData = [
+const familyBackground = [
   {
-    degree: "Bachelor of Commerce (Hons.)",
-    college: "DAV College, Chandigarh",
+    title: "Public Service Heritage",
+    desc: "Father Shri Joginder Lather served as President of Jat Mahasabha Karnal. Grandmother Smt. Shanti Devi Lather served as MLA from Karnal (INC).",
   },
   {
-    degree: "Bachelor of Laws (LL.B.)",
-    college: "Panjab University, Chandigarh",
+    title: "Academic & Linguistic",
+    desc: "Graduate education. Fluent in Hindi, English & Punjabi.",
   },
   {
-    degree: "Master's in Political Science",
-    college: "Panjab University, Chandigarh",
-  },
-];
-
-const experiencePillars = [
-  {
-    title: "30+ Years in Public Life",
-    desc: "A political career spanning multiple levels of public and organisational responsibility.",
-  },
-  {
-    title: "Haryana Assembly Experience",
-    desc: "Served multiple terms as an elected representative in the Haryana Legislative Assembly.",
-  },
-  {
-    title: "Cabinet Responsibility",
-    desc: "Handled a range of important portfolios in the Haryana Government.",
-  },
-  {
-    title: "National Leadership",
-    desc: "Served in senior organisational and communication roles within the Indian National Congress.",
-  },
-  {
-    title: "Parliamentary Role",
-    desc: "Member of the Rajya Sabha since 2022.",
+    title: "Roots in Karnal",
+    desc: "Born on 28 June 1979 in Karnal. Decades of deep community and grassroots association.",
   },
 ];
 
-export default function RandeepSurjewalaPage() {
+const atAGlance = [
+  { label: "Name", value: "Bhupinder Lather (Bhuppi)" },
+  { label: "Role", value: "Political Leader & Social Worker" },
+  { label: "Location", value: "Karnal / Gharaunda, Haryana" },
+  { label: "Party", value: "Indian National Congress" },
+  { label: "Community Leadership", value: "President, Jat Mahasabha Karnal (Elected Nov 2023)" },
+  { label: "Date of Birth", value: "28 June 1979" },
+  { label: "Education", value: "Graduate" },
+  { label: "Core Focus", value: "Grassroots Organisation & Public Service" },
+];
+
+export default function BhupinderLatherPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Randeep Singh Surjewala",
-    jobTitle: "Member of Parliament, Rajya Sabha",
+    name: "Bhupinder Lather (Bhuppi)",
+    jobTitle: "Political Leader & Social Worker",
     affiliation: {
       "@type": "PoliticalParty",
       name: "Indian National Congress",
     },
-    sameAs: [
-      "https://www.facebook.com/rssurjewala",
-      "https://www.instagram.com/rssurjewala",
-      "https://x.com/rssurjewala",
-    ],
+    sameAs: ["https://www.instagram.com/latherbhupi"],
   };
 
   return (
@@ -132,7 +110,7 @@ export default function RandeepSurjewalaPage() {
 
       <main className="min-h-screen bg-paper text-ink selection:bg-accent selection:text-white">
         {/* ==========================================================================
-            HERO SECTION: Clean, accurate profile header without distracting CTA buttons
+            SECTION 1: HERO SECTION - Clean, accurate profile header
             ========================================================================== */}
         <section className="relative overflow-hidden bg-paper pt-[76px] sm:pt-[84px] border-b border-stone-200">
           <div className="dot-texture absolute inset-0 opacity-70" />
@@ -151,7 +129,7 @@ export default function RandeepSurjewalaPage() {
                   Clients
                 </Link>
                 <ChevronRight className="h-3.5 w-3.5 text-stone-400" />
-                <span className="text-ink font-bold">Randeep Singh Surjewala</span>
+                <span className="text-ink font-bold">Bhupinder Lather</span>
               </nav>
             </Reveal>
 
@@ -166,15 +144,15 @@ export default function RandeepSurjewalaPage() {
                   </div>
 
                   <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-ink leading-tight">
-                    Randeep Singh Surjewala
+                    Bhupinder Lather (Bhuppi)
                   </h1>
 
                   <p className="mt-2.5 sm:mt-3 font-display text-base sm:text-xl font-semibold text-accent leading-snug">
-                    Member of Parliament, Rajya Sabha | Senior Congress Leader
+                    Political Leader | Social Worker | District Karnal, Haryana
                   </p>
 
                   <p className="mt-4 sm:mt-6 text-sm sm:text-lg leading-relaxed text-ink/85 font-normal">
-                    Randeep Singh Surjewala is an Indian politician and lawyer from Haryana and a senior leader of the Indian National Congress. Born on 3 June 1967 in Chandigarh, he has built a political career spanning grassroots organisation, the Haryana Legislative Assembly, state government, national party responsibilities and Parliament.
+                    Bhupinder Lather (Bhuppi) is a political and social worker associated with the Indian National Congress and based in Karnal, Haryana. He has been involved in organisational activities and public life for several years, with a background in the National Students’ Union of India (NSUI), District Congress Committee, and community organisations. He has also served in leadership roles within Jat Mahasabha Karnal. In November 2023, he was unanimously elected as President of Jat Mahasabha Karnal.
                   </p>
 
                   {/* Clean Official Social Links */}
@@ -183,31 +161,13 @@ export default function RandeepSurjewalaPage() {
                       Official:
                     </span>
                     <a
-                      href="https://www.facebook.com/rssurjewala"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex h-9 w-9 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-700 hover:text-[#1877F2] hover:border-[#1877F2]/40 hover:bg-[#1877F2]/[0.05] transition-all shadow-2xs hover:scale-110"
-                      aria-label="Randeep Singh Surjewala Facebook"
-                    >
-                      <FacebookIcon className="h-4 w-4" />
-                    </a>
-                    <a
-                      href="https://www.instagram.com/rssurjewala"
+                      href="https://www.instagram.com/latherbhupi"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex h-9 w-9 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-700 hover:text-[#E4405F] hover:border-[#E4405F]/40 hover:bg-[#E4405F]/[0.05] transition-all shadow-2xs hover:scale-110"
-                      aria-label="Randeep Singh Surjewala Instagram"
+                      aria-label="Bhupinder Lather Instagram"
                     >
                       <InstagramIcon className="h-4 w-4" />
-                    </a>
-                    <a
-                      href="https://x.com/rssurjewala"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex h-9 w-9 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-700 hover:text-black hover:border-black/40 hover:bg-stone-100 transition-all shadow-2xs hover:scale-110"
-                      aria-label="Randeep Singh Surjewala X"
-                    >
-                      <XIcon className="h-3.5 w-3.5" />
                     </a>
                   </div>
                 </Reveal>
@@ -220,8 +180,8 @@ export default function RandeepSurjewalaPage() {
                     <div className="relative h-60 w-60 sm:h-72 sm:w-72 lg:h-84 lg:w-84 rounded-full p-2 border-[3px] border-stone-200/90 bg-white shadow-xl">
                       <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-100">
                         <Image
-                          src="/politicians/randeep-singh-surjewala.webp"
-                          alt="Randeep Singh Surjewala"
+                          src="/politicians/bhupinder-lather.webp"
+                          alt="Bhupinder Lather (Bhuppi)"
                           width={400}
                           height={400}
                           priority
@@ -238,21 +198,24 @@ export default function RandeepSurjewalaPage() {
         </section>
 
         {/* ==========================================================================
-            SECTION: A Journey of Public Service
+            SECTION 2: About Bhupinder Lather (White BG)
             ========================================================================== */}
         <section className="py-12 sm:py-16 bg-white border-b border-stone-200">
           <div className="container-site">
             <Reveal>
               <div className="max-w-3xl">
                 <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-ink">
-                  A Journey of Public Service
+                  About Bhupinder Lather
                 </h2>
                 <div className="mt-4 text-sm sm:text-base leading-relaxed text-stone-700 space-y-3 font-normal">
                   <p>
-                    From his early involvement in the Youth Congress to serving as a Cabinet Minister in the Haryana Government and later entering the Rajya Sabha, Randeep Singh Surjewala&apos;s public life has been marked by extensive organisational and legislative experience.
+                    Born on 28 June 1979, Bhupinder Lather comes from a family with a longstanding association with public and social life in Karnal.
                   </p>
                   <p>
-                    He began his legal career in 1988 and has practised law in New Delhi and Chandigarh. Alongside his legal profession, he became actively involved in public and political affairs at a young age.
+                    His father, Shri Joginder Lather, served as President of Jat Mahasabha Karnal, while his grandmother, Smt. Shanti Devi Lather, served as a Member of the Legislative Assembly from Karnal representing the Indian National Congress, according to the biographical profile provided.
+                  </p>
+                  <p>
+                    With experience in organisational activities and grassroots engagement, Bhupinder Lather has participated in political, social and community initiatives across Karnal and Haryana.
                   </p>
                 </div>
               </div>
@@ -261,93 +224,97 @@ export default function RandeepSurjewalaPage() {
         </section>
 
         {/* ==========================================================================
-            SECTION: Political Journey
+            SECTION 3: Political & Organisational Journey (Paper BG) - Structured Cards
             ========================================================================== */}
         <section className="py-12 sm:py-16 bg-paper border-b border-stone-200">
           <div className="container-site">
             <Reveal>
               <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-ink">
-                Political Journey
+                Political &amp; Organisational Journey
               </h2>
             </Reveal>
 
             <div className="mt-8 space-y-6">
-              {/* Youth Congress & Organisation */}
+              {/* Card 1: Organisational Responsibilities */}
               <Reveal>
                 <div className="rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white p-6 sm:p-8 shadow-xs">
                   <h3 className="font-display text-lg sm:text-2xl font-bold text-ink">
-                    Youth Congress &amp; Organisation
+                    Congress Organisation &amp; Grassroots Leadership
                   </h3>
                   <div className="mt-3 text-sm sm:text-base leading-relaxed text-stone-700 space-y-2 font-normal">
                     <p>
-                      Surjewala became involved with the Indian National Congress at a young age and served in several organisational positions within the Youth Congress.
-                    </p>
-                    <p>
-                      In 2000, he became National President of the Indian Youth Congress, serving in the position until 2005. He subsequently took on senior organisational responsibilities within the Congress party.
-                    </p>
-                  </div>
-                </div>
-              </Reveal>
-
-              {/* Haryana Legislative Assembly */}
-              <Reveal>
-                <div className="rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white p-6 sm:p-8 shadow-xs">
-                  <h3 className="font-display text-lg sm:text-2xl font-bold text-ink">
-                    Haryana Legislative Assembly
-                  </h3>
-                  <div className="mt-3 text-sm sm:text-base leading-relaxed text-stone-700 space-y-2 font-normal">
-                    <p>
-                      Surjewala was elected to the Haryana Legislative Assembly from Narwana in 1996 and again in 2005. He later represented Kaithal in the Haryana Assembly from 2009 to 2019.
-                    </p>
-                    <p>
-                      During his tenure in state politics, he served in several ministerial positions in the Haryana Government, handling portfolios including:
+                      Bhupinder Lather&apos;s political and organisational journey includes extensive service across student politics, district-level committees, and state-wide public engagement:
                     </p>
                   </div>
 
-                  {/* Portfolios list */}
-                  <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
-                    {portfolios.map((item) => (
+                  {/* Highlights Grid */}
+                  <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
+                    {journeyRoles.map((role) => (
                       <div
-                        key={item}
-                        className="flex items-center gap-2 rounded-xl border border-stone-200 bg-[#F8FAFC] p-3 text-xs sm:text-sm font-semibold text-ink"
+                        key={role}
+                        className="flex items-center gap-2.5 rounded-xl border border-stone-200 bg-[#F8FAFC] p-3 text-xs sm:text-sm font-semibold text-ink"
                       >
                         <CheckCircle2 className="h-4 w-4 text-accent shrink-0" />
-                        <span>{item}</span>
+                        <span>{role}</span>
                       </div>
                     ))}
                   </div>
+
+                  <div className="mt-5 pt-4 border-t border-stone-100 text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
+                    He has continued to be publicly associated with Congress activities in Karnal. Recent media reports have identified him among senior Congress leaders in the district.
+                  </div>
                 </div>
               </Reveal>
 
-              {/* National Political Role */}
+              {/* Card 2: Leadership at Jat Mahasabha Karnal */}
               <Reveal>
                 <div className="rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white p-6 sm:p-8 shadow-xs">
                   <h3 className="font-display text-lg sm:text-2xl font-bold text-ink">
-                    National Political Role
+                    Leadership at Jat Mahasabha Karnal
                   </h3>
                   <div className="mt-3 text-sm sm:text-base leading-relaxed text-stone-700 space-y-2 font-normal">
                     <p>
-                      At the national level, Surjewala has served as a spokesperson and senior organisational leader of the Indian National Congress.
+                      Bhupinder Lather was elected President of Jat Mahasabha Karnal in November 2023. The election was reported as unanimous following the withdrawal of another candidate.
                     </p>
                     <p>
-                      He has also served as AICC General Secretary with responsibility for Karnataka, taking charge of the role in September 2020.
+                      Under his leadership, the organisation has undertaken membership and community-oriented activities. In 2025, Jat Mahasabha Karnal began a campaign to enrol lifelong members, with Bhupinder Lather providing information about the initiative.
                     </p>
                   </div>
                 </div>
               </Reveal>
 
-              {/* Member of Parliament */}
+              {/* Card 3: Public & Community Engagement */}
               <Reveal>
                 <div className="rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white p-6 sm:p-8 shadow-xs">
                   <h3 className="font-display text-lg sm:text-2xl font-bold text-ink">
-                    Member of Parliament
+                    Public &amp; Community Engagement
                   </h3>
                   <div className="mt-3 text-sm sm:text-base leading-relaxed text-stone-700 space-y-2 font-normal">
                     <p>
-                      In 2022, Randeep Singh Surjewala was elected to the Rajya Sabha from Rajasthan. He assumed office as a Member of Parliament on 5 July 2022.
+                      Bhupinder Lather has remained involved in community and public activities in Karnal. His public engagements have included participation in social initiatives, organisational meetings and political programmes.
                     </p>
                     <p>
-                      As a Parliamentarian, his public work includes participation in legislative and national political affairs.
+                      His involvement has also extended to humanitarian efforts. In 2016, during the unrest in Haryana, reports noted that Bhupinder Lather and his brother helped stranded travellers by providing food and lodging at their establishment on the GT Road.
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+
+              {/* Card 4: Current Public Profile */}
+              <Reveal>
+                <div className="rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white p-6 sm:p-8 shadow-xs">
+                  <h3 className="font-display text-lg sm:text-2xl font-bold text-ink">
+                    Current Public Profile
+                  </h3>
+                  <div className="mt-3 text-sm sm:text-base leading-relaxed text-stone-700 space-y-2 font-normal">
+                    <p>
+                      Bhupinder Lather continues to participate in political and community activities in Karnal. His recent public engagements include Congress organisational programmes and community initiatives.
+                    </p>
+                    <p>
+                      In 2024, he was among Congress leaders who sought the party&apos;s nomination for the Gharaunda Assembly constituency.
+                    </p>
+                    <p>
+                      In 2026, local media continued to identify him as a senior Congress leader involved in public programmes and organisational activities in Karnal.
                     </p>
                   </div>
                 </div>
@@ -357,63 +324,29 @@ export default function RandeepSurjewalaPage() {
         </section>
 
         {/* ==========================================================================
-            SECTION: Education & Legal Career
+            SECTION 4: Family & Background (White BG)
             ========================================================================== */}
         <section className="py-12 sm:py-16 bg-white border-b border-stone-200">
           <div className="container-site">
             <Reveal>
               <div className="max-w-3xl">
                 <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-ink">
-                  Education &amp; Legal Career
+                  Family &amp; Background
                 </h2>
                 <p className="mt-3 text-sm sm:text-base text-stone-600 font-medium">
-                  Surjewala holds:
+                  His family has been associated with public service and community organisations in Karnal for several decades:
                 </p>
               </div>
             </Reveal>
 
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {educationData.map((edu) => (
-                <Reveal key={edu.degree}>
-                  <div className="h-full rounded-2xl border border-stone-200/90 bg-[#F8FAFC] p-5 sm:p-6">
-                    <h3 className="font-display text-base sm:text-lg font-bold text-ink">
-                      {edu.degree}
-                    </h3>
-                    <p className="mt-1 text-xs sm:text-sm font-semibold text-accent">
-                      {edu.college}
-                    </p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-
-            <Reveal>
-              <p className="mt-6 text-sm sm:text-base text-stone-700 font-normal">
-                He began practising law in 1988 and subsequently practised before the High Court of Punjab &amp; Haryana.
-              </p>
-            </Reveal>
-          </div>
-        </section>
-
-        {/* ==========================================================================
-            SECTION: Leadership Through Experience
-            ========================================================================== */}
-        <section className="py-12 sm:py-16 bg-paper border-b border-stone-200">
-          <div className="container-site">
-            <Reveal>
-              <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-ink">
-                Leadership Through Experience
-              </h2>
-            </Reveal>
-
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              {experiencePillars.map((item) => (
+              {familyBackground.map((item) => (
                 <Reveal key={item.title}>
-                  <div className="h-full rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white p-6 shadow-xs">
+                  <div className="h-full rounded-2xl border border-stone-200/90 bg-[#F8FAFC] p-5 sm:p-6">
                     <h3 className="font-display text-base sm:text-lg font-bold text-ink">
                       {item.title}
                     </h3>
-                    <p className="mt-2 text-xs sm:text-sm leading-relaxed text-stone-600 font-normal">
+                    <p className="mt-2 text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
                       {item.desc}
                     </p>
                   </div>
@@ -424,40 +357,61 @@ export default function RandeepSurjewalaPage() {
         </section>
 
         {/* ==========================================================================
-            SECTION: Connect With Randeep Singh Surjewala
+            SECTION 5: Bhupinder Lather — At a Glance (Paper BG)
+            ========================================================================== */}
+        <section className="py-12 sm:py-16 bg-paper border-b border-stone-200">
+          <div className="container-site">
+            <Reveal>
+              <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-ink">
+                Bhupinder Lather — At a Glance
+              </h2>
+              <p className="mt-2.5 text-sm sm:text-base text-stone-600">
+                Key leadership background and public profile overview.
+              </p>
+            </Reveal>
+
+            <div className="mt-8 max-w-4xl">
+              <Reveal>
+                <div className="rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white p-6 sm:p-8 shadow-xs">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    {atAGlance.map((item) => (
+                      <div
+                        key={item.label}
+                        className="rounded-xl border border-stone-200 bg-[#F8FAFC] p-3.5 flex items-center justify-between gap-3"
+                      >
+                        <span className="text-xs font-bold uppercase tracking-wider text-stone-500">
+                          {item.label}
+                        </span>
+                        <span className="text-xs sm:text-sm font-semibold text-ink text-right">
+                          {item.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
+        {/* ==========================================================================
+            SECTION 6: Connect & Engage (White BG)
             ========================================================================== */}
         <section className="py-12 sm:py-16 bg-white border-b border-stone-200">
           <div className="container-site">
             <Reveal>
               <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-ink">
-                Connect With Randeep Singh Surjewala
+                Connect &amp; Engage
               </h2>
               <p className="mt-2.5 text-sm sm:text-base text-stone-600">
-                Follow updates on public activities, parliamentary work, political engagements and initiatives.
+                Follow updates on public activities, community initiatives, organisational meetings and political programmes.
               </p>
             </Reveal>
 
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl">
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
               <Reveal>
                 <a
-                  href="https://www.facebook.com/rssurjewala"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 rounded-2xl border border-stone-200/90 bg-[#F8FAFC] p-4 text-ink hover:border-[#1877F2]/40 hover:text-[#1877F2] transition-colors"
-                >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#1877F2]/10 text-[#1877F2]">
-                    <FacebookIcon className="h-5 w-5" />
-                  </div>
-                  <div className="truncate">
-                    <p className="text-xs font-bold">Facebook</p>
-                    <span className="text-[11px] text-stone-500 truncate block">https://www.facebook.com/rssurjewala</span>
-                  </div>
-                </a>
-              </Reveal>
-
-              <Reveal>
-                <a
-                  href="https://www.instagram.com/rssurjewala"
+                  href="https://www.instagram.com/latherbhupi"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 rounded-2xl border border-stone-200/90 bg-[#F8FAFC] p-4 text-ink hover:border-[#E4405F]/40 hover:text-[#E4405F] transition-colors"
@@ -467,51 +421,57 @@ export default function RandeepSurjewalaPage() {
                   </div>
                   <div className="truncate">
                     <p className="text-xs font-bold">Instagram</p>
-                    <span className="text-[11px] text-stone-500 truncate block">https://www.instagram.com/rssurjewala</span>
+                    <span className="text-[11px] text-stone-500 truncate block">https://www.instagram.com/latherbhupi</span>
                   </div>
                 </a>
               </Reveal>
 
               <Reveal>
-                <a
-                  href="https://x.com/rssurjewala"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 rounded-2xl border border-stone-200/90 bg-[#F8FAFC] p-4 text-ink hover:border-black/40 hover:text-black transition-colors"
-                >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-stone-200 text-black">
-                    <XIcon className="h-4 w-4" />
+                <div className="flex items-center gap-3 rounded-2xl border border-stone-200/90 bg-[#F8FAFC] p-4 text-ink">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent font-bold text-xs">
+                    HR
                   </div>
                   <div className="truncate">
-                    <p className="text-xs font-bold">X (Twitter)</p>
-                    <span className="text-[11px] text-stone-500 truncate block">https://x.com/rssurjewala</span>
+                    <p className="text-xs font-bold">Region</p>
+                    <span className="text-[11px] text-stone-500 truncate block">Gharaunda, Karnal, Haryana</span>
                   </div>
-                </a>
+                </div>
               </Reveal>
             </div>
+
+            <Reveal>
+              <div className="mt-6 pt-6 border-t border-stone-200 max-w-2xl">
+                <p className="font-display text-lg sm:text-xl font-bold text-ink">
+                  Bhupinder Lather (Bhuppi)
+                </p>
+                <p className="text-xs sm:text-sm text-accent font-semibold mt-0.5">
+                  Political &amp; Social Engagement · Community Development · Grassroots Organisation
+                </p>
+              </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ==========================================================================
-            SECTION: Quote & Declaration
+            SECTION 7: Quote & Declaration (Dark Gradient BG)
             ========================================================================== */}
         <section className="py-12 sm:py-16 bg-gradient-to-b from-stone-900 to-[#0B0F19] text-white">
           <div className="container-site text-center">
             <Reveal>
               <Quote className="mx-auto h-8 w-8 text-accent mb-4" />
               <blockquote className="font-display text-xl sm:text-3xl font-bold text-white max-w-2xl mx-auto leading-snug">
-                &ldquo;Public life is a continuous journey of responsibility, dialogue and service.&rdquo;
+                &ldquo;Working through organisation, public engagement and community participation.&rdquo;
               </blockquote>
 
               <div className="mt-6">
                 <p className="font-display text-base sm:text-lg font-bold text-white">
-                  Randeep Singh Surjewala
+                  Bhupinder Lather (Bhuppi)
                 </p>
                 <p className="text-xs sm:text-sm text-sky-400 font-medium">
-                  Member of Parliament, Rajya Sabha
+                  President, Jat Mahasabha Karnal
                 </p>
                 <p className="text-xs text-stone-400 mt-0.5">
-                  Senior Leader, Indian National Congress
+                  Indian National Congress · Karnal, Haryana
                 </p>
               </div>
 
@@ -523,7 +483,7 @@ export default function RandeepSurjewalaPage() {
         </section>
 
         {/* ==========================================================================
-            SECTION: Verification Disclaimer Note
+            SECTION 8: Verification Disclaimer Note
             ========================================================================== */}
         <section className="py-6 sm:py-8 bg-[#F8FAFC] border-t border-stone-200">
           <div className="container-site">
@@ -539,7 +499,7 @@ export default function RandeepSurjewalaPage() {
         </section>
 
         {/* ==========================================================================
-            VERY LAST SECTION: CreateVerse Partnership, Praise & Enquiry CTAs
+            SECTION 9: CreateVerse Political Campaign Division & Bottom CTAs (White BG)
             ========================================================================== */}
         <section className="py-12 sm:py-18 bg-white border-t border-stone-200">
           <div className="container-site">
@@ -556,7 +516,7 @@ export default function RandeepSurjewalaPage() {
                 </p>
               </div>
 
-              {/* Action Buttons: Political War Room Enquiry, WhatsApp Desk, Back to Leaders */}
+              {/* Action Buttons: Political War Room Enquiry, Talk on WhatsApp (NO Back to Leaders) */}
               <div className="shrink-0 w-full lg:w-auto">
                 <ProfileBottomCTA />
               </div>
