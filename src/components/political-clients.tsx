@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { MessageSquare, ArrowRight } from "lucide-react";
 import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
 import { useEnquiry } from "@/context/enquiry-context";
@@ -12,10 +13,15 @@ import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 export default function PoliticalClients({
   className = "",
+  showSeeMore,
 }: {
   className?: string;
+  showSeeMore?: boolean;
 } = {}) {
   const { openEnquiry } = useEnquiry();
+  const pathname = usePathname();
+
+  const shouldShowSeeMore = showSeeMore !== undefined ? showSeeMore : pathname !== "/clients";
 
   return (
     <section className={`relative overflow-hidden bg-white py-12 sm:py-16 lg:py-20 border-t border-stone-200 ${className}`}>
@@ -63,12 +69,12 @@ export default function PoliticalClients({
           </div>
         </Reveal>
 
-        {/* 6 Circular Politician Cards Directly Underneath Title */}
+        {/* Circular Politician Cards Directly Underneath Title */}
         <div className="mt-8 sm:mt-12 -mx-1 sm:-mx-2 lg:-mx-4">
-          <Stagger className="grid grid-cols-2 gap-2.5 sm:gap-3.5 lg:gap-3 xl:gap-4 sm:grid-cols-3 lg:grid-cols-6 items-stretch" delayChildren={0.02}>
+          <Stagger className="grid grid-cols-2 gap-2.5 sm:gap-3.5 lg:gap-3 xl:gap-3.5 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-7 items-stretch" delayChildren={0.02}>
             {politicianClients.map((p) => (
-              <StaggerItem key={p.name} className="h-full">
-                <div className="group h-full flex flex-col items-center justify-between text-center p-3 sm:py-5 sm:px-2 xl:px-3 rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:bg-white hover:shadow-card">
+              <StaggerItem key={p.name} className="h-full last:col-span-2 last:max-w-[240px] last:mx-auto last:w-full sm:last:col-span-1 sm:last:max-w-none">
+                <div className="group h-full flex flex-col items-center justify-between text-center p-3 sm:py-5 sm:px-2 xl:px-2.5 rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:bg-white hover:shadow-card">
                   {/* Clickable Portrait and Info Header */}
                   {p.href ? (
                     <Link
@@ -78,7 +84,7 @@ export default function PoliticalClients({
                     >
                       {/* Circular Portrait with Concentric Clean Ring */}
                       <div className="relative mb-3 sm:mb-4 shrink-0">
-                        <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
+                        <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-28 xl:w-28 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
                           <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
                             <Image
                               src={p.image}
@@ -108,7 +114,7 @@ export default function PoliticalClients({
 
                       {/* Content: Name and Designation */}
                       <div className="flex flex-col items-center w-full grow justify-center text-center mt-1 sm:mt-2">
-                        <h3 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-sm font-bold text-ink leading-snug transition-colors group-hover:text-accent tracking-tight whitespace-nowrap">
+                        <h3 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-[13px] font-bold text-ink leading-tight transition-colors group-hover:text-accent tracking-tight">
                           {p.name}
                         </h3>
                         {p.role && (
@@ -125,7 +131,7 @@ export default function PoliticalClients({
                     <div className="flex flex-col items-center w-full grow">
                       {/* Circular Portrait with Concentric Clean Ring */}
                       <div className="relative mb-3 sm:mb-4 shrink-0">
-                        <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
+                        <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-28 xl:w-28 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
                           <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
                             <Image
                               src={p.image}
@@ -155,7 +161,7 @@ export default function PoliticalClients({
 
                       {/* Content: Name and Designation */}
                       <div className="flex flex-col items-center w-full grow justify-center text-center mt-1 sm:mt-2">
-                        <h3 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-sm font-bold text-ink leading-snug transition-colors group-hover:text-accent tracking-tight whitespace-nowrap">
+                        <h3 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-[13px] font-bold text-ink leading-tight transition-colors group-hover:text-accent tracking-tight">
                           {p.name}
                         </h3>
                         {p.role && (
@@ -210,6 +216,21 @@ export default function PoliticalClients({
             ))}
           </Stagger>
         </div>
+
+        {/* "See More" Button to Navigate to Dedicated Clients Page */}
+        {shouldShowSeeMore && (
+          <Reveal>
+            <div className="mt-8 sm:mt-12 flex justify-center">
+              <Link
+                href="/clients"
+                className="pressable group inline-flex items-center justify-center gap-2 rounded-full border border-stone-300 bg-white px-7 py-3 text-xs sm:text-sm font-bold text-ink shadow-2xs hover:border-accent hover:text-accent hover:bg-stone-50 transition-all duration-200 hover:-translate-y-0.5"
+              >
+                <span>See More</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+          </Reveal>
+        )}
       </div>
     </section>
   );

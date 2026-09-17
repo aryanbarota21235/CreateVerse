@@ -77,8 +77,18 @@ export const politicianClients: PoliticianClient[] = [
     },
   },
   {
+    name: "Kewal Singh Dhillon",
+    role: "BJP President, Punjab",
+    party: "BJP",
+    partyName: "Bharatiya Janata Party",
+    image: "/politicians/kewal-singh-dhillon.webp",
+    socials: {},
+  },
+  {
     name: "Umesh Sharma",
     role: "Senior Leader",
+    party: "BJP",
+    partyName: "Bharatiya Janata Party",
     image: "/politicians/umesh-sharma.webp",
     socials: {
       facebook: "https://www.facebook.com/UmeshSharmaSnp",
