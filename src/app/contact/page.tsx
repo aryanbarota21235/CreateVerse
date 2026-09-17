@@ -97,6 +97,7 @@ export default function ContactPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(contactFaqJsonLd) }}
       />
       <PageHero
+        breadcrumb="Contact"
         eyebrow="Contact & Consultations"
         title={
           <>

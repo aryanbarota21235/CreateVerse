@@ -57,6 +57,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
+        breadcrumb="About"
         eyebrow="About CreateVerse"
         title={<>We exist to turn attention into <span className="text-accent">revenue.</span></>}
         description="CreateVerse is a growth and digital acquisition partner. We combine strategy, media, creative, and technology to generate leads, acquire customers, and run high-impact campaigns — for real estate developers, immigration businesses, political organizations, and ambitious brands."

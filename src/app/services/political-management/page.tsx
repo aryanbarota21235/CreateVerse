@@ -171,9 +171,15 @@ export default function PoliticalManagementPage() {
 
         <div className="container-site relative pb-12 sm:pb-20 pt-6 sm:pt-16 lg:pt-20 lg:pb-24">
           <Reveal>
-            <nav className="flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-ink/70" aria-label="Breadcrumb">
-              <Link href="/services" prefetch={true} className="transition-colors hover:text-accent">Services</Link>
-              <span>/</span>
+            <nav className="flex items-center gap-2 text-xs font-semibold text-stone-500 uppercase tracking-wider mb-6 sm:mb-8" aria-label="Breadcrumb">
+              <Link href="/" prefetch={true} className="hover:text-accent transition-colors">
+                Home
+              </Link>
+              <ChevronRight className="h-3.5 w-3.5 text-stone-400" />
+              <Link href="/services" prefetch={true} className="hover:text-accent transition-colors">
+                Services
+              </Link>
+              <ChevronRight className="h-3.5 w-3.5 text-stone-400" />
               <span className="text-ink font-bold">Political Campaign</span>
             </nav>
 

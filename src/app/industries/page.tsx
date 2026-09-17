@@ -58,6 +58,7 @@ export default function IndustriesPage() {
   return (
     <>
       <PageHero
+        breadcrumb="Industries"
         eyebrow="Industries"
         title={<>Deep expertise where <span className="text-accent">growth is won.</span></>}
         description="Acquisition works when it's shaped by how an industry actually buys and decides. These are the four arenas we know cold."
