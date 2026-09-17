@@ -105,4 +105,17 @@ export const politicianClients: PoliticianClient[] = [
       facebook: "https://www.facebook.com/UmeshSharmaSnp",
     },
   },
+  {
+    name: "Rajiv Mamuram Gonder",
+    slug: "rajiv-mamuram-gonder",
+    href: "/clients/rajiv-mamuram-gonder",
+    role: "Public Representative & Leader, Nilokheri",
+    party: "INC",
+    partyName: "Indian National Congress",
+    image: "/politicians/rajiv-mamuram-gonder.webp",
+    socials: {
+      facebook: "https://www.facebook.com/RajivGondarOfficial",
+      instagram: "https://www.instagram.com/rajivgonderofficial",
+    },
+  },
 ];

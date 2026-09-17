@@ -71,10 +71,10 @@ export default function PoliticalClients({
 
         {/* Circular Politician Cards Directly Underneath Title */}
         <div className="mt-8 sm:mt-12 -mx-1 sm:-mx-2 lg:-mx-4">
-          <Stagger className="grid grid-cols-2 gap-2.5 sm:gap-3.5 lg:gap-3 xl:gap-3.5 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-7 items-stretch" delayChildren={0.02}>
+          <Stagger className="grid grid-cols-2 gap-2.5 sm:gap-3.5 lg:gap-3 xl:gap-3 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-8 items-stretch" delayChildren={0.02}>
             {politicianClients.map((p) => (
-              <StaggerItem key={p.name} className="h-full last:col-span-2 last:max-w-[240px] last:mx-auto last:w-full sm:last:col-span-1 sm:last:max-w-none">
-                <div className="group h-full flex flex-col items-center justify-between text-center p-3 sm:py-5 sm:px-2 xl:px-2.5 rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:bg-white hover:shadow-card">
+              <StaggerItem key={p.name} className="h-full">
+                <div className="group h-full flex flex-col items-center justify-between text-center p-3 sm:py-5 sm:px-2 xl:px-2 rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:bg-white hover:shadow-card">
                   {/* Clickable Portrait and Info Header */}
                   {p.href ? (
                     <Link
