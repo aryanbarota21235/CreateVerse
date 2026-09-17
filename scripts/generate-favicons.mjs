@@ -7,7 +7,6 @@ const logoPath = path.join(projectRoot, 'public/logo.png');
 const logoBuf = fs.readFileSync(logoPath);
 
 function createIco(pngBuffers) {
-  // pngBuffers: array of { width, height, buffer }
   const count = pngBuffers.length;
   const headerSize = 6;
   const entrySize = 16;
@@ -43,28 +42,44 @@ function createIco(pngBuffers) {
 
 async function generate() {
   const size = 512;
-  const targetWidth = 464; // Maximize logo legibility in browser tab
-  
-  const logoResized = await sharp(logoBuf)
-    .resize({ width: targetWidth, fit: 'inside' })
+  const trimmed = await sharp(logoBuf).trim().toBuffer();
+
+  // Extract CREATE (letters 0 to 160) and VERSE (letters 164 to 297)
+  const createBuf = await sharp(trimmed)
+    .extract({ left: 0, top: 0, width: 160, height: 44 })
+    .trim()
     .toBuffer();
 
-  const logoMeta = await sharp(logoResized).metadata();
-  console.log('Resized logo:', logoMeta.width, 'x', logoMeta.height);
+  const verseBuf = await sharp(trimmed)
+    .extract({ left: 164, top: 0, width: 133, height: 44 })
+    .trim()
+    .toBuffer();
+
+  // Scale CREATE & VERSE to maximize visibility in square favicons & Google Search SERP
+  const targetWidth = 430;
+  const scaleC = await sharp(createBuf).resize({ width: targetWidth, kernel: 'lanczos3' }).toBuffer();
+  const scaleV = await sharp(verseBuf).resize({ width: targetWidth, kernel: 'lanczos3' }).toBuffer();
+
+  const scMeta = await sharp(scaleC).metadata();
+  const svMeta = await sharp(scaleV).metadata();
+
+  const gap = 16;
+  const totalContentHeight = scMeta.height + svMeta.height + gap;
+  const startY = Math.round((size - totalContentHeight) / 2);
 
   // Clean, modern rounded white square badge with subtle border
   const badgeSvg = `
     <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">
-      <rect x="10" y="10" width="${size - 20}" height="${size - 20}" rx="100" fill="#ffffff" stroke="#E2E8F0" stroke-width="12"/>
+      <rect x="12" y="12" width="${size - 24}" height="${size - 24}" rx="108" fill="#ffffff" stroke="#E2E8F0" stroke-width="12"/>
     </svg>
   `;
 
   // 512x512 Master Badge PNG
   const master512 = await sharp(Buffer.from(badgeSvg))
-    .composite([{
-      input: logoResized,
-      gravity: 'center'
-    }])
+    .composite([
+      { input: scaleC, left: Math.round((size - scMeta.width) / 2), top: startY },
+      { input: scaleV, left: Math.round((size - svMeta.width) / 2), top: startY + scMeta.height + gap },
+    ])
     .png()
     .toBuffer();
 
@@ -74,7 +89,7 @@ async function generate() {
 
   for (const s of sizes) {
     rendered[s] = await sharp(master512)
-      .resize(s, s)
+      .resize(s, s, { kernel: 'lanczos3' })
       .png()
       .toBuffer();
   }
@@ -105,11 +120,9 @@ async function generate() {
   fs.writeFileSync(path.join(appDir, 'apple-icon.png'), rendered[180]);
 
   // Vector SVG Favicon for modern browsers
-  // We embed the logo as base64 PNG inside the SVG for instant vector rendering
-  const base64Logo = logoResized.toString('base64');
+  const base64Master = master512.toString('base64');
   const faviconSvgContent = `<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-  <rect x="10" y="10" width="492" height="492" rx="100" fill="#ffffff" stroke="#E2E8F0" stroke-width="12"/>
-  <image href="data:image/png;base64,${base64Logo}" x="${(512 - logoMeta.width) / 2}" y="${(512 - logoMeta.height) / 2}" width="${logoMeta.width}" height="${logoMeta.height}"/>
+  <image href="data:image/png;base64,${base64Master}" x="0" y="0" width="512" height="512"/>
 </svg>`;
 
   fs.writeFileSync(path.join(publicDir, 'favicon.svg'), faviconSvgContent);
@@ -119,4 +132,3 @@ async function generate() {
 }
 
 generate();
-
