@@ -74,13 +74,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
     {
-      url: `${base}/clients/umesh-sharma`,
+      url: `${base}/clients/rajiv-mamuram-gonder`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.95,
     },
     {
-      url: `${base}/clients/rajiv-mamuram-gonder`,
+      url: `${base}/clients/umesh-sharma`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.95,

@@ -12,30 +12,27 @@ import { FacebookIcon } from "@/components/social-icons";
 import ProfileBottomCTA from "@/components/profile-bottom-cta";
 
 export const metadata: Metadata = {
-  title: "Umesh Sharma (उमेश शर्मा) — Senior Leader BJP Haryana | Sonipat Leadership",
+  title: "Umesh Sharma (उमेश शर्मा) — Senior Political Leader | Sonipat Leadership",
   description:
-    "Official profile and public leadership of Umesh Sharma (उमेश शर्मा सोनीपत), Senior Leader of the Bharatiya Janata Party (BJP) in Haryana, community organizer & political strategist.",
+    "Official profile and public leadership of Umesh Sharma (उमेश शर्मा सोनीपत), Senior Political Leader and Social Worker in Haryana, community organizer & civic strategist.",
   keywords: [
     "Umesh Sharma",
     "Umesh Sharma Sonipat",
-    "Umesh Sharma BJP",
-    "Umesh Sharma BJP Haryana",
     "उमेश शर्मा",
     "उमेश शर्मा सोनीपत",
-    "उमेश शर्मा भाजपा",
-    "Senior Leader BJP Haryana",
-    "Sonipat BJP Leadership",
-    "Haryana Bharatiya Janata Party",
+    "Senior Political Leader Haryana",
+    "Sonipat Political Leadership",
     "Sonipat Civic Development",
+    "Haryana Public Welfare",
     "CreateVerse political clients",
   ],
   alternates: {
     canonical: "https://createverse.in/clients/umesh-sharma",
   },
   openGraph: {
-    title: "Umesh Sharma (उमेश शर्मा) — Senior Leader BJP Haryana | Sonipat",
+    title: "Umesh Sharma (उमेश शर्मा) — Senior Political Leader | Sonipat",
     description:
-      "Official profile of Umesh Sharma, Senior Leader of Bharatiya Janata Party (BJP) Haryana and community leader in Sonipat.",
+      "Official profile of Umesh Sharma, Senior Political Leader and Social Worker in Haryana and community leader in Sonipat.",
     url: "https://createverse.in/clients/umesh-sharma",
     siteName: "CreateVerse",
     locale: "en_IN",
@@ -45,26 +42,26 @@ export const metadata: Metadata = {
         url: "/politicians/umesh-sharma.webp",
         width: 800,
         height: 800,
-        alt: "Umesh Sharma — Senior Leader BJP Haryana",
+        alt: "Umesh Sharma — Senior Political Leader Haryana",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Umesh Sharma — Senior Leader BJP Haryana | Sonipat",
+    title: "Umesh Sharma — Senior Political Leader | Sonipat",
     description:
-      "Senior Leader, Bharatiya Janata Party (BJP) Haryana. Grassroots leadership & public welfare in Sonipat.",
+      "Senior Political Leader and Social Worker, Haryana. Grassroots leadership & public welfare in Sonipat.",
     images: ["/politicians/umesh-sharma.webp"],
   },
 };
 
 const keyMilestones = [
-  "Senior Leadership Responsibility, Bharatiya Janata Party (BJP), Haryana",
+  "Senior Leadership Responsibility, Public Service & Community Organizing, Haryana",
   "Extensive Grassroots Organisational & Public Welfare Footprint in Sonipat",
-  "Pivotal Role in Party Membership Drives & Voter Awareness Initiatives",
+  "Pivotal Role in Citizen Engagement Drives & Civic Awareness Initiatives",
   "Champion of Industrial Growth, MSME Expansion & Youth Skill Training in Sonipat Belt",
   "Active Community Social Work, Healthcare Camps & Civic Outreach",
-  "Bridge Between State Governance Initiatives & Local Grassroots Beneficiaries",
+  "Bridge Between State Welfare Initiatives & Local Grassroots Beneficiaries",
 ];
 
 const leadershipPillars = [
@@ -84,10 +81,10 @@ const leadershipPillars = [
 
 const atAGlance = [
   { label: "Name", value: "Umesh Sharma (उमेश शर्मा)" },
-  { label: "Public Role", value: "Senior Leader, BJP Haryana" },
+  { label: "Public Role", value: "Senior Political Leader & Social Worker" },
   { label: "Location", value: "Sonipat, Haryana (NCR Region)" },
-  { label: "Party", value: "Bharatiya Janata Party (BJP)" },
-  { label: "Core Focus", value: "Party Organisation, Civic Welfare, Youth Leadership" },
+  { label: "Focus Areas", value: "Civic Welfare, Youth Leadership, Urban Development" },
+  { label: "Core Expertise", value: "Public Organization, Community Outreach, Policy Implementation" },
   { label: "State", value: "Haryana, India" },
 ];
 
@@ -95,17 +92,17 @@ const faqs = [
   {
     question: "Who is Umesh Sharma (उमेश शर्मा)?",
     answer:
-      "Umesh Sharma is a senior political leader in the Bharatiya Janata Party (BJP) Haryana, known for his grassroots organizational work, youth leadership, and civic advocacy across the Sonipat NCR district.",
+      "Umesh Sharma is a senior political leader and social worker in Haryana, known for his grassroots organizational work, youth leadership, and civic advocacy across the Sonipat NCR district.",
   },
   {
     question: "What is Umesh Sharma's focus in Sonipat and Haryana politics?",
     answer:
-      "Umesh Sharma is dedicated to urban and industrial modernization in Sonipat, worker welfare, digital governance, and expanding the reach of central and state welfare initiatives to every citizen.",
+      "Umesh Sharma is dedicated to urban and industrial modernization in Sonipat, worker welfare, digital governance, and expanding the reach of public welfare initiatives to every citizen.",
   },
   {
-    question: "What is Umesh Sharma's affiliation?",
+    question: "What are Umesh Sharma's key public initiatives?",
     answer:
-      "Umesh Sharma has been a dedicated leader within the Bharatiya Janata Party (BJP), playing a key role in regional campaigns, membership expansion, and party events across Haryana.",
+      "Umesh Sharma has been dedicated to regional development initiatives, citizen grievance redressal, youth mobilization, and community outreach programs across Sonipat and Haryana.",
   },
   {
     question: "How does CreateVerse support leadership like Umesh Sharma?",
@@ -115,7 +112,7 @@ const faqs = [
   {
     question: "Where can I follow Umesh Sharma online?",
     answer:
-      "Umesh Sharma shares updates on public meetings, party events, and social development work on his official Facebook profile at facebook.com/UmeshSharmaSnp.",
+      "Umesh Sharma shares updates on public meetings, community events, and social development work on his official Facebook profile at facebook.com/UmeshSharmaSnp.",
   },
 ];
 
@@ -130,25 +127,18 @@ export default function UmeshSharmaPage() {
         alternateName: [
           "उमेश शर्मा",
           "उमेश शर्मा सोनीपत",
-          "उमेश शर्मा भाजपा",
           "Umesh Sharma Sonipat",
-          "Umesh Sharma BJP",
         ],
-        jobTitle: "Senior Leader, Bharatiya Janata Party (BJP Haryana)",
+        jobTitle: "Senior Political Leader & Social Worker, Sonipat, Haryana",
         description:
-          "Umesh Sharma is an Indian politician and senior leader of the Bharatiya Janata Party (BJP) in Haryana, based in Sonipat.",
+          "Umesh Sharma is an Indian political leader and social worker in Haryana, based in Sonipat.",
         image: "https://createverse.in/politicians/umesh-sharma.webp",
         url: "https://createverse.in/clients/umesh-sharma",
         sameAs: ["https://www.facebook.com/UmeshSharmaSnp"],
-        affiliation: {
-          "@type": "PoliticalParty",
-          name: "Bharatiya Janata Party",
-          alternateName: ["BJP", "भारतीय जनता पार्टी"],
-        },
         knowsAbout: [
           "Haryana State Politics",
           "Sonipat District Development",
-          "Party Grassroots Organisation",
+          "Grassroots Public Organisation",
           "Civic & Youth Mobilization",
         ],
       },
@@ -156,7 +146,7 @@ export default function UmeshSharmaPage() {
         "@type": "ProfilePage",
         "@id": "https://createverse.in/clients/umesh-sharma#webpage",
         url: "https://createverse.in/clients/umesh-sharma",
-        name: "Umesh Sharma (उमेश शर्मा) — Senior Leader BJP Haryana | Official Client Profile",
+        name: "Umesh Sharma (उमेश शर्मा) — Senior Political Leader | Official Client Profile",
         isPartOf: {
           "@type": "WebSite",
           "@id": "https://createverse.in/#website",
@@ -255,9 +245,9 @@ export default function UmeshSharmaPage() {
               {/* Left Details */}
               <div className="lg:col-span-8 order-2 lg:order-1">
                 <Reveal>
-                  <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500 px-3 py-1 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-white shadow-xs mb-3">
-                    <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-                    Bharatiya Janata Party (BJP)
+                  <div className="inline-flex items-center gap-1.5 rounded-full bg-accent/[0.08] border border-accent/20 px-3 py-1 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-accent shadow-xs mb-3">
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+                    Political Leader &amp; Social Worker
                   </div>
 
                   <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-ink leading-tight">
@@ -265,11 +255,11 @@ export default function UmeshSharmaPage() {
                   </h1>
 
                   <p className="mt-2.5 sm:mt-3 font-display text-base sm:text-xl font-semibold text-accent leading-snug">
-                    Senior Leader, Bharatiya Janata Party | Sonipat, Haryana
+                    Senior Political Leader &amp; Social Worker | Sonipat, Haryana
                   </p>
 
                   <p className="mt-4 sm:mt-6 text-sm sm:text-lg leading-relaxed text-ink/85 font-normal">
-                    Umesh Sharma (उमेश शर्मा) is a respected senior leader of the Bharatiya Janata Party in Haryana. With deep roots in Sonipat and the NCR region, he has been an active organizer, social worker, and voice for civic development, industrial connectivity, and grassroots community empowerment.
+                    Umesh Sharma (उमेश शर्मा) is a respected senior political leader and dedicated social worker in Haryana. With deep roots in Sonipat and the NCR region, he has been an active organizer, public representative, and voice for civic development, industrial connectivity, and grassroots community empowerment.
                   </p>
 
                   {/* Clean Official Social Links */}
@@ -294,7 +284,7 @@ export default function UmeshSharmaPage() {
               <div className="lg:col-span-4 order-1 lg:order-2 flex justify-center">
                 <Reveal>
                   <div className="relative">
-                    <div className="relative h-60 w-60 sm:h-72 sm:w-72 lg:h-84 lg:w-84 rounded-full p-2 border-[3px] border-amber-200/90 bg-white shadow-xl">
+                    <div className="relative h-60 w-60 sm:h-72 sm:w-72 lg:h-84 lg:w-84 rounded-full p-2 border-[3px] border-stone-200/90 bg-white shadow-xl">
                       <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-100">
                         <Image
                           src="/politicians/umesh-sharma.webp"
@@ -326,7 +316,7 @@ export default function UmeshSharmaPage() {
                 </h2>
                 <div className="mt-4 text-sm sm:text-base leading-relaxed text-stone-700 space-y-3 font-normal">
                   <p>
-                    Umesh Sharma has played a pivotal role in strengthening party organization and grassroots outreach across Sonipat district. His approach prioritizes direct citizen connect, regular public interaction, and the effective realization of development initiatives in the National Capital Region belt.
+                    Umesh Sharma has played a pivotal role in strengthening civic organizations, public welfare, and grassroots outreach across Sonipat district. His approach prioritizes direct citizen connect, regular public interaction, and the effective realization of development initiatives in the National Capital Region belt.
                   </p>
                   <p>
                     Through community programs, youth engagement camps, and business roundtables, he continues to advocate for Sonipat&apos;s emergence as a premier educational and industrial hub in Haryana.
@@ -488,7 +478,7 @@ export default function UmeshSharmaPage() {
                   Umesh Sharma
                 </p>
                 <p className="text-xs sm:text-sm text-amber-400 font-medium">
-                  Senior Leader, Bharatiya Janata Party (BJP Haryana)
+                  Senior Political Leader &amp; Social Worker
                 </p>
                 <p className="text-xs text-stone-400 mt-0.5">
                   Sonipat, Haryana
@@ -516,7 +506,7 @@ export default function UmeshSharmaPage() {
                   Everything You Need to Know About Umesh Sharma
                 </h2>
                 <p className="mt-2 text-sm sm:text-base text-stone-600">
-                  Comprehensive insights into leadership roles, Sonipat development, and BJP party work.
+                  Comprehensive insights into leadership roles, Sonipat development, and public welfare initiatives.
                 </p>
               </div>
             </Reveal>

@@ -94,18 +94,6 @@ export const politicianClients: PoliticianClient[] = [
     },
   },
   {
-    name: "Umesh Sharma",
-    slug: "umesh-sharma",
-    href: "/clients/umesh-sharma",
-    role: "Senior Leader",
-    party: "BJP",
-    partyName: "Bharatiya Janata Party",
-    image: "/politicians/umesh-sharma.webp",
-    socials: {
-      facebook: "https://www.facebook.com/UmeshSharmaSnp",
-    },
-  },
-  {
     name: "Rajiv Mamuram Gonder",
     slug: "rajiv-mamuram-gonder",
     href: "/clients/rajiv-mamuram-gonder",
@@ -116,6 +104,16 @@ export const politicianClients: PoliticianClient[] = [
     socials: {
       facebook: "https://www.facebook.com/RajivGondarOfficial",
       instagram: "https://www.instagram.com/rajivgonderofficial",
+    },
+  },
+  {
+    name: "Umesh Sharma",
+    slug: "umesh-sharma",
+    href: "/clients/umesh-sharma",
+    role: "Senior Political Leader & Social Worker",
+    image: "/politicians/umesh-sharma.webp",
+    socials: {
+      facebook: "https://www.facebook.com/UmeshSharmaSnp",
     },
   },
 ];
