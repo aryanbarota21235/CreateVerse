@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Landmark,
   CheckCircle2,
+  Quote,
   ChevronRight,
-  ExternalLink,
 } from "lucide-react";
 import Reveal from "@/components/reveal";
 import { InstagramIcon, FacebookIcon, XIcon } from "@/components/social-icons";
@@ -62,6 +61,28 @@ const electionSnapshot = [
   { label: "Term Began", value: "8 October 2024" },
 ];
 
+const legislativeHighlights = [
+  "100% Session Attendance (PRS Legislative Research)",
+  "16 Questions Raised in Assembly",
+  "15th Haryana Legislative Assembly Member",
+  "Active Voice on Constituency & State Debates",
+];
+
+const educationData = [
+  {
+    degree: "Operations & Logistics Management",
+    college: "University of British Columbia, Canada",
+  },
+  {
+    degree: "Senior Secondary Education",
+    college: "The International School, Bengaluru",
+  },
+  {
+    degree: "Graduate Degree",
+    college: "International Academic Background",
+  },
+];
+
 const atAGlance = [
   { label: "Name", value: "Aditya Singh Surjewala" },
   { label: "Role", value: "Member of the Haryana Legislative Assembly" },
@@ -99,7 +120,7 @@ export default function AdityaSurjewalaPage() {
 
       <main className="min-h-screen bg-paper text-ink selection:bg-accent selection:text-white">
         {/* ==========================================================================
-            HERO SECTION: Clean profile header
+            SECTION 1: HERO SECTION - Clean, accurate profile header
             ========================================================================== */}
         <section className="relative overflow-hidden bg-paper pt-[76px] sm:pt-[84px] border-b border-stone-200">
           <div className="dot-texture absolute inset-0 opacity-70" />
@@ -140,18 +161,9 @@ export default function AdityaSurjewalaPage() {
                     Member of the Haryana Legislative Assembly | Kaithal
                   </p>
 
-                  <p className="mt-2 font-medium text-stone-600 text-sm sm:text-base">
-                    A young voice in Haryana&apos;s public life, representing Kaithal in the Haryana Legislative Assembly.
+                  <p className="mt-4 sm:mt-6 text-sm sm:text-lg leading-relaxed text-ink/85 font-normal">
+                    A young voice in Haryana&apos;s public life, representing Kaithal in the Haryana Legislative Assembly. Aditya Singh Surjewala is an Indian politician and Member of the Haryana Legislative Assembly from the Kaithal Assembly constituency. He represents the Indian National Congress and began his term as an MLA on 8 October 2024. At 25, Aditya Surjewala became one of the youngest members elected to the Haryana Vidhan Sabha, continuing a generational association with Kaithal.
                   </p>
-
-                  <div className="mt-4 sm:mt-6 text-sm sm:text-lg leading-relaxed text-ink/85 font-normal space-y-3">
-                    <p>
-                      Aditya Singh Surjewala is an Indian politician and Member of the Haryana Legislative Assembly from the Kaithal Assembly constituency. He represents the Indian National Congress and began his term as an MLA on 8 October 2024.
-                    </p>
-                    <p>
-                      At 25, Aditya Surjewala became one of the youngest members elected to the Haryana Vidhan Sabha. His entry into public life continues a political association with Kaithal that has been shared by earlier generations of his family.
-                    </p>
-                  </div>
 
                   {/* Clean Official Social Links */}
                   <div className="mt-6 flex items-center gap-2.5">
@@ -214,7 +226,7 @@ export default function AdityaSurjewalaPage() {
         </section>
 
         {/* ==========================================================================
-            SECTION: About Aditya Surjewala
+            SECTION 2: About Aditya Surjewala (White BG)
             ========================================================================== */}
         <section className="py-12 sm:py-16 bg-white border-b border-stone-200">
           <div className="container-site">
@@ -240,45 +252,123 @@ export default function AdityaSurjewalaPage() {
         </section>
 
         {/* ==========================================================================
-            SECTION: Representing Kaithal & 2024 Election Snapshot
+            SECTION 3: Political Journey (Paper BG) - Structured Card Containers
             ========================================================================== */}
         <section className="py-12 sm:py-16 bg-paper border-b border-stone-200">
           <div className="container-site">
             <Reveal>
-              <div className="max-w-3xl">
-                <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-ink">
-                  Representing Kaithal
-                </h2>
-                <div className="mt-4 text-sm sm:text-base leading-relaxed text-stone-700 space-y-3 font-normal">
-                  <p>
-                    In the 2024 Haryana Legislative Assembly election, Aditya Surjewala contested from Kaithal and was elected as the Congress candidate.
-                  </p>
-                  <p>
-                    He received 83,744 votes, securing approximately 49.64% of the votes. He defeated BJP candidate Leela Ram by 8,124 votes.
-                  </p>
-                </div>
-              </div>
+              <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-ink">
+                Political Journey
+              </h2>
             </Reveal>
 
-            {/* 2024 Election Snapshot Grid */}
-            <div className="mt-8 max-w-3xl">
+            <div className="mt-8 space-y-6">
+              {/* Card 1: Representing Kaithal */}
               <Reveal>
                 <div className="rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white p-6 sm:p-8 shadow-xs">
-                  <h3 className="font-display text-lg sm:text-xl font-bold text-ink mb-4 pb-3 border-b border-stone-200/80">
-                    2024 Election Snapshot
+                  <h3 className="font-display text-lg sm:text-2xl font-bold text-ink">
+                    Representing Kaithal
                   </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-                    {electionSnapshot.map((item) => (
+                  <div className="mt-3 text-sm sm:text-base leading-relaxed text-stone-700 space-y-2 font-normal">
+                    <p>
+                      In the 2024 Haryana Legislative Assembly election, Aditya Surjewala contested from Kaithal and was elected as the Congress candidate.
+                    </p>
+                    <p>
+                      He received 83,744 votes, securing approximately 49.64% of the votes. He defeated BJP candidate Leela Ram by 8,124 votes.
+                    </p>
+                  </div>
+
+                  {/* 2024 Election Snapshot Grid inside Card */}
+                  <div className="mt-6 pt-5 border-t border-stone-100">
+                    <p className="text-xs font-bold uppercase tracking-wider text-stone-500 mb-3">
+                      2024 Election Snapshot
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                      {electionSnapshot.map((item) => (
+                        <div
+                          key={item.label}
+                          className="rounded-xl border border-stone-200 bg-[#F8FAFC] p-3.5"
+                        >
+                          <span className="block text-[11px] font-bold uppercase tracking-wider text-stone-500">
+                            {item.label}
+                          </span>
+                          <p className="mt-1 text-sm font-bold text-ink">{item.value}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+
+              {/* Card 2: Legislative Journey */}
+              <Reveal>
+                <div className="rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white p-6 sm:p-8 shadow-xs">
+                  <h3 className="font-display text-lg sm:text-2xl font-bold text-ink">
+                    Legislative Journey
+                  </h3>
+                  <div className="mt-3 text-sm sm:text-base leading-relaxed text-stone-700 space-y-2 font-normal">
+                    <p>
+                      As a first-time MLA, Aditya Surjewala is part of the 15th Haryana Legislative Assembly.
+                    </p>
+                    <p>
+                      According to PRS Legislative Research, covering the period from 8 October 2024 to 18 March 2026, Aditya Surjewala recorded 100% attendance in the sessions covered by its data and asked 16 questions in the Assembly.
+                    </p>
+                    <p>
+                      His legislative role provides a platform to raise constituency-level issues and participate in debates and discussions concerning Haryana.
+                    </p>
+                  </div>
+
+                  {/* Highlights inside card with check icons */}
+                  <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
+                    {legislativeHighlights.map((item) => (
                       <div
-                        key={item.label}
-                        className="rounded-xl border border-stone-200 bg-[#F8FAFC] p-3.5"
+                        key={item}
+                        className="flex items-center gap-2 rounded-xl border border-stone-200 bg-[#F8FAFC] p-3 text-xs sm:text-sm font-semibold text-ink"
                       >
-                        <span className="block text-[11px] font-bold uppercase tracking-wider text-stone-500">
-                          {item.label}
-                        </span>
-                        <p className="mt-1 text-sm font-bold text-ink">{item.value}</p>
+                        <CheckCircle2 className="h-4 w-4 text-accent shrink-0" />
+                        <span>{item}</span>
                       </div>
                     ))}
+                  </div>
+                </div>
+              </Reveal>
+
+              {/* Card 3: A New Generation of Leadership */}
+              <Reveal>
+                <div className="rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white p-6 sm:p-8 shadow-xs">
+                  <h3 className="font-display text-lg sm:text-2xl font-bold text-ink">
+                    A New Generation of Leadership
+                  </h3>
+                  <div className="mt-3 text-sm sm:text-base leading-relaxed text-stone-700 space-y-2 font-normal">
+                    <p>
+                      Aditya Surjewala&apos;s entry into electoral politics represents a younger generation entering Haryana&apos;s political landscape.
+                    </p>
+                    <p>
+                      His public journey combines an academic background in Canada with a political connection to Haryana and, particularly, the Kaithal region. His electoral debut in 2024 marked his transition from student and young professional to elected representative.
+                    </p>
+                    <p>
+                      As a legislator, his public role now includes participating in the functioning of the Haryana Legislative Assembly and representing the interests and concerns of constituents in Kaithal.
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+
+              {/* Card 4: Family & Public Life */}
+              <Reveal>
+                <div className="rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white p-6 sm:p-8 shadow-xs">
+                  <h3 className="font-display text-lg sm:text-2xl font-bold text-ink">
+                    Family &amp; Public Life
+                  </h3>
+                  <div className="mt-3 text-sm sm:text-base leading-relaxed text-stone-700 space-y-2 font-normal">
+                    <p>
+                      Aditya Surjewala belongs to the Surjewala family, which has a longstanding political presence in Haryana.
+                    </p>
+                    <p>
+                      His father, Randeep Singh Surjewala, has served in the Haryana Legislative Assembly and held various political responsibilities. His grandfather, Shamsher Singh Surjewala, was also a prominent Haryana politician and represented constituencies in the state legislature.
+                    </p>
+                    <p>
+                      The family&apos;s political association with the region has been particularly connected with the Kaithal area, making Aditya&apos;s election another chapter in that political history.
+                    </p>
                   </div>
                 </div>
               </Reveal>
@@ -287,85 +377,46 @@ export default function AdityaSurjewalaPage() {
         </section>
 
         {/* ==========================================================================
-            SECTION: Legislative Journey
+            SECTION 4: Education & Academic Background (White BG)
             ========================================================================== */}
         <section className="py-12 sm:py-16 bg-white border-b border-stone-200">
           <div className="container-site">
             <Reveal>
               <div className="max-w-3xl">
                 <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-ink">
-                  Legislative Journey
+                  Education &amp; Academic Background
                 </h2>
-                <div className="mt-4 text-sm sm:text-base leading-relaxed text-stone-700 space-y-3 font-normal">
-                  <p>
-                    As a first-time MLA, Aditya Surjewala is part of the 15th Haryana Legislative Assembly.
-                  </p>
-                  <p>
-                    According to PRS Legislative Research, covering the period from 8 October 2024 to 18 March 2026, Aditya Surjewala recorded 100% attendance in the sessions covered by its data and asked 16 questions in the Assembly.
-                  </p>
-                  <p>
-                    His legislative role provides a platform to raise constituency-level issues and participate in debates and discussions concerning Haryana.
-                  </p>
-                </div>
+                <p className="mt-3 text-sm sm:text-base text-stone-600 font-medium">
+                  Aditya Surjewala holds qualifications including:
+                </p>
               </div>
             </Reveal>
-          </div>
-        </section>
 
-        {/* ==========================================================================
-            SECTION: A New Generation of Leadership
-            ========================================================================== */}
-        <section className="py-12 sm:py-16 bg-paper border-b border-stone-200">
-          <div className="container-site">
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {educationData.map((edu) => (
+                <Reveal key={edu.degree}>
+                  <div className="h-full rounded-2xl border border-stone-200/90 bg-[#F8FAFC] p-5 sm:p-6">
+                    <h3 className="font-display text-base sm:text-lg font-bold text-ink">
+                      {edu.degree}
+                    </h3>
+                    <p className="mt-1 text-xs sm:text-sm font-semibold text-accent">
+                      {edu.college}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+
             <Reveal>
-              <div className="max-w-3xl">
-                <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-ink">
-                  A New Generation of Leadership
-                </h2>
-                <div className="mt-4 text-sm sm:text-base leading-relaxed text-stone-700 space-y-3 font-normal">
-                  <p>
-                    Aditya Surjewala&apos;s entry into electoral politics represents a younger generation entering Haryana&apos;s political landscape.
-                  </p>
-                  <p>
-                    His public journey combines an academic background in Canada with a political connection to Haryana and, particularly, the Kaithal region. His electoral debut in 2024 marked his transition from student and young professional to elected representative.
-                  </p>
-                  <p>
-                    As a legislator, his public role now includes participating in the functioning of the Haryana Legislative Assembly and representing the interests and concerns of constituents in Kaithal.
-                  </p>
-                </div>
-              </div>
+              <p className="mt-6 text-sm sm:text-base text-stone-700 font-normal">
+                Before entering electoral politics, Aditya completed his academic education in India and Canada, gaining international exposure and specialized knowledge in operations and logistics.
+              </p>
             </Reveal>
           </div>
         </section>
 
         {/* ==========================================================================
-            SECTION: Family & Public Life
-            ========================================================================== */}
-        <section className="py-12 sm:py-16 bg-white border-b border-stone-200">
-          <div className="container-site">
-            <Reveal>
-              <div className="max-w-3xl">
-                <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-ink">
-                  Family &amp; Public Life
-                </h2>
-                <div className="mt-4 text-sm sm:text-base leading-relaxed text-stone-700 space-y-3 font-normal">
-                  <p>
-                    Aditya Surjewala belongs to the Surjewala family, which has a longstanding political presence in Haryana.
-                  </p>
-                  <p>
-                    His father, Randeep Singh Surjewala, has served in the Haryana Legislative Assembly and held various political responsibilities. His grandfather, Shamsher Singh Surjewala, was also a prominent Haryana politician and represented constituencies in the state legislature.
-                  </p>
-                  <p>
-                    The family&apos;s political association with the region has been particularly connected with the Kaithal area, making Aditya&apos;s election another chapter in that political history.
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-
-        {/* ==========================================================================
-            SECTION: Aditya Surjewala — At a Glance
+            SECTION 5: Aditya Surjewala — At a Glance (Paper BG)
             ========================================================================== */}
         <section className="py-12 sm:py-16 bg-paper border-b border-stone-200">
           <div className="container-site">
@@ -373,9 +424,12 @@ export default function AdityaSurjewalaPage() {
               <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-ink">
                 Aditya Surjewala — At a Glance
               </h2>
+              <p className="mt-2.5 text-sm sm:text-base text-stone-600">
+                Key legislative profile and constituency details.
+              </p>
             </Reveal>
 
-            <div className="mt-6 max-w-3xl">
+            <div className="mt-8 max-w-4xl">
               <Reveal>
                 <div className="rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white p-6 sm:p-8 shadow-xs">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
@@ -400,14 +454,17 @@ export default function AdityaSurjewalaPage() {
         </section>
 
         {/* ==========================================================================
-            SECTION: Connect & Follow
+            SECTION 6: Connect With Aditya Surjewala (White BG)
             ========================================================================== */}
         <section className="py-12 sm:py-16 bg-white border-b border-stone-200">
           <div className="container-site">
             <Reveal>
               <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-ink">
-                Connect &amp; Follow
+                Connect With Aditya Surjewala
               </h2>
+              <p className="mt-2.5 text-sm sm:text-base text-stone-600">
+                Follow updates on public activities, legislative work, political engagements and initiatives.
+              </p>
             </Reveal>
 
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl">
@@ -462,26 +519,41 @@ export default function AdityaSurjewalaPage() {
                 </a>
               </Reveal>
             </div>
+          </div>
+        </section>
 
+        {/* ==========================================================================
+            SECTION 7: Quote & Declaration (Dark Gradient BG)
+            ========================================================================== */}
+        <section className="py-12 sm:py-16 bg-gradient-to-b from-stone-900 to-[#0B0F19] text-white">
+          <div className="container-site text-center">
             <Reveal>
-              <p className="mt-8 text-sm sm:text-base text-stone-700 leading-relaxed max-w-2xl">
-                Stay connected for updates on Aditya Surjewala&apos;s legislative work, public engagements, constituency activities, speeches, initiatives and political journey.
-              </p>
+              <Quote className="mx-auto h-8 w-8 text-accent mb-4" />
+              <blockquote className="font-display text-xl sm:text-3xl font-bold text-white max-w-2xl mx-auto leading-snug">
+                &ldquo;Stay connected for updates on Aditya Surjewala&apos;s legislative work, public engagements, constituency activities, speeches, initiatives and political journey.&rdquo;
+              </blockquote>
 
-              <div className="mt-6 pt-6 border-t border-stone-200 max-w-2xl">
-                <p className="font-display text-lg sm:text-xl font-bold text-ink">
+              <div className="mt-6">
+                <p className="font-display text-base sm:text-lg font-bold text-white">
                   Aditya Surjewala
                 </p>
-                <p className="text-xs sm:text-sm text-accent font-semibold mt-0.5">
+                <p className="text-xs sm:text-sm text-sky-400 font-medium">
                   Member of the Haryana Legislative Assembly, Kaithal
                 </p>
+                <p className="text-xs text-stone-400 mt-0.5">
+                  Indian National Congress
+                </p>
               </div>
+
+              <p className="mt-6 text-xs uppercase tracking-[0.2em] font-bold text-stone-400">
+                Stay Connected. Stay Informed.
+              </p>
             </Reveal>
           </div>
         </section>
 
         {/* ==========================================================================
-            VERY LAST SECTION: CreateVerse Partnership, Praise & Enquiry CTAs (NO STARS)
+            SECTION 8: CreateVerse Political Campaign Division & Bottom CTAs (White BG)
             ========================================================================== */}
         <section className="py-12 sm:py-18 bg-white border-t border-stone-200">
           <div className="container-site">
