@@ -46,24 +46,33 @@ export const politicianClients: PoliticianClient[] = [
   },
   {
     name: "Kewal Singh Dhillon",
+    slug: "kewal-singh-dhillon",
+    href: "/clients/kewal-singh-dhillon",
     role: "BJP President, Punjab",
     party: "BJP",
     partyName: "Bharatiya Janata Party",
     image: "/politicians/kewal-singh-dhillon.webp",
-    socials: {},
+    socials: {
+      facebook: "https://www.facebook.com/kewalsinghdhillon/",
+    },
   },
   {
     name: "Gurkirat Singh Kotli",
+    slug: "gurkirat-singh-kotli",
+    href: "/clients/gurkirat-singh-kotli",
     role: "Former MLA, Khanna",
     party: "INC",
     partyName: "Indian National Congress",
     image: "/politicians/gurkirat-singh-kotli.webp",
     socials: {
       instagram: "https://www.instagram.com/gurkiratskotli",
+      facebook: "https://www.facebook.com/gurkiratskotliofficial",
     },
   },
   {
     name: "Shamsher Singh Gogi",
+    slug: "shamsher-singh-gogi",
+    href: "/clients/shamsher-singh-gogi",
     role: "EX-MLA, Assandh",
     party: "INC",
     partyName: "Indian National Congress",
@@ -86,6 +95,8 @@ export const politicianClients: PoliticianClient[] = [
   },
   {
     name: "Umesh Sharma",
+    slug: "umesh-sharma",
+    href: "/clients/umesh-sharma",
     role: "Senior Leader",
     party: "BJP",
     partyName: "Bharatiya Janata Party",

@@ -14,12 +14,18 @@ import { InstagramIcon, FacebookIcon, XIcon } from "@/components/social-icons";
 import ProfileBottomCTA from "./profile-bottom-cta";
 
 export const metadata: Metadata = {
-  title: "Randeep Singh Surjewala — Member of Parliament, Rajya Sabha | Senior Congress Leader",
+  title: "Randeep Singh Surjewala (रणदीप सिंह सुरजेवाला) — MP Rajya Sabha | Senior Congress Leader",
   description:
-    "Randeep Singh Surjewala is an Indian politician and lawyer from Haryana and a senior leader of the Indian National Congress. Member of Parliament, Rajya Sabha.",
+    "Official profile and political milestones of Randeep Singh Surjewala (रणदीप सुरजेवाला), Member of Parliament (Rajya Sabha), AICC General Secretary & Senior Congress Leader.",
   keywords: [
     "Randeep Singh Surjewala",
-    "Randeep Surjewala",
+    "randeep sign surjega",
+    "randeep surjega",
+    "randeep surjewala",
+    "रणदीप सिंह सुरजेवाला",
+    "रणदीप सुरजेवाला",
+    "सुरजेवाला",
+    "Randeep Singh Surjeywala",
     "Member of Parliament Rajya Sabha",
     "Senior Congress Leader",
     "Indian National Congress",
@@ -27,14 +33,15 @@ export const metadata: Metadata = {
     "Kaithal MLA",
     "Narwana MLA",
     "Haryana Cabinet Minister",
+    "CreateVerse political clients",
   ],
   alternates: {
     canonical: "https://createverse.in/clients/randeep-singh-surjewala",
   },
   openGraph: {
-    title: "Randeep Singh Surjewala — Member of Parliament, Rajya Sabha",
+    title: "Randeep Singh Surjewala (रणदीप सिंह सुरजेवाला) — Member of Parliament, Rajya Sabha",
     description:
-      "Randeep Singh Surjewala is an Indian politician and lawyer from Haryana and a senior leader of the Indian National Congress.",
+      "Randeep Singh Surjewala is an Indian politician and lawyer from Haryana, Member of Parliament (Rajya Sabha), and senior leader of the Indian National Congress.",
     url: "https://createverse.in/clients/randeep-singh-surjewala",
     siteName: "CreateVerse",
     locale: "en_IN",
@@ -52,7 +59,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Randeep Singh Surjewala — Member of Parliament, Rajya Sabha",
     description:
-      "Randeep Singh Surjewala is an Indian politician and lawyer from Haryana and a senior leader of the Indian National Congress.",
+      "Randeep Singh Surjewala is an Indian politician and lawyer from Haryana, Member of Parliament (Rajya Sabha), and senior leader of the Indian National Congress.",
     images: ["/politicians/randeep-singh-surjewala.webp"],
   },
 };
@@ -106,20 +113,154 @@ const experiencePillars = [
   },
 ];
 
+const faqs = [
+  {
+    question: "Who is Randeep Singh Surjewala (रणदीप सिंह सुरजेवाला)?",
+    answer:
+      "Randeep Singh Surjewala is an Indian politician, lawyer, and senior leader of the Indian National Congress (INC). He currently serves as a Member of Parliament in the Rajya Sabha representing Rajasthan and as the AICC General Secretary in charge of Karnataka.",
+  },
+  {
+    question: "Which constituencies has Randeep Singh Surjewala represented in the Assembly and Parliament?",
+    answer:
+      "Randeep Singh Surjewala represented the Narwana constituency (1996, 2005) and the Kaithal constituency (2009–2019) in the Haryana Legislative Assembly. In 2022, he was elected to the Rajya Sabha (Council of States), the Upper House of the Indian Parliament.",
+  },
+  {
+    question: "What cabinet portfolios did Randeep Singh Surjewala hold in the Haryana Government?",
+    answer:
+      "As a Cabinet Minister in Haryana, he managed crucial ministries including Transport & Civil Aviation, Power, Public Works (PWD), Water Supply & Sanitation, Parliamentary Affairs, Industries & Commerce, and Information Technology.",
+  },
+  {
+    question: "Who manages digital war rooms and campaign strategy for Randeep Singh Surjewala?",
+    answer:
+      "CreateVerse Political Campaign Division partners with distinguished leadership like Randeep Singh Surjewala to deliver high-stakes digital strategy, 24/7 campaign war rooms, voter data intelligence, and verified narrative architecture.",
+  },
+  {
+    question: "What are the official social media handles of Randeep Singh Surjewala?",
+    answer:
+      "Randeep Singh Surjewala can be followed officially on Facebook at facebook.com/rssurjewala, Instagram at @rssurjewala, and X (formerly Twitter) at @rssurjewala.",
+  },
+];
+
 export default function RandeepSurjewalaPage() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Person",
-    name: "Randeep Singh Surjewala",
-    jobTitle: "Member of Parliament, Rajya Sabha",
-    affiliation: {
-      "@type": "PoliticalParty",
-      name: "Indian National Congress",
-    },
-    sameAs: [
-      "https://www.facebook.com/rssurjewala",
-      "https://www.instagram.com/rssurjewala",
-      "https://x.com/rssurjewala",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://createverse.in/clients/randeep-singh-surjewala#person",
+        name: "Randeep Singh Surjewala",
+        alternateName: [
+          "रणदीप सिंह सुरजेवाला",
+          "रणदीप सुरजेवाला",
+          "Randeep Surjewala",
+          "randeep sign surjega",
+          "randeep surjega",
+          "Randeep Singh Surjeywala",
+          "R. S. Surjewala",
+          "सुरजेवाला",
+        ],
+        jobTitle: "Member of Parliament, Rajya Sabha & AICC General Secretary",
+        description:
+          "Randeep Singh Surjewala is an Indian politician and lawyer from Haryana, Member of Parliament (Rajya Sabha), and senior leader of the Indian National Congress.",
+        image: "https://createverse.in/politicians/randeep-singh-surjewala.webp",
+        url: "https://createverse.in/clients/randeep-singh-surjewala",
+        sameAs: [
+          "https://en.wikipedia.org/wiki/Randeep_Surjewala",
+          "https://sansad.in/rs/members",
+          "https://www.facebook.com/rssurjewala",
+          "https://www.instagram.com/rssurjewala",
+          "https://x.com/rssurjewala",
+        ],
+        affiliation: {
+          "@type": "PoliticalParty",
+          name: "Indian National Congress",
+          alternateName: ["INC", "Congress", "भारतीय राष्ट्रीय कांग्रेस"],
+        },
+        memberOf: {
+          "@type": "ParliamentaryParty",
+          name: "Rajya Sabha, Parliament of India",
+        },
+        alumniOf: [
+          {
+            "@type": "CollegeOrUniversity",
+            name: "DAV College, Chandigarh",
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            name: "Panjab University, Chandigarh",
+          },
+        ],
+        knowsAbout: [
+          "Indian Politics",
+          "Parliament of India",
+          "Haryana Vidhan Sabha",
+          "Constituency Campaign Strategy",
+          "Public Administration",
+        ],
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": "https://createverse.in/clients/randeep-singh-surjewala#webpage",
+        url: "https://createverse.in/clients/randeep-singh-surjewala",
+        name: "Randeep Singh Surjewala (रणदीप सिंह सुरजेवाला) — Member of Parliament | Official Client Profile",
+        isPartOf: {
+          "@type": "WebSite",
+          "@id": "https://createverse.in/#website",
+          name: "CreateVerse",
+          url: "https://createverse.in",
+        },
+        about: {
+          "@id": "https://createverse.in/clients/randeep-singh-surjewala#person",
+        },
+        mainEntity: {
+          "@id": "https://createverse.in/clients/randeep-singh-surjewala#person",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "CreateVerse",
+          url: "https://createverse.in",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://createverse.in/logo.png",
+          },
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://createverse.in/clients/randeep-singh-surjewala#breadcrumb",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://createverse.in",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Clients",
+            item: "https://createverse.in/clients",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Randeep Singh Surjewala",
+            item: "https://createverse.in/clients/randeep-singh-surjewala",
+          },
+        ],
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://createverse.in/clients/randeep-singh-surjewala#faq",
+        mainEntity: faqs.map((f) => ({
+          "@type": "Question",
+          name: f.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: f.answer,
+          },
+        })),
+      },
     ],
   };
 
@@ -519,6 +660,45 @@ export default function RandeepSurjewalaPage() {
                 Stay Connected. Stay Informed.
               </p>
             </Reveal>
+          </div>
+        </section>
+
+        {/* ==========================================================================
+            SECTION: Frequently Asked Questions (Google Rich Snippet Qualification)
+            ========================================================================== */}
+        <section className="py-12 sm:py-16 bg-white border-b border-stone-200">
+          <div className="container-site">
+            <Reveal>
+              <div className="max-w-3xl mb-8">
+                <div className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-accent mb-2.5">
+                  Frequently Asked Questions
+                </div>
+                <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-ink">
+                  Everything You Need to Know About Randeep Singh Surjewala
+                </h2>
+                <p className="mt-2 text-sm sm:text-base text-stone-600">
+                  Authoritative information covering parliamentary roles, constituency history, leadership, and public representation.
+                </p>
+              </div>
+            </Reveal>
+
+            <div className="max-w-4xl space-y-4">
+              {faqs.map((faq, idx) => (
+                <Reveal key={faq.question}>
+                  <div className="rounded-2xl border border-stone-200/90 bg-[#F8FAFC] p-5 sm:p-6 transition-all hover:border-accent/40 hover:bg-white hover:shadow-xs">
+                    <h3 className="font-display text-base sm:text-lg font-bold text-ink flex items-start gap-3">
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent/10 text-xs font-bold text-accent">
+                        {idx + 1}
+                      </span>
+                      <span>{faq.question}</span>
+                    </h3>
+                    <p className="mt-3 text-xs sm:text-sm text-stone-600 leading-relaxed pl-9">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </section>
 

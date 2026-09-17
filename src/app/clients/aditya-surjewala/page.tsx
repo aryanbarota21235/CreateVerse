@@ -12,23 +12,29 @@ import { InstagramIcon, FacebookIcon, XIcon } from "@/components/social-icons";
 import ProfileBottomCTA from "./profile-bottom-cta";
 
 export const metadata: Metadata = {
-  title: "Aditya Surjewala — Member of the Haryana Legislative Assembly | Kaithal",
+  title: "Aditya Surjewala (आदित्य सुरजेवाला) — MLA Kaithal | Haryana Vidhan Sabha",
   description:
-    "Aditya Singh Surjewala is an Indian politician and Member of the Haryana Legislative Assembly from the Kaithal Assembly constituency representing the Indian National Congress.",
+    "Official profile and legislative record of Aditya Surjewala (आदित्य सिंह सुरजेवाला), Member of the Haryana Legislative Assembly for Kaithal representing Indian National Congress.",
   keywords: [
     "Aditya Surjewala",
     "Aditya Singh Surjewala",
+    "आदित्य सुरजेवाला",
+    "आदित्य सिंह सुरजेवाला",
+    "aditya surjega",
+    "aditya surjeywala",
     "MLA Kaithal",
     "Haryana Legislative Assembly",
-    "Indian National Congress",
     "Kaithal Vidhan Sabha",
     "Young MLA Haryana",
+    "Indian National Congress",
+    "Randeep Surjewala son",
+    "CreateVerse political clients",
   ],
   alternates: {
     canonical: "https://createverse.in/clients/aditya-surjewala",
   },
   openGraph: {
-    title: "Aditya Surjewala — Member of the Haryana Legislative Assembly | Kaithal",
+    title: "Aditya Surjewala (आदित्य सुरजेवाला) — Member of the Haryana Legislative Assembly | Kaithal",
     description:
       "A young voice in Haryana's public life, representing Kaithal in the Haryana Legislative Assembly.",
     url: "https://createverse.in/clients/aditya-surjewala",
@@ -95,20 +101,146 @@ const atAGlance = [
   { label: "Assembly Term", value: "2024–Present" },
 ];
 
+const faqs = [
+  {
+    question: "Who is Aditya Surjewala (आदित्य सुरजेवाला)?",
+    answer:
+      "Aditya Singh Surjewala is an Indian politician and elected Member of the Haryana Legislative Assembly (MLA) representing the Kaithal Vidhan Sabha constituency for the Indian National Congress (INC).",
+  },
+  {
+    question: "What is Aditya Surjewala's election margin and record in the 2024 Haryana Assembly Election?",
+    answer:
+      "In October 2024, Aditya Surjewala won the Kaithal Assembly constituency with 83,744 votes (49.64% vote share), securing a decisive victory margin of 8,124 votes at the age of 25 to become one of Haryana's youngest legislators.",
+  },
+  {
+    question: "What is Aditya Surjewala's educational background?",
+    answer:
+      "Aditya Surjewala graduated with a degree in Operations and Logistics Management from the prestigious University of British Columbia (UBC) in Canada, after completing senior secondary education at The International School, Bengaluru.",
+  },
+  {
+    question: "How does CreateVerse support legislative leadership like Aditya Surjewala?",
+    answer:
+      "CreateVerse Political Campaign Division powers end-to-end digital war rooms, grassroots youth mobilization, data analytics, and narrative execution for state legislators and parliamentary offices across India.",
+  },
+  {
+    question: "What are Aditya Surjewala's official social media profiles?",
+    answer:
+      "Aditya Surjewala is active on Facebook at facebook.com/AdityaSurjewala, Instagram at @adityasurjewala, and X (Twitter) at @adityasurjewala.",
+  },
+];
+
 export default function AdityaSurjewalaPage() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Person",
-    name: "Aditya Singh Surjewala",
-    jobTitle: "Member of the Haryana Legislative Assembly",
-    affiliation: {
-      "@type": "PoliticalParty",
-      name: "Indian National Congress",
-    },
-    sameAs: [
-      "https://www.facebook.com/AdityaSurjewala",
-      "https://www.instagram.com/adityasurjewala/",
-      "https://x.com/adityasurjewala",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://createverse.in/clients/aditya-surjewala#person",
+        name: "Aditya Singh Surjewala",
+        alternateName: [
+          "आदित्य सुरजेवाला",
+          "आदित्य सिंह सुरजेवाला",
+          "Aditya Surjewala",
+          "aditya surjega",
+          "aditya surjeywala",
+          "MLA Aditya Surjewala Kaithal",
+        ],
+        jobTitle: "Member of the Haryana Legislative Assembly (MLA Kaithal)",
+        description:
+          "Aditya Singh Surjewala is an Indian politician and Member of the Haryana Legislative Assembly from the Kaithal Assembly constituency representing the Indian National Congress.",
+        image: "https://createverse.in/politicians/aditya-surjewala.webp",
+        url: "https://createverse.in/clients/aditya-surjewala",
+        sameAs: [
+          "https://en.wikipedia.org/wiki/Aditya_Surjewala",
+          "https://www.facebook.com/AdityaSurjewala",
+          "https://www.instagram.com/adityasurjewala/",
+          "https://x.com/adityasurjewala",
+        ],
+        affiliation: {
+          "@type": "PoliticalParty",
+          name: "Indian National Congress",
+          alternateName: ["INC", "Congress", "भारतीय राष्ट्रीय कांग्रेस"],
+        },
+        memberOf: {
+          "@type": "ParliamentaryParty",
+          name: "Haryana Legislative Assembly",
+        },
+        alumniOf: [
+          {
+            "@type": "CollegeOrUniversity",
+            name: "University of British Columbia, Canada",
+          },
+        ],
+        knowsAbout: [
+          "Legislative Affairs",
+          "Constituency Development",
+          "Haryana Politics",
+          "Youth Leadership",
+        ],
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": "https://createverse.in/clients/aditya-surjewala#webpage",
+        url: "https://createverse.in/clients/aditya-surjewala",
+        name: "Aditya Surjewala (आदित्य सुरजेवाला) — MLA Kaithal | Official Client Profile",
+        isPartOf: {
+          "@type": "WebSite",
+          "@id": "https://createverse.in/#website",
+          name: "CreateVerse",
+          url: "https://createverse.in",
+        },
+        about: {
+          "@id": "https://createverse.in/clients/aditya-surjewala#person",
+        },
+        mainEntity: {
+          "@id": "https://createverse.in/clients/aditya-surjewala#person",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "CreateVerse",
+          url: "https://createverse.in",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://createverse.in/logo.png",
+          },
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://createverse.in/clients/aditya-surjewala#breadcrumb",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://createverse.in",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Clients",
+            item: "https://createverse.in/clients",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Aditya Surjewala",
+            item: "https://createverse.in/clients/aditya-surjewala",
+          },
+        ],
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://createverse.in/clients/aditya-surjewala#faq",
+        mainEntity: faqs.map((f) => ({
+          "@type": "Question",
+          name: f.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: f.answer,
+          },
+        })),
+      },
     ],
   };
 
@@ -550,6 +682,45 @@ export default function AdityaSurjewalaPage() {
                 Stay Connected. Stay Informed.
               </p>
             </Reveal>
+          </div>
+        </section>
+
+        {/* ==========================================================================
+            SECTION: Frequently Asked Questions (Google Rich Snippet Qualification)
+            ========================================================================== */}
+        <section className="py-12 sm:py-16 bg-white border-b border-stone-200">
+          <div className="container-site">
+            <Reveal>
+              <div className="max-w-3xl mb-8">
+                <div className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-accent mb-2.5">
+                  Frequently Asked Questions
+                </div>
+                <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-ink">
+                  Everything You Need to Know About Aditya Surjewala
+                </h2>
+                <p className="mt-2 text-sm sm:text-base text-stone-600">
+                  Comprehensive insights into Kaithal legislative representation, assembly record, and youth leadership.
+                </p>
+              </div>
+            </Reveal>
+
+            <div className="max-w-4xl space-y-4">
+              {faqs.map((faq, idx) => (
+                <Reveal key={faq.question}>
+                  <div className="rounded-2xl border border-stone-200/90 bg-[#F8FAFC] p-5 sm:p-6 transition-all hover:border-accent/40 hover:bg-white hover:shadow-xs">
+                    <h3 className="font-display text-base sm:text-lg font-bold text-ink flex items-start gap-3">
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent/10 text-xs font-bold text-accent">
+                        {idx + 1}
+                      </span>
+                      <span>{faq.question}</span>
+                    </h3>
+                    <p className="mt-3 text-xs sm:text-sm text-stone-600 leading-relaxed pl-9">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </section>
 
