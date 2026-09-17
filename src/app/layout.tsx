@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Inter, Space_Grotesk } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { site } from "@/lib/site";
 import Navbar from "@/components/navbar";
@@ -142,6 +143,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <EnquiryModal />
           <WhatsAppWidget />
           <Analytics />
+          <SpeedInsights />
         </EnquiryProvider>
       </body>
     </html>
