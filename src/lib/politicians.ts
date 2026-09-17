@@ -32,12 +32,16 @@ export const politicianClients: PoliticianClient[] = [
   },
   {
     name: "Aditya Surjewala",
+    slug: "aditya-surjewala",
+    href: "/clients/aditya-surjewala",
     role: "MLA, Kaithal Vidhan Sabha",
     party: "INC",
     partyName: "Indian National Congress",
     image: "/politicians/aditya-surjewala.webp",
     socials: {
+      facebook: "https://www.facebook.com/AdityaSurjewala",
       instagram: "https://www.instagram.com/adityasurjewala/",
+      twitter: "https://x.com/adityasurjewala",
     },
   },
   {
