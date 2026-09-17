@@ -28,10 +28,24 @@ export const metadata: Metadata = {
     "District Congress Committee Karnal President",
     "Haryana Legislative Assembly",
     "Indian National Congress",
+    "Shamsher Gogi news",
+    "Shamsher Singh Gogi official profile",
+    "असंध विधायक शमशेर गोगी",
     "CreateVerse political clients",
   ],
   alternates: {
     canonical: "https://createverse.in/clients/shamsher-singh-gogi",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   openGraph: {
     title: "Shamsher Singh Gogi (शमशेर सिंह गोगी) — Ex-MLA Assandh | Congress Leader",
@@ -43,7 +57,7 @@ export const metadata: Metadata = {
     type: "profile",
     images: [
       {
-        url: "/politicians/shamsher-singh-gogi.webp",
+        url: "https://createverse.in/politicians/shamsher-singh-gogi.webp",
         width: 800,
         height: 800,
         alt: "Shamsher Singh Gogi — Ex-MLA Assandh",
@@ -55,7 +69,7 @@ export const metadata: Metadata = {
     title: "Shamsher Singh Gogi — Ex-MLA Assandh | Senior Congress Leader Haryana",
     description:
       "Former Member of the Haryana Legislative Assembly from Assandh (2019–2024) & Senior INC Leader.",
-    images: ["/politicians/shamsher-singh-gogi.webp"],
+    images: ["https://createverse.in/politicians/shamsher-singh-gogi.webp"],
   },
 };
 

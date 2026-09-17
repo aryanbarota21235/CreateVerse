@@ -33,10 +33,24 @@ export const metadata: Metadata = {
     "Indian National Congress Nilokheri",
     "Karnal Congress Leader",
     "Nilokheri Vidhan Sabha",
+    "Rajiv Gonder news",
+    "Rajiv Mamuram Gonder official profile",
+    "राजीव गोंदर नीलोखेड़ी",
     "CreateVerse political clients",
   ],
   alternates: {
     canonical: "https://createverse.in/clients/rajiv-mamuram-gonder",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   openGraph: {
     title: "Rajiv Mamuram Gonder (राजीव मामूराम गोंदर) — Nilokheri Assembly Constituency",
@@ -48,7 +62,7 @@ export const metadata: Metadata = {
     type: "profile",
     images: [
       {
-        url: "/politicians/rajiv-mamuram-gonder.webp",
+        url: "https://createverse.in/politicians/rajiv-mamuram-gonder.webp",
         width: 800,
         height: 800,
         alt: "Rajiv Mamuram Gonder",
@@ -60,7 +74,7 @@ export const metadata: Metadata = {
     title: "Rajiv Mamuram Gonder — Public Representative | Nilokheri, Karnal",
     description:
       "Public representative, farmer, and social worker associated with the Indian National Congress in Nilokheri, Karnal.",
-    images: ["/politicians/rajiv-mamuram-gonder.webp"],
+    images: ["https://createverse.in/politicians/rajiv-mamuram-gonder.webp"],
   },
 };
 

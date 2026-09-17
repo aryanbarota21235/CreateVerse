@@ -19,12 +19,12 @@ export const metadata: Metadata = {
     "Official profile and political milestones of Randeep Singh Surjewala (रणदीप सुरजेवाला), Member of Parliament (Rajya Sabha), AICC General Secretary & Senior Congress Leader.",
   keywords: [
     "Randeep Singh Surjewala",
-    "randeep sign surjega",
-    "randeep surjega",
-    "randeep surjewala",
+    "Randeep Surjewala",
     "रणदीप सिंह सुरजेवाला",
     "रणदीप सुरजेवाला",
     "सुरजेवाला",
+    "randeep sign surjega",
+    "randeep surjega",
     "Randeep Singh Surjeywala",
     "Member of Parliament Rajya Sabha",
     "Senior Congress Leader",
@@ -33,10 +33,24 @@ export const metadata: Metadata = {
     "Kaithal MLA",
     "Narwana MLA",
     "Haryana Cabinet Minister",
+    "Randeep Surjewala news",
+    "Randeep Surjewala official profile",
+    "रणदीप सुरजेवाला राज्यसभा सांसद",
     "CreateVerse political clients",
   ],
   alternates: {
     canonical: "https://createverse.in/clients/randeep-singh-surjewala",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   openGraph: {
     title: "Randeep Singh Surjewala (रणदीप सिंह सुरजेवाला) — Member of Parliament, Rajya Sabha",
@@ -48,7 +62,7 @@ export const metadata: Metadata = {
     type: "profile",
     images: [
       {
-        url: "/politicians/randeep-singh-surjewala.webp",
+        url: "https://createverse.in/politicians/randeep-singh-surjewala.webp",
         width: 800,
         height: 800,
         alt: "Randeep Singh Surjewala",
@@ -60,7 +74,7 @@ export const metadata: Metadata = {
     title: "Randeep Singh Surjewala — Member of Parliament, Rajya Sabha",
     description:
       "Randeep Singh Surjewala is an Indian politician and lawyer from Haryana, Member of Parliament (Rajya Sabha), and senior leader of the Indian National Congress.",
-    images: ["/politicians/randeep-singh-surjewala.webp"],
+    images: ["https://createverse.in/politicians/randeep-singh-surjewala.webp"],
   },
 };
 

@@ -15,9 +15,9 @@ import { FacebookIcon } from "@/components/social-icons";
 import ProfileBottomCTA from "@/components/profile-bottom-cta";
 
 export const metadata: Metadata = {
-  title: "Kewal Singh Dhillon (केवल सिंह ढिल्लों) — Senior BJP Leader, Punjab | Former MLA Barnala",
+  title: "Kewal Singh Dhillon (केवल सिंह ढिल्लों) — BJP President Punjab | Former MLA Barnala",
   description:
-    "Official profile and political milestones of Kewal Singh Dhillon (ਕੇਵਲ ਸਿੰਘ ਢਿੱਲੋਂ), Senior Leader of Bharatiya Janata Party (BJP Punjab), 2-term MLA Barnala & Industrialist.",
+    "Official profile and political milestones of Kewal Singh Dhillon (ਕੇਵਲ ਸਿੰਘ ਢਿੱਲੋਂ), BJP President Punjab, Senior Leader of Bharatiya Janata Party, 2-term MLA Barnala & Industrialist.",
   keywords: [
     "Kewal Singh Dhillon",
     "Kewal Dhillon",
@@ -26,11 +26,14 @@ export const metadata: Metadata = {
     "केवाल सिंह ढिल्लों",
     "ਕੇਵਲ ਸਿੰਘ ਢਿੱਲੋਂ",
     "Kewal Singh Dhillon BJP",
-    "BJP Punjab President",
+    "BJP President Punjab",
+    "Kewal Singh Dhillon BJP President Punjab",
     "Senior Leader BJP Punjab",
     "MLA Barnala",
     "Barnala Vidhan Sabha",
     "Sangrur Lok Sabha BJP",
+    "Kewal Dhillon news",
+    "Kewal Singh Dhillon official profile",
     "Dhillon Group",
     "Punjab Industrial Development",
     "CreateVerse political clients",
@@ -38,29 +41,40 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://createverse.in/clients/kewal-singh-dhillon",
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
-    title: "Kewal Singh Dhillon (केवल सिंह ढिल्लों) — Senior BJP Leader, Punjab",
+    title: "Kewal Singh Dhillon (केवल सिंह ढिल्लों) — BJP President Punjab",
     description:
-      "Official profile of Kewal Singh Dhillon, Senior Leader of Bharatiya Janata Party Punjab and Former 2-term MLA from Barnala.",
+      "Official profile of Kewal Singh Dhillon, BJP President Punjab, Senior Leader of Bharatiya Janata Party and Former 2-term MLA from Barnala.",
     url: "https://createverse.in/clients/kewal-singh-dhillon",
     siteName: "CreateVerse",
     locale: "en_IN",
     type: "profile",
     images: [
       {
-        url: "/politicians/kewal-singh-dhillon.webp",
+        url: "https://createverse.in/politicians/kewal-singh-dhillon.webp",
         width: 800,
         height: 800,
-        alt: "Kewal Singh Dhillon — Senior BJP Leader Punjab",
+        alt: "Kewal Singh Dhillon — BJP President Punjab",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kewal Singh Dhillon — Senior BJP Leader, Punjab | Former MLA Barnala",
+    title: "Kewal Singh Dhillon — BJP President Punjab | Former MLA Barnala",
     description:
-      "Senior Leader of Bharatiya Janata Party (BJP) Punjab, 2-term MLA from Barnala & distinguished industrialist.",
-    images: ["/politicians/kewal-singh-dhillon.webp"],
+      "BJP President Punjab, Senior Leader of Bharatiya Janata Party (BJP) & 2-term MLA from Barnala.",
+    images: ["https://createverse.in/politicians/kewal-singh-dhillon.webp"],
   },
 };
 

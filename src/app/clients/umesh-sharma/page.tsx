@@ -24,10 +24,24 @@ export const metadata: Metadata = {
     "Sonipat Political Leadership",
     "Sonipat Civic Development",
     "Haryana Public Welfare",
+    "Umesh Sharma news",
+    "Umesh Sharma official profile",
+    "उमेश शर्मा हरियाणा",
     "CreateVerse political clients",
   ],
   alternates: {
     canonical: "https://createverse.in/clients/umesh-sharma",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   openGraph: {
     title: "Umesh Sharma (उमेश शर्मा) — Senior Political Leader | Sonipat",
@@ -39,7 +53,7 @@ export const metadata: Metadata = {
     type: "profile",
     images: [
       {
-        url: "/politicians/umesh-sharma.webp",
+        url: "https://createverse.in/politicians/umesh-sharma.webp",
         width: 800,
         height: 800,
         alt: "Umesh Sharma — Senior Political Leader Haryana",
@@ -51,7 +65,7 @@ export const metadata: Metadata = {
     title: "Umesh Sharma — Senior Political Leader | Sonipat",
     description:
       "Senior Political Leader and Social Worker, Haryana. Grassroots leadership & public welfare in Sonipat.",
-    images: ["/politicians/umesh-sharma.webp"],
+    images: ["https://createverse.in/politicians/umesh-sharma.webp"],
   },
 };
 

@@ -29,14 +29,14 @@ export default function Footer() {
       <div className="container-site pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-12 lg:pb-18">
         <div className="grid grid-cols-2 gap-x-6 gap-y-7 sm:gap-12 lg:grid-cols-12">
           {/* Column 1: Brand & Logo */}
-          <div className="col-span-2 lg:col-span-5 space-y-3.5 sm:space-y-6">
+          <div className="col-span-2 lg:col-span-4 space-y-3.5 sm:space-y-6">
             <Link href="/" prefetch={true} className="inline-block transition-opacity hover:opacity-90" aria-label="CreateVerse home">
               <Image
-                src="/logo.png"
+                src="/logo-footer.png"
                 alt="CreateVerse — Redefining Digital"
-                width={360}
-                height={148}
-                className="h-9 sm:h-12 w-auto"
+                width={240}
+                height={50}
+                className="h-8 sm:h-11 w-auto object-contain"
               />
             </Link>
 
@@ -61,7 +61,7 @@ export default function Footer() {
             <h3 className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-white">
               Practice Areas
             </h3>
-            <ul className="mt-3 sm:mt-5 space-y-2 sm:space-y-3">
+            <ul className="mt-3 sm:mt-5 space-y-2 sm:space-y-2.5">
               {coreServices.map((s) => (
                 <li key={s.slug}>
                   <Link
@@ -79,18 +79,99 @@ export default function Footer() {
                   prefetch={true}
                   className="text-xs sm:text-sm font-semibold text-white/90 hover:text-accent transition-colors"
                 >
-                  All Practice Areas
+                  All Practice Areas &rarr;
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Company */}
-          <div className="col-span-1 lg:col-span-2">
+          {/* Column 3: Political Leadership Roster (Internal Link Authority) */}
+          <div className="col-span-1 lg:col-span-3">
+            <h3 className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-white">
+              Political Clients
+            </h3>
+            <ul className="mt-3 sm:mt-5 space-y-2 sm:space-y-2.5">
+              <li>
+                <Link
+                  href="/clients/randeep-singh-surjewala"
+                  prefetch={true}
+                  className="text-xs sm:text-sm text-stone-400 transition-colors hover:text-white"
+                >
+                  Randeep Singh Surjewala
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/clients/aditya-surjewala"
+                  prefetch={true}
+                  className="text-xs sm:text-sm text-stone-400 transition-colors hover:text-white"
+                >
+                  Aditya Surjewala
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/clients/kewal-singh-dhillon"
+                  prefetch={true}
+                  className="text-xs sm:text-sm text-stone-400 transition-colors hover:text-white"
+                >
+                  Kewal Singh Dhillon
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/clients/gurkirat-singh-kotli"
+                  prefetch={true}
+                  className="text-xs sm:text-sm text-stone-400 transition-colors hover:text-white"
+                >
+                  Gurkirat Singh Kotli
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/clients/shamsher-singh-gogi"
+                  prefetch={true}
+                  className="text-xs sm:text-sm text-stone-400 transition-colors hover:text-white"
+                >
+                  Shamsher Singh Gogi
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/clients/bhupinder-lather"
+                  prefetch={true}
+                  className="text-xs sm:text-sm text-stone-400 transition-colors hover:text-white"
+                >
+                  Bhupinder Lather
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/clients/rajiv-mamuram-gonder"
+                  prefetch={true}
+                  className="text-xs sm:text-sm text-stone-400 transition-colors hover:text-white"
+                >
+                  Rajiv Mamuram Gonder
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/clients"
+                  prefetch={true}
+                  className="text-xs sm:text-sm font-semibold text-white/90 hover:text-accent transition-colors"
+                >
+                  All Political Clients &rarr;
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4: Company & Contact */}
+          <div className="col-span-2 sm:col-span-2 lg:col-span-2">
             <h3 className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-white">
               Company
             </h3>
-            <ul className="mt-3 sm:mt-5 space-y-2 sm:space-y-3">
+            <ul className="mt-3 sm:mt-5 space-y-2 sm:space-y-2.5">
               {site.nav.map((item) => (
                 <li key={item.href}>
                   <Link
@@ -103,14 +184,11 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
 
-          {/* Column 4: Contact Details (Clean, no tacky badges) */}
-          <div className="col-span-2 sm:col-span-2 lg:col-span-2">
-            <h3 className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-white">
+            <h3 className="mt-6 text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-white">
               Contact Desk
             </h3>
-            <ul className="mt-3 sm:mt-5 space-y-2 sm:space-y-3 text-xs sm:text-sm text-stone-400 font-normal">
+            <ul className="mt-3 space-y-2 text-xs sm:text-sm text-stone-400 font-normal">
               <li>
                 <a
                   href={`tel:${site.phone.replace(/[^0-9+]/g, "")}`}

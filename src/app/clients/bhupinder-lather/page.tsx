@@ -27,10 +27,24 @@ export const metadata: Metadata = {
     "Karnal Congress",
     "NSUI Haryana",
     "Indian National Congress",
+    "Bhupinder Lather news",
+    "Bhupinder Lather official profile",
+    "जाट महासभा करनाल भूपिंदर लाठर",
     "CreateVerse political clients",
   ],
   alternates: {
     canonical: "https://createverse.in/clients/bhupinder-lather",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   openGraph: {
     title: "Bhupinder Lather (Bhuppi) — President Jat Mahasabha Karnal | Political Leader",
@@ -42,7 +56,7 @@ export const metadata: Metadata = {
     type: "profile",
     images: [
       {
-        url: "/politicians/bhupinder-lather.webp",
+        url: "https://createverse.in/politicians/bhupinder-lather.webp",
         width: 800,
         height: 800,
         alt: "Bhupinder Lather (Bhuppi)",
@@ -54,7 +68,7 @@ export const metadata: Metadata = {
     title: "Bhupinder Lather (Bhuppi) — Political Leader & Social Worker | Karnal",
     description:
       "Political leader and social worker associated with the Indian National Congress. President of Jat Mahasabha Karnal.",
-    images: ["/politicians/bhupinder-lather.webp"],
+    images: ["https://createverse.in/politicians/bhupinder-lather.webp"],
   },
 };
 

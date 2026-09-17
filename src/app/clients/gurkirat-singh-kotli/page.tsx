@@ -29,10 +29,24 @@ export const metadata: Metadata = {
     "Punjab Pradesh Congress Committee",
     "Indian National Congress",
     "Beant Singh grandson",
+    "Gurkirat Kotli news",
+    "Gurkirat Singh Kotli official profile",
+    "ਗੁਰਕੀਰਤ ਕੋਟਲੀ ਖੰਨਾ",
     "CreateVerse political clients",
   ],
   alternates: {
     canonical: "https://createverse.in/clients/gurkirat-singh-kotli",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   openGraph: {
     title: "Gurkirat Singh Kotli (गुरकीरत सिंह कोटली) — Former Cabinet Minister, Punjab",
@@ -44,7 +58,7 @@ export const metadata: Metadata = {
     type: "profile",
     images: [
       {
-        url: "/politicians/gurkirat-singh-kotli.webp",
+        url: "https://createverse.in/politicians/gurkirat-singh-kotli.webp",
         width: 800,
         height: 800,
         alt: "Gurkirat Singh Kotli — Former Cabinet Minister Punjab",
@@ -56,7 +70,7 @@ export const metadata: Metadata = {
     title: "Gurkirat Singh Kotli — Former Cabinet Minister, Punjab | MLA Khanna",
     description:
       "Former Cabinet Minister for Industries, IT & Science & Technology, Punjab. 2-term MLA from Khanna representing INC.",
-    images: ["/politicians/gurkirat-singh-kotli.webp"],
+    images: ["https://createverse.in/politicians/gurkirat-singh-kotli.webp"],
   },
 };
 

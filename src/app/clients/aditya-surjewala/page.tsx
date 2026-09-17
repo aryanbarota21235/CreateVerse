@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     "Aditya Singh Surjewala",
     "आदित्य सुरजेवाला",
     "आदित्य सिंह सुरजेवाला",
+    "विधायक आदित्य सुरजेवाला",
     "aditya surjega",
     "aditya surjeywala",
     "MLA Kaithal",
@@ -28,10 +29,25 @@ export const metadata: Metadata = {
     "Young MLA Haryana",
     "Indian National Congress",
     "Randeep Surjewala son",
+    "Aditya Surjewala Kaithal election 2024",
+    "Aditya Surjewala biography news",
+    "Aditya Surjewala official profile",
+    "कैथल विधायक आदित्य सुरजेवाला",
     "CreateVerse political clients",
   ],
   alternates: {
     canonical: "https://createverse.in/clients/aditya-surjewala",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   openGraph: {
     title: "Aditya Surjewala (आदित्य सुरजेवाला) — Member of the Haryana Legislative Assembly | Kaithal",
@@ -43,7 +59,7 @@ export const metadata: Metadata = {
     type: "profile",
     images: [
       {
-        url: "/politicians/aditya-surjewala.webp",
+        url: "https://createverse.in/politicians/aditya-surjewala.webp",
         width: 800,
         height: 800,
         alt: "Aditya Surjewala — MLA Kaithal",
@@ -55,7 +71,7 @@ export const metadata: Metadata = {
     title: "Aditya Surjewala — Member of the Haryana Legislative Assembly | Kaithal",
     description:
       "A young voice in Haryana's public life, representing Kaithal in the Haryana Legislative Assembly.",
-    images: ["/politicians/aditya-surjewala.webp"],
+    images: ["https://createverse.in/politicians/aditya-surjewala.webp"],
   },
 };
 
