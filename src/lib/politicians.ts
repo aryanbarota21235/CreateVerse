@@ -1,5 +1,7 @@
 export interface PoliticianClient {
   name: string;
+  slug?: string;
+  href?: string;
   role?: string;
   party?: "INC" | "BJP";
   partyName?: string;
@@ -16,12 +18,16 @@ export interface PoliticianClient {
 export const politicianClients: PoliticianClient[] = [
   {
     name: "Randeep Singh Surjewala",
-    role: "Member of Parliament (Rajya Sabha). General Secretary,INC",
+    slug: "randeep-singh-surjewala",
+    href: "/clients/randeep-singh-surjewala",
+    role: "Member of Parliament (Rajya Sabha). General Secretary, INC",
     party: "INC",
     partyName: "Indian National Congress",
     image: "/politicians/randeep-singh-surjewala.webp",
     socials: {
+      facebook: "https://www.facebook.com/rssurjewala",
       instagram: "https://www.instagram.com/rssurjewala",
+      twitter: "https://x.com/rssurjewala",
     },
   },
   {

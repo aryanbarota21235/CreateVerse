@@ -77,47 +77,103 @@ export default function PoliticalClients() {
             {politicianClients.map((p) => (
               <StaggerItem key={p.name} className="h-full">
                 <div className="group h-full flex flex-col items-center justify-between text-center p-3 sm:py-5 sm:px-2 xl:px-3 rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:bg-white hover:shadow-card">
-                  {/* Circular Portrait with Concentric Clean Ring */}
-                  <div className="relative mb-3 sm:mb-4 shrink-0">
-                    <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
-                      <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
-                        <Image
-                          src={p.image}
-                          alt={p.name}
-                          width={140}
-                          height={140}
-                          sizes="(max-width: 640px) 112px, 140px"
-                          priority
-                          quality={85}
-                          className="h-full w-full object-cover scale-[1.08] transition-transform duration-300 group-hover:scale-[1.12]"
-                        />
+                  {/* Clickable Portrait and Info Header */}
+                  {p.href ? (
+                    <Link
+                      href={p.href}
+                      prefetch={true}
+                      className="group/link flex flex-col items-center w-full grow cursor-pointer"
+                    >
+                      {/* Circular Portrait with Concentric Clean Ring */}
+                      <div className="relative mb-3 sm:mb-4 shrink-0">
+                        <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
+                          <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
+                            <Image
+                              src={p.image}
+                              alt={p.name}
+                              width={140}
+                              height={140}
+                              sizes="(max-width: 640px) 112px, 140px"
+                              priority
+                              quality={85}
+                              className="h-full w-full object-cover scale-[1.08] transition-transform duration-300 group-hover:scale-[1.12]"
+                            />
+                          </div>
+                        </div>
+                        {/* Party Tag Badge */}
+                        {p.party && (
+                          <span
+                            className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-xs ${
+                              p.party === "BJP"
+                                ? "bg-amber-500 text-white border border-amber-600/30"
+                                : "bg-sky-600 text-white border border-sky-700/30"
+                            }`}
+                          >
+                            {p.party}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Content: Name and Designation */}
+                      <div className="flex flex-col items-center w-full grow justify-center text-center mt-1 sm:mt-2">
+                        <h4 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-sm font-bold text-ink leading-snug transition-colors group-hover:text-accent tracking-tight whitespace-nowrap">
+                          {p.name}
+                        </h4>
+                        {p.role && (
+                          <p className="mt-1 text-[10px] sm:text-[11px] font-medium text-stone-600 leading-tight">
+                            {p.role}
+                          </p>
+                        )}
+                        <span className="mt-2 inline-flex items-center gap-1 text-[10px] font-bold text-accent group-hover/link:underline">
+                          View Profile &rarr;
+                        </span>
+                      </div>
+                    </Link>
+                  ) : (
+                    <div className="flex flex-col items-center w-full grow">
+                      {/* Circular Portrait with Concentric Clean Ring */}
+                      <div className="relative mb-3 sm:mb-4 shrink-0">
+                        <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
+                          <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
+                            <Image
+                              src={p.image}
+                              alt={p.name}
+                              width={140}
+                              height={140}
+                              sizes="(max-width: 640px) 112px, 140px"
+                              priority
+                              quality={85}
+                              className="h-full w-full object-cover scale-[1.08] transition-transform duration-300 group-hover:scale-[1.12]"
+                            />
+                          </div>
+                        </div>
+                        {/* Party Tag Badge */}
+                        {p.party && (
+                          <span
+                            className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-xs ${
+                              p.party === "BJP"
+                                ? "bg-amber-500 text-white border border-amber-600/30"
+                                : "bg-sky-600 text-white border border-sky-700/30"
+                            }`}
+                          >
+                            {p.party}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Content: Name and Designation */}
+                      <div className="flex flex-col items-center w-full grow justify-center text-center mt-1 sm:mt-2">
+                        <h4 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-sm font-bold text-ink leading-snug transition-colors group-hover:text-accent tracking-tight whitespace-nowrap">
+                          {p.name}
+                        </h4>
+                        {p.role && (
+                          <p className="mt-1 text-[10px] sm:text-[11px] font-medium text-stone-600 leading-tight">
+                            {p.role}
+                          </p>
+                        )}
                       </div>
                     </div>
-                    {/* Party Tag Badge */}
-                    {p.party && (
-                      <span
-                        className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-xs ${
-                          p.party === "BJP"
-                            ? "bg-amber-500 text-white border border-amber-600/30"
-                            : "bg-sky-600 text-white border border-sky-700/30"
-                        }`}
-                      >
-                        {p.party}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Content: Name and Designation */}
-                  <div className="flex flex-col items-center w-full grow justify-center text-center mt-1 sm:mt-2">
-                    <h4 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-sm font-bold text-ink leading-snug transition-colors group-hover:text-accent tracking-tight whitespace-nowrap">
-                      {p.name}
-                    </h4>
-                    {p.role && (
-                      <p className="mt-1 text-[10px] sm:text-[11px] font-medium text-stone-600 leading-tight">
-                        {p.role}
-                      </p>
-                    )}
-                  </div>
+                  )}
 
                   {/* Social Media Links Pills - Only shown if link exists */}
                   {Boolean(p.socials?.instagram || p.socials?.facebook || p.socials?.twitter) && (

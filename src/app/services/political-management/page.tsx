@@ -237,55 +237,110 @@ export default function PoliticalManagementPage() {
             {politicianClients.map((p) => (
               <StaggerItem key={p.name} className="h-full">
                 <div className="group h-full flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/60 hover:bg-white hover:shadow-card">
-                  {/* Top Row: Portrait & Identity */}
-                  <div>
-                    <div className="flex items-center sm:items-start gap-4 sm:gap-5">
-                      {/* High-Res Portrait */}
-                      <div className="relative shrink-0">
-                        <div className="relative h-24 w-24 sm:h-28 sm:w-28 lg:h-32 lg:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
-                          <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
-                            <Image
-                              src={p.image}
-                              alt={p.name}
-                              width={136}
-                              height={136}
-                              sizes="(max-width: 640px) 96px, 136px"
-                              priority
-                              quality={85}
-                              className="h-full w-full object-cover scale-[1.08] transition-transform duration-300 group-hover:scale-[1.14]"
-                            />
+                  {/* Top Row: Portrait & Identity (Clickable if href present) */}
+                  {p.href ? (
+                    <Link href={p.href} prefetch={true} className="group/link block">
+                      <div className="flex items-center sm:items-start gap-4 sm:gap-5">
+                        {/* High-Res Portrait */}
+                        <div className="relative shrink-0">
+                          <div className="relative h-24 w-24 sm:h-28 sm:w-28 lg:h-32 lg:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
+                            <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
+                              <Image
+                                src={p.image}
+                                alt={p.name}
+                                width={136}
+                                height={136}
+                                sizes="(max-width: 640px) 96px, 136px"
+                                priority
+                                quality={85}
+                                className="h-full w-full object-cover scale-[1.08] transition-transform duration-300 group-hover:scale-[1.14]"
+                              />
+                            </div>
                           </div>
                         </div>
+
+                        {/* Name & Party Info */}
+                        <div className="grow">
+                          {p.party && (
+                            <div className="flex items-center gap-2">
+                              <span
+                                className={`px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider ${
+                                  p.party === "BJP"
+                                    ? "bg-amber-500 text-white"
+                                    : "bg-sky-600 text-white"
+                                }`}
+                              >
+                                {p.party}
+                              </span>
+                            </div>
+                          )}
+
+                          <h3 className="mt-1 font-display text-sm sm:text-base font-bold text-ink leading-snug transition-colors group-hover:text-accent">
+                            {p.name}
+                          </h3>
+
+                          {p.role && (
+                            <p className="mt-1 text-xs font-medium text-stone-600 leading-tight">
+                              {p.role}
+                            </p>
+                          )}
+
+                          <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-accent group-hover/link:underline">
+                            View Full Profile &rarr;
+                          </span>
+                        </div>
                       </div>
-
-                      {/* Name & Party Info */}
-                      <div className="grow">
-                        {p.party && (
-                          <div className="flex items-center gap-2">
-                            <span
-                              className={`px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider ${
-                                p.party === "BJP"
-                                  ? "bg-amber-500 text-white"
-                                  : "bg-sky-600 text-white"
-                              }`}
-                            >
-                              {p.party}
-                            </span>
+                    </Link>
+                  ) : (
+                    <div>
+                      <div className="flex items-center sm:items-start gap-4 sm:gap-5">
+                        {/* High-Res Portrait */}
+                        <div className="relative shrink-0">
+                          <div className="relative h-24 w-24 sm:h-28 sm:w-28 lg:h-32 lg:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
+                            <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
+                              <Image
+                                src={p.image}
+                                alt={p.name}
+                                width={136}
+                                height={136}
+                                sizes="(max-width: 640px) 96px, 136px"
+                                priority
+                                quality={85}
+                                className="h-full w-full object-cover scale-[1.08] transition-transform duration-300 group-hover:scale-[1.14]"
+                              />
+                            </div>
                           </div>
-                        )}
+                        </div>
 
-                        <h3 className="mt-1 font-display text-sm sm:text-base font-bold text-ink leading-snug transition-colors group-hover:text-accent">
-                          {p.name}
-                        </h3>
+                        {/* Name & Party Info */}
+                        <div className="grow">
+                          {p.party && (
+                            <div className="flex items-center gap-2">
+                              <span
+                                className={`px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider ${
+                                  p.party === "BJP"
+                                    ? "bg-amber-500 text-white"
+                                    : "bg-sky-600 text-white"
+                                }`}
+                              >
+                                {p.party}
+                              </span>
+                            </div>
+                          )}
 
-                        {p.role && (
-                          <p className="mt-1 text-xs font-medium text-stone-600 leading-tight">
-                            {p.role}
-                          </p>
-                        )}
+                          <h3 className="mt-1 font-display text-sm sm:text-base font-bold text-ink leading-snug transition-colors group-hover:text-accent">
+                            {p.name}
+                          </h3>
+
+                          {p.role && (
+                            <p className="mt-1 text-xs font-medium text-stone-600 leading-tight">
+                              {p.role}
+                            </p>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
 
                   {/* Bottom Row: Official Social Media Handles */}
                   {Boolean(p.socials?.instagram || p.socials?.facebook || p.socials?.twitter) && (
