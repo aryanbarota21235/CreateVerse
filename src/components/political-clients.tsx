@@ -114,7 +114,7 @@ export default function PoliticalClients({
 
                       {/* Content: Name and Designation */}
                       <div className="flex flex-col items-center w-full grow justify-center text-center mt-1 sm:mt-2">
-                        <h3 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-[13px] font-bold text-ink leading-tight transition-colors group-hover:text-accent tracking-tight">
+                        <h3 className="font-display text-[10px] min-[380px]:text-[11px] sm:text-[12px] md:text-xs lg:text-[11px] xl:text-[12px] font-bold text-ink leading-tight transition-colors group-hover:text-accent tracking-tight whitespace-nowrap">
                           {p.name}
                         </h3>
                         {p.role && (
@@ -161,7 +161,7 @@ export default function PoliticalClients({
 
                       {/* Content: Name and Designation */}
                       <div className="flex flex-col items-center w-full grow justify-center text-center mt-1 sm:mt-2">
-                        <h3 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-[13px] font-bold text-ink leading-tight transition-colors group-hover:text-accent tracking-tight">
+                        <h3 className="font-display text-[10px] min-[380px]:text-[11px] sm:text-[12px] md:text-xs lg:text-[11px] xl:text-[12px] font-bold text-ink leading-tight transition-colors group-hover:text-accent tracking-tight whitespace-nowrap">
                           {p.name}
                         </h3>
                         {p.role && (

@@ -20,7 +20,7 @@ export const politicianClients: PoliticianClient[] = [
     name: "Randeep Singh Surjewala",
     slug: "randeep-singh-surjewala",
     href: "/clients/randeep-singh-surjewala",
-    role: "Member of Parliament (Rajya Sabha). General Secretary, INC",
+    role: "MP (Rajya Sabha). General Secretary, INC",
     party: "INC",
     partyName: "Indian National Congress",
     image: "/politicians/randeep-singh-surjewala.webp",
@@ -43,6 +43,14 @@ export const politicianClients: PoliticianClient[] = [
       instagram: "https://www.instagram.com/adityasurjewala/",
       twitter: "https://x.com/adityasurjewala",
     },
+  },
+  {
+    name: "Kewal Singh Dhillon",
+    role: "BJP President, Punjab",
+    party: "BJP",
+    partyName: "Bharatiya Janata Party",
+    image: "/politicians/kewal-singh-dhillon.webp",
+    socials: {},
   },
   {
     name: "Gurkirat Singh Kotli",
@@ -75,14 +83,6 @@ export const politicianClients: PoliticianClient[] = [
     socials: {
       instagram: "https://www.instagram.com/latherbhupi",
     },
-  },
-  {
-    name: "Kewal Singh Dhillon",
-    role: "BJP President, Punjab",
-    party: "BJP",
-    partyName: "Bharatiya Janata Party",
-    image: "/politicians/kewal-singh-dhillon.webp",
-    socials: {},
   },
   {
     name: "Umesh Sharma",

@@ -275,7 +275,7 @@ export default function PoliticalManagementPage() {
                             </div>
                           )}
 
-                          <h3 className="mt-1 font-display text-sm sm:text-base font-bold text-ink leading-snug transition-colors group-hover:text-accent">
+                          <h3 className="mt-1 font-display text-sm sm:text-base font-bold text-ink leading-snug transition-colors group-hover:text-accent whitespace-nowrap">
                             {p.name}
                           </h3>
 
@@ -328,7 +328,7 @@ export default function PoliticalManagementPage() {
                             </div>
                           )}
 
-                          <h3 className="mt-1 font-display text-sm sm:text-base font-bold text-ink leading-snug transition-colors group-hover:text-accent">
+                          <h3 className="mt-1 font-display text-sm sm:text-base font-bold text-ink leading-snug transition-colors group-hover:text-accent whitespace-nowrap">
                             {p.name}
                           </h3>
 
