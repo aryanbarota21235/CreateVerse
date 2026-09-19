@@ -19,6 +19,7 @@ import {
   UserCheck,
   PenLine,
   Users,
+  GraduationCap,
 } from "lucide-react";
 import Reveal from "@/components/reveal";
 import { site } from "@/lib/site";
@@ -315,15 +316,25 @@ export default function Hero() {
           </Reveal>
 
           <Reveal delay={0.3}>
-            <div className="mt-5 sm:mt-6 flex items-center justify-center">
+            <div className="mt-5 sm:mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
               {/* Grand Enquire Button */}
               <button
                 onClick={() => openEnquiry()}
-                className="pressable group inline-flex items-center gap-2 rounded-full border-[1.5px] border-ink bg-ink px-7 py-3 sm:px-9 sm:py-4 text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.22em] text-white shadow-md transition-all duration-150 hover:-translate-y-0.5 hover:bg-accent hover:border-accent hover:shadow-lg"
+                className="pressable group inline-flex items-center gap-2 rounded-full border-[1.5px] border-ink bg-ink px-6 py-3 sm:px-8 sm:py-3.5 text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-white shadow-md transition-all duration-150 hover:-translate-y-0.5 hover:bg-accent hover:border-accent hover:shadow-lg cursor-pointer"
               >
                 <span>Enquire Now</span>
                 <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
               </button>
+
+              {/* Want to Learn Digital Marketing Button */}
+              <Link
+                href="/learn-digital-marketing"
+                prefetch={true}
+                className="pressable group inline-flex items-center gap-2 rounded-full border-[1.5px] border-stone-300 bg-white/95 px-5 py-3 sm:px-7 sm:py-3.5 text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-ink shadow-xs transition-all duration-150 hover:-translate-y-0.5 hover:border-accent hover:text-accent hover:bg-paper hover:shadow-md cursor-pointer"
+              >
+                <GraduationCap className="h-4 w-4 text-accent transition-transform group-hover:scale-110" />
+                <span>Want to Learn Digital Marketing?</span>
+              </Link>
             </div>
           </Reveal>
         </div>

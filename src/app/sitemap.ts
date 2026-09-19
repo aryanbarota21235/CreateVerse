@@ -37,6 +37,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.95,
     },
+    {
+      url: `${base}/learn-digital-marketing`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.95,
+    },
     // Top-Tier Client Profile Pages (Maximum SEO Crawl Priority)
     {
       url: `${base}/clients/randeep-singh-surjewala`,
