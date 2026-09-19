@@ -14,16 +14,21 @@ import {
   Users,
   Briefcase,
   Layers,
-  FileCheck,
-  Phone,
-  Laptop,
+  ChevronRight,
   Flame,
+  Clock,
+  Terminal,
+  Cpu,
+  BadgeCheck,
+  Check,
+  X,
+  Compass,
 } from "lucide-react";
-import PageHero from "@/components/page-hero";
 import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
 import Faq from "@/components/faq";
 import FinalCTA from "@/components/final-cta";
 import AcademyApplicationForm from "@/components/academy-application-form";
+import AcademyCurriculumTabs from "@/components/academy-curriculum-tabs";
 import { site } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
@@ -64,186 +69,188 @@ export const metadata: Metadata = {
   },
 };
 
-const proofStats = [
-  { value: "100%", label: "Live Ad Accounts", desc: "No dummy slides. Work directly inside real business ad managers." },
-  { value: "₹10 Cr+", label: "Real Spend Managed", desc: "Learn strategies tested across multi-crore campaign budgets." },
-  { value: "1-on-1", label: "Direct Mentorship", desc: "Mentored directly by senior agency practitioners, not hired tutors." },
-  { value: "100%", label: "Job & Project Support", desc: "Agency internship opportunities and interview portfolio prep." },
+const liveStats = [
+  { value: "₹10.4 Cr+", label: "Ad Spend Analyzed", sub: "Live multi-crore ad accounts" },
+  { value: "Max 12", label: "Selected Batch Size", sub: "Strictly limited cohort" },
+  { value: "1-on-1", label: "Director Mentorship", sub: "Senior practitioners, no tutors" },
+  { value: "100%", label: "Live War Room", sub: "Zero theoretical dummy decks" },
 ];
 
-const modules = [
+const liveClientDossiers = [
   {
-    num: "01",
-    title: "Meta & Instagram Paid Performance Architecture",
+    category: "High-Ticket Property",
+    title: "Luxury High-Rise Real Estate Launch",
+    metric: "₹48.6 Cr Inventory Booked",
+    description:
+      "You will analyze and execute geo-targeted Meta campaigns, automated WhatsApp HNI qualification bots, and real-time CRM handoff for luxury residential townships.",
+    takeaway: "Learn how to generate ₹2 Cr+ unit buyer inquiries at predictable cost per verified site visit.",
+    icon: Building2Icon,
+    tag: "Real Estate Acquisition",
+  },
+  {
+    category: "Electoral & Public Affairs",
+    title: "State Assembly & Parliamentary War Room",
+    metric: "14.2M+ Verified Voter Reach",
+    description:
+      "You will learn 24/7 digital war room operations — booth-level micro-targeting, rapid counter-narrative deflection within 30 minutes, and viral regional video distribution.",
+    takeaway: "Understand how public perception, ground sentiment mapping, and election narrative are engineered.",
     icon: Megaphone,
-    tag: "Social Ads",
-    summary:
-      "Master the science of scaling profitable Facebook & Instagram ads from ₹500/day to ₹50,000/day without breaking your cost-per-acquisition.",
-    topics: [
-      "Advantage+ & Manual CBO vs ABO budgeting architectures",
-      "Creative Testing Engine: Hook, Body & CTA psychological testing",
-      "Custom & Lookalike Audiences from first-party customer lists",
-      "Anti-fatigue ad refresh cycles & broad targeting mastery",
-      "Ad copy engineering for high-ticket emotional triggers",
-    ],
+    tag: "Political Campaign Desk",
   },
   {
-    num: "02",
-    title: "High-Intent Google Ads & Performance Max",
-    icon: Target,
-    tag: "Search & Intent",
-    summary:
-      "Capture customers the exact second they search for high-value services. Build bulletproof Google Search, YouTube, and PMax campaigns.",
-    topics: [
-      "High-intent keyword taxonomy & negative keyword sculpting",
-      "Target CPA & Target ROAS smart bidding algorithmic mechanics",
-      "Performance Max setup with clean asset groups and audience signals",
-      "Competitor ad conquesting without triggering bidding wars",
-      "Click fraud prevention & conversion value optimization",
-    ],
-  },
-  {
-    num: "03",
-    title: "High-Ticket Lead Generation & Funnel Engineering",
+    category: "International Services",
+    title: "Global Visa & Immigration Funnels",
+    metric: "3,850+ Intake Inquiries",
+    description:
+      "You will build automated country eligibility filters that weed out ineligible candidates and pre-qualify serious applicants for Canadian and European study/PR consultancies.",
+    takeaway: "Master multi-step lead qualification architectures that drive 84%+ counselor show-up rates.",
     icon: TrendingUp,
-    tag: "Lead Funnels",
-    summary:
-      "How to generate verified, phone-answering inquiries for luxury real estate, immigration consultancies, and high-ticket B2B clients.",
-    topics: [
-      "Multi-step lead qualification forms that filter out time-wasters",
-      "Instant WhatsApp automated chatbot routing & nurture flows",
-      "Real estate project launch funnels & site-visit booking math",
-      "Visa & immigration intake pre-screening architectures",
-      "CRM pipeline handoff via Webhooks, Zapier, and Make",
-    ],
-  },
-  {
-    num: "04",
-    title: "Political Campaign & Digital War Room Execution",
-    icon: Users,
-    tag: "Political & Narrative",
-    summary:
-      "Inside the 24/7 digital war room: Learn how elections and public leadership reputations are engineered with surgical digital targeting.",
-    topics: [
-      "Constituency-level micro-targeting & demographic voter segmentation",
-      "Rapid counter-response desk & real-time narrative shaping",
-      "Regional short-form video virality strategies & hook formulas",
-      "Voter sentiment tracking & grassroots volunteer coordination",
-      "Crisis management protocols during high-stakes campaign cycles",
-    ],
-  },
-  {
-    num: "05",
-    title: "Landing Page CRO & Conversion Science",
-    icon: Code2,
-    tag: "Web & CRO",
-    summary:
-      "An ad is only as good as the page it sends traffic to. Learn how to design landing pages that convert cold traffic into paid customers.",
-    topics: [
-      "Above-the-fold wireframing: Value propositions that stop the bounce",
-      "Sub-second load times & mobile-first conversion UX principles",
-      "Friction removal: Form UX, trust seals, and social proof placement",
-      "Heatmaps & session recordings analysis using Microsoft Clarity",
-      "A/B split-testing headlines, offers, and page layouts",
-    ],
-  },
-  {
-    num: "06",
-    title: "Analytics, Server-Side Tracking & Full-Funnel Attribution",
-    icon: BarChart3,
-    tag: "Tracking & Data",
-    summary:
-      "Measure every single rupee spent. Master Google Analytics 4, Meta Conversions API (CAPI), and accurate blended revenue attribution.",
-    topics: [
-      "Google Tag Manager (GTM) custom event trigger configurations",
-      "Meta CAPI (Conversions API) server-side tracking setup",
-      "Google Analytics 4 (GA4) custom funnels & conversion pathways",
-      "Blended ROAS vs Platform ROAS calculation models",
-      "Building automated executive client reporting dashboards",
-    ],
+    tag: "High-Ticket Funnel",
   },
 ];
 
-const comparisons = [
+function Building2Icon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" />
+      <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
+      <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" />
+      <path d="M10 6h4" />
+      <path d="M10 10h4" />
+      <path d="M10 14h4" />
+      <path d="M10 18h4" />
+    </svg>
+  );
+}
+
+const techStack = [
+  { name: "Meta Ads Manager", role: "Advantage+ CBO Scaling & ABO Matrix", category: "Social Paid" },
+  { name: "Google Ads & PMax", role: "Search Intent & Conversion Value Bidding", category: "Search & Video" },
+  { name: "Meta Conversions API", role: "Server-Side Tracking bypassing iOS blockers", category: "Tracking" },
+  { name: "Google Tag Manager", role: "Custom Data Layers & Client Event Triggers", category: "Analytics" },
+  { name: "Google Analytics 4", role: "Exploration Funnels & Multi-touch Attribution", category: "Data" },
+  { name: "WhatsApp Cloud API", role: "Automated Conversational Qualification Bots", category: "Automation" },
+  { name: "Microsoft Clarity", role: "Heatmaps, Dead Clicks & Session Replay Audits", category: "CRO" },
+  { name: "Google Looker Studio", role: "Real-Time Executive Client KPI Dashboards", category: "Reporting" },
+];
+
+const roadmap = [
   {
-    feature: "Training Environment",
-    generic: "Recorded PPT slides and 5-year-old dummy examples",
-    createverse: "Live agency war room on active multi-crore ad accounts",
+    phase: "Phase 01",
+    weeks: "Weeks 1 & 2",
+    title: "Direct-Response Psychology & Creative Testing Engine",
+    desc: "Deconstruct what makes humans click and buy. Build scroll-stopping visual hooks, high-ticket ad copy frameworks, and systematic dynamic creative testing matrices.",
+    deliverable: "10 high-converting ad creative scripts & live Meta ABO testing campaign.",
   },
   {
-    feature: "Instructors",
-    generic: "College teachers or theoretical trainers with zero active clients",
-    createverse: "Active agency practitioners managing real client campaigns daily",
+    phase: "Phase 02",
+    weeks: "Weeks 3 & 4",
+    title: "Algorithmic Paid Traffic Domination (Meta & Google)",
+    desc: "Master algorithmic bidding algorithms. Learn budget pacing, CBO scaling, broad targeting stability, Google high-intent search sculpting, and Performance Max asset groups.",
+    deliverable: "Live Google Search & Meta campaign structure scaling with positive ROAS.",
   },
   {
-    feature: "Ad Spend Exposure",
-    generic: "₹0 or small ₹500 dummy test ads",
-    createverse: "Multi-crore real budgets in real estate, visa & political campaigns",
+    phase: "Phase 03",
+    weeks: "Weeks 5 & 6",
+    title: "High-Ticket Lead Funnels & War Room Operations",
+    desc: "Build acquisition systems for real estate and visa clients. Engineer multi-step intake funnels, automated WhatsApp qualification bots, and instant CRM handoffs.",
+    deliverable: "An end-to-end automated qualification funnel generating phone-answering leads.",
   },
   {
-    feature: "Focus Area",
-    generic: "Vanity metrics (likes, shares, followers, superficial canva designs)",
-    createverse: "Hard commercial revenue (leads, CPA, ROAS, pipeline closed)",
-  },
-  {
-    feature: "Batch Size",
-    generic: "Crowded batches of 50–100 students where nobody knows your name",
-    createverse: "Strictly limited cohorts (maximum 10–12 seats) for personal 1-on-1 attention",
-  },
-  {
-    feature: "Career Outcome",
-    generic: "Unverified paper certificate with generic job board links",
-    createverse: "Verifiable portfolio with real case metrics + agency internship referral",
+    phase: "Phase 04",
+    weeks: "Weeks 7 & 8",
+    title: "Landing Page CRO, Server-Side Tracking & Capstone",
+    desc: "Set up Meta CAPI, GTM server-side containers, GA4 custom funnels, and sub-second Next.js landing pages. Present your live client strategy audit to agency directors.",
+    deliverable: "Complete technical tracking architecture + agency graduation certification.",
   },
 ];
 
-const whoIsThisFor = [
+const comparisonTable = [
   {
-    title: "Aspiring Performance Marketers & Students",
-    desc: "Skip months of confusing trial-and-error. Build a bulletproof portfolio backed by real metrics to land high-paying roles in top digital agencies.",
-    icon: GraduationCap,
+    metric: "Instruction Mode",
+    institute: "Theoretical lectures by salaried teachers who don't run ads",
+    createverse: "Direct war room sessions with active agency managing directors",
   },
   {
-    title: "Freelancers & Solopreneurs",
-    desc: "Stop competing for low-ticket ₹10,000 design jobs. Upgrade your skills to high-ticket performance lead generation and charge ₹50,000+ retainers.",
-    icon: Briefcase,
+    metric: "Ad Budget Exposure",
+    institute: "₹0 or ₹500 dummy exercises on personal accounts",
+    createverse: "Real exposure to active multi-crore client budgets & campaigns",
   },
   {
-    title: "Business Owners & Real Estate Developers",
-    desc: "Understand the exact math behind customer acquisition. Stop relying blindly on external agencies and take complete command of your marketing ROI.",
-    icon: Flame,
+    metric: "Curriculum Modernity",
+    institute: "5-year-old slides focusing on basic Facebook posts and hashtags",
+    createverse: "Cutting-edge algorithmic scaling, CAPI tracking & WhatsApp AI funnels",
   },
   {
-    title: "Marketing Professionals Seeking Upskill",
-    desc: "Transition from traditional social media handling or basic SEO to algorithmic performance ads, conversion rate optimization, and server-side tracking.",
-    icon: Laptop,
+    metric: "Cohort Culture",
+    institute: "40–100 students in crowded halls with zero individual feedback",
+    createverse: "Exclusive 10–12 person cohort with rigorous 1-on-1 campaign reviews",
+  },
+  {
+    metric: "Target Outcome",
+    institute: "A generic printed certificate that agencies ignore",
+    createverse: "A live portfolio of real campaign metrics + agency internship eligibility",
+  },
+];
+
+const studentProfiles = [
+  {
+    badge: "Students & Fresh Graduates",
+    title: "Fast-Track Into High-Paying Agency Careers",
+    desc: "Bypass entry-level minimum wage jobs. Walk into agency interviews with a portfolio showing real client ad spend, CPA reduction, and verified pipeline numbers.",
+  },
+  {
+    badge: "Freelancers & Solopreneurs",
+    title: "Scale From ₹15,000 Gigs to ₹60,000+ Monthly Retainers",
+    desc: "Stop doing low-margin graphic design or basic social media posting. Position yourself as an acquisition partner delivering verified commercial leads.",
+  },
+  {
+    badge: "Business & Real Estate Owners",
+    title: "Take Full Command of Your Customer Acquisition Math",
+    desc: "Stop wasting marketing budgets on agencies that send vanity metrics. Learn the exact architecture to generate qualified buyers in-house.",
+  },
+  {
+    badge: "Working Marketers Seeking Mastery",
+    title: "Upgrade from Organic Social to Paid Algorithmic Traffic",
+    desc: "Transition from basic community management to high-stakes performance marketing, server-side attribution, and enterprise CRM engineering.",
   },
 ];
 
 const academyFaqs = [
   {
-    q: "Is this training suitable for complete beginners?",
-    a: "Yes. We start with foundational advertising psychology and system thinking before advancing into complex bidding algorithms and technical tracking. All you need is basic computer literacy, curiosity, and a willingness to put in real hours.",
+    q: "Is this program suitable for beginners with zero prior experience?",
+    a: "Yes. While we dive into advanced algorithmic concepts, we build up methodically from foundational marketing psychology and economics. All you need is strong dedication, analytical thinking, and basic computer comfort.",
   },
   {
-    q: "Will I get to work on live, active ad accounts?",
-    a: "Absolutely. The entire philosophy of CreateVerse is practical learning. You will see real campaign structures, live ad budget allocation, real conversion data, and client war room debriefs.",
+    q: "Do I get to work on active client ad accounts?",
+    a: "Yes. This is not a slide-show course. You will sit inside real Meta Ads Managers, Google Ads consoles, GA4 properties, and CRM dashboards managing actual capital for builders, politicians, and businesses.",
   },
   {
-    q: "What is the duration and mode of the cohort?",
-    a: "The program spans 8 intensive weeks featuring live practical masterclasses, weekend war room workshops, hands-on assignments, and dedicated weekday doubt-clearing sessions. Available in both offline (Karnal studio) and live interactive online cohort formats.",
+    q: "What is the format and duration of the cohort?",
+    a: "The program spans 8 intensive weeks. It is delivered in a hybrid format: live in-studio sessions at our Karnal headquarters plus interactive online war room debriefs with screen-share code/campaign walkthroughs.",
   },
   {
-    q: "Do you guarantee jobs or internships?",
-    a: "Top performers in each batch are offered paid agency internship opportunities directly at CreateVerse or recommended to our partner network of builders, visa consultancies, and growth brands. We also assist with resume sculpting, portfolio building, and mock technical interviews.",
+    q: "What happens after I graduate?",
+    a: "Top performers from each batch are offered paid agency internship opportunities directly at CreateVerse or placed across our network of real estate developers, immigration brands, and commercial partners. You also receive lifetime community access for campaign audits.",
   },
   {
-    q: "How is CreateVerse different from typical digital marketing institutes?",
-    a: "Most institutes are run by trainers who have never spent their own money on ads or managed a real client account. CreateVerse is an active growth agency managing multi-crore accounts for State MLAs, Tier-1 real estate developers, and international consultancies. You learn directly from the war room.",
+    q: "How many students are accepted per batch?",
+    a: "To ensure that every single student receives personal attention and live account reviews, we strictly cap every cohort at a maximum of 10 to 12 students. Admissions are based on application review and an intake screening call.",
   },
   {
-    q: "What tools and platforms will I master?",
-    a: "Meta Ads Manager, Google Ads & Performance Max, Google Tag Manager (GTM), Google Analytics 4 (GA4), Meta CAPI, Microsoft Clarity, WhatsApp API bots, Zapier/Make automation, and high-converting Next.js landing page architectures.",
+    q: "How can I apply or check fee details?",
+    a: "Fill out the application form on this page or message us directly on WhatsApp. Our admissions coordinator will share the detailed syllabus PDF, fee schedule, and schedule your 1-on-1 counseling call.",
   },
 ];
 
@@ -287,7 +294,7 @@ export default function LearnDigitalMarketingPage() {
   };
 
   const whatsappInquiryUrl = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(
-    "Hello CreateVerse, I want to learn digital marketing with your practical cohort. Please share batch details, fees, and next starting date."
+    "Hello CreateVerse, I want to join the Digital Marketing Practical Cohort. Please share batch details, fees, and next starting date."
   )}`;
 
   return (
@@ -298,126 +305,144 @@ export default function LearnDigitalMarketingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }}
       />
 
-      {/* Page Hero */}
-      <PageHero
-        breadcrumb="Learn Digital Marketing"
-        eyebrow="CreateVerse Practical Academy"
-        title={
-          <>
-            Master Real-World <span className="text-accent">Digital Marketing.</span> Directly from the Agency War Room.
-          </>
-        }
-        description="Stop memorizing outdated slides and watching passive YouTube videos. Learn high-ticket lead generation, multi-crore Meta & Google ad management, political war room operations, and conversion funnels directly from practitioners running active client campaigns."
-      />
+      {/* =========================================================================
+          HERO: Distinctive Obsidian & Electric Cyan Atmosphere
+          ========================================================================= */}
+      <section className="relative overflow-hidden bg-[#070A12] text-white pt-24 pb-16 sm:pt-32 sm:pb-24 border-b border-white/10">
+        {/* Ambient Grid & Glow textures */}
+        <div className="grid-texture absolute inset-0 opacity-30 pointer-events-none" />
+        <div className="absolute -left-32 top-10 h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle,rgba(2,132,199,0.35)_0%,rgba(2,132,199,0.08)_45%,transparent_70%)] pointer-events-none" />
+        <div className="absolute -right-32 top-1/4 h-[550px] w-[550px] rounded-full bg-[radial-gradient(circle,rgba(234,88,12,0.25)_0%,rgba(234,88,12,0.05)_45%,transparent_70%)] pointer-events-none" />
+        <div className="absolute left-1/2 -top-24 -translate-x-1/2 h-[450px] w-[800px] rounded-full bg-[radial-gradient(ellipse_at_top,rgba(2,132,199,0.3)_0%,transparent_70%)] pointer-events-none" />
 
-      {/* Direct Action Bar below hero */}
-      <section className="bg-paper pb-8 sm:pb-12 border-b border-stone-200">
-        <div className="container-site">
-          <div className="flex flex-wrap items-center justify-start gap-3 sm:gap-4">
-            <a
-              href="#apply"
-              className="pressable group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 sm:px-8 sm:py-3.5 text-xs sm:text-sm font-bold uppercase tracking-[0.18em] text-white shadow-md transition-all hover:bg-accent hover:shadow-lg"
-            >
-              <span>Apply for Upcoming Batch</span>
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </a>
+        <div className="container-site relative">
+          {/* Breadcrumb */}
+          <nav className="flex items-center gap-2 text-xs font-semibold text-stone-400 uppercase tracking-wider mb-5 sm:mb-7" aria-label="Breadcrumb">
+            <Link href="/" prefetch={true} className="hover:text-accent transition-colors">
+              Home
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 text-stone-600" />
+            <span className="text-white font-bold">CreateVerse Academy</span>
+          </nav>
 
-            <a
-              href={whatsappInquiryUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="pressable inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white px-5 py-3 sm:px-7 sm:py-3.5 text-xs sm:text-sm font-bold text-ink shadow-xs hover:border-[#25D366] hover:text-[#1EBE5D] transition-all"
-            >
-              <WhatsAppIcon className="h-4 w-4 fill-current text-[#25D366]" />
-              <span>Ask Batch Details on WhatsApp</span>
-            </a>
+          <div className="max-w-4xl">
+            {/* Live pulsating cohort status badge */}
+            <div className="inline-flex items-center gap-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/[0.08] px-3.5 py-1.5 text-[10.5px] sm:text-xs font-bold uppercase tracking-[0.18em] text-emerald-400 mb-4 sm:mb-6 backdrop-blur-md">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              </span>
+              <span>Live War Room Apprenticeship • Cohort 04 Open</span>
+            </div>
+
+            {/* Main Headline */}
+            <h1 className="text-balance font-display text-3xl sm:text-5xl md:text-6xl lg:text-[66px] font-bold tracking-tightest leading-[1.1] sm:leading-[1.06] text-white">
+              Don’t Learn from Tutors.{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-cyan-200 to-amber-300">
+                Apprentice in an Active War Room.
+              </span>
+            </h1>
+
+            <p className="mt-4 sm:mt-6 text-sm sm:text-lg text-stone-300 font-normal leading-relaxed max-w-3xl">
+              Forget outdated slide decks and dummy mock campaigns. Master multi-crore Meta algorithms, high-intent Google Search, political election war rooms, and conversion funnels by working directly inside active client accounts.
+            </p>
+
+            {/* Direct Hero Action Buttons */}
+            <div className="mt-7 sm:mt-9 flex flex-wrap items-center gap-3 sm:gap-4">
+              <a
+                href="#apply"
+                className="pressable group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 sm:px-8 sm:py-4 text-xs sm:text-sm font-bold uppercase tracking-[0.18em] text-white shadow-lg shadow-accent/30 transition-all hover:bg-sky-400 hover:shadow-xl cursor-pointer"
+              >
+                <span>Apply for Cohort 04</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </a>
+
+              <a
+                href={whatsappInquiryUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pressable inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.06] backdrop-blur-md px-5 py-3.5 sm:px-7 sm:py-4 text-xs sm:text-sm font-bold text-white transition-all hover:bg-white/12 hover:border-[#25D366] hover:text-[#25D366] cursor-pointer"
+              >
+                <WhatsAppIcon className="h-4 w-4 fill-current text-[#25D366]" />
+                <span>Ask Batch Details on WhatsApp</span>
+              </a>
+            </div>
           </div>
-        </div>
-      </section>
 
-      {/* 4 Core Pillars of Proof */}
-      <section className="bg-white py-12 sm:py-16 border-b border-stone-200">
-        <div className="container-site">
-          <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4 items-stretch">
-            {proofStats.map((s, idx) => (
-              <Reveal key={s.label} delay={idx * 0.08} className="h-full">
-                <div className="h-full flex flex-col justify-start rounded-2xl border border-stone-200/90 bg-[#F8FAFC] p-4 sm:p-6 shadow-xs hover:border-accent/40 transition-all">
-                  <span className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-accent leading-none">
-                    {s.value}
-                  </span>
-                  <p className="mt-2 font-display text-xs sm:text-sm font-bold text-ink leading-snug">
-                    {s.label}
-                  </p>
-                  <p className="mt-1 text-[11px] sm:text-xs text-stone-500 font-normal leading-relaxed">
-                    {s.desc}
-                  </p>
-                </div>
-              </Reveal>
+          {/* 4 Floating Glass Stats Cards */}
+          <div className="mt-12 sm:mt-16 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 pt-8 border-t border-white/10">
+            {liveStats.map((st) => (
+              <div
+                key={st.label}
+                className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 sm:p-5 backdrop-blur-xs hover:border-accent/40 transition-all"
+              >
+                <p className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-white leading-none">
+                  {st.value}
+                </p>
+                <p className="mt-2 text-xs sm:text-sm font-bold text-sky-400">{st.label}</p>
+                <p className="mt-0.5 text-[11px] text-stone-400 font-normal">{st.sub}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 6 Core Curriculum Modules */}
+      {/* =========================================================================
+          SECTION 2: Real Client Accounts You Will Directly Audit
+          ========================================================================= */}
       <section className="bg-paper py-14 sm:py-24 border-b border-stone-200">
         <div className="container-site">
           <Reveal>
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/[0.06] px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.2em] text-accent mb-3">
-                <Layers className="h-3.5 w-3.5" />
-                <span>Practitioner Curriculum</span>
+                <Compass className="h-3.5 w-3.5" />
+                <span>Live Account Access</span>
               </div>
-              <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-ink">
-                What You Will Actually <span className="text-accent">Learn &amp; Master</span>
+              <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-ink leading-tight">
+                Real Client Portals. <span className="text-accent">Not Hypothetical Slides.</span>
               </h2>
               <p className="mt-3 text-xs sm:text-base text-stone-600 font-normal leading-relaxed">
-                Every single module is engineered around real commercial outcomes: how to spend capital profitably, attract paying customers, and deliver undeniable ROI for clients.
+                You will dissect and build actual campaigns across high-stakes verticals where performance marketing dictates millions in business revenue.
               </p>
             </div>
           </Reveal>
 
-          <div className="mt-10 sm:mt-14 grid gap-5 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {modules.map((m, idx) => {
-              const IconComp = m.icon;
+          <div className="mt-10 sm:mt-14 grid gap-5 sm:gap-8 lg:grid-cols-3">
+            {liveClientDossiers.map((cd, idx) => {
+              const Icon = cd.icon;
               return (
-                <Reveal key={m.num} delay={idx * 0.06} className="h-full">
-                  <div className="h-full flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white p-5 sm:p-8 shadow-card hover:border-accent transition-all duration-200 hover:-translate-y-1 hover:shadow-lift">
+                <Reveal key={cd.title} delay={idx * 0.08} className="h-full">
+                  <div className="h-full flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-stone-200 bg-white p-6 sm:p-8 shadow-card hover:border-accent transition-all duration-300 hover:-translate-y-1">
                     <div>
-                      <div className="flex items-center justify-between">
-                        <span className="font-display text-xs font-bold uppercase tracking-wider text-accent bg-accent/[0.08] px-2.5 py-1 rounded-full">
-                          Module {m.num}
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="rounded-full bg-paper border border-stone-200 px-3 py-1 text-[11px] font-bold text-accent">
+                          {cd.category}
                         </span>
-                        <span className="text-[11px] font-bold text-stone-500 bg-stone-100 border border-stone-200 px-2.5 py-0.5 rounded-full">
-                          {m.tag}
+                        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-stone-100 text-ink">
+                          <Icon className="h-4 w-4" />
                         </span>
                       </div>
 
-                      <div className="mt-4 flex items-start gap-3">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-stone-100 text-ink">
-                          <IconComp className="h-5 w-5" />
-                        </div>
-                        <h3 className="font-display text-base sm:text-lg font-bold text-ink leading-snug">
-                          {m.title}
-                        </h3>
+                      <h3 className="mt-4 font-display text-lg sm:text-xl font-bold text-ink leading-snug">
+                        {cd.title}
+                      </h3>
+
+                      <div className="mt-2.5 inline-block rounded-lg bg-emerald-50 border border-emerald-200/80 px-2.5 py-1 text-xs font-bold text-emerald-800">
+                        {cd.metric}
                       </div>
 
                       <p className="mt-3 text-xs sm:text-sm text-stone-600 font-normal leading-relaxed">
-                        {m.summary}
+                        {cd.description}
                       </p>
+                    </div>
 
-                      <div className="mt-5 border-t border-stone-100 pt-4">
-                        <p className="text-[11px] font-bold uppercase tracking-wider text-ink/75 mb-2.5">
-                          Key Skills &amp; Frameworks:
-                        </p>
-                        <ul className="space-y-2 text-xs text-stone-600">
-                          {m.topics.map((t, i) => (
-                            <li key={i} className="flex items-start gap-2">
-                              <CheckCircle2 className="h-3.5 w-3.5 text-accent shrink-0 mt-0.5" />
-                              <span className="leading-snug">{t}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                    <div className="mt-5 pt-4 border-t border-stone-100">
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-ink/75 mb-1">
+                        Core Practical Takeaway:
+                      </p>
+                      <p className="text-xs text-stone-700 font-medium leading-relaxed">
+                        {cd.takeaway}
+                      </p>
                     </div>
                   </div>
                 </Reveal>
@@ -427,7 +452,131 @@ export default function LearnDigitalMarketingPage() {
         </div>
       </section>
 
-      {/* Side-by-Side Comparison: CreateVerse vs Traditional Institutes */}
+      {/* =========================================================================
+          SECTION 3: The Interactive Curriculum Explorer
+          ========================================================================= */}
+      <section className="bg-white py-14 sm:py-24 border-b border-stone-200">
+        <div className="container-site">
+          <Reveal>
+            <div className="max-w-3xl mx-auto text-center">
+              <div className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/[0.06] px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.2em] text-accent mb-3">
+                <Layers className="h-3.5 w-3.5" />
+                <span>6 Core War Room Modules</span>
+              </div>
+              <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-ink">
+                The Practitioner <span className="text-accent">Curriculum.</span>
+              </h2>
+              <p className="mt-3 text-xs sm:text-base text-stone-600 font-normal leading-relaxed">
+                Click across the modules below to inspect the exact systems, algorithms, and agency deliverables you will construct.
+              </p>
+            </div>
+          </Reveal>
+
+          {/* Tabbed Interactive Curriculum Component */}
+          <AcademyCurriculumTabs />
+        </div>
+      </section>
+
+      {/* =========================================================================
+          SECTION 4: The 8-Week Live Apprenticeship Roadmap
+          ========================================================================= */}
+      <section className="bg-[#090D15] text-white py-14 sm:py-24 border-b border-white/10">
+        <div className="container-site">
+          <Reveal>
+            <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/[0.08] px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.2em] text-accent mb-3">
+                <Clock className="h-3.5 w-3.5" />
+                <span>8-Week Track</span>
+              </div>
+              <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white">
+                How You Transform: <span className="text-accent">The 4-Phase Roadmap</span>
+              </h2>
+              <p className="mt-3 text-xs sm:text-base text-stone-400 font-normal leading-relaxed">
+                A disciplined, sprint-based journey designed to turn anyone into an autonomous, revenue-producing media buyer and growth engineer.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="mt-10 sm:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {roadmap.map((step, i) => (
+              <Reveal key={step.phase} delay={i * 0.08} className="h-full">
+                <div className="h-full flex flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-6 backdrop-blur-xs hover:border-accent/40 transition-all">
+                  <div>
+                    <div className="flex items-center justify-between pb-3 border-b border-white/10">
+                      <span className="font-display text-xs font-bold uppercase tracking-wider text-accent">
+                        {step.phase}
+                      </span>
+                      <span className="text-[11px] font-semibold text-stone-400">
+                        {step.weeks}
+                      </span>
+                    </div>
+
+                    <h3 className="mt-4 font-display text-base font-bold text-white leading-snug">
+                      {step.title}
+                    </h3>
+
+                    <p className="mt-2 text-xs text-stone-400 font-normal leading-relaxed">
+                      {step.desc}
+                    </p>
+                  </div>
+
+                  <div className="mt-5 pt-3 border-t border-white/10">
+                    <p className="text-[10.5px] font-bold uppercase tracking-wider text-accent mb-1">
+                      Target Milestone:
+                    </p>
+                    <p className="text-xs text-stone-200 font-medium leading-tight">
+                      {step.deliverable}
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          SECTION 5: The Complete Agency Tech Stack You Operate
+          ========================================================================= */}
+      <section className="bg-paper py-14 sm:py-20 border-b border-stone-200">
+        <div className="container-site">
+          <Reveal>
+            <div className="max-w-3xl">
+              <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-ink">
+                The Physical <span className="text-accent">Tool Stack</span> You Will Operate
+              </h2>
+              <p className="mt-2 text-xs sm:text-base text-stone-600 font-normal leading-relaxed">
+                Zero theoretical abstractions. You get hands-on experience across the exact software stack used by high-performance growth agencies.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="mt-8 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5">
+            {techStack.map((tool, idx) => (
+              <Reveal key={tool.name} delay={idx * 0.04}>
+                <div className="rounded-xl border border-stone-200 bg-white p-4 sm:p-5 shadow-xs hover:border-accent/50 transition-all">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-accent bg-accent/[0.08] px-2 py-0.5 rounded-md">
+                      {tool.category}
+                    </span>
+                    <Terminal className="h-3.5 w-3.5 text-stone-400" />
+                  </div>
+                  <h4 className="mt-3 font-display text-sm sm:text-base font-bold text-ink">
+                    {tool.name}
+                  </h4>
+                  <p className="mt-1 text-xs text-stone-500 font-normal leading-snug">
+                    {tool.role}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          SECTION 6: Side-By-Side Comparison Table
+          ========================================================================= */}
       <section className="bg-white py-14 sm:py-24 border-b border-stone-200">
         <div className="container-site">
           <Reveal>
@@ -437,37 +586,38 @@ export default function LearnDigitalMarketingPage() {
                 <span>The Unfair Advantage</span>
               </div>
               <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-ink">
-                Why Learn From An <span className="text-accent">Active Agency?</span>
+                CreateVerse vs. <span className="text-accent">Traditional Coaching Centers</span>
               </h2>
               <p className="mt-3 text-xs sm:text-base text-stone-600 font-normal leading-relaxed">
-                Generic computer coaching centers teach textbook definitions that were obsolete three years ago. We teach what is actively winning in our war room today.
+                Why generic computer institutes fail you, and why real agency apprenticeships build careers.
               </p>
             </div>
           </Reveal>
 
           <div className="mt-10 sm:mt-14 max-w-4xl mx-auto overflow-hidden rounded-2xl sm:rounded-3xl border border-stone-200 shadow-card bg-white">
             <div className="grid grid-cols-12 bg-[#090D15] text-white p-4 sm:p-5 font-display text-xs sm:text-sm font-bold uppercase tracking-wider">
-              <div className="col-span-4 sm:col-span-4">Criteria</div>
-              <div className="col-span-4 sm:col-span-4 text-stone-400">Generic Institutes</div>
-              <div className="col-span-4 sm:col-span-4 text-accent">CreateVerse Academy</div>
+              <div className="col-span-4">Evaluation Metric</div>
+              <div className="col-span-4 text-stone-400">Typical Computer Coaching</div>
+              <div className="col-span-4 text-accent">CreateVerse War Room</div>
             </div>
 
             <div className="divide-y divide-stone-200">
-              {comparisons.map((row, i) => (
+              {comparisonTable.map((row, i) => (
                 <div
-                  key={row.feature}
+                  key={row.metric}
                   className={`grid grid-cols-12 p-4 sm:p-5 text-xs sm:text-sm items-start ${
                     i % 2 === 0 ? "bg-white" : "bg-[#F8FAFC]"
                   }`}
                 >
-                  <div className="col-span-4 sm:col-span-4 font-bold text-ink pr-2">
-                    {row.feature}
+                  <div className="col-span-4 font-bold text-ink pr-2">
+                    {row.metric}
                   </div>
-                  <div className="col-span-4 sm:col-span-4 text-stone-500 font-normal pr-2">
-                    {row.generic}
+                  <div className="col-span-4 text-stone-500 font-normal pr-2 flex items-start gap-1.5">
+                    <X className="h-4 w-4 text-rose-500 shrink-0 mt-0.5" />
+                    <span>{row.institute}</span>
                   </div>
-                  <div className="col-span-4 sm:col-span-4 font-semibold text-ink flex items-start gap-1.5">
-                    <CheckCircle2 className="h-4 w-4 text-accent shrink-0 mt-0.5" />
+                  <div className="col-span-4 font-semibold text-ink flex items-start gap-1.5">
+                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
                     <span>{row.createverse}</span>
                   </div>
                 </div>
@@ -477,46 +627,47 @@ export default function LearnDigitalMarketingPage() {
         </div>
       </section>
 
-      {/* Who is this for? */}
+      {/* =========================================================================
+          SECTION 7: Who Is This For?
+          ========================================================================= */}
       <section className="bg-paper py-14 sm:py-20 border-b border-stone-200">
         <div className="container-site">
           <Reveal>
             <div className="max-w-3xl">
               <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-ink">
-                Who Is This Program <span className="text-accent">Designed For?</span>
+                Who Gets <span className="text-accent">Selected?</span>
               </h2>
               <p className="mt-2 text-xs sm:text-base text-stone-600 font-normal leading-relaxed">
-                Whether your goal is landing a high-paying agency role or generating leads for your own business, this program eliminates guesswork.
+                We accept only 12 candidates per cohort who are committed to rigorous practical execution.
               </p>
             </div>
           </Reveal>
 
           <div className="mt-8 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {whoIsThisFor.map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <Reveal key={item.title} delay={idx * 0.06} className="h-full">
-                  <div className="h-full flex flex-col justify-between rounded-2xl border border-stone-200/90 bg-white p-5 sm:p-6 shadow-card hover:border-accent transition-all">
-                    <div>
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/[0.08] text-accent mb-4">
-                        <Icon className="h-5 w-5" />
-                      </div>
-                      <h3 className="font-display text-sm sm:text-base font-bold text-ink">
-                        {item.title}
-                      </h3>
-                      <p className="mt-2 text-xs text-stone-600 font-normal leading-relaxed">
-                        {item.desc}
-                      </p>
-                    </div>
+            {studentProfiles.map((item, idx) => (
+              <Reveal key={item.badge} delay={idx * 0.06} className="h-full">
+                <div className="h-full flex flex-col justify-between rounded-2xl border border-stone-200 bg-white p-5 sm:p-6 shadow-card hover:border-accent transition-all">
+                  <div>
+                    <span className="rounded-full bg-accent/[0.08] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-accent inline-block mb-3">
+                      {item.badge}
+                    </span>
+                    <h3 className="font-display text-sm sm:text-base font-bold text-ink">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-xs text-stone-600 font-normal leading-relaxed">
+                      {item.desc}
+                    </p>
                   </div>
-                </Reveal>
-              );
-            })}
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Cohort Application & Seat Reservation Section */}
+      {/* =========================================================================
+          SECTION 8: Cohort Application & Seat Reservation Desk
+          ========================================================================= */}
       <section id="apply" className="scroll-mt-20 bg-white py-14 sm:py-24 border-b border-stone-200">
         <div className="container-site">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
@@ -525,50 +676,50 @@ export default function LearnDigitalMarketingPage() {
               <Reveal>
                 <div className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/[0.06] px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.18em] text-accent">
                   <Sparkles className="h-3 w-3" />
-                  <span>Admissions Open • Next Batch</span>
+                  <span>Cohort 04 Admissions Open</span>
                 </div>
                 <h2 className="mt-3 font-display text-2xl sm:text-4xl font-bold tracking-tight text-ink leading-tight">
                   Reserve Your Seat in the <span className="text-accent">Next Cohort.</span>
                 </h2>
                 <p className="mt-3 text-xs sm:text-base text-stone-600 font-normal leading-relaxed">
-                  We limit every batch to a maximum of 10 to 12 students to guarantee personal mentorship, individual ad account reviews, and real war room collaboration.
+                  Every batch is strictly capped at 10 to 12 students to guarantee personal campaign audits, direct director feedback, and real war room collaboration.
                 </p>
               </Reveal>
 
               <div className="space-y-3 pt-2">
                 <div className="flex items-start gap-3 rounded-xl border border-stone-200 bg-[#F8FAFC] p-3.5">
-                  <CheckCircle2 className="h-4 w-4 text-accent shrink-0 mt-0.5" />
+                  <BadgeCheck className="h-4 w-4 text-accent shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-xs font-bold text-ink">Live Campaign Access</h4>
-                    <p className="text-[11px] text-stone-500 font-normal">Direct exposure to active Meta, Google & CRM setups.</p>
+                    <h4 className="text-xs font-bold text-ink">Direct Live Account Exposure</h4>
+                    <p className="text-[11px] text-stone-500 font-normal">Operate live Meta, Google & CRM tools inside active campaigns.</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3 rounded-xl border border-stone-200 bg-[#F8FAFC] p-3.5">
-                  <CheckCircle2 className="h-4 w-4 text-accent shrink-0 mt-0.5" />
+                  <BadgeCheck className="h-4 w-4 text-accent shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-xs font-bold text-ink">Agency Internship Eligibility</h4>
-                    <p className="text-[11px] text-stone-500 font-normal">Top performers receive paid agency internship opportunities.</p>
+                    <h4 className="text-xs font-bold text-ink">Agency Internship Opportunity</h4>
+                    <p className="text-[11px] text-stone-500 font-normal">Top performers receive paid agency internships and builder placement leads.</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3 rounded-xl border border-stone-200 bg-[#F8FAFC] p-3.5">
-                  <CheckCircle2 className="h-4 w-4 text-accent shrink-0 mt-0.5" />
+                  <BadgeCheck className="h-4 w-4 text-accent shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-xs font-bold text-ink">Direct WhatsApp Support</h4>
-                    <p className="text-[11px] text-stone-500 font-normal">Ongoing community access for campaign audits and career guidance.</p>
+                    <h4 className="text-xs font-bold text-ink">1-on-1 Director Mentorship</h4>
+                    <p className="text-[11px] text-stone-500 font-normal">Weekly 1-on-1 feedback on your ad creatives, copy, and tracking setups.</p>
                   </div>
                 </div>
               </div>
 
               <div className="rounded-2xl border border-[#25D366]/30 bg-[#25D366]/[0.04] p-4 sm:p-5">
-                <p className="text-xs font-bold text-ink mb-1">Prefer to talk directly before applying?</p>
-                <p className="text-xs text-stone-600 font-normal mb-3">Connect directly with our training director on WhatsApp:</p>
+                <p className="text-xs font-bold text-ink mb-1">Want immediate syllabus PDF or batch timing?</p>
+                <p className="text-xs text-stone-600 font-normal mb-3">Connect directly with our admissions desk on WhatsApp:</p>
                 <a
                   href={whatsappInquiryUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="pressable inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-4 py-2.5 text-xs font-bold text-white shadow-xs hover:bg-[#1EBE5D] transition-all"
+                  className="pressable inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-4 py-2.5 text-xs font-bold text-white shadow-xs hover:bg-[#1EBE5D] transition-all cursor-pointer"
                 >
                   <WhatsAppIcon className="h-4 w-4 fill-current" />
                   <span>Chat on WhatsApp: {site.phone}</span>
@@ -584,7 +735,9 @@ export default function LearnDigitalMarketingPage() {
         </div>
       </section>
 
-      {/* Frequently Asked Questions */}
+      {/* =========================================================================
+          SECTION 9: Frequently Asked Questions
+          ========================================================================= */}
       <section className="bg-paper py-14 sm:py-20 border-b border-stone-200">
         <div className="container-site">
           <Reveal>
@@ -593,7 +746,7 @@ export default function LearnDigitalMarketingPage() {
                 Frequently Asked <span className="text-accent">Questions</span>
               </h2>
               <p className="mt-2 text-xs sm:text-base text-stone-600 font-normal">
-                Everything you need to know about the CreateVerse Practical Digital Marketing Cohort.
+                Everything you need to know about joining the CreateVerse Practical Digital Marketing Cohort.
               </p>
             </div>
           </Reveal>
