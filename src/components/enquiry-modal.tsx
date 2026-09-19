@@ -111,6 +111,15 @@ const SERVICE_ALIAS_MAP: Record<string, string> = {
   // Native Advertising
   "native advertising": "Native Advertising",
   "native-advertising": "Native Advertising",
+
+  // Digital Marketing Training
+  "digital marketing training": "Digital Marketing Training",
+  "digital-marketing-training": "Digital Marketing Training",
+  "learn digital marketing": "Digital Marketing Training",
+  "learn-digital-marketing": "Digital Marketing Training",
+  "digital marketing course": "Digital Marketing Training",
+  "training": "Digital Marketing Training",
+  "academy": "Digital Marketing Training",
 };
 
 function normalizeText(text: string): string {
@@ -419,6 +428,9 @@ export default function EnquiryModal() {
                             {s.name}
                           </option>
                         ))}
+                        <option value="Digital Marketing Training" className="text-ink font-medium">
+                          Digital Marketing Training
+                        </option>
                         <option value="General Consultation" className="text-ink font-medium">
                           Other / Growth Strategy
                         </option>
