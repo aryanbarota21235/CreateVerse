@@ -22,6 +22,11 @@ const nextConfig = {
         destination: "/clients",
         permanent: true,
       },
+      {
+        source: "/clients/subhash-sudha",
+        destination: "/subhash-sudha",
+        permanent: true,
+      },
     ];
   },
 };

@@ -117,4 +117,18 @@ export const politicianClients: PoliticianClient[] = [
       facebook: "https://www.facebook.com/UmeshSharmaSnp",
     },
   },
+  {
+    name: "Subhash Sudha",
+    slug: "subhash-sudha",
+    href: "/subhash-sudha",
+    role: "Former Minister of State | Former MLA, Thanesar",
+    party: "BJP",
+    partyName: "Bharatiya Janata Party",
+    image: "/politicians/subhash-sudha.webp",
+    socials: {
+      facebook: "https://www.facebook.com/SubhashSudhaOfficial/",
+      instagram: "https://www.instagram.com/officialsubhashsudha/",
+      twitter: "https://x.com/subashsudha3",
+    },
+  },
 ];
