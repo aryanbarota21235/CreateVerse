@@ -149,8 +149,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${base}/subhash-sudha`,
       lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.95,
+      changeFrequency: "weekly",
+      priority: 0.7,
     },
     {
       url: `${base}/contact`,

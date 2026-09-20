@@ -156,15 +156,6 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/subhash-sudha"
-                  prefetch={true}
-                  className="text-xs sm:text-sm text-stone-400 transition-colors hover:text-white"
-                >
-                  Subhash Sudha
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/clients"
                   prefetch={true}
                   className="text-xs sm:text-sm font-semibold text-white/90 hover:text-accent transition-colors"

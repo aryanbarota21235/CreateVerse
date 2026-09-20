@@ -150,12 +150,6 @@ export default function SubhashSudhaPage() {
           {
             "@type": "ListItem",
             position: 2,
-            name: "Clients",
-            item: "https://createverse.in/clients",
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
             name: "Subhash Sudha",
             item: "https://createverse.in/subhash-sudha",
           },
@@ -186,10 +180,6 @@ export default function SubhashSudhaPage() {
               <nav className="flex items-center gap-2 text-xs font-semibold text-stone-500 uppercase tracking-wider mb-6 sm:mb-8">
                 <Link href="/" className="hover:text-accent transition-colors">
                   Home
-                </Link>
-                <ChevronRight className="h-3.5 w-3.5 text-stone-400" />
-                <Link href="/clients" className="hover:text-accent transition-colors">
-                  Clients
                 </Link>
                 <ChevronRight className="h-3.5 w-3.5 text-stone-400" />
                 <span className="text-ink font-bold">Subhash Sudha</span>
