@@ -315,24 +315,24 @@ export default function Hero() {
           </Reveal>
 
           <Reveal delay={0.3}>
-            <div className="mt-5 sm:mt-6 flex flex-col items-center justify-center">
+            <div className="mt-5 sm:mt-6 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5">
               {/* Grand Enquire Button */}
               <button
                 onClick={() => openEnquiry()}
-                className="pressable group inline-flex items-center gap-2 rounded-full border-[1.5px] border-ink bg-ink px-7 py-3 sm:px-9 sm:py-4 text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.22em] text-white shadow-md transition-all duration-150 hover:-translate-y-0.5 hover:bg-accent hover:border-accent hover:shadow-lg cursor-pointer"
+                className="pressable group inline-flex items-center gap-2 rounded-full border-[1.5px] border-ink bg-ink px-6 py-3 sm:px-8 sm:py-3.5 text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-white shadow-md transition-all duration-150 hover:-translate-y-0.5 hover:bg-accent hover:border-accent hover:shadow-lg cursor-pointer"
               >
                 <span>Enquire Now</span>
                 <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
               </button>
 
-              {/* Want to Learn Digital Marketing Link */}
+              {/* Compact Learn Marketing Button */}
               <Link
                 href="/learn-digital-marketing"
                 prefetch={true}
-                className="mt-3 inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-stone-500 hover:text-accent transition-colors"
+                className="pressable group inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white px-5 py-3 sm:px-7 sm:py-3.5 text-[11px] sm:text-xs font-bold uppercase tracking-[0.16em] sm:tracking-[0.18em] text-ink shadow-xs transition-all duration-150 hover:-translate-y-0.5 hover:border-accent hover:text-accent hover:shadow-sm"
               >
-                <span>Want to learn digital marketing?</span>
-                <span className="text-accent font-bold">&rarr;</span>
+                <span>Learn Marketing</span>
+                <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
           </Reveal>
