@@ -231,10 +231,10 @@ export default function LearnDigitalMarketingPage() {
         <div className="hidden sm:block pointer-events-none absolute -right-28 top-12 h-[450px] w-[450px] rounded-full bg-[radial-gradient(circle,rgba(224,242,254,0.6)_0%,transparent_70%)]" />
 
         <div className="container-site relative pt-4 sm:pt-8">
-          {/* Centered Breadcrumb */}
+          {/* Breadcrumb (Left-aligned matching other pages) */}
           <Reveal>
-            <nav className="flex items-center justify-center gap-2 text-xs font-semibold text-stone-500 uppercase tracking-wider mb-5 sm:mb-7">
-              <Link href="/" className="hover:text-accent transition-colors">
+            <nav className="flex items-center gap-2 text-xs font-semibold text-stone-500 uppercase tracking-wider mb-6 sm:mb-8 text-left" aria-label="Breadcrumb">
+              <Link href="/" prefetch={true} className="hover:text-accent transition-colors">
                 Home
               </Link>
               <ChevronRight className="h-3.5 w-3.5 text-stone-400" />
