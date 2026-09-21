@@ -175,6 +175,9 @@ export default async function LocationCityPage({
                 {/* Primary H1 */}
                 <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-ink leading-[1.12]">
                   {location.headline}
+                  <span className="block mt-2 text-xl sm:text-2xl lg:text-3xl text-stone-500 font-medium">
+                    #1 Growth & Performance Marketing Partner in {location.name}
+                  </span>
                 </h1>
 
                 {/* Subheadline */}

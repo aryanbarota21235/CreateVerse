@@ -301,6 +301,9 @@ export default function Hero() {
 
           <Reveal delay={0.1}>
             <h1 className="text-balance mt-3 sm:mt-4 font-display text-2xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tightest text-ink">
+              <span className="block text-accent text-xs sm:text-base md:text-lg font-extrabold uppercase tracking-[0.22em] mb-2 sm:mb-3">
+                Best Digital Marketing Agency in India & Haryana
+              </span>
               Turn Digital Attention into{" "}
               <span className="text-accent">Real Revenue.</span>
             </h1>
