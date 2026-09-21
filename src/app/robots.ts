@@ -6,25 +6,25 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/api/"],
+        disallow: ["/admin", "/admin/", "/api", "/api/"],
       },
       {
         userAgent: "Googlebot",
         allow: "/",
-        disallow: ["/admin", "/api/"],
+        disallow: ["/admin", "/admin/", "/api", "/api/"],
       },
       {
         userAgent: "Googlebot-Image",
         allow: "/",
-        disallow: ["/admin", "/api/"],
+        disallow: ["/admin", "/admin/", "/api", "/api/"],
       },
       {
         userAgent: "Bingbot",
         allow: "/",
-        disallow: ["/admin", "/api/"],
+        disallow: ["/admin", "/admin/", "/api", "/api/"],
       },
     ],
-    sitemap: "https://createverse.in/sitemap.xml",
-    host: "https://createverse.in",
+    sitemap: "https://www.createverse.in/sitemap.xml",
+    host: "https://www.createverse.in",
   };
 }
