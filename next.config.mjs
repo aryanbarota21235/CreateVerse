@@ -23,6 +23,41 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/portfolio",
+        destination: "/clients",
+        permanent: true,
+      },
+      {
+        source: "/case-studies",
+        destination: "/clients",
+        permanent: true,
+      },
+      {
+        source: "/case-study",
+        destination: "/clients",
+        permanent: true,
+      },
+      {
+        source: "/academy",
+        destination: "/learn-digital-marketing",
+        permanent: true,
+      },
+      {
+        source: "/courses",
+        destination: "/learn-digital-marketing",
+        permanent: true,
+      },
+      {
+        source: "/course",
+        destination: "/learn-digital-marketing",
+        permanent: true,
+      },
+      {
+        source: "/training",
+        destination: "/learn-digital-marketing",
+        permanent: true,
+      },
+      {
         source: "/clients/subhash-sudha",
         destination: "/subhash-sudha",
         permanent: true,

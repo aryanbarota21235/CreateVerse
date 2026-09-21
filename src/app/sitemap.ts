@@ -43,18 +43,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.95,
     },
-    // Top-Tier Client Profile Pages (Maximum SEO Crawl Priority)
+    // Top-Tier Client Profile Pages (Canonical URLs Only)
     {
       url: `${base}/clients/randeep-singh-surjewala`,
       lastModified: now,
       changeFrequency: "daily",
       priority: 1.0,
-    },
-    {
-      url: `${base}/randeep-singh-surjewala`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.95,
     },
     {
       url: `${base}/clients/aditya-surjewala`,
@@ -63,22 +57,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: `${base}/aditya-surjewala`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.95,
-    },
-    {
       url: `${base}/clients/kewal-singh-dhillon`,
       lastModified: now,
       changeFrequency: "daily",
       priority: 1.0,
-    },
-    {
-      url: `${base}/kewal-singh-dhillon`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.95,
     },
     {
       url: `${base}/clients/gurkirat-singh-kotli`,
@@ -87,22 +69,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: `${base}/gurkirat-singh-kotli`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.95,
-    },
-    {
       url: `${base}/clients/shamsher-singh-gogi`,
       lastModified: now,
       changeFrequency: "daily",
       priority: 1.0,
-    },
-    {
-      url: `${base}/shamsher-singh-gogi`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.95,
     },
     {
       url: `${base}/clients/bhupinder-lather`,
@@ -111,40 +81,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: `${base}/bhupinder-lather`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.95,
-    },
-    {
       url: `${base}/clients/rajiv-mamuram-gonder`,
       lastModified: now,
       changeFrequency: "daily",
       priority: 1.0,
     },
     {
-      url: `${base}/rajiv-mamuram-gonder`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.95,
-    },
-    {
-      url: `${base}/rajiv-mamuram-gondar`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.95,
-    },
-    {
       url: `${base}/clients/umesh-sharma`,
       lastModified: now,
       changeFrequency: "daily",
       priority: 1.0,
-    },
-    {
-      url: `${base}/umesh-sharma`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.95,
     },
     {
       url: `${base}/subhash-sudha`,
