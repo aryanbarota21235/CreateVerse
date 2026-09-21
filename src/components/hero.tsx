@@ -325,11 +325,11 @@ export default function Hero() {
                 <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
               </button>
 
-              {/* Compact Learn Marketing Button */}
+              {/* Compact Learn Marketing Button (Orange) */}
               <Link
                 href="/learn-digital-marketing"
                 prefetch={true}
-                className="pressable group inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white px-5 py-3 sm:px-7 sm:py-3.5 text-[11px] sm:text-xs font-bold uppercase tracking-[0.16em] sm:tracking-[0.18em] text-ink shadow-xs transition-all duration-150 hover:-translate-y-0.5 hover:border-accent hover:text-accent hover:shadow-sm"
+                className="pressable group inline-flex items-center gap-2 rounded-full border border-orange-500 bg-orange-500 px-5 py-3 sm:px-7 sm:py-3.5 text-[11px] sm:text-xs font-bold uppercase tracking-[0.16em] sm:tracking-[0.18em] text-white shadow-md transition-all duration-150 hover:-translate-y-0.5 hover:bg-orange-600 hover:border-orange-600 hover:shadow-lg"
               >
                 <span>Learn Marketing</span>
                 <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
