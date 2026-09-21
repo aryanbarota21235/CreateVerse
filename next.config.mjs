@@ -107,6 +107,107 @@ const nextConfig = {
         destination: "/subhash-sudha",
         permanent: true,
       },
+      // Regional Hub & City Keyword Redirects (Direct to Canonical /locations/[city])
+      {
+        source: "/haryana",
+        destination: "/locations",
+        permanent: true,
+      },
+      {
+        source: "/karnal",
+        destination: "/locations/karnal",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-agency-karnal",
+        destination: "/locations/karnal",
+        permanent: true,
+      },
+      {
+        source: "/best-digital-marketing-agency-karnal",
+        destination: "/locations/karnal",
+        permanent: true,
+      },
+      {
+        source: "/panipat",
+        destination: "/locations/panipat",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-agency-panipat",
+        destination: "/locations/panipat",
+        permanent: true,
+      },
+      {
+        source: "/best-digital-marketing-agency-panipat",
+        destination: "/locations/panipat",
+        permanent: true,
+      },
+      {
+        source: "/kurukshetra",
+        destination: "/locations/kurukshetra",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-agency-kurukshetra",
+        destination: "/locations/kurukshetra",
+        permanent: true,
+      },
+      {
+        source: "/best-digital-marketing-agency-kurukshetra",
+        destination: "/locations/kurukshetra",
+        permanent: true,
+      },
+      {
+        source: "/kaithal",
+        destination: "/locations/kaithal",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-agency-kaithal",
+        destination: "/locations/kaithal",
+        permanent: true,
+      },
+      {
+        source: "/best-digital-marketing-agency-kaithal",
+        destination: "/locations/kaithal",
+        permanent: true,
+      },
+      {
+        source: "/jind",
+        destination: "/locations/jind",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-agency-jind",
+        destination: "/locations/jind",
+        permanent: true,
+      },
+      {
+        source: "/best-digital-marketing-agency-jind",
+        destination: "/locations/jind",
+        permanent: true,
+      },
+      {
+        source: "/yamunanagar",
+        destination: "/locations/yamunanagar",
+        permanent: true,
+      },
+      {
+        source: "/jagadhri",
+        destination: "/locations/yamunanagar",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-agency-yamunanagar",
+        destination: "/locations/yamunanagar",
+        permanent: true,
+      },
+      {
+        source: "/best-digital-marketing-agency-yamunanagar",
+        destination: "/locations/yamunanagar",
+        permanent: true,
+      },
     ];
   },
 };

@@ -29,7 +29,7 @@ export default function Footer() {
       <div className="container-site pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-12 lg:pb-18">
         <div className="grid grid-cols-2 gap-x-6 gap-y-7 sm:gap-12 lg:grid-cols-12">
           {/* Column 1: Brand & Logo */}
-          <div className="col-span-2 lg:col-span-4 space-y-3.5 sm:space-y-6">
+          <div className="col-span-2 lg:col-span-3 space-y-3.5 sm:space-y-6">
             <Link href="/" prefetch={true} className="inline-block transition-opacity hover:opacity-90" aria-label="CreateVerse home">
               <Image
                 src="/logo-footer.png"
@@ -41,14 +41,14 @@ export default function Footer() {
             </Link>
 
             <p className="max-w-sm text-xs sm:text-sm leading-relaxed text-stone-400 font-normal">
-              Digital growth and acquisition partner. We engineer verified lead generation systems, 24/7 political war rooms, and performance marketing operations.
+              India&apos;s elite growth & digital acquisition partner. We engineer verified lead generation systems, 24/7 political war rooms, and high-ROAS performance marketing.
             </p>
 
-            {/* Single clean Enquire button — NO tacky WhatsApp button */}
+            {/* Single clean Enquire button */}
             <div className="pt-1 sm:pt-2">
               <button
                 onClick={() => openEnquiry()}
-                className="pressable inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 sm:px-6 sm:py-3 text-xs font-bold text-ink transition-all hover:bg-stone-200"
+                className="pressable inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 sm:px-6 sm:py-3 text-xs font-bold text-ink transition-all hover:bg-stone-200 cursor-pointer"
               >
                 <span>Enquire Now</span>
                 <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
@@ -57,7 +57,7 @@ export default function Footer() {
           </div>
 
           {/* Column 2: Core Practice Areas */}
-          <div className="col-span-1 lg:col-span-3">
+          <div className="col-span-1 lg:col-span-2">
             <h3 className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-white">
               Practice Areas
             </h3>
@@ -85,8 +85,8 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Political Leadership Roster (Internal Link Authority) */}
-          <div className="col-span-1 lg:col-span-3">
+          {/* Column 3: Political Leadership Roster */}
+          <div className="col-span-1 lg:col-span-2">
             <h3 className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-white">
               Political Clients
             </h3>
@@ -147,15 +147,6 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/clients/rajiv-mamuram-gonder"
-                  prefetch={true}
-                  className="text-xs sm:text-sm text-stone-400 transition-colors hover:text-white"
-                >
-                  Rajiv Mamuram Gonder
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/clients"
                   prefetch={true}
                   className="text-xs sm:text-sm font-semibold text-white/90 hover:text-accent transition-colors"
@@ -166,8 +157,81 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: Company & Contact */}
-          <div className="col-span-2 sm:col-span-2 lg:col-span-2">
+          {/* Column 4: Haryana Regional Hubs (Local SEO Powerhouse) */}
+          <div className="col-span-1 lg:col-span-2">
+            <h3 className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-white">
+              Haryana Hubs
+            </h3>
+            <ul className="mt-3 sm:mt-5 space-y-2 sm:space-y-2.5">
+              <li>
+                <Link
+                  href="/locations/karnal"
+                  prefetch={true}
+                  className="text-xs sm:text-sm text-stone-400 transition-colors hover:text-white flex items-center gap-1.5"
+                >
+                  <span>Karnal (HQ)</span>
+                  <span className="text-[10px] text-accent font-semibold">Mughal Canal</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/locations/panipat"
+                  prefetch={true}
+                  className="text-xs sm:text-sm text-stone-400 transition-colors hover:text-white"
+                >
+                  Panipat
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/locations/kurukshetra"
+                  prefetch={true}
+                  className="text-xs sm:text-sm text-stone-400 transition-colors hover:text-white"
+                >
+                  Kurukshetra
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/locations/kaithal"
+                  prefetch={true}
+                  className="text-xs sm:text-sm text-stone-400 transition-colors hover:text-white"
+                >
+                  Kaithal
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/locations/jind"
+                  prefetch={true}
+                  className="text-xs sm:text-sm text-stone-400 transition-colors hover:text-white"
+                >
+                  Jind
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/locations/yamunanagar"
+                  prefetch={true}
+                  className="text-xs sm:text-sm text-stone-400 transition-colors hover:text-white"
+                >
+                  Yamunanagar
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/locations"
+                  prefetch={true}
+                  className="text-xs sm:text-sm font-semibold text-white/90 hover:text-accent transition-colors"
+                >
+                  All Locations &rarr;
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 5: Company & Contact */}
+          <div className="col-span-1 sm:col-span-2 lg:col-span-3">
             <h3 className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-white">
               Company
             </h3>
@@ -219,6 +283,28 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
+          </div>
+        </div>
+
+        {/* Sitewide Local SEO Anchor Strip */}
+        <div className="mt-8 sm:mt-12 border-t border-white/[0.08] pt-6 pb-2 text-[11px] sm:text-xs text-stone-400">
+          <p className="font-semibold text-stone-300 uppercase tracking-wider mb-2 text-[10.5px]">
+            Regional Performance Marketing & SEO Hubs:
+          </p>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 leading-relaxed text-stone-400">
+            <Link href="/locations/karnal" className="hover:text-white transition-colors">Best Digital Marketing Agency in Karnal</Link>
+            <span className="text-stone-700">·</span>
+            <Link href="/locations/panipat" className="hover:text-white transition-colors">Best Digital Marketing Agency in Panipat</Link>
+            <span className="text-stone-700">·</span>
+            <Link href="/locations/kurukshetra" className="hover:text-white transition-colors">Best Digital Marketing Agency in Kurukshetra</Link>
+            <span className="text-stone-700">·</span>
+            <Link href="/locations/kaithal" className="hover:text-white transition-colors">Best Digital Marketing Agency in Kaithal</Link>
+            <span className="text-stone-700">·</span>
+            <Link href="/locations/jind" className="hover:text-white transition-colors">Best Digital Marketing Agency in Jind</Link>
+            <span className="text-stone-700">·</span>
+            <Link href="/locations/yamunanagar" className="hover:text-white transition-colors">Best Digital Marketing Agency in Yamunanagar</Link>
+            <span className="text-stone-700">·</span>
+            <Link href="/locations" className="text-accent hover:underline transition-colors">Haryana Digital Marketing Directory</Link>
           </div>
         </div>
 

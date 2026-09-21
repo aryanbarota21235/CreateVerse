@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { services } from "@/lib/services";
+import { getAllLocationSlugs } from "@/lib/locations";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://createverse.in";
@@ -122,5 +123,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: s.priority ? 0.9 : 0.8,
     }));
 
-  return [...corePages, ...servicePages];
+  // Regional Haryana Hub & City Pages (Priority 0.95 for Local Search Authority)
+  const locationPages: MetadataRoute.Sitemap = [
+    {
+      url: `${base}/locations`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.95,
+    },
+    ...getAllLocationSlugs().map((slug) => ({
+      url: `${base}/locations/${slug}`,
+      lastModified: now,
+      changeFrequency: "daily" as const,
+      priority: 0.95,
+    })),
+  ];
+
+  return [...corePages, ...servicePages, ...locationPages];
 }
+

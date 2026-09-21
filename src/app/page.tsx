@@ -10,9 +10,9 @@ import FinalCTA from "@/components/final-cta";
 import { siteKeywords } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "CreateVerse — Growth & Digital Acquisition Partner | Performance Marketing & War Rooms",
+  title: "CreateVerse — Best Digital Marketing Agency in India & Haryana | Growth Partner",
   description:
-    "Turn digital attention into verified revenue. CreateVerse designs and executes high-impact acquisition funnels for real estate developers, immigration consultancies, political campaigns, and ambitious brands across India and global diaspora markets.",
+    "CreateVerse is India's premier digital marketing agency. We engineer verified buyer lead generation, high-ROAS Google & Meta Ads, and 24/7 political digital war rooms for leading brands in Haryana and across India.",
   keywords: siteKeywords,
   alternates: {
     canonical: "https://createverse.in",

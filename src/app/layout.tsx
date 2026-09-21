@@ -19,11 +19,11 @@ const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display", 
 export const metadata: Metadata = {
   metadataBase: new URL("https://createverse.in"),
   title: {
-    default: "CreateVerse — Growth & Digital Acquisition Partner | Performance Marketing & War Rooms",
+    default: "CreateVerse — Best Digital Marketing Agency in India | Growth & Performance Marketing",
     template: "%s | CreateVerse",
   },
   description:
-    "CreateVerse is an elite growth & digital acquisition partner. We build end-to-end performance marketing systems, real estate buyer pipelines, immigration lead funnels, 24/7 political digital war rooms, Google & Meta Ads, and conversion-first web architectures that turn digital attention into verified revenue.",
+    "CreateVerse is India's premier digital marketing & performance agency. Headquartered in Mughal Canal, Karnal and serving enterprises nationwide with high-ROAS Google & Meta Ads, verified real estate lead generation, immigration funnels, and 24/7 political digital war rooms.",
   keywords: siteKeywords,
   alternates: {
     canonical: "https://createverse.in",

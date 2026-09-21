@@ -1,17 +1,49 @@
 import { site } from "@/lib/site";
 import { type Service } from "@/lib/services";
+import { type LocationData } from "@/lib/locations";
 
 export const siteKeywords = [
-  // Core Brand & Positioning
+  // Core Brand & National Positioning (All India)
   "CreateVerse",
   "CreateVerse digital",
   "CreateVerse agency",
   "growth marketing partner",
   "digital acquisition partner",
-  "performance marketing agency India",
+  "best digital marketing agency",
   "best digital marketing agency India",
+  "top digital marketing agency in India",
+  "performance marketing agency India",
+  "best performance marketing agency",
   "lead generation company India",
   "growth marketing agency",
+  "best ROI digital marketing agency",
+  "B2B lead generation agency India",
+
+  // Local SEO Target Cities (Haryana Regional Dominance)
+  "best digital marketing agency in karnal",
+  "digital marketing agency karnal",
+  "best digital marketing company in karnal",
+  "digital marketing services karnal",
+  "performance marketing agency karnal",
+  "best digital marketing agency in panipat",
+  "digital marketing agency panipat",
+  "best digital marketing company in panipat",
+  "best digital marketing agency in kurukshetra",
+  "digital marketing agency kurukshetra",
+  "best digital marketing agency in kaithal",
+  "digital marketing agency kaithal",
+  "best digital marketing agency in jind",
+  "digital marketing agency jind",
+  "best digital marketing agency in yamunanagar",
+  "digital marketing agency yamunanagar",
+  "digital marketing agency jagadhri",
+  "digital marketing agency Haryana",
+  "top digital marketing agency Haryana",
+  "performance marketing Delhi NCR",
+  "seo agency in karnal",
+  "google ads agency karnal",
+  "social media marketing karnal",
+  "website development company in karnal",
 
   // Core Specialized Verticals
   "real estate lead generation agency",
@@ -37,10 +69,6 @@ export const siteKeywords = [
   "social media management agency",
   "influencer marketing agency India",
 
-  // Local & Geographic Reach
-  "digital marketing agency Karnal",
-  "digital marketing agency Haryana",
-  "performance marketing Delhi NCR",
   // Political Leadership & Entity Search Authority
   "Randeep Singh Surjewala",
   "रणदीप सिंह सुरजेवाला",
@@ -261,6 +289,18 @@ export function getOrganizationJsonLd() {
           },
         ],
         knowsAbout: [
+          "Best Digital Marketing Agency in India",
+          "Best Digital Marketing Agency in Karnal",
+          "Best Digital Marketing Agency in Panipat",
+          "Best Digital Marketing Agency in Kurukshetra",
+          "Best Digital Marketing Agency in Kaithal",
+          "Best Digital Marketing Agency in Jind",
+          "Best Digital Marketing Agency in Yamunanagar",
+          "Performance Marketing India",
+          "B2B Lead Generation Agency India",
+          "Google Ads Agency India",
+          "Meta Ads Agency India",
+          "Local SEO & Google Maps Optimization",
           "Political Campaign Management & Digital War Rooms",
           "Election Strategy India",
           "Randeep Singh Surjewala Campaign",
@@ -273,13 +313,12 @@ export function getOrganizationJsonLd() {
           "Umesh Sharma Campaign",
           "Real Estate Lead Generation",
           "Immigration & Visa Marketing",
-          "Performance Marketing",
         ],
       },
       {
         "@type": "ProfessionalService",
         "@id": "https://createverse.in/#localbusiness",
-        name: "CreateVerse — Growth & Digital Acquisition Partner",
+        name: "CreateVerse — Best Digital Marketing Agency | Growth & Acquisition Partner",
         url: "https://createverse.in",
         telephone: site.phone,
         email: site.email,
@@ -310,12 +349,22 @@ export function getOrganizationJsonLd() {
         areaServed: [
           { "@type": "Country", name: "India" },
           { "@type": "State", name: "Haryana" },
-          { "@type": "State", name: "Delhi" },
           { "@type": "State", name: "Punjab" },
+          { "@type": "State", name: "Delhi" },
+          { "@type": "State", name: "Uttar Pradesh" },
           { "@type": "City", name: "Karnal" },
+          { "@type": "City", name: "Panipat" },
+          { "@type": "City", name: "Kurukshetra" },
+          { "@type": "City", name: "Kaithal" },
+          { "@type": "City", name: "Jind" },
+          { "@type": "City", name: "Yamunanagar" },
+          { "@type": "City", name: "Sonipat" },
+          { "@type": "City", name: "Ambala" },
           { "@type": "City", name: "Gurgaon" },
+          { "@type": "City", name: "Faridabad" },
           { "@type": "City", name: "Chandigarh" },
           { "@type": "City", name: "Delhi" },
+          { "@type": "City", name: "Noida" },
         ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",
@@ -533,3 +582,131 @@ export function getBreadcrumbJsonLd(items: { name: string; url: string }[]) {
     })),
   };
 }
+
+// 5. Local Business & Location-Specific JSON-LD
+export function getLocationJsonLd(location: LocationData) {
+  const pageUrl = `https://createverse.in/locations/${location.slug}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["ProfessionalService", "LocalBusiness"],
+        "@id": `${pageUrl}#localbusiness`,
+        name: `CreateVerse — ${location.headline}`,
+        alternateName: `Best Digital Marketing Agency in ${location.name}`,
+        url: pageUrl,
+        telephone: site.phone,
+        email: site.email,
+        priceRange: "$$",
+        currenciesAccepted: "INR, USD, AED",
+        paymentAccepted: "Bank Transfer, UPI, Credit Card",
+        openingHoursSpecification: [
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            opens: "09:00",
+            closes: "20:00",
+          },
+        ],
+        address: {
+          "@type": "PostalAddress",
+          ...location.address,
+        },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: location.geo.latitude,
+          longitude: location.geo.longitude,
+        },
+        areaServed: [
+          { "@type": "City", name: location.name },
+          { "@type": "State", name: "Haryana" },
+          { "@type": "Country", name: "India" },
+        ],
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: `Digital Marketing Services in ${location.name}`,
+          itemListElement: [
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Performance Marketing & Paid Ads",
+                description: `High ROAS Google and Meta ads management for ${location.name} businesses.`,
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "High-Intent Lead Generation",
+                description: `Verified buyer lead generation funnels for real estate, exports, and services in ${location.name}.`,
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Local SEO & Google Maps Ranking",
+                description: `Map pack dominance and organic search ranking across ${location.name} and Haryana.`,
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Next.js Web Development",
+                description: "Sub-second conversion-first website and landing page design.",
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Political Campaign Management & War Rooms",
+                description: "Booth-level voter outreach and 24/7 digital war room operations.",
+              },
+            },
+          ],
+        },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${pageUrl}#faq`,
+        mainEntity: location.faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.q,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.a,
+          },
+        })),
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://createverse.in",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Locations",
+            item: "https://createverse.in/locations",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: location.name,
+            item: pageUrl,
+          },
+        ],
+      },
+    ],
+  };
+}
+
