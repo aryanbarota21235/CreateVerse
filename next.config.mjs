@@ -58,6 +58,51 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/aditya-surjewala",
+        destination: "/clients/aditya-surjewala",
+        permanent: true,
+      },
+      {
+        source: "/randeep-singh-surjewala",
+        destination: "/clients/randeep-singh-surjewala",
+        permanent: true,
+      },
+      {
+        source: "/kewal-singh-dhillon",
+        destination: "/clients/kewal-singh-dhillon",
+        permanent: true,
+      },
+      {
+        source: "/gurkirat-singh-kotli",
+        destination: "/clients/gurkirat-singh-kotli",
+        permanent: true,
+      },
+      {
+        source: "/shamsher-singh-gogi",
+        destination: "/clients/shamsher-singh-gogi",
+        permanent: true,
+      },
+      {
+        source: "/bhupinder-lather",
+        destination: "/clients/bhupinder-lather",
+        permanent: true,
+      },
+      {
+        source: "/rajiv-mamuram-gonder",
+        destination: "/clients/rajiv-mamuram-gonder",
+        permanent: true,
+      },
+      {
+        source: "/rajiv-mamuram-gondar",
+        destination: "/clients/rajiv-mamuram-gonder",
+        permanent: true,
+      },
+      {
+        source: "/umesh-sharma",
+        destination: "/clients/umesh-sharma",
+        permanent: true,
+      },
+      {
         source: "/clients/subhash-sudha",
         destination: "/subhash-sudha",
         permanent: true,
