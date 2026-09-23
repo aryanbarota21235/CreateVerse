@@ -17,7 +17,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swa
 const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display", display: "swap" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://createverse.in"),
+  metadataBase: new URL("https://www.createverse.in"),
   title: {
     default: "CreateVerse — Best Digital Marketing Agency in India | Growth & Performance Marketing",
     template: "%s | CreateVerse",
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
     "CreateVerse is India's premier digital marketing & performance agency. Headquartered in Mughal Canal, Karnal and serving enterprises nationwide with high-ROAS Google & Meta Ads, verified real estate lead generation, immigration funnels, and 24/7 political digital war rooms.",
   keywords: siteKeywords,
   alternates: {
-    canonical: "https://createverse.in",
+    canonical: "https://www.createverse.in",
   },
-  authors: [{ name: "CreateVerse", url: "https://createverse.in" }],
+  authors: [{ name: "CreateVerse", url: "https://www.createverse.in" }],
   creator: "CreateVerse",
   publisher: "CreateVerse",
   category: "technology",
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
       "Turn digital attention into real revenue. Specialized acquisition systems for real estate developers, immigration consultancies, political campaigns, and high-growth brands.",
     type: "website",
     locale: "en_IN",
-    url: "https://createverse.in",
+    url: "https://www.createverse.in",
     images: [
       {
         url: "/logo.png",

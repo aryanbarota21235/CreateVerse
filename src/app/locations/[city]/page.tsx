@@ -22,7 +22,7 @@ export async function generateMetadata({
   const location = getLocation(city);
   if (!location) return {};
 
-  const pageUrl = `https://createverse.in/locations/${location.slug}`;
+  const pageUrl = `https://www.createverse.in/locations/${location.slug}`;
 
   return {
     title: location.metaTitle,

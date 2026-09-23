@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     "CreateVerse political clients",
   ],
   alternates: {
-    canonical: "https://createverse.in/clients/randeep-singh-surjewala",
+    canonical: "https://www.createverse.in/clients/randeep-singh-surjewala",
   },
   robots: {
     index: true,
@@ -56,13 +56,13 @@ export const metadata: Metadata = {
     title: "Randeep Singh Surjewala (रणदीप सिंह सुरजेवाला) — Member of Parliament, Rajya Sabha",
     description:
       "Randeep Singh Surjewala is an Indian politician and lawyer from Haryana, Member of Parliament (Rajya Sabha), and senior leader of the Indian National Congress.",
-    url: "https://createverse.in/clients/randeep-singh-surjewala",
+    url: "https://www.createverse.in/clients/randeep-singh-surjewala",
     siteName: "CreateVerse",
     locale: "en_IN",
     type: "profile",
     images: [
       {
-        url: "https://createverse.in/politicians/randeep-singh-surjewala.webp",
+        url: "https://www.createverse.in/politicians/randeep-singh-surjewala.webp",
         width: 800,
         height: 800,
         alt: "Randeep Singh Surjewala",
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     title: "Randeep Singh Surjewala — Member of Parliament, Rajya Sabha",
     description:
       "Randeep Singh Surjewala is an Indian politician and lawyer from Haryana, Member of Parliament (Rajya Sabha), and senior leader of the Indian National Congress.",
-    images: ["https://createverse.in/politicians/randeep-singh-surjewala.webp"],
+    images: ["https://www.createverse.in/politicians/randeep-singh-surjewala.webp"],
   },
 };
 
@@ -161,7 +161,7 @@ export default function RandeepSurjewalaPage() {
     "@graph": [
       {
         "@type": "Person",
-        "@id": "https://createverse.in/clients/randeep-singh-surjewala#person",
+        "@id": "https://www.createverse.in/clients/randeep-singh-surjewala#person",
         name: "Randeep Singh Surjewala",
         alternateName: [
           "रणदीप सिंह सुरजेवाला",
@@ -176,8 +176,8 @@ export default function RandeepSurjewalaPage() {
         jobTitle: "Member of Parliament, Rajya Sabha & AICC General Secretary",
         description:
           "Randeep Singh Surjewala is an Indian politician and lawyer from Haryana, Member of Parliament (Rajya Sabha), and senior leader of the Indian National Congress.",
-        image: "https://createverse.in/politicians/randeep-singh-surjewala.webp",
-        url: "https://createverse.in/clients/randeep-singh-surjewala",
+        image: "https://www.createverse.in/politicians/randeep-singh-surjewala.webp",
+        url: "https://www.createverse.in/clients/randeep-singh-surjewala",
         sameAs: [
           "https://en.wikipedia.org/wiki/Randeep_Surjewala",
           "https://sansad.in/rs/members",
@@ -214,58 +214,58 @@ export default function RandeepSurjewalaPage() {
       },
       {
         "@type": "ProfilePage",
-        "@id": "https://createverse.in/clients/randeep-singh-surjewala#webpage",
-        url: "https://createverse.in/clients/randeep-singh-surjewala",
+        "@id": "https://www.createverse.in/clients/randeep-singh-surjewala#webpage",
+        url: "https://www.createverse.in/clients/randeep-singh-surjewala",
         name: "Randeep Singh Surjewala (रणदीप सिंह सुरजेवाला) — Member of Parliament | Official Client Profile",
         isPartOf: {
           "@type": "WebSite",
-          "@id": "https://createverse.in/#website",
+          "@id": "https://www.createverse.in/#website",
           name: "CreateVerse",
-          url: "https://createverse.in",
+          url: "https://www.createverse.in",
         },
         about: {
-          "@id": "https://createverse.in/clients/randeep-singh-surjewala#person",
+          "@id": "https://www.createverse.in/clients/randeep-singh-surjewala#person",
         },
         mainEntity: {
-          "@id": "https://createverse.in/clients/randeep-singh-surjewala#person",
+          "@id": "https://www.createverse.in/clients/randeep-singh-surjewala#person",
         },
         publisher: {
           "@type": "Organization",
           name: "CreateVerse",
-          url: "https://createverse.in",
+          url: "https://www.createverse.in",
           logo: {
             "@type": "ImageObject",
-            url: "https://createverse.in/logo.png",
+            url: "https://www.createverse.in/logo.png",
           },
         },
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://createverse.in/clients/randeep-singh-surjewala#breadcrumb",
+        "@id": "https://www.createverse.in/clients/randeep-singh-surjewala#breadcrumb",
         itemListElement: [
           {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://createverse.in",
+            item: "https://www.createverse.in",
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Clients",
-            item: "https://createverse.in/clients",
+            item: "https://www.createverse.in/clients",
           },
           {
             "@type": "ListItem",
             position: 3,
             name: "Randeep Singh Surjewala",
-            item: "https://createverse.in/clients/randeep-singh-surjewala",
+            item: "https://www.createverse.in/clients/randeep-singh-surjewala",
           },
         ],
       },
       {
         "@type": "FAQPage",
-        "@id": "https://createverse.in/clients/randeep-singh-surjewala#faq",
+        "@id": "https://www.createverse.in/clients/randeep-singh-surjewala#faq",
         mainEntity: faqs.map((f) => ({
           "@type": "Question",
           name: f.question,

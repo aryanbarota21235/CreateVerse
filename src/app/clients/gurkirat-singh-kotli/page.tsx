@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     "CreateVerse political clients",
   ],
   alternates: {
-    canonical: "https://createverse.in/clients/gurkirat-singh-kotli",
+    canonical: "https://www.createverse.in/clients/gurkirat-singh-kotli",
   },
   robots: {
     index: true,
@@ -52,13 +52,13 @@ export const metadata: Metadata = {
     title: "Gurkirat Singh Kotli (गुरकीरत सिंह कोटली) — Former Cabinet Minister, Punjab",
     description:
       "Official profile of Gurkirat Singh Kotli, Former Cabinet Minister for Industries & IT and 2-term MLA from Khanna (INC).",
-    url: "https://createverse.in/clients/gurkirat-singh-kotli",
+    url: "https://www.createverse.in/clients/gurkirat-singh-kotli",
     siteName: "CreateVerse",
     locale: "en_IN",
     type: "profile",
     images: [
       {
-        url: "https://createverse.in/politicians/gurkirat-singh-kotli.webp",
+        url: "https://www.createverse.in/politicians/gurkirat-singh-kotli.webp",
         width: 800,
         height: 800,
         alt: "Gurkirat Singh Kotli — Former Cabinet Minister Punjab",
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     title: "Gurkirat Singh Kotli — Former Cabinet Minister, Punjab | MLA Khanna",
     description:
       "Former Cabinet Minister for Industries, IT & Science & Technology, Punjab. 2-term MLA from Khanna representing INC.",
-    images: ["https://createverse.in/politicians/gurkirat-singh-kotli.webp"],
+    images: ["https://www.createverse.in/politicians/gurkirat-singh-kotli.webp"],
   },
 };
 
@@ -137,7 +137,7 @@ export default function GurkiratSinghKotliPage() {
     "@graph": [
       {
         "@type": "Person",
-        "@id": "https://createverse.in/clients/gurkirat-singh-kotli#person",
+        "@id": "https://www.createverse.in/clients/gurkirat-singh-kotli#person",
         name: "Gurkirat Singh Kotli",
         alternateName: [
           "गुरकीरत सिंह कोटली",
@@ -149,8 +149,8 @@ export default function GurkiratSinghKotliPage() {
         jobTitle: "Former Cabinet Minister, Punjab & 2-Term MLA Khanna",
         description:
           "Gurkirat Singh Kotli is an Indian politician and senior leader of the Indian National Congress in Punjab, former Cabinet Minister for Industries & IT, and two-term MLA from Khanna.",
-        image: "https://createverse.in/politicians/gurkirat-singh-kotli.webp",
-        url: "https://createverse.in/clients/gurkirat-singh-kotli",
+        image: "https://www.createverse.in/politicians/gurkirat-singh-kotli.webp",
+        url: "https://www.createverse.in/clients/gurkirat-singh-kotli",
         sameAs: [
           "https://en.wikipedia.org/wiki/Gurkirat_Singh_Kotli",
           "https://www.instagram.com/gurkiratskotli",
@@ -170,58 +170,58 @@ export default function GurkiratSinghKotliPage() {
       },
       {
         "@type": "ProfilePage",
-        "@id": "https://createverse.in/clients/gurkirat-singh-kotli#webpage",
-        url: "https://createverse.in/clients/gurkirat-singh-kotli",
+        "@id": "https://www.createverse.in/clients/gurkirat-singh-kotli#webpage",
+        url: "https://www.createverse.in/clients/gurkirat-singh-kotli",
         name: "Gurkirat Singh Kotli (गुरकीरत सिंह कोटली) — Official Client Profile | CreateVerse",
         isPartOf: {
           "@type": "WebSite",
-          "@id": "https://createverse.in/#website",
+          "@id": "https://www.createverse.in/#website",
           name: "CreateVerse",
-          url: "https://createverse.in",
+          url: "https://www.createverse.in",
         },
         about: {
-          "@id": "https://createverse.in/clients/gurkirat-singh-kotli#person",
+          "@id": "https://www.createverse.in/clients/gurkirat-singh-kotli#person",
         },
         mainEntity: {
-          "@id": "https://createverse.in/clients/gurkirat-singh-kotli#person",
+          "@id": "https://www.createverse.in/clients/gurkirat-singh-kotli#person",
         },
         publisher: {
           "@type": "Organization",
           name: "CreateVerse",
-          url: "https://createverse.in",
+          url: "https://www.createverse.in",
           logo: {
             "@type": "ImageObject",
-            url: "https://createverse.in/logo.png",
+            url: "https://www.createverse.in/logo.png",
           },
         },
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://createverse.in/clients/gurkirat-singh-kotli#breadcrumb",
+        "@id": "https://www.createverse.in/clients/gurkirat-singh-kotli#breadcrumb",
         itemListElement: [
           {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://createverse.in",
+            item: "https://www.createverse.in",
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Clients",
-            item: "https://createverse.in/clients",
+            item: "https://www.createverse.in/clients",
           },
           {
             "@type": "ListItem",
             position: 3,
             name: "Gurkirat Singh Kotli",
-            item: "https://createverse.in/clients/gurkirat-singh-kotli",
+            item: "https://www.createverse.in/clients/gurkirat-singh-kotli",
           },
         ],
       },
       {
         "@type": "FAQPage",
-        "@id": "https://createverse.in/clients/gurkirat-singh-kotli#faq",
+        "@id": "https://www.createverse.in/clients/gurkirat-singh-kotli#faq",
         mainEntity: faqs.map((f) => ({
           "@type": "Question",
           name: f.question,

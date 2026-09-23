@@ -15,13 +15,13 @@ export const metadata: Metadata = {
     "CreateVerse is India's premier digital marketing agency. We engineer verified buyer lead generation, high-ROAS Google & Meta Ads, and 24/7 political digital war rooms for leading brands in Haryana and across India.",
   keywords: siteKeywords,
   alternates: {
-    canonical: "https://createverse.in",
+    canonical: "https://www.createverse.in",
   },
   openGraph: {
     title: "CreateVerse — Growth & Digital Acquisition Partner",
     description:
       "Turn digital attention into real revenue. Specialized acquisition systems for real estate developers, immigration consultancies, political campaigns, and high-growth brands.",
-    url: "https://createverse.in",
+    url: "https://www.createverse.in",
     siteName: "CreateVerse",
     locale: "en_IN",
     type: "website",

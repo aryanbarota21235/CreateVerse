@@ -22,13 +22,13 @@ export const metadata: Metadata = {
     "performance marketing practices",
   ],
   alternates: {
-    canonical: "https://createverse.in/services",
+    canonical: "https://www.createverse.in/services",
   },
   openGraph: {
     title: "Services & Practices — CreateVerse",
     description:
       "Everything growth needs, under one roof. Acquisition, advertising, creative, and technology engineered for verified revenue.",
-    url: "https://createverse.in/services",
+    url: "https://www.createverse.in/services",
     siteName: "CreateVerse",
     locale: "en_IN",
     type: "website",

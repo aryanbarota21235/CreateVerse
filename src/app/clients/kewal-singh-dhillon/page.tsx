@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     "CreateVerse political clients",
   ],
   alternates: {
-    canonical: "https://createverse.in/clients/kewal-singh-dhillon",
+    canonical: "https://www.createverse.in/clients/kewal-singh-dhillon",
   },
   robots: {
     index: true,
@@ -56,13 +56,13 @@ export const metadata: Metadata = {
     title: "Kewal Singh Dhillon (केवल सिंह ढिल्लों) — BJP President Punjab",
     description:
       "Official profile of Kewal Singh Dhillon, BJP President Punjab, Senior Leader of Bharatiya Janata Party and Former 2-term MLA from Barnala.",
-    url: "https://createverse.in/clients/kewal-singh-dhillon",
+    url: "https://www.createverse.in/clients/kewal-singh-dhillon",
     siteName: "CreateVerse",
     locale: "en_IN",
     type: "profile",
     images: [
       {
-        url: "https://createverse.in/politicians/kewal-singh-dhillon.webp",
+        url: "https://www.createverse.in/politicians/kewal-singh-dhillon.webp",
         width: 800,
         height: 800,
         alt: "Kewal Singh Dhillon — BJP President Punjab",
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     title: "Kewal Singh Dhillon — BJP President Punjab | Former MLA Barnala",
     description:
       "BJP President Punjab, Senior Leader of Bharatiya Janata Party (BJP) & 2-term MLA from Barnala.",
-    images: ["https://createverse.in/politicians/kewal-singh-dhillon.webp"],
+    images: ["https://www.createverse.in/politicians/kewal-singh-dhillon.webp"],
   },
 };
 
@@ -147,7 +147,7 @@ export default function KewalSinghDhillonPage() {
     "@graph": [
       {
         "@type": "Person",
-        "@id": "https://createverse.in/clients/kewal-singh-dhillon#person",
+        "@id": "https://www.createverse.in/clients/kewal-singh-dhillon#person",
         name: "Kewal Singh Dhillon",
         alternateName: [
           "केवल सिंह ढिल्लों",
@@ -160,8 +160,8 @@ export default function KewalSinghDhillonPage() {
         jobTitle: "Senior Leader, BJP Punjab & Former MLA Barnala",
         description:
           "Kewal Singh Dhillon is a senior Indian politician and industrialist from Punjab, senior leader of the Bharatiya Janata Party (BJP), and former 2-term MLA from Barnala.",
-        image: "https://createverse.in/politicians/kewal-singh-dhillon.webp",
-        url: "https://createverse.in/clients/kewal-singh-dhillon",
+        image: "https://www.createverse.in/politicians/kewal-singh-dhillon.webp",
+        url: "https://www.createverse.in/clients/kewal-singh-dhillon",
         sameAs: [
           "https://en.wikipedia.org/wiki/Kewal_Singh_Dhillon",
           "https://www.facebook.com/kewalsinghdhillon/",
@@ -181,58 +181,58 @@ export default function KewalSinghDhillonPage() {
       },
       {
         "@type": "ProfilePage",
-        "@id": "https://createverse.in/clients/kewal-singh-dhillon#webpage",
-        url: "https://createverse.in/clients/kewal-singh-dhillon",
+        "@id": "https://www.createverse.in/clients/kewal-singh-dhillon#webpage",
+        url: "https://www.createverse.in/clients/kewal-singh-dhillon",
         name: "Kewal Singh Dhillon (केवल सिंह ढिल्लों) — Senior BJP Leader | Official Client Profile",
         isPartOf: {
           "@type": "WebSite",
-          "@id": "https://createverse.in/#website",
+          "@id": "https://www.createverse.in/#website",
           name: "CreateVerse",
-          url: "https://createverse.in",
+          url: "https://www.createverse.in",
         },
         about: {
-          "@id": "https://createverse.in/clients/kewal-singh-dhillon#person",
+          "@id": "https://www.createverse.in/clients/kewal-singh-dhillon#person",
         },
         mainEntity: {
-          "@id": "https://createverse.in/clients/kewal-singh-dhillon#person",
+          "@id": "https://www.createverse.in/clients/kewal-singh-dhillon#person",
         },
         publisher: {
           "@type": "Organization",
           name: "CreateVerse",
-          url: "https://createverse.in",
+          url: "https://www.createverse.in",
           logo: {
             "@type": "ImageObject",
-            url: "https://createverse.in/logo.png",
+            url: "https://www.createverse.in/logo.png",
           },
         },
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://createverse.in/clients/kewal-singh-dhillon#breadcrumb",
+        "@id": "https://www.createverse.in/clients/kewal-singh-dhillon#breadcrumb",
         itemListElement: [
           {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://createverse.in",
+            item: "https://www.createverse.in",
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Clients",
-            item: "https://createverse.in/clients",
+            item: "https://www.createverse.in/clients",
           },
           {
             "@type": "ListItem",
             position: 3,
             name: "Kewal Singh Dhillon",
-            item: "https://createverse.in/clients/kewal-singh-dhillon",
+            item: "https://www.createverse.in/clients/kewal-singh-dhillon",
           },
         ],
       },
       {
         "@type": "FAQPage",
-        "@id": "https://createverse.in/clients/kewal-singh-dhillon#faq",
+        "@id": "https://www.createverse.in/clients/kewal-singh-dhillon#faq",
         mainEntity: faqs.map((f) => ({
           "@type": "Question",
           name: f.question,

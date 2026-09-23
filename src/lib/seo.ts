@@ -256,17 +256,17 @@ export function getOrganizationJsonLd() {
     "@graph": [
       {
         "@type": "Organization",
-        "@id": "https://createverse.in/#organization",
+        "@id": "https://www.createverse.in/#organization",
         name: site.name,
         alternateName: "CreateVerse Digital",
-        url: "https://createverse.in",
+        url: "https://www.createverse.in",
         logo: {
           "@type": "ImageObject",
-          "@id": "https://createverse.in/#logo",
-          url: "https://createverse.in/logo.png",
+          "@id": "https://www.createverse.in/#logo",
+          url: "https://www.createverse.in/logo.png",
           caption: "CreateVerse — Redefining Digital",
         },
-        image: "https://createverse.in/logo.png",
+        image: "https://www.createverse.in/logo.png",
         description:
           "CreateVerse is a growth & digital acquisition partner specializing in high-ticket real estate lead generation, immigration funnels, political war rooms, performance marketing, and modern web systems.",
         telephone: site.phone,
@@ -317,9 +317,9 @@ export function getOrganizationJsonLd() {
       },
       {
         "@type": "ProfessionalService",
-        "@id": "https://createverse.in/#localbusiness",
+        "@id": "https://www.createverse.in/#localbusiness",
         name: "CreateVerse — Best Digital Marketing Agency | Growth & Acquisition Partner",
-        url: "https://createverse.in",
+        url: "https://www.createverse.in",
         telephone: site.phone,
         email: site.email,
         priceRange: "$$",
@@ -423,12 +423,12 @@ export function getOrganizationJsonLd() {
       },
       {
         "@type": "WebSite",
-        "@id": "https://createverse.in/#website",
-        url: "https://createverse.in",
+        "@id": "https://www.createverse.in/#website",
+        url: "https://www.createverse.in",
         name: "CreateVerse",
         description: "Growth & Digital Acquisition Partner",
         publisher: {
-          "@id": "https://createverse.in/#organization",
+          "@id": "https://www.createverse.in/#organization",
         },
         inLanguage: "en-US",
       },
@@ -438,7 +438,7 @@ export function getOrganizationJsonLd() {
 
 // 2. Service-Specific JSON-LD (Service Schema + FAQPage Schema)
 export function getServiceJsonLd(service: Service) {
-  const serviceUrl = `https://createverse.in/services/${service.slug}`;
+  const serviceUrl = `https://www.createverse.in/services/${service.slug}`;
 
   const graph: object[] = [
     {
@@ -451,7 +451,7 @@ export function getServiceJsonLd(service: Service) {
       provider: {
         "@type": "Organization",
         name: site.name,
-        url: "https://createverse.in",
+        url: "https://www.createverse.in",
       },
       serviceType: service.category,
       areaServed: {
@@ -476,13 +476,13 @@ export function getServiceJsonLd(service: Service) {
           "@type": "ListItem",
           position: 1,
           name: "Home",
-          item: "https://createverse.in",
+          item: "https://www.createverse.in",
         },
         {
           "@type": "ListItem",
           position: 2,
           name: "Services",
-          item: "https://createverse.in/services",
+          item: "https://www.createverse.in/services",
         },
         {
           "@type": "ListItem",
@@ -518,7 +518,7 @@ export function getServiceJsonLd(service: Service) {
 
 // 3. Political Management Dedicated JSON-LD
 export function getPoliticalManagementJsonLd() {
-  const pageUrl = "https://createverse.in/services/political-management";
+  const pageUrl = "https://www.createverse.in/services/political-management";
 
   return {
     "@context": "https://schema.org",
@@ -533,7 +533,7 @@ export function getPoliticalManagementJsonLd() {
         provider: {
           "@type": "Organization",
           name: site.name,
-          url: "https://createverse.in",
+          url: "https://www.createverse.in",
         },
         serviceType: "Political Consulting & War Room",
         areaServed: {
@@ -549,13 +549,13 @@ export function getPoliticalManagementJsonLd() {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://createverse.in",
+            item: "https://www.createverse.in",
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Services",
-            item: "https://createverse.in/services",
+            item: "https://www.createverse.in/services",
           },
           {
             "@type": "ListItem",
@@ -585,7 +585,7 @@ export function getBreadcrumbJsonLd(items: { name: string; url: string }[]) {
 
 // 5. Local Business & Location-Specific JSON-LD
 export function getLocationJsonLd(location: LocationData) {
-  const pageUrl = `https://createverse.in/locations/${location.slug}`;
+  const pageUrl = `https://www.createverse.in/locations/${location.slug}`;
 
   return {
     "@context": "https://schema.org",
@@ -690,13 +690,13 @@ export function getLocationJsonLd(location: LocationData) {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://createverse.in",
+            item: "https://www.createverse.in",
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Locations",
-            item: "https://createverse.in/locations",
+            item: "https://www.createverse.in/locations",
           },
           {
             "@type": "ListItem",

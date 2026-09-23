@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     "CreateVerse political clients",
   ],
   alternates: {
-    canonical: "https://createverse.in/clients/shamsher-singh-gogi",
+    canonical: "https://www.createverse.in/clients/shamsher-singh-gogi",
   },
   robots: {
     index: true,
@@ -51,13 +51,13 @@ export const metadata: Metadata = {
     title: "Shamsher Singh Gogi (शमशेर सिंह गोगी) — Ex-MLA Assandh | Congress Leader",
     description:
       "Official profile of Shamsher Singh Gogi, former Member of the Haryana Legislative Assembly for Assandh (Karnal) representing Indian National Congress.",
-    url: "https://createverse.in/clients/shamsher-singh-gogi",
+    url: "https://www.createverse.in/clients/shamsher-singh-gogi",
     siteName: "CreateVerse",
     locale: "en_IN",
     type: "profile",
     images: [
       {
-        url: "https://createverse.in/politicians/shamsher-singh-gogi.webp",
+        url: "https://www.createverse.in/politicians/shamsher-singh-gogi.webp",
         width: 800,
         height: 800,
         alt: "Shamsher Singh Gogi — Ex-MLA Assandh",
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     title: "Shamsher Singh Gogi — Ex-MLA Assandh | Senior Congress Leader Haryana",
     description:
       "Former Member of the Haryana Legislative Assembly from Assandh (2019–2024) & Senior INC Leader.",
-    images: ["https://createverse.in/politicians/shamsher-singh-gogi.webp"],
+    images: ["https://www.createverse.in/politicians/shamsher-singh-gogi.webp"],
   },
 };
 
@@ -142,7 +142,7 @@ export default function ShamsherSinghGogiPage() {
     "@graph": [
       {
         "@type": "Person",
-        "@id": "https://createverse.in/clients/shamsher-singh-gogi#person",
+        "@id": "https://www.createverse.in/clients/shamsher-singh-gogi#person",
         name: "Shamsher Singh Gogi",
         alternateName: [
           "शमशेर सिंह गोगी",
@@ -154,8 +154,8 @@ export default function ShamsherSinghGogiPage() {
         jobTitle: "Former MLA, Assandh (Haryana Legislative Assembly)",
         description:
           "Shamsher Singh Gogi is an Indian politician and senior leader of the Indian National Congress, former Member of the Legislative Assembly for Assandh (Karnal, Haryana).",
-        image: "https://createverse.in/politicians/shamsher-singh-gogi.webp",
-        url: "https://createverse.in/clients/shamsher-singh-gogi",
+        image: "https://www.createverse.in/politicians/shamsher-singh-gogi.webp",
+        url: "https://www.createverse.in/clients/shamsher-singh-gogi",
         sameAs: ["https://www.facebook.com/ssgogiofficial"],
         affiliation: {
           "@type": "PoliticalParty",
@@ -171,58 +171,58 @@ export default function ShamsherSinghGogiPage() {
       },
       {
         "@type": "ProfilePage",
-        "@id": "https://createverse.in/clients/shamsher-singh-gogi#webpage",
-        url: "https://createverse.in/clients/shamsher-singh-gogi",
+        "@id": "https://www.createverse.in/clients/shamsher-singh-gogi#webpage",
+        url: "https://www.createverse.in/clients/shamsher-singh-gogi",
         name: "Shamsher Singh Gogi (शमशेर सिंह गोगी) — Official Client Profile | CreateVerse",
         isPartOf: {
           "@type": "WebSite",
-          "@id": "https://createverse.in/#website",
+          "@id": "https://www.createverse.in/#website",
           name: "CreateVerse",
-          url: "https://createverse.in",
+          url: "https://www.createverse.in",
         },
         about: {
-          "@id": "https://createverse.in/clients/shamsher-singh-gogi#person",
+          "@id": "https://www.createverse.in/clients/shamsher-singh-gogi#person",
         },
         mainEntity: {
-          "@id": "https://createverse.in/clients/shamsher-singh-gogi#person",
+          "@id": "https://www.createverse.in/clients/shamsher-singh-gogi#person",
         },
         publisher: {
           "@type": "Organization",
           name: "CreateVerse",
-          url: "https://createverse.in",
+          url: "https://www.createverse.in",
           logo: {
             "@type": "ImageObject",
-            url: "https://createverse.in/logo.png",
+            url: "https://www.createverse.in/logo.png",
           },
         },
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://createverse.in/clients/shamsher-singh-gogi#breadcrumb",
+        "@id": "https://www.createverse.in/clients/shamsher-singh-gogi#breadcrumb",
         itemListElement: [
           {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://createverse.in",
+            item: "https://www.createverse.in",
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Clients",
-            item: "https://createverse.in/clients",
+            item: "https://www.createverse.in/clients",
           },
           {
             "@type": "ListItem",
             position: 3,
             name: "Shamsher Singh Gogi",
-            item: "https://createverse.in/clients/shamsher-singh-gogi",
+            item: "https://www.createverse.in/clients/shamsher-singh-gogi",
           },
         ],
       },
       {
         "@type": "FAQPage",
-        "@id": "https://createverse.in/clients/shamsher-singh-gogi#faq",
+        "@id": "https://www.createverse.in/clients/shamsher-singh-gogi#faq",
         mainEntity: faqs.map((f) => ({
           "@type": "Question",
           name: f.question,

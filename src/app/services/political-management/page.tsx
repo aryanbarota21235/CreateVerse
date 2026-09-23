@@ -32,13 +32,13 @@ export const metadata: Metadata = {
     "Elite political campaign management, booth-level voter micro-targeting, narrative engineering, and 24/7 rapid response digital campaign operations for elected Members of Parliament, State MLAs, and political candidates across India.",
   keywords: serviceSeoKeywords["political-management"],
   alternates: {
-    canonical: "https://createverse.in/services/political-management",
+    canonical: "https://www.createverse.in/services/political-management",
   },
   openGraph: {
     title: "Political Campaign Management — CreateVerse",
     description:
       "Constituency intelligence, viral speech engines, and 24/7 rapid response operations engineered for decisive political mandates.",
-    url: "https://createverse.in/services/political-management",
+    url: "https://www.createverse.in/services/political-management",
     siteName: "CreateVerse",
     type: "website",
     locale: "en_IN",

@@ -18,13 +18,13 @@ export const metadata: Metadata = {
     "performance marketing agency team",
   ],
   alternates: {
-    canonical: "https://createverse.in/about",
+    canonical: "https://www.createverse.in/about",
   },
   openGraph: {
     title: "About CreateVerse — Growth & Digital Acquisition Partner",
     description:
       "We exist to turn attention into revenue. Systems over stunts, revenue is the brief, and depth over breadth.",
-    url: "https://createverse.in/about",
+    url: "https://www.createverse.in/about",
     siteName: "CreateVerse",
     locale: "en_IN",
     type: "website",

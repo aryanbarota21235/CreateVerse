@@ -17,13 +17,13 @@ export const metadata: Metadata = {
     "performance marketing roster",
   ],
   alternates: {
-    canonical: "https://createverse.in/clients",
+    canonical: "https://www.createverse.in/clients",
   },
   openGraph: {
     title: "Clients & Strategic Partners — CreateVerse",
     description:
       "Explore CreateVerse clients across political campaign management, real estate acquisitions, immigration consultancies, and performance marketing operations.",
-    url: "https://createverse.in/clients",
+    url: "https://www.createverse.in/clients",
     siteName: "CreateVerse",
     locale: "en_IN",
     type: "website",

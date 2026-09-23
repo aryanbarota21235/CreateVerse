@@ -19,13 +19,13 @@ export const metadata: Metadata = {
     "B2B industry lead generation",
   ],
   alternates: {
-    canonical: "https://createverse.in/industries",
+    canonical: "https://www.createverse.in/industries",
   },
   openGraph: {
     title: "Specialized Industries — CreateVerse",
     description:
       "Deep expertise where growth is won. Real estate, immigration, political campaigns, and high-growth businesses.",
-    url: "https://createverse.in/industries",
+    url: "https://www.createverse.in/industries",
     siteName: "CreateVerse",
     locale: "en_IN",
     type: "website",

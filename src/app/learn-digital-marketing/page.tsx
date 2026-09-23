@@ -34,13 +34,13 @@ export const metadata: Metadata = {
     "CreateVerse training",
   ],
   alternates: {
-    canonical: "https://createverse.in/learn-digital-marketing",
+    canonical: "https://www.createverse.in/learn-digital-marketing",
   },
   openGraph: {
     title: "Learn Practical Digital Marketing — CreateVerse",
     description:
       "Hands-on training in performance marketing, Meta ads, Google campaigns, lead funnels, and tracking — taught directly by practitioners working on active client accounts.",
-    url: "https://createverse.in/learn-digital-marketing",
+    url: "https://www.createverse.in/learn-digital-marketing",
     siteName: "CreateVerse",
     locale: "en_IN",
     type: "website",

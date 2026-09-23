@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     "CreateVerse political clients",
   ],
   alternates: {
-    canonical: "https://createverse.in/clients/bhupinder-lather",
+    canonical: "https://www.createverse.in/clients/bhupinder-lather",
   },
   robots: {
     index: true,
@@ -50,13 +50,13 @@ export const metadata: Metadata = {
     title: "Bhupinder Lather (Bhuppi) — President Jat Mahasabha Karnal | Political Leader",
     description:
       "Political leader and social worker associated with the Indian National Congress. President of Jat Mahasabha Karnal.",
-    url: "https://createverse.in/clients/bhupinder-lather",
+    url: "https://www.createverse.in/clients/bhupinder-lather",
     siteName: "CreateVerse",
     locale: "en_IN",
     type: "profile",
     images: [
       {
-        url: "https://createverse.in/politicians/bhupinder-lather.webp",
+        url: "https://www.createverse.in/politicians/bhupinder-lather.webp",
         width: 800,
         height: 800,
         alt: "Bhupinder Lather (Bhuppi)",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     title: "Bhupinder Lather (Bhuppi) — Political Leader & Social Worker | Karnal",
     description:
       "Political leader and social worker associated with the Indian National Congress. President of Jat Mahasabha Karnal.",
-    images: ["https://createverse.in/politicians/bhupinder-lather.webp"],
+    images: ["https://www.createverse.in/politicians/bhupinder-lather.webp"],
   },
 };
 
@@ -141,7 +141,7 @@ export default function BhupinderLatherPage() {
     "@graph": [
       {
         "@type": "Person",
-        "@id": "https://createverse.in/clients/bhupinder-lather#person",
+        "@id": "https://www.createverse.in/clients/bhupinder-lather#person",
         name: "Bhupinder Lather (Bhuppi)",
         alternateName: [
           "भूपिंदर लाठर",
@@ -153,8 +153,8 @@ export default function BhupinderLatherPage() {
         jobTitle: "President, Jat Mahasabha Karnal & Political Leader",
         description:
           "Bhupinder Lather (Bhuppi) is a political and social worker associated with the Indian National Congress and President of Jat Mahasabha Karnal in Haryana.",
-        image: "https://createverse.in/politicians/bhupinder-lather.webp",
-        url: "https://createverse.in/clients/bhupinder-lather",
+        image: "https://www.createverse.in/politicians/bhupinder-lather.webp",
+        url: "https://www.createverse.in/clients/bhupinder-lather",
         sameAs: ["https://www.instagram.com/latherbhupi"],
         affiliation: {
           "@type": "PoliticalParty",
@@ -170,58 +170,58 @@ export default function BhupinderLatherPage() {
       },
       {
         "@type": "ProfilePage",
-        "@id": "https://createverse.in/clients/bhupinder-lather#webpage",
-        url: "https://createverse.in/clients/bhupinder-lather",
+        "@id": "https://www.createverse.in/clients/bhupinder-lather#webpage",
+        url: "https://www.createverse.in/clients/bhupinder-lather",
         name: "Bhupinder Lather (भूपिंदर लाठर) — Official Client Profile | CreateVerse",
         isPartOf: {
           "@type": "WebSite",
-          "@id": "https://createverse.in/#website",
+          "@id": "https://www.createverse.in/#website",
           name: "CreateVerse",
-          url: "https://createverse.in",
+          url: "https://www.createverse.in",
         },
         about: {
-          "@id": "https://createverse.in/clients/bhupinder-lather#person",
+          "@id": "https://www.createverse.in/clients/bhupinder-lather#person",
         },
         mainEntity: {
-          "@id": "https://createverse.in/clients/bhupinder-lather#person",
+          "@id": "https://www.createverse.in/clients/bhupinder-lather#person",
         },
         publisher: {
           "@type": "Organization",
           name: "CreateVerse",
-          url: "https://createverse.in",
+          url: "https://www.createverse.in",
           logo: {
             "@type": "ImageObject",
-            url: "https://createverse.in/logo.png",
+            url: "https://www.createverse.in/logo.png",
           },
         },
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://createverse.in/clients/bhupinder-lather#breadcrumb",
+        "@id": "https://www.createverse.in/clients/bhupinder-lather#breadcrumb",
         itemListElement: [
           {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://createverse.in",
+            item: "https://www.createverse.in",
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Clients",
-            item: "https://createverse.in/clients",
+            item: "https://www.createverse.in/clients",
           },
           {
             "@type": "ListItem",
             position: 3,
             name: "Bhupinder Lather",
-            item: "https://createverse.in/clients/bhupinder-lather",
+            item: "https://www.createverse.in/clients/bhupinder-lather",
           },
         ],
       },
       {
         "@type": "FAQPage",
-        "@id": "https://createverse.in/clients/bhupinder-lather#faq",
+        "@id": "https://www.createverse.in/clients/bhupinder-lather#faq",
         mainEntity: faqs.map((f) => ({
           "@type": "Question",
           name: f.question,

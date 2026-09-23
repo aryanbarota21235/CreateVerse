@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     "CreateVerse political clients",
   ],
   alternates: {
-    canonical: "https://createverse.in/subhash-sudha",
+    canonical: "https://www.createverse.in/clients/subhash-sudha",
   },
   robots: {
     index: true,
@@ -44,13 +44,13 @@ export const metadata: Metadata = {
     title: "Subhash Sudha (सुभाष सुधा) — Former Minister of State | Former MLA, Thanesar",
     description:
       "Official profile of Subhash Sudha, former Minister of State (Independent Charge) in the Government of Haryana and two-time MLA from Thanesar representing BJP.",
-    url: "https://createverse.in/subhash-sudha",
+    url: "https://www.createverse.in/clients/subhash-sudha",
     siteName: "CreateVerse",
     locale: "en_IN",
     type: "profile",
     images: [
       {
-        url: "https://createverse.in/politicians/subhash-sudha.webp",
+        url: "https://www.createverse.in/politicians/subhash-sudha.webp",
         width: 500,
         height: 652,
         alt: "Subhash Sudha — Former Minister of State & MLA Thanesar",
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     title: "Subhash Sudha — Former Minister of State | Former MLA, Thanesar",
     description:
       "Official profile of Subhash Sudha, former Minister of State in Haryana and two-time MLA from Thanesar (BJP).",
-    images: ["https://createverse.in/politicians/subhash-sudha.webp"],
+    images: ["https://www.createverse.in/politicians/subhash-sudha.webp"],
   },
 };
 
@@ -72,7 +72,7 @@ export default function SubhashSudhaPage() {
     "@graph": [
       {
         "@type": "Person",
-        "@id": "https://createverse.in/subhash-sudha#person",
+        "@id": "https://www.createverse.in/clients/subhash-sudha#person",
         name: "Subhash Sudha",
         alternateName: [
           "सुभाष सुधा",
@@ -85,8 +85,8 @@ export default function SubhashSudhaPage() {
           "Former Minister of State (Independent Charge) & Former MLA Thanesar",
         description:
           "Subhash Sudha is an Indian politician, former Minister of State (Independent Charge) in the Government of Haryana, and two-time Member of the Haryana Legislative Assembly from Thanesar representing the Bharatiya Janata Party (BJP).",
-        image: "https://createverse.in/politicians/subhash-sudha.webp",
-        url: "https://createverse.in/subhash-sudha",
+        image: "https://www.createverse.in/politicians/subhash-sudha.webp",
+        url: "https://www.createverse.in/clients/subhash-sudha",
         sameAs: [
           "https://www.facebook.com/SubhashSudhaOfficial/",
           "https://www.instagram.com/officialsubhashsudha/",
@@ -112,46 +112,46 @@ export default function SubhashSudhaPage() {
       },
       {
         "@type": "ProfilePage",
-        "@id": "https://createverse.in/subhash-sudha#webpage",
-        url: "https://createverse.in/subhash-sudha",
+        "@id": "https://www.createverse.in/clients/subhash-sudha#webpage",
+        url: "https://www.createverse.in/clients/subhash-sudha",
         name: "Subhash Sudha (सुभाष सुधा) — Former Minister of State & MLA Thanesar | Official Profile",
         isPartOf: {
           "@type": "WebSite",
-          "@id": "https://createverse.in/#website",
+          "@id": "https://www.createverse.in/#website",
           name: "CreateVerse",
-          url: "https://createverse.in",
+          url: "https://www.createverse.in",
         },
         about: {
-          "@id": "https://createverse.in/subhash-sudha#person",
+          "@id": "https://www.createverse.in/clients/subhash-sudha#person",
         },
         mainEntity: {
-          "@id": "https://createverse.in/subhash-sudha#person",
+          "@id": "https://www.createverse.in/clients/subhash-sudha#person",
         },
         publisher: {
           "@type": "Organization",
           name: "CreateVerse",
-          url: "https://createverse.in",
+          url: "https://www.createverse.in",
           logo: {
             "@type": "ImageObject",
-            url: "https://createverse.in/logo.png",
+            url: "https://www.createverse.in/logo.png",
           },
         },
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://createverse.in/subhash-sudha#breadcrumb",
+        "@id": "https://www.createverse.in/clients/subhash-sudha#breadcrumb",
         itemListElement: [
           {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://createverse.in",
+            item: "https://www.createverse.in",
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Subhash Sudha",
-            item: "https://createverse.in/subhash-sudha",
+            item: "https://www.createverse.in/clients/subhash-sudha",
           },
         ],
       },

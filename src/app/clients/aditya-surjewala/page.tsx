@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     "CreateVerse political clients",
   ],
   alternates: {
-    canonical: "https://createverse.in/clients/aditya-surjewala",
+    canonical: "https://www.createverse.in/clients/aditya-surjewala",
   },
   robots: {
     index: true,
@@ -53,13 +53,13 @@ export const metadata: Metadata = {
     title: "Aditya Surjewala (आदित्य सुरजेवाला) — Member of the Haryana Legislative Assembly | Kaithal",
     description:
       "A young voice in Haryana's public life, representing Kaithal in the Haryana Legislative Assembly.",
-    url: "https://createverse.in/clients/aditya-surjewala",
+    url: "https://www.createverse.in/clients/aditya-surjewala",
     siteName: "CreateVerse",
     locale: "en_IN",
     type: "profile",
     images: [
       {
-        url: "https://createverse.in/politicians/aditya-surjewala.webp",
+        url: "https://www.createverse.in/politicians/aditya-surjewala.webp",
         width: 800,
         height: 800,
         alt: "Aditya Surjewala — MLA Kaithal",
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     title: "Aditya Surjewala — Member of the Haryana Legislative Assembly | Kaithal",
     description:
       "A young voice in Haryana's public life, representing Kaithal in the Haryana Legislative Assembly.",
-    images: ["https://createverse.in/politicians/aditya-surjewala.webp"],
+    images: ["https://www.createverse.in/politicians/aditya-surjewala.webp"],
   },
 };
 
@@ -151,7 +151,7 @@ export default function AdityaSurjewalaPage() {
     "@graph": [
       {
         "@type": "Person",
-        "@id": "https://createverse.in/clients/aditya-surjewala#person",
+        "@id": "https://www.createverse.in/clients/aditya-surjewala#person",
         name: "Aditya Singh Surjewala",
         alternateName: [
           "आदित्य सुरजेवाला",
@@ -164,8 +164,8 @@ export default function AdityaSurjewalaPage() {
         jobTitle: "Member of the Haryana Legislative Assembly (MLA Kaithal)",
         description:
           "Aditya Singh Surjewala is an Indian politician and Member of the Haryana Legislative Assembly from the Kaithal Assembly constituency representing the Indian National Congress.",
-        image: "https://createverse.in/politicians/aditya-surjewala.webp",
-        url: "https://createverse.in/clients/aditya-surjewala",
+        image: "https://www.createverse.in/politicians/aditya-surjewala.webp",
+        url: "https://www.createverse.in/clients/aditya-surjewala",
         sameAs: [
           "https://en.wikipedia.org/wiki/Aditya_Surjewala",
           "https://www.facebook.com/AdityaSurjewala",
@@ -196,58 +196,58 @@ export default function AdityaSurjewalaPage() {
       },
       {
         "@type": "ProfilePage",
-        "@id": "https://createverse.in/clients/aditya-surjewala#webpage",
-        url: "https://createverse.in/clients/aditya-surjewala",
+        "@id": "https://www.createverse.in/clients/aditya-surjewala#webpage",
+        url: "https://www.createverse.in/clients/aditya-surjewala",
         name: "Aditya Surjewala (आदित्य सुरजेवाला) — MLA Kaithal | Official Client Profile",
         isPartOf: {
           "@type": "WebSite",
-          "@id": "https://createverse.in/#website",
+          "@id": "https://www.createverse.in/#website",
           name: "CreateVerse",
-          url: "https://createverse.in",
+          url: "https://www.createverse.in",
         },
         about: {
-          "@id": "https://createverse.in/clients/aditya-surjewala#person",
+          "@id": "https://www.createverse.in/clients/aditya-surjewala#person",
         },
         mainEntity: {
-          "@id": "https://createverse.in/clients/aditya-surjewala#person",
+          "@id": "https://www.createverse.in/clients/aditya-surjewala#person",
         },
         publisher: {
           "@type": "Organization",
           name: "CreateVerse",
-          url: "https://createverse.in",
+          url: "https://www.createverse.in",
           logo: {
             "@type": "ImageObject",
-            url: "https://createverse.in/logo.png",
+            url: "https://www.createverse.in/logo.png",
           },
         },
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://createverse.in/clients/aditya-surjewala#breadcrumb",
+        "@id": "https://www.createverse.in/clients/aditya-surjewala#breadcrumb",
         itemListElement: [
           {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://createverse.in",
+            item: "https://www.createverse.in",
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Clients",
-            item: "https://createverse.in/clients",
+            item: "https://www.createverse.in/clients",
           },
           {
             "@type": "ListItem",
             position: 3,
             name: "Aditya Surjewala",
-            item: "https://createverse.in/clients/aditya-surjewala",
+            item: "https://www.createverse.in/clients/aditya-surjewala",
           },
         ],
       },
       {
         "@type": "FAQPage",
-        "@id": "https://createverse.in/clients/aditya-surjewala#faq",
+        "@id": "https://www.createverse.in/clients/aditya-surjewala#faq",
         mainEntity: faqs.map((f) => ({
           "@type": "Question",
           name: f.question,

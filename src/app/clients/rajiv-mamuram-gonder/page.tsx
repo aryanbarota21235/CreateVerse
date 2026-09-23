@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     "CreateVerse political clients",
   ],
   alternates: {
-    canonical: "https://createverse.in/clients/rajiv-mamuram-gonder",
+    canonical: "https://www.createverse.in/clients/rajiv-mamuram-gonder",
   },
   robots: {
     index: true,
@@ -56,13 +56,13 @@ export const metadata: Metadata = {
     title: "Rajiv Mamuram Gonder (राजीव मामूराम गोंदर) — Nilokheri Assembly Constituency",
     description:
       "Public representative, farmer, and social worker associated with the Indian National Congress in Nilokheri, Karnal.",
-    url: "https://createverse.in/clients/rajiv-mamuram-gonder",
+    url: "https://www.createverse.in/clients/rajiv-mamuram-gonder",
     siteName: "CreateVerse",
     locale: "en_IN",
     type: "profile",
     images: [
       {
-        url: "https://createverse.in/politicians/rajiv-mamuram-gonder.webp",
+        url: "https://www.createverse.in/politicians/rajiv-mamuram-gonder.webp",
         width: 800,
         height: 800,
         alt: "Rajiv Mamuram Gonder",
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     title: "Rajiv Mamuram Gonder — Public Representative | Nilokheri, Karnal",
     description:
       "Public representative, farmer, and social worker associated with the Indian National Congress in Nilokheri, Karnal.",
-    images: ["https://createverse.in/politicians/rajiv-mamuram-gonder.webp"],
+    images: ["https://www.createverse.in/politicians/rajiv-mamuram-gonder.webp"],
   },
 };
 
@@ -161,7 +161,7 @@ export default function RajivMamuramGonderPage() {
     "@graph": [
       {
         "@type": "Person",
-        "@id": "https://createverse.in/clients/rajiv-mamuram-gonder#person",
+        "@id": "https://www.createverse.in/clients/rajiv-mamuram-gonder#person",
         name: "Rajiv Mamuram Gonder",
         alternateName: [
           "राजीव मामूराम गोंदर",
@@ -174,8 +174,8 @@ export default function RajivMamuramGonderPage() {
         jobTitle: "Public Representative, Farmer & Social Worker | Nilokheri",
         description:
           "Rajiv Mamuram Gonder is a public representative, farmer, and social worker associated with the Indian National Congress from the Nilokheri Assembly constituency in Karnal, Haryana.",
-        image: "https://createverse.in/politicians/rajiv-mamuram-gonder.webp",
-        url: "https://createverse.in/clients/rajiv-mamuram-gonder",
+        image: "https://www.createverse.in/politicians/rajiv-mamuram-gonder.webp",
+        url: "https://www.createverse.in/clients/rajiv-mamuram-gonder",
         sameAs: [
           "https://www.facebook.com/RajivGondarOfficial",
           "https://www.instagram.com/rajivgonderofficial",
@@ -195,58 +195,58 @@ export default function RajivMamuramGonderPage() {
       },
       {
         "@type": "ProfilePage",
-        "@id": "https://createverse.in/clients/rajiv-mamuram-gonder#webpage",
-        url: "https://createverse.in/clients/rajiv-mamuram-gonder",
+        "@id": "https://www.createverse.in/clients/rajiv-mamuram-gonder#webpage",
+        url: "https://www.createverse.in/clients/rajiv-mamuram-gonder",
         name: "Rajiv Mamuram Gonder (राजीव मामूराम गोंदर) — Official Profile | CreateVerse",
         isPartOf: {
           "@type": "WebSite",
-          "@id": "https://createverse.in/#website",
+          "@id": "https://www.createverse.in/#website",
           name: "CreateVerse",
-          url: "https://createverse.in",
+          url: "https://www.createverse.in",
         },
         about: {
-          "@id": "https://createverse.in/clients/rajiv-mamuram-gonder#person",
+          "@id": "https://www.createverse.in/clients/rajiv-mamuram-gonder#person",
         },
         mainEntity: {
-          "@id": "https://createverse.in/clients/rajiv-mamuram-gonder#person",
+          "@id": "https://www.createverse.in/clients/rajiv-mamuram-gonder#person",
         },
         publisher: {
           "@type": "Organization",
           name: "CreateVerse",
-          url: "https://createverse.in",
+          url: "https://www.createverse.in",
           logo: {
             "@type": "ImageObject",
-            url: "https://createverse.in/logo.png",
+            url: "https://www.createverse.in/logo.png",
           },
         },
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://createverse.in/clients/rajiv-mamuram-gonder#breadcrumb",
+        "@id": "https://www.createverse.in/clients/rajiv-mamuram-gonder#breadcrumb",
         itemListElement: [
           {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://createverse.in",
+            item: "https://www.createverse.in",
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Clients",
-            item: "https://createverse.in/clients",
+            item: "https://www.createverse.in/clients",
           },
           {
             "@type": "ListItem",
             position: 3,
             name: "Rajiv Mamuram Gonder",
-            item: "https://createverse.in/clients/rajiv-mamuram-gonder",
+            item: "https://www.createverse.in/clients/rajiv-mamuram-gonder",
           },
         ],
       },
       {
         "@type": "FAQPage",
-        "@id": "https://createverse.in/clients/rajiv-mamuram-gonder#faq",
+        "@id": "https://www.createverse.in/clients/rajiv-mamuram-gonder#faq",
         mainEntity: faqs.map((f) => ({
           "@type": "Question",
           name: f.question,

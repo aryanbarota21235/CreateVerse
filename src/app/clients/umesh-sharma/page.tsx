@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     "CreateVerse political clients",
   ],
   alternates: {
-    canonical: "https://createverse.in/clients/umesh-sharma",
+    canonical: "https://www.createverse.in/clients/umesh-sharma",
   },
   robots: {
     index: true,
@@ -47,13 +47,13 @@ export const metadata: Metadata = {
     title: "Umesh Sharma (उमेश शर्मा) — Senior Political Leader | Sonipat",
     description:
       "Official profile of Umesh Sharma, Senior Political Leader and Social Worker in Haryana and community leader in Sonipat.",
-    url: "https://createverse.in/clients/umesh-sharma",
+    url: "https://www.createverse.in/clients/umesh-sharma",
     siteName: "CreateVerse",
     locale: "en_IN",
     type: "profile",
     images: [
       {
-        url: "https://createverse.in/politicians/umesh-sharma.webp",
+        url: "https://www.createverse.in/politicians/umesh-sharma.webp",
         width: 800,
         height: 800,
         alt: "Umesh Sharma — Senior Political Leader Haryana",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     title: "Umesh Sharma — Senior Political Leader | Sonipat",
     description:
       "Senior Political Leader and Social Worker, Haryana. Grassroots leadership & public welfare in Sonipat.",
-    images: ["https://createverse.in/politicians/umesh-sharma.webp"],
+    images: ["https://www.createverse.in/politicians/umesh-sharma.webp"],
   },
 };
 
@@ -136,7 +136,7 @@ export default function UmeshSharmaPage() {
     "@graph": [
       {
         "@type": "Person",
-        "@id": "https://createverse.in/clients/umesh-sharma#person",
+        "@id": "https://www.createverse.in/clients/umesh-sharma#person",
         name: "Umesh Sharma",
         alternateName: [
           "उमेश शर्मा",
@@ -146,8 +146,8 @@ export default function UmeshSharmaPage() {
         jobTitle: "Senior Political Leader & Social Worker, Sonipat, Haryana",
         description:
           "Umesh Sharma is an Indian political leader and social worker in Haryana, based in Sonipat.",
-        image: "https://createverse.in/politicians/umesh-sharma.webp",
-        url: "https://createverse.in/clients/umesh-sharma",
+        image: "https://www.createverse.in/politicians/umesh-sharma.webp",
+        url: "https://www.createverse.in/clients/umesh-sharma",
         sameAs: ["https://www.facebook.com/UmeshSharmaSnp"],
         knowsAbout: [
           "Haryana State Politics",
@@ -158,58 +158,58 @@ export default function UmeshSharmaPage() {
       },
       {
         "@type": "ProfilePage",
-        "@id": "https://createverse.in/clients/umesh-sharma#webpage",
-        url: "https://createverse.in/clients/umesh-sharma",
+        "@id": "https://www.createverse.in/clients/umesh-sharma#webpage",
+        url: "https://www.createverse.in/clients/umesh-sharma",
         name: "Umesh Sharma (उमेश शर्मा) — Senior Political Leader | Official Client Profile",
         isPartOf: {
           "@type": "WebSite",
-          "@id": "https://createverse.in/#website",
+          "@id": "https://www.createverse.in/#website",
           name: "CreateVerse",
-          url: "https://createverse.in",
+          url: "https://www.createverse.in",
         },
         about: {
-          "@id": "https://createverse.in/clients/umesh-sharma#person",
+          "@id": "https://www.createverse.in/clients/umesh-sharma#person",
         },
         mainEntity: {
-          "@id": "https://createverse.in/clients/umesh-sharma#person",
+          "@id": "https://www.createverse.in/clients/umesh-sharma#person",
         },
         publisher: {
           "@type": "Organization",
           name: "CreateVerse",
-          url: "https://createverse.in",
+          url: "https://www.createverse.in",
           logo: {
             "@type": "ImageObject",
-            url: "https://createverse.in/logo.png",
+            url: "https://www.createverse.in/logo.png",
           },
         },
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://createverse.in/clients/umesh-sharma#breadcrumb",
+        "@id": "https://www.createverse.in/clients/umesh-sharma#breadcrumb",
         itemListElement: [
           {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://createverse.in",
+            item: "https://www.createverse.in",
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Clients",
-            item: "https://createverse.in/clients",
+            item: "https://www.createverse.in/clients",
           },
           {
             "@type": "ListItem",
             position: 3,
             name: "Umesh Sharma",
-            item: "https://createverse.in/clients/umesh-sharma",
+            item: "https://www.createverse.in/clients/umesh-sharma",
           },
         ],
       },
       {
         "@type": "FAQPage",
-        "@id": "https://createverse.in/clients/umesh-sharma#faq",
+        "@id": "https://www.createverse.in/clients/umesh-sharma#faq",
         mainEntity: faqs.map((f) => ({
           "@type": "Question",
           name: f.question,

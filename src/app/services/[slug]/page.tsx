@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     "lead generation company India",
   ];
 
-  const serviceUrl = `https://createverse.in/services/${service.slug}`;
+  const serviceUrl = `https://www.createverse.in/services/${service.slug}`;
 
   return {
     title: `${service.name} — Growth & Digital Acquisition | CreateVerse`,

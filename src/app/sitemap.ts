@@ -3,7 +3,7 @@ import { services } from "@/lib/services";
 import { getAllLocationSlugs } from "@/lib/locations";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://createverse.in";
+  const base = "https://www.createverse.in";
   const now = new Date();
 
   // Core High-Priority Static Landing Pages
@@ -94,7 +94,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: `${base}/subhash-sudha`,
+      url: `${base}/clients/subhash-sudha`,
       lastModified: now,
       changeFrequency: "daily",
       priority: 1.0,

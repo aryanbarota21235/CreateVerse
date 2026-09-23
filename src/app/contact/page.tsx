@@ -20,12 +20,12 @@ export const metadata: Metadata = {
     "CreateVerse phone email office",
   ],
   alternates: {
-    canonical: "https://createverse.in/contact",
+    canonical: "https://www.createverse.in/contact",
   },
   openGraph: {
     title: "Contact & Strategic Consultation — CreateVerse",
     description: "Talk directly with CreateVerse directors about growth, acquisition systems, and verified ROI.",
-    url: "https://createverse.in/contact",
+    url: "https://www.createverse.in/contact",
     siteName: "CreateVerse",
     locale: "en_IN",
     type: "website",

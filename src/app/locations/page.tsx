@@ -21,13 +21,13 @@ export const metadata: Metadata = {
     "performance marketing agency india",
   ],
   alternates: {
-    canonical: "https://createverse.in/locations",
+    canonical: "https://www.createverse.in/locations",
   },
   openGraph: {
     title: "Regional Hubs — CreateVerse Digital Marketing",
     description:
       "Explore CreateVerse's regional presence across Haryana. We engineer verified lead generation and high-ROAS marketing for ambitious enterprises.",
-    url: "https://createverse.in/locations",
+    url: "https://www.createverse.in/locations",
     siteName: "CreateVerse",
     type: "website",
     locale: "en_IN",
