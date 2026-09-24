@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/page-hero";
-import PoliticalClients from "@/components/political-clients";
 import OurClients from "@/components/our-clients";
-import OtherServicesClients from "@/components/other-services-clients";
+import PoliticalClients from "@/components/political-clients";
 import FinalCTA from "@/components/final-cta";
 
 export const metadata: Metadata = {
@@ -58,9 +57,6 @@ export default function ClientsPage() {
 
       {/* Political Clients Section */}
       <PoliticalClients />
-
-      {/* Other Services Practice Client Rosters */}
-      <OtherServicesClients />
 
       <FinalCTA />
     </>
