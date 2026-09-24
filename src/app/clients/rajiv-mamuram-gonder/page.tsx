@@ -179,7 +179,7 @@ export default function RajivMamuramGonderPage() {
         sameAs: [
           "https://www.facebook.com/RajivGondarOfficial",
           "https://www.instagram.com/rajivgonderofficial",
-          "https://x.com/RajivMGonder",
+          "https://x.com/rajivmgonder",
         ],
         affiliation: {
           "@type": "PoliticalParty",
@@ -337,7 +337,7 @@ export default function RajivMamuramGonderPage() {
                       <InstagramIcon className="h-4 w-4" />
                     </a>
                     <a
-                      href="https://x.com/RajivMGonder"
+                      href="https://x.com/rajivmgonder"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex h-9 w-9 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-700 hover:text-black hover:border-black/40 hover:bg-stone-100 transition-all shadow-2xs hover:scale-110"
@@ -557,7 +557,7 @@ export default function RajivMamuramGonderPage() {
               </p>
             </Reveal>
 
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl">
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl">
               <Reveal>
                 <a
                   href="https://www.facebook.com/RajivGondarOfficial"
@@ -588,6 +588,23 @@ export default function RajivMamuramGonderPage() {
                   <div className="truncate">
                     <p className="text-xs font-bold">Instagram</p>
                     <span className="text-[11px] text-stone-500 truncate block">@rajivgonderofficial</span>
+                  </div>
+                </a>
+              </Reveal>
+
+              <Reveal>
+                <a
+                  href="https://x.com/rajivmgonder"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 rounded-2xl border border-stone-200/90 bg-white p-4 text-ink hover:border-black/40 hover:text-black transition-colors shadow-2xs"
+                >
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-stone-900/10 text-ink">
+                    <XIcon className="h-4 w-4" />
+                  </div>
+                  <div className="truncate">
+                    <p className="text-xs font-bold">X (Twitter)</p>
+                    <span className="text-[11px] text-stone-500 truncate block">x.com/rajivmgonder</span>
                   </div>
                 </a>
               </Reveal>
