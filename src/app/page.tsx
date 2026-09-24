@@ -51,8 +51,8 @@ export default function HomePage() {
       <LeadFlow />
       <ServicesExplorer />
       <StatsStrip />
-      <PoliticalClients />
       <OurClients />
+      <PoliticalClients />
       <ProcessSection />
       <WhyCreateVerse />
       <FinalCTA />

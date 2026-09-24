@@ -53,11 +53,11 @@ export default function ClientsPage() {
         description="Distinguished political leadership, real estate developers, immigration consultancies, and commercial enterprises partnering with CreateVerse to engineer verified growth."
       />
 
-      {/* Political Clients Section - Directly visible right at the top */}
-      <PoliticalClients />
-
       {/* Corporate & Brand Clients Logo Showcase */}
       <OurClients />
+
+      {/* Political Clients Section */}
+      <PoliticalClients />
 
       {/* Other Services Practice Client Rosters */}
       <OtherServicesClients />

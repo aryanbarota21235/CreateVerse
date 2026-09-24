@@ -1,80 +1,47 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { MessageSquare, ArrowRight } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
-import { useEnquiry } from "@/context/enquiry-context";
 import { politicianClients } from "@/lib/politicians";
 import { InstagramIcon, FacebookIcon, XIcon } from "@/components/social-icons";
-import { site } from "@/lib/site";
-import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 export default function PoliticalClients({
   className = "",
-  showSeeMore,
 }: {
   className?: string;
   showSeeMore?: boolean;
 } = {}) {
-  const { openEnquiry } = useEnquiry();
-  const pathname = usePathname();
+  const [expanded, setExpanded] = useState(false);
 
-  const shouldShowSeeMore = showSeeMore !== undefined ? showSeeMore : pathname !== "/clients";
+  const visibleClients = expanded
+    ? politicianClients
+    : politicianClients.slice(0, 6);
 
   return (
     <section className={`relative overflow-hidden bg-white py-12 sm:py-16 lg:py-20 border-t border-stone-200 ${className}`}>
-      {/* Subtle background ambient map texture */}
-      <div className="dot-texture absolute inset-0 opacity-40" />
-      <div className="hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 h-[450px] w-[600px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(224,242,254,0.65)_0%,rgba(224,242,254,0.2)_45%,transparent_70%)] pointer-events-none" />
-
       <div className="container-site relative">
-        {/* Top Header Row with Title on Left and Enquiry CTAs on Right */}
+        {/* Clean Left-Aligned Header Matching Our Clients */}
         <Reveal>
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 pb-6 sm:pb-8 border-b border-stone-200">
-            <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/[0.06] px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-[0.18em] text-accent mb-2.5">
-                <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
-                <span>Political Campaign Division</span>
-              </div>
-              <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-ink">
-                Political Clients
-              </h2>
-              <p className="mt-2 text-xs sm:text-base text-stone-600 font-normal leading-relaxed">
-                Trusted by senior Members of Parliament, State MLAs, and constituency leadership across major political parties.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 shrink-0">
-              <button
-                onClick={() => openEnquiry("political-management")}
-                className="pressable group inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-md transition-all duration-150 hover:bg-accent-dim hover:shadow-lg hover:shadow-accent/20 cursor-pointer"
-              >
-                <MessageSquare className="h-4 w-4" />
-                <span>Political War Room Enquiry</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </button>
-
-              <a
-                href={site.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="pressable inline-flex items-center justify-center gap-2 rounded-full border border-stone-300 bg-white px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-ink shadow-xs transition-all duration-150 hover:border-[#25D366] hover:bg-[#25D366]/[0.05] hover:text-[#25D366]"
-              >
-                <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
-                <span>Talk on WhatsApp</span>
-              </a>
-            </div>
+          <div className="text-left pb-6 sm:pb-8 border-b border-stone-200">
+            <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-ink">
+              Political Clients
+            </h2>
           </div>
         </Reveal>
 
-        {/* Circular Politician Cards Directly Underneath Title */}
-        <div className="mt-8 sm:mt-12 -mx-1 sm:-mx-2 lg:-mx-4">
-          <Stagger className="grid grid-cols-2 gap-2.5 sm:gap-3.5 lg:gap-3.5 xl:gap-4 sm:grid-cols-3 lg:grid-cols-6 items-stretch" delayChildren={0.02}>
-            {politicianClients.map((p) => (
+        {/* Circular Politician Cards — 6 at a time by default */}
+        <div className="mt-8 sm:mt-10">
+          <Stagger
+            key={expanded ? "expanded" : "collapsed"}
+            className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3 lg:grid-cols-6 items-stretch"
+            delayChildren={0.02}
+          >
+            {visibleClients.map((p) => (
               <StaggerItem key={p.name} className="h-full">
-                <div className="group h-full flex flex-col items-center justify-between text-center p-3 sm:py-5 sm:px-2.5 xl:px-3 rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:bg-white hover:shadow-card">
+                <div className="group h-full flex flex-col items-center justify-between text-center p-3 sm:py-5 sm:px-3 rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-md">
                   {/* Clickable Portrait and Info Header */}
                   {p.href ? (
                     <Link
@@ -82,9 +49,9 @@ export default function PoliticalClients({
                       prefetch={true}
                       className="group/link flex flex-col items-center w-full grow cursor-pointer"
                     >
-                      {/* Circular Portrait with Concentric Clean Ring */}
+                      {/* Circular Portrait with Concentric Clean Ring (no blue hover border) */}
                       <div className="relative mb-3 sm:mb-4 shrink-0">
-                        <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
+                        <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:scale-105 group-hover:shadow-md">
                           <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
                             <Image
                               src={p.image}
@@ -114,7 +81,7 @@ export default function PoliticalClients({
 
                       {/* Content: Name and Designation */}
                       <div className="flex flex-col items-center w-full grow justify-center text-center mt-1 sm:mt-2">
-                        <h3 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-sm font-bold text-ink leading-snug transition-colors group-hover:text-accent tracking-tight">
+                        <h3 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-sm font-bold text-ink leading-snug tracking-tight">
                           {p.name}
                         </h3>
                         {p.role && (
@@ -122,16 +89,15 @@ export default function PoliticalClients({
                             {p.role}
                           </p>
                         )}
-                        <span className="mt-2 inline-flex items-center gap-1 text-[10px] font-bold text-accent group-hover/link:underline">
+                        <span className="mt-2 inline-flex items-center gap-1 text-[10px] font-bold text-stone-700 group-hover/link:underline">
                           View Profile &rarr;
                         </span>
                       </div>
                     </Link>
                   ) : (
                     <div className="flex flex-col items-center w-full grow">
-                      {/* Circular Portrait with Concentric Clean Ring */}
                       <div className="relative mb-3 sm:mb-4 shrink-0">
-                        <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
+                        <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:scale-105 group-hover:shadow-md">
                           <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
                             <Image
                               src={p.image}
@@ -145,7 +111,6 @@ export default function PoliticalClients({
                             />
                           </div>
                         </div>
-                        {/* Party Tag Badge */}
                         {p.party && (
                           <span
                             className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-xs ${
@@ -159,9 +124,8 @@ export default function PoliticalClients({
                         )}
                       </div>
 
-                      {/* Content: Name and Designation */}
                       <div className="flex flex-col items-center w-full grow justify-center text-center mt-1 sm:mt-2">
-                        <h3 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-sm font-bold text-ink leading-snug transition-colors group-hover:text-accent tracking-tight">
+                        <h3 className="font-display text-[11px] min-[380px]:text-xs sm:text-[13px] lg:text-xs xl:text-sm font-bold text-ink leading-snug tracking-tight">
                           {p.name}
                         </h3>
                         {p.role && (
@@ -173,7 +137,7 @@ export default function PoliticalClients({
                     </div>
                   )}
 
-                  {/* Social Media Links Pills - Only shown if link exists */}
+                  {/* Social Media Links Pills */}
                   {Boolean(p.socials?.instagram || p.socials?.facebook || p.socials?.twitter) && (
                     <div className="mt-3 pt-2.5 sm:mt-4 sm:pt-3 border-t border-stone-200/80 w-full flex items-center justify-center gap-1.5 sm:gap-2">
                       {p.socials.instagram && (
@@ -217,19 +181,22 @@ export default function PoliticalClients({
           </Stagger>
         </div>
 
-        {/* "See More" Button to Navigate to Dedicated Clients Page */}
-        {shouldShowSeeMore && (
-          <Reveal>
-            <div className="mt-8 sm:mt-12 flex justify-center">
-              <Link
-                href="/clients"
-                className="pressable group inline-flex items-center justify-center gap-2 rounded-full border border-stone-300 bg-white px-7 py-3 text-xs sm:text-sm font-bold text-ink shadow-2xs hover:border-accent hover:text-accent hover:bg-stone-50 transition-all duration-200 hover:-translate-y-0.5"
-              >
-                <span>See More</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </div>
-          </Reveal>
+        {/* Compact "See More" Toggle Button */}
+        {politicianClients.length > 6 && (
+          <div className="mt-7 sm:mt-9 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setExpanded((prev) => !prev)}
+              className="pressable inline-flex items-center justify-center gap-1.5 rounded-full border border-stone-300 bg-white px-6 py-2.5 text-xs sm:text-sm font-bold text-ink shadow-2xs hover:bg-stone-50 transition-all duration-200 cursor-pointer"
+            >
+              <span>{expanded ? "See Less" : "See More"}</span>
+              {expanded ? (
+                <ChevronUp className="h-4 w-4 text-stone-600" />
+              ) : (
+                <ChevronDown className="h-4 w-4 text-stone-600" />
+              )}
+            </button>
+          </div>
         )}
       </div>
     </section>
