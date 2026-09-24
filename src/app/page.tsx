@@ -6,7 +6,6 @@ import StatsStrip from "@/components/stats-strip";
 import PoliticalClients from "@/components/political-clients";
 import OurClients from "@/components/our-clients";
 import ProcessSection from "@/components/process-section";
-import WhyCreateVerse from "@/components/why-createverse";
 import FinalCTA from "@/components/final-cta";
 import { siteKeywords } from "@/lib/seo";
 
@@ -54,7 +53,6 @@ export default function HomePage() {
       <OurClients />
       <PoliticalClients />
       <ProcessSection />
-      <WhyCreateVerse />
       <FinalCTA />
     </>
   );

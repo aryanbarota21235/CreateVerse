@@ -76,7 +76,7 @@ export default function OurClients() {
         </Reveal>
 
         <div className="mt-8 sm:mt-10">
-          <Stagger className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 items-stretch">
+          <Stagger className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5 items-stretch">
             {clientLogos.map((logo) => (
               <StaggerItem key={logo.src} className="h-full">
                 {logo.href ? (
