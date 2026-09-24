@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Lock, ShieldCheck } from "lucide-react";
 import PageHero from "@/components/page-hero";
 import FinalCTA from "@/components/final-cta";
+import WhyCreateVerse from "@/components/why-createverse";
 import ProcessSection from "@/components/process-section";
 import Reveal from "@/components/reveal";
 
@@ -149,6 +150,7 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <WhyCreateVerse />
       <ProcessSection />
       <FinalCTA />
     </>
