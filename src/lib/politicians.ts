@@ -82,6 +82,18 @@ export const politicianClients: PoliticianClient[] = [
     },
   },
   {
+    name: "Pritpal Singh Pannu",
+    slug: "pritpal-singh-pannu",
+    href: "/clients/pritpal-singh-pannu",
+    role: "Founder & Chairman, NIFAA | National Youth Awardee",
+    badge: "NIFAA",
+    image: "/politicians/pritpal-singh-pannu.png",
+    socials: {
+      facebook: "https://www.facebook.com/nifaaindia",
+      twitter: "https://x.com/nifaaindia",
+    },
+  },
+  {
     name: "Bhupinder Lather",
     slug: "bhupinder-lather",
     href: "/clients/bhupinder-lather",

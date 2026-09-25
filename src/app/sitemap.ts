@@ -42,7 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${base}/learn-digital-marketing`,
       lastModified: now,
       changeFrequency: "daily",
-      priority: 0.95,
+      priority: 1.0,
     },
     // Top-Tier Client Profile Pages (Canonical URLs Only)
     {
@@ -71,6 +71,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${base}/clients/shamsher-singh-gogi`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 1.0,
+    },
+    {
+      url: `${base}/clients/pritpal-singh-pannu`,
       lastModified: now,
       changeFrequency: "daily",
       priority: 1.0,

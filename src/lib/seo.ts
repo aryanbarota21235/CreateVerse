@@ -17,7 +17,14 @@ export const siteKeywords = [
   "lead generation company India",
   "growth marketing agency",
   "best ROI digital marketing agency",
+  "ROI oriented digital marketing agency",
+  "ROI driven digital marketing agency India",
   "B2B lead generation agency India",
+  "learn digital marketing",
+  "learn digital marketing course",
+  "learn digital marketing online India",
+  "digital marketing course in karnal",
+  "digital marketing institute in karnal",
 
   // Local SEO Target Cities (Haryana Regional Dominance)
   "best digital marketing agency in karnal",
@@ -69,7 +76,7 @@ export const siteKeywords = [
   "social media management agency",
   "influencer marketing agency India",
 
-  // Political Leadership & Entity Search Authority
+  // Public Figure & Leadership Entity Search Authority
   "Randeep Singh Surjewala",
   "रणदीप सिंह सुरजेवाला",
   "रणदीप सुरजेवाला",
@@ -85,6 +92,11 @@ export const siteKeywords = [
   "Shamsher Singh Gogi",
   "शमशेर सिंह गोगी",
   "शमशेर गोगी",
+  "Pritpal Singh Pannu",
+  "प्रितपाल सिंह पन्नू",
+  "ਪ੍ਰਿਤਪਾਲ ਸਿੰਘ ਪੰਨੂ",
+  "NIFAA Founder Pritpal Singh Pannu",
+  "National Integrated Forum of Artists and Activists",
   "Bhupinder Lather",
   "भूपिंदर लाठर",
   "Bhuppi Lather",
@@ -93,6 +105,7 @@ export const siteKeywords = [
   "राजीव गोंदर",
   "Umesh Sharma",
   "उमेश शर्मा",
+  "CreateVerse public figure clients",
   "CreateVerse political clients",
   "CreateVerse election war room",
 ];

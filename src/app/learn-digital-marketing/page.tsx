@@ -20,26 +20,34 @@ import Faq from "@/components/faq";
 import AcademyHeroButtons from "@/components/academy-hero-buttons";
 
 export const metadata: Metadata = {
-  title: "Learn Practical Digital Marketing | CreateVerse",
+  title: "Learn Digital Marketing | Practical Agency Course in India & Haryana — CreateVerse",
   description:
-    "Hands-on training in performance marketing, Meta ads, Google campaigns, lead funnels, and tracking — taught directly by practitioners working on active client accounts at CreateVerse.",
+    "Learn digital marketing from active agency practitioners at CreateVerse. 100% live practical training in Meta Ads, Google Ads, SEO, lead generation funnels, and GA4 tracking across Karnal, Haryana & Online across India.",
   keywords: [
     "learn digital marketing",
-    "digital marketing training",
+    "learn digital marketing course",
+    "learn digital marketing online",
+    "learn digital marketing in India",
+    "learn digital marketing in Karnal",
+    "learn digital marketing in Haryana",
+    "digital marketing course in Karnal",
+    "best digital marketing institute in Karnal",
+    "digital marketing training Haryana",
+    "practical digital marketing course",
+    "performance marketing course India",
     "meta ads training India",
     "google ads training agency",
-    "practical digital marketing Karnal",
     "lead generation course",
-    "performance marketing Haryana",
-    "CreateVerse training",
+    "ROI oriented digital marketing training",
+    "CreateVerse digital marketing academy",
   ],
   alternates: {
     canonical: "https://www.createverse.in/learn-digital-marketing",
   },
   openGraph: {
-    title: "Learn Practical Digital Marketing — CreateVerse",
+    title: "Learn Digital Marketing | Live Practical Agency Training — CreateVerse",
     description:
-      "Hands-on training in performance marketing, Meta ads, Google campaigns, lead funnels, and tracking — taught directly by practitioners working on active client accounts.",
+      "Learn digital marketing hands-on with live client ad budgets, Meta Ads, Google Ads, SEO, and conversion funnels — taught directly by practitioners at CreateVerse.",
     url: "https://www.createverse.in/learn-digital-marketing",
     siteName: "CreateVerse",
     locale: "en_IN",
@@ -49,15 +57,15 @@ export const metadata: Metadata = {
         url: "/logo.png",
         width: 1200,
         height: 630,
-        alt: "Learn Digital Marketing CreateVerse",
+        alt: "Learn Digital Marketing — CreateVerse Agency Training",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Learn Practical Digital Marketing — CreateVerse",
+    title: "Learn Digital Marketing | Practical Agency Course — CreateVerse",
     description:
-      "Hands-on training in performance marketing, Meta ads, Google campaigns, lead funnels, and tracking.",
+      "Learn digital marketing hands-on in performance marketing, Meta ads, Google campaigns, lead funnels, and tracking.",
     images: ["/logo.png"],
   },
 };
@@ -220,8 +228,92 @@ const faqs = [
 ];
 
 export default function LearnDigitalMarketingPage() {
+  const courseSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Course",
+        "@id": "https://www.createverse.in/learn-digital-marketing#course",
+        name: "Learn Digital Marketing — Practical Agency Mentorship & Performance Marketing Course",
+        description:
+          "Learn digital marketing through 100% live practical agency apprenticeship covering Meta Ads, Google Ads, Search Engine Optimization (SEO), Landing Page Funnels, GA4 & Server-Side CAPI tracking.",
+        url: "https://www.createverse.in/learn-digital-marketing",
+        provider: {
+          "@type": "EducationalOrganization",
+          "@id": "https://www.createverse.in/#organization",
+          name: "CreateVerse",
+          url: "https://www.createverse.in",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Karnal",
+            addressRegion: "Haryana",
+            addressCountry: "IN",
+          },
+        },
+        educationalLevel: "Beginner to Advanced",
+        teaches: [
+          "Learn Digital Marketing",
+          "Meta Ads (Facebook & Instagram Advertising)",
+          "Google Search & Display Ads",
+          "Landing Page & Conversion Funnel Design",
+          "Google Analytics 4 (GA4) & Server-Side Pixel Tracking",
+          "Search Engine Optimization (SEO)",
+          "Client Pitching & Retainer Acquisition",
+        ],
+        hasCourseInstance: [
+          {
+            "@type": "CourseInstance",
+            courseMode: ["onsite", "online"],
+            location: {
+              "@type": "Place",
+              name: "CreateVerse Agency Studio, Karnal, Haryana & Live Online",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Karnal",
+                addressRegion: "Haryana",
+                addressCountry: "IN",
+              },
+            },
+          },
+        ],
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://www.createverse.in",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Learn Digital Marketing",
+            item: "https://www.createverse.in/learn-digital-marketing",
+          },
+        ],
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: faqs.map((item) => ({
+          "@type": "Question",
+          name: item.q,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.a,
+          },
+        })),
+      },
+    ],
+  };
+
   return (
     <main className="min-h-screen bg-paper text-ink selection:bg-accent selection:text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
+      />
       {/* ==========================================================================
           SECTION 1: HERO (CENTERED)
           ========================================================================== */}
@@ -253,7 +345,7 @@ export default function LearnDigitalMarketingPage() {
           {/* Centered H1 Title */}
           <Reveal delay={0.1}>
             <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-ink leading-tight max-w-4xl mx-auto">
-              Learn Practical <span className="text-accent">Digital Marketing.</span>
+              Learn <span className="text-accent">Digital Marketing</span> With Live Agency Campaigns.
             </h1>
           </Reveal>
 

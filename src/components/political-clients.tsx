@@ -48,16 +48,18 @@ export default function PoliticalClients({
                 />
               </div>
             </div>
-            {/* Party Tag Badge */}
-            {p.party && (
+            {/* Party or Organization Tag Badge */}
+            {(p.party || p.badge) && (
               <span
                 className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-xs ${
                   p.party === "BJP"
                     ? "bg-amber-500 text-white border border-amber-600/30"
-                    : "bg-sky-600 text-white border border-sky-700/30"
+                    : p.party === "INC"
+                      ? "bg-sky-600 text-white border border-sky-700/30"
+                      : "bg-emerald-600 text-white border border-emerald-700/30"
                 }`}
               >
-                {p.party}
+                {p.party || p.badge}
               </span>
             )}
           </div>
@@ -168,7 +170,7 @@ export default function PoliticalClients({
         <Reveal>
           <div className="text-left pb-6 sm:pb-8 border-b border-stone-200">
             <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-ink">
-              Political Clients
+              Public Figure Clients
             </h2>
           </div>
         </Reveal>

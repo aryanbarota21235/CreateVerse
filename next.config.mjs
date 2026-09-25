@@ -59,6 +59,16 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/digital-marketing-course",
+        destination: "https://www.createverse.in/learn-digital-marketing",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-institute",
+        destination: "https://www.createverse.in/learn-digital-marketing",
+        permanent: true,
+      },
+      {
         source: "/aditya-surjewala",
         destination: "https://www.createverse.in/clients/aditya-surjewala",
         permanent: true,
@@ -81,6 +91,11 @@ const nextConfig = {
       {
         source: "/shamsher-singh-gogi",
         destination: "https://www.createverse.in/clients/shamsher-singh-gogi",
+        permanent: true,
+      },
+      {
+        source: "/pritpal-singh-pannu",
+        destination: "https://www.createverse.in/clients/pritpal-singh-pannu",
         permanent: true,
       },
       {
