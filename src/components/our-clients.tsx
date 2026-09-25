@@ -61,6 +61,20 @@ const clientLogos: ClientLogo[] = [
     height: 130,
     className: "h-14 sm:h-16 w-auto max-w-[200px] object-contain invert",
   },
+  {
+    src: "/clients/slotco-imperia.jpeg",
+    alt: "Slotco Imperia",
+    width: 260,
+    height: 260,
+    className: "h-24 sm:h-28 w-auto max-w-[200px] object-contain",
+  },
+  {
+    src: "/clients/nifaa.jpeg",
+    alt: "NIFAA",
+    width: 220,
+    height: 220,
+    className: "h-24 sm:h-28 w-auto object-contain",
+  },
 ];
 
 export default function OurClients() {
