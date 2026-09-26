@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -13,18 +13,17 @@ import WhatsAppWidget from "@/components/whatsapp-widget";
 
 import { siteKeywords, getOrganizationJsonLd } from "@/lib/seo";
 
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-  weight: ["400", "500", "600", "700", "800", "900"],
-});
-
-const plusJakartaSans = Plus_Jakarta_Sans({
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
+});
+
+const grotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 
@@ -114,7 +113,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const organizationJsonLd = getOrganizationJsonLd();
 
   return (
-    <html lang="en" className={`${outfit.variable} ${plusJakartaSans.variable}`}>
+    <html lang="en" className={`${inter.variable} ${grotesk.variable}`}>
       <head>
         <meta name="theme-color" content="#FAF7F2" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
