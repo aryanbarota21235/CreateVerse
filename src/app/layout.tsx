@@ -56,7 +56,10 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: "googlee2836ec779649f49",
+    google: [
+      "CT4ge9jqSvzLnsRSrxss6cv6GCW-8x-VMYZNTcXlHtk",
+      "googlee2836ec779649f49",
+    ],
     other: {
       "facebook-domain-verification": "arjcquzxxrc2rljqusg27q97siy066",
     },
@@ -119,6 +122,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="facebook-domain-verification" content="arjcquzxxrc2rljqusg27q97siy066" />
+        <meta name="google-site-verification" content="CT4ge9jqSvzLnsRSrxss6cv6GCW-8x-VMYZNTcXlHtk" />
         <meta name="google-site-verification" content="googlee2836ec779649f49" />
         <meta name="geo.region" content="IN-HR" />
         <meta name="geo.placename" content="Karnal" />
