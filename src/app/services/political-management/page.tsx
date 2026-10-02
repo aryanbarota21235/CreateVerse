@@ -19,11 +19,12 @@ import {
   TrendingUp,
 } from "lucide-react";
 import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
-import { politicianClients } from "@/lib/politicians";
+import { politicianClients, type PoliticianClient } from "@/lib/politicians";
 import { services } from "@/lib/services";
 import { InstagramIcon, FacebookIcon, XIcon } from "@/components/social-icons";
 import PoliticalHeroButtons from "./political-hero-buttons";
 import { PageArt, PageArtInline } from "@/components/page-art";
+import { PulseRail } from "@/components/illustrations";
 import PoliticalFaq from "./political-faq";
 import { serviceSeoKeywords, getPoliticalManagementJsonLd } from "@/lib/seo";
 
@@ -154,6 +155,118 @@ const playbook = [
   },
 ];
 
+const socialLinkCls =
+  "flex h-8 w-8 items-center justify-center rounded-full text-stone-500 ring-1 ring-black/[0.06] transition-all hover:scale-110 hover:bg-stone-100";
+
+function ClientPortrait({ p }: { p: PoliticianClient }) {
+  return (
+    <div className="relative shrink-0">
+      <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-24 sm:w-24 lg:h-28 lg:w-28 rounded-full bg-white p-1 shadow-soft ring-1 ring-black/[0.05] transition-all duration-300 group-hover:scale-105 group-hover:ring-accent/40">
+        <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-stone-50">
+          <Image
+            src={p.image}
+            alt={p.name}
+            width={136}
+            height={136}
+            sizes="(max-width: 640px) 112px, 136px"
+            quality={85}
+            className="h-full w-full scale-[1.08] object-cover"
+          />
+        </div>
+      </div>
+      {p.party && (
+        <span
+          className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 rounded-full px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-white shadow-xs ${
+            p.party === "BJP" ? "bg-amber-500" : "bg-sky-600"
+          }`}
+        >
+          {p.party}
+        </span>
+      )}
+    </div>
+  );
+}
+
+// One politician: a centred portrait on phones, a portrait-left row from tablet up
+function ClientCell({ p }: { p: PoliticianClient }) {
+  const hasSocials = Boolean(p.socials?.instagram || p.socials?.facebook || p.socials?.twitter);
+
+  return (
+    <div className="group flex h-full flex-col items-center text-center sm:flex-row sm:items-center sm:gap-5 sm:border-t sm:border-ink/10 sm:py-7 sm:text-left">
+      {p.href ? (
+        <Link href={p.href} prefetch={true} tabIndex={-1} aria-hidden="true">
+          <ClientPortrait p={p} />
+        </Link>
+      ) : (
+        <ClientPortrait p={p} />
+      )}
+
+      <div className="mt-4 flex min-w-0 grow flex-col items-center sm:mt-0 sm:items-start">
+        <h3 className="text-balance font-display text-[13px] sm:text-base font-bold text-ink leading-snug tracking-tight">
+          {p.href ? (
+            <Link href={p.href} prefetch={true} className="transition-colors hover:text-accent">
+              {p.name}
+            </Link>
+          ) : (
+            p.name
+          )}
+        </h3>
+
+        {p.role && (
+          <p className="mt-1 text-[11px] sm:text-xs font-medium text-stone-600 leading-snug">{p.role}</p>
+        )}
+
+        {/* Pinned to the bottom so links and icons line up across a row of portraits */}
+        <div className="mt-auto flex flex-col items-center pt-2 sm:items-start">
+          {p.href && (
+            <Link href={p.href} prefetch={true} className="inline-flex items-center gap-1 text-[11px] font-bold text-accent hover:underline">
+              View Full Profile &rarr;
+            </Link>
+          )}
+
+          {hasSocials && (
+            <div className="mt-2.5 flex items-center gap-1.5">
+              {p.socials.instagram && (
+                <a
+                  href={p.socials.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${socialLinkCls} hover:text-[#E4405F]`}
+                  aria-label={`${p.name} Instagram`}
+                >
+                  <InstagramIcon className="h-4 w-4" />
+                </a>
+              )}
+              {p.socials.facebook && (
+                <a
+                  href={p.socials.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${socialLinkCls} hover:text-[#1877F2]`}
+                  aria-label={`${p.name} Facebook`}
+                >
+                  <FacebookIcon className="h-4 w-4" />
+                </a>
+              )}
+              {p.socials.twitter && (
+                <a
+                  href={p.socials.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${socialLinkCls} hover:text-black`}
+                  aria-label={`${p.name} X (Twitter)`}
+                >
+                  <XIcon className="h-3.5 w-3.5" />
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function PoliticalManagementPage() {
   const politicalJsonLd = getPoliticalManagementJsonLd();
   const related = services.filter((s) => s.slug !== "political-management" && s.priority).slice(0, 3);
@@ -202,24 +315,29 @@ export default function PoliticalManagementPage() {
             <PageArtInline variant="political" className="mt-7 sm:mt-9" />
           </Reveal>
 
-          {/* 4 Core Impact Metrics (Uniform equal-sized boxes) */}
-          <div className="mt-10 sm:mt-16 grid grid-cols-2 gap-2.5 sm:gap-6 lg:grid-cols-4 items-stretch">
-            {stats.map((s, idx) => (
-              <Reveal key={s.label} delay={idx * 0.08} className="h-full">
-                <div className="h-full flex flex-col justify-start min-h-[160px] sm:min-h-[190px] rounded-2xl border border-stone-200/90 bg-white p-3.5 sm:p-6 shadow-card hover:border-accent/40 transition-all duration-200 hover:-translate-y-0.5">
-                  <span className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-accent leading-none">
+          {/* 4 core impact metrics: one soft panel with hairline-divided cells */}
+          <Reveal delay={0.12} className="mt-10 sm:mt-16">
+            <div className="grid grid-cols-2 overflow-hidden rounded-[24px] sm:rounded-[32px] bg-white/90 shadow-soft ring-1 ring-black/[0.04] lg:grid-cols-4">
+              {stats.map((s, idx) => (
+                <div
+                  key={s.label}
+                  className={`border-stone-200/70 p-4 sm:p-7 ${idx % 2 === 1 ? "border-l" : idx > 0 ? "lg:border-l" : ""} ${
+                    idx > 1 ? "border-t lg:border-t-0" : ""
+                  }`}
+                >
+                  <span className="block whitespace-nowrap font-display text-[26px] sm:text-4xl lg:text-5xl font-bold tracking-tight text-accent leading-none">
                     {s.value}
                   </span>
-                  <p className="mt-2 font-display text-xs sm:text-sm font-bold text-ink leading-snug min-h-[32px] sm:min-h-[38px] flex items-start">
+                  <p className="mt-2.5 sm:mt-4 font-display text-xs sm:text-sm font-bold text-ink leading-snug">
                     {s.label}
                   </p>
                   <p className="mt-1 text-[10.5px] sm:text-xs text-stone-500 font-normal leading-relaxed">
                     {s.desc}
                   </p>
                 </div>
-              </Reveal>
-            ))}
-          </div>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -241,160 +359,14 @@ export default function PoliticalManagementPage() {
             </div>
           </Reveal>
 
-          {/* Expanded 6 Politician Cards with High-Res Portraits & Social Links */}
-          <Stagger className="mt-8 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 items-stretch" delayChildren={0.08}>
+          {/* Portrait-led roster: two-up on phones, hairline rows from tablet up */}
+          <Stagger
+            className="mt-9 sm:mt-12 grid grid-cols-2 gap-x-3 gap-y-9 sm:gap-x-10 sm:gap-y-0 lg:grid-cols-3"
+            delayChildren={0.06}
+          >
             {politicianClients.map((p) => (
-              <StaggerItem key={p.name} className="h-full">
-                <div className="group h-full flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/60 hover:bg-white hover:shadow-card">
-                  {/* Top Row: Portrait & Identity (Clickable if href present) */}
-                  {p.href ? (
-                    <Link href={p.href} prefetch={true} className="group/link block">
-                      <div className="flex items-center sm:items-start gap-4 sm:gap-5">
-                        {/* High-Res Portrait */}
-                        <div className="relative shrink-0">
-                          <div className="relative h-24 w-24 sm:h-28 sm:w-28 lg:h-32 lg:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
-                            <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
-                              <Image
-                                src={p.image}
-                                alt={p.name}
-                                width={136}
-                                height={136}
-                                sizes="(max-width: 640px) 96px, 136px"
-                                priority
-                                quality={85}
-                                className="h-full w-full object-cover scale-[1.08] transition-transform duration-300 group-hover:scale-[1.14]"
-                              />
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Name & Party Info */}
-                        <div className="grow">
-                          {p.party && (
-                            <div className="flex items-center gap-2">
-                              <span
-                                className={`px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider ${
-                                  p.party === "BJP"
-                                    ? "bg-amber-500 text-white"
-                                    : "bg-sky-600 text-white"
-                                }`}
-                              >
-                                {p.party}
-                              </span>
-                            </div>
-                          )}
-
-                          <h3 className="mt-1 font-display text-sm sm:text-base font-bold text-ink leading-snug transition-colors group-hover:text-accent whitespace-nowrap">
-                            {p.name}
-                          </h3>
-
-                          {p.role && (
-                            <p className="mt-1 text-xs font-medium text-stone-600 leading-tight">
-                              {p.role}
-                            </p>
-                          )}
-
-                          <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-accent group-hover/link:underline">
-                            View Full Profile &rarr;
-                          </span>
-                        </div>
-                      </div>
-                    </Link>
-                  ) : (
-                    <div>
-                      <div className="flex items-center sm:items-start gap-4 sm:gap-5">
-                        {/* High-Res Portrait */}
-                        <div className="relative shrink-0">
-                          <div className="relative h-24 w-24 sm:h-28 sm:w-28 lg:h-32 lg:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md">
-                            <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
-                              <Image
-                                src={p.image}
-                                alt={p.name}
-                                width={136}
-                                height={136}
-                                sizes="(max-width: 640px) 96px, 136px"
-                                priority
-                                quality={85}
-                                className="h-full w-full object-cover scale-[1.08] transition-transform duration-300 group-hover:scale-[1.14]"
-                              />
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Name & Party Info */}
-                        <div className="grow">
-                          {p.party && (
-                            <div className="flex items-center gap-2">
-                              <span
-                                className={`px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider ${
-                                  p.party === "BJP"
-                                    ? "bg-amber-500 text-white"
-                                    : "bg-sky-600 text-white"
-                                }`}
-                              >
-                                {p.party}
-                              </span>
-                            </div>
-                          )}
-
-                          <h3 className="mt-1 font-display text-sm sm:text-base font-bold text-ink leading-snug transition-colors group-hover:text-accent whitespace-nowrap">
-                            {p.name}
-                          </h3>
-
-                          {p.role && (
-                            <p className="mt-1 text-xs font-medium text-stone-600 leading-tight">
-                              {p.role}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Bottom Row: Official Social Media Handles */}
-                  {Boolean(p.socials?.instagram || p.socials?.facebook || p.socials?.twitter) && (
-                    <div className="mt-4 pt-3 border-t border-stone-200/80 flex items-center justify-between">
-                      <span className="text-[11px] font-bold text-stone-500 uppercase tracking-wider">
-                        Official Socials:
-                      </span>
-                      <div className="flex items-center gap-2">
-                        {p.socials.instagram && (
-                          <a
-                            href={p.socials.instagram}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex h-8 w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-[#E4405F] hover:border-[#E4405F]/40 hover:bg-[#E4405F]/[0.05] transition-all shadow-2xs hover:scale-110"
-                            aria-label={`${p.name} Instagram`}
-                          >
-                            <InstagramIcon className="h-4 w-4" />
-                          </a>
-                        )}
-                        {p.socials.facebook && (
-                          <a
-                            href={p.socials.facebook}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex h-8 w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-[#1877F2] hover:border-[#1877F2]/40 hover:bg-[#1877F2]/[0.05] transition-all shadow-2xs hover:scale-110"
-                            aria-label={`${p.name} Facebook`}
-                          >
-                            <FacebookIcon className="h-4 w-4" />
-                          </a>
-                        )}
-                        {p.socials.twitter && (
-                          <a
-                            href={p.socials.twitter}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex h-8 w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-black hover:border-black/40 hover:bg-stone-100 transition-all shadow-2xs hover:scale-110"
-                            aria-label={`${p.name} X (Twitter)`}
-                          >
-                            <XIcon className="h-3.5 w-3.5" />
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                </div>
+              <StaggerItem key={p.name} className="h-full max-sm:last:odd:col-span-2">
+                <ClientCell p={p} />
               </StaggerItem>
             ))}
           </Stagger>
@@ -418,34 +390,27 @@ export default function PoliticalManagementPage() {
             </div>
           </Reveal>
 
-          <div className="mt-8 sm:mt-12 grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Editorial index: hairline rows instead of six boxes */}
+          <div className="mt-7 sm:mt-12 grid grid-cols-1 gap-x-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-12">
             {capabilities.map((c, idx) => {
               const Icon = c.icon;
               return (
-                <Reveal key={c.title} delay={idx * 0.06}>
-                  <div className="group h-full rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white p-5 sm:p-7 shadow-card transition-all duration-200 hover:-translate-y-1 hover:border-accent hover:shadow-lift flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center justify-between">
-                        <span className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl bg-accent/[0.08] text-accent transition-colors group-hover:bg-accent group-hover:text-white">
-                          <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
-                        </span>
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-stone-400 bg-stone-100 rounded-full px-2.5 py-1">
-                          {c.tag}
-                        </span>
-                      </div>
+                <Reveal key={c.title} delay={idx * 0.06} className="h-full">
+                  <div className="group flex h-full items-start gap-4 border-t border-ink/10 py-6 sm:block sm:py-8">
+                    <span className="flex h-11 w-11 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-2xl bg-white text-accent shadow-soft ring-1 ring-accent/15 transition-colors duration-300 group-hover:bg-accent group-hover:text-white">
+                      <Icon className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={1.7} />
+                    </span>
 
-                      <h3 className="mt-4 font-display text-base sm:text-lg font-bold text-ink group-hover:text-accent transition-colors">
+                    <div className="min-w-0 sm:mt-5">
+                      <p className={`text-[10px] font-bold uppercase tracking-[0.18em] ${idx % 2 === 0 ? "text-accent" : "text-brand-orange"}`}>
+                        {c.tag}
+                      </p>
+                      <h3 className="mt-1.5 font-display text-base sm:text-lg font-bold text-ink leading-snug">
                         {c.title}
                       </h3>
-
                       <p className="mt-2 text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
                         {c.desc}
                       </p>
-                    </div>
-
-                    <div className="mt-5 pt-3 border-t border-stone-100 flex items-center gap-1 text-[11px] font-bold text-accent">
-                      <span>Operational Capability</span>
-                      <ChevronRight className="h-3 w-3" />
                     </div>
                   </div>
                 </Reveal>
@@ -472,36 +437,71 @@ export default function PoliticalManagementPage() {
             </div>
           </Reveal>
 
-          <div className="mt-10 sm:mt-16 grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {playbook.map((p, idx) => (
-              <Reveal key={p.phase} delay={idx * 0.08}>
-                <div className="h-full rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] p-5 sm:p-6 flex flex-col justify-between shadow-xs hover:border-accent/50 transition-all hover:bg-white">
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <span className="font-display text-xs font-bold uppercase tracking-widest text-accent">
-                        {p.phase}
+          <div className="relative mx-auto mt-10 max-w-xl sm:mt-16 lg:max-w-none">
+            {/* Phones and tablets: one vertical rail linking the phases */}
+            <PulseRail className="absolute left-[19px] top-5 h-[calc(100%-2.5rem)] w-0.5 lg:hidden" />
+
+            <div className="relative grid grid-cols-1 gap-9 lg:grid-cols-4 lg:gap-0">
+              {playbook.map((p, idx) => {
+                const num = p.phase.replace(/\D/g, "");
+                const warm = idx % 2 === 1;
+                return (
+                  <Reveal key={p.phase} delay={idx * 0.08} className="h-full">
+                    <div className="relative flex h-full items-start gap-4 lg:block lg:border-t lg:border-ink/10 lg:pr-8 lg:pt-9">
+                      {/* The rail stops at the last phase's node */}
+                      {idx === playbook.length - 1 && (
+                        <span aria-hidden="true" className="absolute bottom-0 left-0 top-10 w-10 bg-white lg:hidden" />
+                      )}
+                      {/* Node: a numbered disc on the rail, a dot on the desktop timeline */}
+                      <span
+                        className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-display text-sm font-bold text-white ring-4 ring-white lg:hidden ${
+                          warm ? "bg-brand-orange" : "bg-accent"
+                        }`}
+                      >
+                        {num}
                       </span>
-                      <span className="text-[10px] font-semibold text-stone-500 bg-white border border-stone-200 px-2 py-0.5 rounded-full">
-                        {p.timeline}
-                      </span>
+                      <span
+                        className={`absolute -top-[5px] left-0 hidden h-[9px] w-[9px] rounded-full ring-4 ring-white lg:block ${
+                          warm ? "bg-brand-orange" : "bg-accent"
+                        }`}
+                      />
+
+                      <div className="min-w-0 pt-0.5 lg:pt-0">
+                        <span
+                          className={`hidden lg:block font-display text-6xl font-bold leading-none tracking-tight ${
+                            warm ? "text-brand-orange" : "text-accent"
+                          }`}
+                        >
+                          {num}
+                        </span>
+
+                        <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 lg:mt-6">
+                          <span className="font-display text-xs font-bold uppercase tracking-widest text-accent">
+                            {p.phase}
+                          </span>
+                          <span className="rounded-full bg-paper px-2.5 py-0.5 text-[10px] font-semibold text-stone-600 ring-1 ring-black/[0.05]">
+                            {p.timeline}
+                          </span>
+                        </div>
+
+                        <h3 className="mt-2 font-display text-[15px] sm:text-lg lg:text-base font-bold text-ink leading-snug">
+                          {p.title}
+                        </h3>
+
+                        <ul className="mt-3 space-y-2">
+                          {p.points.map((pt) => (
+                            <li key={pt} className="flex items-start gap-2 text-xs sm:text-[13px] text-stone-600 font-normal leading-relaxed">
+                              <CheckCircle2 className="h-3.5 w-3.5 text-accent shrink-0 mt-0.5" />
+                              <span>{pt}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
-
-                    <h3 className="mt-3 font-display text-sm sm:text-base font-bold text-ink">
-                      {p.title}
-                    </h3>
-
-                    <ul className="mt-3 space-y-2">
-                      {p.points.map((pt) => (
-                        <li key={pt} className="flex items-start gap-2 text-xs text-stone-600 font-normal leading-relaxed">
-                          <CheckCircle2 className="h-3.5 w-3.5 text-accent shrink-0 mt-0.5" />
-                          <span>{pt}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
+                  </Reveal>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>

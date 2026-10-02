@@ -6,6 +6,7 @@ import Faq from "@/components/faq";
 import LeadForm from "@/components/lead-form";
 import { site } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
+import { InstagramIcon } from "@/components/social-icons";
 
 export const metadata: Metadata = {
   title: "Contact — Digital Marketing Agency in Karnal",
@@ -181,6 +182,27 @@ export default function ContactPage() {
                     </div>
                   </div>
                   <span className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-paper text-ink/70 transition-transform group-hover:translate-x-0.5 group-hover:text-accent">
+                    <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  </span>
+                </a>
+
+                {/* Instagram Channel */}
+                <a
+                  href={site.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-between rounded-xl sm:rounded-2xl border border-stone-200 bg-white p-3.5 sm:p-5 shadow-card transition-all hover:-translate-y-0.5 hover:border-[#E1306C]/60 hover:shadow-lift"
+                >
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <span className="flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl bg-[#E1306C]/10 text-[#E1306C]">
+                      <InstagramIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+                    </span>
+                    <div>
+                      <span className="block text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-ink/65">Instagram</span>
+                      <span className="block font-display text-sm sm:text-base font-bold text-ink">@createverse.in</span>
+                    </div>
+                  </div>
+                  <span className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-paper text-ink/70 transition-transform group-hover:translate-x-0.5 group-hover:text-[#E1306C]">
                     <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   </span>
                 </a>

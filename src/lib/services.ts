@@ -552,6 +552,10 @@ export const services: Service[] = [
   },
 ];
 
+// "Paid Social Advertising" is the same practice as "Social Media Paid Ads". Its page stays
+// live for search, but listings show the practice once — the 16 the homepage talks about.
+export const listedServices = services.filter((s) => s.slug !== "paid-social");
+
 export const priorityServices = services.filter((s) => s.priority);
 
 export const getService = (slug: string) => {

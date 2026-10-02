@@ -30,8 +30,8 @@ const servicesList = [
     shortName: "Performance Mktg",
   },
   {
-    slug: "paid-social",
-    name: "Paid Social Advertising",
+    slug: "social-media-paid-ads",
+    name: "Social Media Paid Ads",
     shortName: "Paid Social Ads",
   },
   {

@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 import SectionHeading from "@/components/section-heading";
 import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
-import { services, type Service } from "@/lib/services";
+import { listedServices as services, type Service } from "@/lib/services";
 import { useEnquiry } from "@/context/enquiry-context";
 
 export const iconMap: Record<string, LucideIcon> = {

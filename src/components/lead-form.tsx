@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-import { services } from "@/lib/services";
+import { listedServices as services } from "@/lib/services";
 import { saveEnquiry } from "@/lib/admin-store";
 
 const inputCls =
