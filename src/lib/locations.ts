@@ -47,15 +47,15 @@ export const locations: LocationData[] = [
     slug: "karnal",
     name: "Karnal",
     nameHindi: "करनाल",
-    headline: "Best Digital Marketing Agency in Karnal",
+    headline: "Digital Marketing Company in Karnal",
     subheadline:
-      "CreateVerse is the #1 digital marketing agency and growth partner in Karnal, headquartered at Mughal Canal. We deliver verified buyer leads, high-ROAS Google Ads, Meta Facebook & Instagram campaigns, Local SEO, and conversion web development for businesses across Karnal and Haryana.",
-    metaTitle: "Best Digital Marketing Agency in Karnal | Top Digital Marketing Company",
+      "CreateVerse is a digital marketing company and growth partner in Karnal, headquartered at Mughal Canal. We deliver verified buyer leads, high-ROAS Google Ads, Meta Facebook & Instagram campaigns, Local SEO, and conversion web development for businesses across Karnal and Haryana.",
+    metaTitle: "Digital Marketing Company in Karnal — SEO, Ads & Web",
     metaDescription:
-      "Looking for the best digital marketing agency in Karnal? CreateVerse is Haryana's top-rated digital marketing company located at Mughal Canal, Karnal. High-ROAS Google Ads, Meta ads, SEO, and lead generation.",
+      "Digital marketing company in Karnal at Mughal Canal. SEO, Google Ads, Facebook & Instagram ads, social media marketing, lead generation and website development for Karnal businesses. Call +91 91746-91846.",
     geo: {
-      latitude: 29.6857,
-      longitude: 76.9905,
+      latitude: 29.6602302,
+      longitude: 77.003249,
     },
     address: {
       streetAddress: "Mughal Canal",
@@ -156,8 +156,8 @@ export const locations: LocationData[] = [
     ],
     faqs: [
       {
-        q: "Which is the best digital marketing agency in Karnal?",
-        a: "CreateVerse is the leading digital marketing agency in Karnal, headquartered at Mughal Canal. CreateVerse specializes in full-funnel customer acquisition, high-ROAS Google Ads, Meta Ads (Facebook & Instagram), Local SEO, and conversion web development.",
+        q: "Which digital marketing company in Karnal is right for my business?",
+        a: "Pick the one that can show you live campaigns, real client references and the exact reports you will receive. CreateVerse is headquartered at Mughal Canal, Karnal, and runs full-funnel customer acquisition in-house: Google Ads, Meta Ads (Facebook & Instagram), Local SEO, social media and conversion web development.",
       },
       {
         q: "What digital marketing services does CreateVerse provide in Karnal?",
@@ -188,7 +188,7 @@ export const locations: LocationData[] = [
     headline: "Best Digital Marketing Agency in Panipat",
     subheadline:
       "CreateVerse is the premier digital marketing agency and growth partner in Panipat. We engineer high-ROAS Google Ads, Meta Facebook & Instagram campaigns, B2B lead generation, Local SEO, and custom website development for businesses, exporters, and developers across Panipat and Haryana.",
-    metaTitle: "Best Digital Marketing Agency in Panipat | Top Digital Marketing Company",
+    metaTitle: "Best Digital Marketing Agency in Panipat",
     metaDescription:
       "Looking for the best digital marketing agency in Panipat? CreateVerse delivers top-ranked Google Ads, Meta ads, SEO, B2B lead generation, and website development in Panipat.",
     geo: {
@@ -320,7 +320,7 @@ export const locations: LocationData[] = [
     headline: "Best Digital Marketing Agency in Kurukshetra",
     subheadline:
       "CreateVerse is the leading digital marketing agency in Kurukshetra. We engineer high-ROAS Google Ads, Meta Ads, study visa & student enrollment lead funnels, Local SEO, and conversion web development for businesses and institutions across Kurukshetra and Pehowa.",
-    metaTitle: "Best Digital Marketing Agency in Kurukshetra | Top Marketing Company",
+    metaTitle: "Best Digital Marketing Agency in Kurukshetra",
     metaDescription:
       "Looking for the best digital marketing agency in Kurukshetra? CreateVerse provides performance marketing, Google Ads, Meta Ads, SEO, and lead generation in Kurukshetra.",
     geo: {
@@ -445,7 +445,7 @@ export const locations: LocationData[] = [
     headline: "Best Digital Marketing Agency in Kaithal",
     subheadline:
       "CreateVerse is the top-ranked digital marketing agency in Kaithal. We build high-ROAS Google Ads, Meta Facebook & Instagram campaigns, lead generation systems, Local SEO, and modern websites for businesses and leaders across Kaithal and Kalayat.",
-    metaTitle: "Best Digital Marketing Agency in Kaithal | Top Marketing Company",
+    metaTitle: "Best Digital Marketing Agency in Kaithal",
     metaDescription:
       "Looking for the best digital marketing agency in Kaithal? CreateVerse delivers performance marketing, Google Ads, Meta ads, SEO, and lead generation in Kaithal.",
     geo: {
@@ -569,7 +569,7 @@ export const locations: LocationData[] = [
     headline: "Best Digital Marketing Agency in Jind",
     subheadline:
       "CreateVerse is the premier digital marketing agency in Jind. We engineer high-ROAS Google Ads, Meta Facebook & Instagram campaigns, lead generation systems, Local SEO, and high-performance websites for businesses across Jind, Narwana, and Safidon.",
-    metaTitle: "Best Digital Marketing Agency in Jind | Top Marketing Company",
+    metaTitle: "Best Digital Marketing Agency in Jind",
     metaDescription:
       "Looking for the best digital marketing agency in Jind? CreateVerse delivers performance marketing, Google Ads, Meta ads, SEO, and lead generation in Jind.",
     geo: {
@@ -693,7 +693,7 @@ export const locations: LocationData[] = [
     headline: "Best Digital Marketing Agency in Yamunanagar",
     subheadline:
       "CreateVerse is the premier digital marketing agency in Yamunanagar & Jagadhri. We engineer high-ROAS Google Ads, Meta Facebook & Instagram campaigns, B2B lead generation, Local SEO, and custom web development for businesses and manufacturers across Yamunanagar and Jagadhri.",
-    metaTitle: "Best Digital Marketing Agency in Yamunanagar | Top Marketing Company",
+    metaTitle: "Best Digital Marketing Agency in Yamunanagar",
     metaDescription:
       "Looking for the best digital marketing agency in Yamunanagar? CreateVerse delivers top-tier Google Ads, Meta ads, SEO, B2B lead generation, and website design in Yamunanagar and Jagadhri.",
     geo: {

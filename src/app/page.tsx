@@ -6,19 +6,20 @@ import StatsStrip from "@/components/stats-strip";
 import PoliticalClients from "@/components/political-clients";
 import OurClients from "@/components/our-clients";
 import ProcessSection from "@/components/process-section";
+import LocalPresence from "@/components/local-presence";
 import FinalCTA from "@/components/final-cta";
-import { siteKeywords } from "@/lib/seo";
+import { siteKeywords, homeFaqs, getFaqJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "CreateVerse — Best Digital Marketing Agency in India & Haryana | Growth Partner",
+  title: "Best Digital Marketing Agency in Karnal, India | CreateVerse",
   description:
-    "CreateVerse is India's premier digital marketing agency. We engineer verified buyer lead generation, high-ROAS Google & Meta Ads, and 24/7 political digital war rooms for leading brands in Haryana and across India.",
+    "Digital marketing agency in Karnal, Haryana, serving clients across India — Google Ads, Meta Ads, SEO, lead generation and web development. Call +91 91746-91846.",
   keywords: siteKeywords,
   alternates: {
     canonical: "https://www.createverse.in",
   },
   openGraph: {
-    title: "CreateVerse — Growth & Digital Acquisition Partner",
+    title: "CreateVerse — Digital Marketing Agency in Karnal, India",
     description:
       "Turn digital attention into real revenue. Specialized acquisition systems for real estate developers, immigration consultancies, political campaigns, and high-growth brands.",
     url: "https://www.createverse.in",
@@ -46,6 +47,12 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getFaqJsonLd(homeFaqs, "https://www.createverse.in/")),
+        }}
+      />
       <Hero />
       <LeadFlow />
       <ServicesExplorer />
@@ -53,6 +60,7 @@ export default function HomePage() {
       <OurClients />
       <PoliticalClients />
       <ProcessSection />
+      <LocalPresence />
       <FinalCTA />
     </>
   );

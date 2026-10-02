@@ -8,7 +8,7 @@ import FinalCTA from "@/components/final-cta";
 import { PageArt, PageArtInline } from "@/components/page-art";
 
 export const metadata: Metadata = {
-  title: "Locations & Regional Hubs | Best Digital Marketing Agency in Haryana — CreateVerse",
+  title: "Digital Marketing Agency in Haryana — Cities We Serve",
   description:
     "Explore CreateVerse's regional growth hubs across Haryana including Karnal (HQ), Panipat, Kurukshetra, Kaithal, Jind, and Yamunanagar. High-ROAS performance marketing and lead generation.",
   keywords: [
@@ -134,7 +134,7 @@ export default function LocationsHubPage() {
                     </div>
 
                     <h3 className="mt-4 font-display text-xl sm:text-2xl font-bold text-ink group-hover:text-accent transition-colors">
-                      Best Digital Marketing Agency in {loc.name}
+                      {loc.headline}
                     </h3>
 
                     <p className="mt-3 text-xs sm:text-sm leading-relaxed text-stone-600 line-clamp-3 font-normal">

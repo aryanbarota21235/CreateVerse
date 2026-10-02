@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import type { FAQ } from "@/lib/services";
 
@@ -32,21 +32,18 @@ export default function Faq({ items, dark = false }: { items: FAQ[]; dark?: bool
                 }`}
               />
             </button>
-            <AnimatePresence initial={false}>
-              {isOpen && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="overflow-hidden"
-                >
-                  <p className={`px-6 pb-6 text-sm leading-relaxed sm:px-8 ${dark ? "text-white/80" : "text-ink/80 font-normal"}`}>
-                    {f.a}
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {/* Answers stay in the HTML when collapsed so search engines can read every one */}
+            <motion.div
+              initial={false}
+              animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="overflow-hidden"
+              aria-hidden={!isOpen}
+            >
+              <p className={`px-6 pb-6 text-sm leading-relaxed sm:px-8 ${dark ? "text-white/80" : "text-ink/80 font-normal"}`}>
+                {f.a}
+              </p>
+            </motion.div>
           </div>
         );
       })}

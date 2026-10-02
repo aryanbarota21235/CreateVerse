@@ -9,6 +9,24 @@ export const site = {
   location: "Mughal Canal, Karnal - 132001, Haryana, India",
   address: "Mughal Canal, Karnal - 132001, Haryana, India",
   mapsUrl: "https://maps.app.goo.gl/ndmYW4eHavoMFWHw5",
+  instagramUrl: "https://www.instagram.com/createverse.in/",
+  // Must mirror the Google Business Profile listing exactly (name, pin, hours)
+  url: "https://www.createverse.in",
+  legalName: "Createverse Consulting Private Limited",
+  mapsPlaceUrl: "https://www.google.com/maps?cid=7148231721697400408",
+  mapsEmbedUrl:
+    "https://www.google.com/maps?q=Createverse+Consulting+Private+Limited,+Karnal&output=embed",
+  geo: { latitude: 29.6602302, longitude: 77.003249 },
+  hours: { days: "Mon – Sat", opens: "09:30", closes: "19:30", label: "Mon – Sat, 9:30 AM – 7:30 PM" },
+  // Slugs match src/lib/locations.ts — kept here so client components don't bundle the full city data
+  cities: [
+    { name: "Karnal", slug: "karnal" },
+    { name: "Panipat", slug: "panipat" },
+    { name: "Kurukshetra", slug: "kurukshetra" },
+    { name: "Kaithal", slug: "kaithal" },
+    { name: "Jind", slug: "jind" },
+    { name: "Yamunanagar", slug: "yamunanagar" },
+  ],
   nav: [
     { label: "Services", href: "/services" },
     { label: "Industries", href: "/industries" },

@@ -30,15 +30,12 @@ const display = Inter_Tight({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.createverse.in"),
   title: {
-    default: "CreateVerse — Best Digital Marketing Agency in India | Growth & Performance Marketing",
+    default: "Best Digital Marketing Agency in Karnal, India | CreateVerse",
     template: "%s | CreateVerse",
   },
   description:
-    "CreateVerse is India's premier digital marketing & performance agency. Headquartered in Mughal Canal, Karnal and serving enterprises nationwide with high-ROAS Google & Meta Ads, verified real estate lead generation, immigration funnels, and 24/7 political digital war rooms.",
+    "CreateVerse is a digital marketing agency in Karnal, Haryana, serving clients across India — Google Ads, Meta Ads, SEO, lead generation, social media and web development.",
   keywords: siteKeywords,
-  alternates: {
-    canonical: "https://www.createverse.in",
-  },
   authors: [{ name: "CreateVerse", url: "https://www.createverse.in" }],
   creator: "CreateVerse",
   publisher: "CreateVerse",
@@ -115,7 +112,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const organizationJsonLd = getOrganizationJsonLd();
 
   return (
-    <html lang="en" className={`${sans.variable} ${display.variable}`}>
+    <html lang="en-IN" className={`${sans.variable} ${display.variable}`}>
       <head>
         <meta name="theme-color" content="#FAF7F2" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -125,8 +122,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="google-site-verification" content="googlee2836ec779649f49" />
         <meta name="geo.region" content="IN-HR" />
         <meta name="geo.placename" content="Karnal" />
-        <meta name="geo.position" content="29.6857;76.9905" />
-        <meta name="ICBM" content="29.6857, 76.9905" />
+        <meta name="geo.position" content={`${site.geo.latitude};${site.geo.longitude}`} />
+        <meta name="ICBM" content={`${site.geo.latitude}, ${site.geo.longitude}`} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}

@@ -44,7 +44,7 @@ export async function generateMetadata({
           url: "/logo.png",
           width: 1200,
           height: 630,
-          alt: `Best Digital Marketing Agency in ${location.name} — CreateVerse`,
+          alt: `${location.headline} — CreateVerse`,
         },
       ],
     },
@@ -72,6 +72,7 @@ export default async function LocationCityPage({
 
   const jsonLd = getLocationJsonLd(location);
   const otherLocations = locations.filter((l) => l.slug !== location.slug);
+  const isHq = location.slug === "karnal";
 
   return (
     <>
@@ -119,7 +120,7 @@ export default async function LocationCityPage({
 
             {/* Primary Subtitle H2 */}
             <h2 className="mt-3 font-display text-xl sm:text-2xl lg:text-3xl font-semibold text-stone-700">
-              Top Digital Marketing Company & Performance Growth Partner in {location.name}
+              SEO, Google Ads, Social Media Marketing & Website Development in {location.name}
             </h2>
 
             {/* Keyword-Rich Core Description */}
@@ -270,7 +271,7 @@ export default async function LocationCityPage({
           <div className="max-w-4xl grid md:grid-cols-2 gap-8 items-start">
             <div>
               <h2 className="font-display text-2xl sm:text-4xl font-bold text-ink tracking-tight">
-                Schedule a Consultation with {location.name}&apos;s Best Digital Marketing Agency
+                Schedule a Consultation with a Digital Marketing Agency in {location.name}
               </h2>
               <p className="mt-3 text-sm sm:text-base text-stone-600 font-normal leading-relaxed">
                 Ready to scale your leads, revenue, and Google rankings in {location.name}? Contact our senior strategy desk today.
@@ -295,7 +296,20 @@ export default async function LocationCityPage({
                 <p><strong>Headquarters:</strong> {site.address}</p>
                 <p><strong>Phone:</strong> {site.phone}</p>
                 <p><strong>Email:</strong> {site.email}</p>
+                <p><strong>Hours:</strong> {site.hours.label}</p>
               </div>
+
+              {isHq && (
+                <div className="mt-4 overflow-hidden rounded-xl border border-stone-200">
+                  <iframe
+                    src={site.mapsEmbedUrl}
+                    title="CreateVerse office at Mughal Canal, Karnal on Google Maps"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="block h-56 w-full border-0"
+                  />
+                </div>
+              )}
             </div>
 
             <div className="rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 shadow-card">

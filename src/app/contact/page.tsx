@@ -8,7 +8,7 @@ import { site } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 export const metadata: Metadata = {
-  title: "Contact & Strategic Consultation — CreateVerse",
+  title: "Contact — Digital Marketing Agency in Karnal",
   description:
     "Talk directly with CreateVerse managing directors about performance marketing, real estate buyer pipelines, visa funnels, political war rooms, or custom web development. 2-hour response SLA.",
   keywords: [

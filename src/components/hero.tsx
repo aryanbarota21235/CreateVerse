@@ -347,6 +347,9 @@ export default function Hero() {
                 <span className="text-accent">Real Revenue.</span>
                 <Swoosh className="absolute -bottom-1.5 sm:-bottom-2.5 left-0 h-2 sm:h-3.5 w-full text-brand-orange" />
               </span>
+              <span className="block font-sans text-ink/60 text-[10px] sm:text-sm font-bold uppercase leading-[1.5] tracking-[0.12em] sm:tracking-[0.24em] mt-4 sm:mt-6">
+                Best Digital Marketing Agency in Karnal, India
+              </span>
             </h1>
           </Reveal>
 

@@ -22,7 +22,7 @@ import AcademyHeroButtons from "@/components/academy-hero-buttons";
 import { HeroConverge, academyChannels } from "@/components/illustrations";
 
 export const metadata: Metadata = {
-  title: "Learn Digital Marketing | Practical Agency Course in India & Haryana — CreateVerse",
+  title: "Learn Digital Marketing — Practical Course in Karnal & Online",
   description:
     "Learn digital marketing from active agency practitioners at CreateVerse. 100% live practical training in Meta Ads, Google Ads, SEO, lead generation funnels, and GA4 tracking across Karnal, Haryana & Online across India.",
   keywords: [

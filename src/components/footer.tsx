@@ -7,6 +7,7 @@ import { ArrowUpRight, ArrowUp, Mail, Phone, MapPin } from "lucide-react";
 import { site } from "@/lib/site";
 import { services } from "@/lib/services";
 import { useEnquiry } from "@/context/enquiry-context";
+import { InstagramIcon } from "@/components/social-icons";
 
 export default function Footer() {
   const pathname = usePathname();
@@ -41,7 +42,7 @@ export default function Footer() {
             </Link>
 
             <p className="max-w-sm text-xs sm:text-sm leading-relaxed text-stone-400 font-normal">
-              India&apos;s elite growth & digital acquisition partner. We engineer verified lead generation systems, 24/7 political war rooms, and high-ROAS performance marketing operations.
+              A digital marketing agency headquartered in Karnal, Haryana, working with clients across India. We engineer verified lead generation systems, 24/7 political war rooms, and high-ROAS performance marketing operations.
             </p>
 
             {/* Single clean Enquire button */}
@@ -198,6 +199,17 @@ export default function Footer() {
                   <span>{site.email}</span>
                 </a>
               </li>
+              <li>
+                <a
+                  href={site.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer me"
+                  className="flex items-center gap-2 hover:text-white transition-colors"
+                >
+                  <InstagramIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-stone-500 shrink-0" />
+                  <span>@createverse.in</span>
+                </a>
+              </li>
               <li className="pt-0.5">
                 <a
                   href={site.mapsUrl}
@@ -213,8 +225,33 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Service-area links: the only sitewide path into the city pages */}
+        <nav
+          aria-label="Locations"
+          className="mt-8 sm:mt-14 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm text-stone-400"
+        >
+          <Link
+            href="/locations"
+            prefetch={true}
+            className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-white transition-colors hover:text-accent"
+          >
+            Digital Marketing Agency In
+          </Link>
+          {site.cities.map((city) => (
+            <Link
+              key={city.slug}
+              href={`/locations/${city.slug}`}
+              prefetch={true}
+              title={`Digital marketing agency in ${city.name}`}
+              className="transition-colors hover:text-white"
+            >
+              {city.name}
+            </Link>
+          ))}
+        </nav>
+
         {/* Clean Bottom Bar */}
-        <div className="mt-8 sm:mt-16 flex flex-col gap-3 sm:gap-4 border-t border-white/[0.08] pt-5 sm:pt-8 text-[11px] sm:text-xs text-stone-500 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-6 sm:mt-8 flex flex-col gap-3 sm:gap-4 border-t border-white/[0.08] pt-5 sm:pt-8 text-[11px] sm:text-xs text-stone-500 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} CreateVerse. All rights reserved.</p>
           <p className="hidden md:block">
             Strictly Confidential · Data Protected Under Mutual Non-Disclosure

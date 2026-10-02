@@ -7,7 +7,7 @@ import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
 import { industries } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Specialized Industries — Real Estate, Immigration, Political & Business | CreateVerse",
+  title: "Industries — Real Estate, Immigration, Political & Business",
   description:
     "Deep acquisition expertise across four critical sectors: real estate lead generation, immigration & visa funnels, political campaign management, and performance marketing for high-growth businesses.",
   keywords: [

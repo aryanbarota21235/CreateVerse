@@ -263,132 +263,152 @@ export const serviceSeoKeywords: Record<string, string[]> = {
 };
 
 // 1. Organization & LocalBusiness JSON-LD
+// Name, address, phone, pin and hours here must stay identical to the Google Business Profile.
+const postalAddress = {
+  "@type": "PostalAddress",
+  streetAddress: "Mughal Canal",
+  addressLocality: "Karnal",
+  addressRegion: "Haryana",
+  postalCode: "132001",
+  addressCountry: "IN",
+};
+
 export function getOrganizationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "Organization",
-        "@id": "https://www.createverse.in/#organization",
+        "@id": `${site.url}/#organization`,
         name: site.name,
-        alternateName: "CreateVerse Digital",
-        url: "https://www.createverse.in",
+        legalName: site.legalName,
+        alternateName: ["Create Verse", "CreateVerse Digital"],
+        url: site.url,
         logo: {
           "@type": "ImageObject",
-          "@id": "https://www.createverse.in/#logo",
-          url: "https://www.createverse.in/logo.png",
+          "@id": `${site.url}/#logo`,
+          url: `${site.url}/icon-512.png`,
+          width: 512,
+          height: 512,
           caption: "CreateVerse — Redefining Digital",
         },
-        image: "https://www.createverse.in/logo.png",
+        image: `${site.url}/icon-512.png`,
         description:
-          "CreateVerse is a growth & digital acquisition partner specializing in high-ticket real estate lead generation, immigration funnels, political war rooms, performance marketing, and modern web systems.",
-        telephone: site.phone,
+          "CreateVerse is a digital marketing agency headquartered in Karnal, Haryana, serving clients across India with Google Ads, Meta Ads, SEO, lead generation, social media, web development and political campaign management.",
+        telephone: site.phoneRaw,
         email: site.email,
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "Mughal Canal",
-          addressLocality: "Karnal",
-          addressRegion: "Haryana",
-          postalCode: "132001",
-          addressCountry: "IN",
-        },
+        address: postalAddress,
+        sameAs: [site.instagramUrl, site.mapsPlaceUrl],
         contactPoint: [
           {
             "@type": "ContactPoint",
-            telephone: site.phone,
+            telephone: site.phoneRaw,
             contactType: "customer service",
-            areaServed: ["IN", "AE", "CA", "GB"],
-            availableLanguage: ["English", "Hindi"],
+            areaServed: "IN",
+            availableLanguage: ["English", "Hindi", "Punjabi"],
           },
         ],
         knowsAbout: [
-          "Best Digital Marketing Agency in India",
-          "Best Digital Marketing Agency in Karnal",
-          "Best Digital Marketing Agency in Panipat",
-          "Best Digital Marketing Agency in Kurukshetra",
-          "Best Digital Marketing Agency in Kaithal",
-          "Best Digital Marketing Agency in Jind",
-          "Best Digital Marketing Agency in Yamunanagar",
-          "Performance Marketing India",
-          "B2B Lead Generation Agency India",
-          "Google Ads Agency India",
-          "Meta Ads Agency India",
-          "Local SEO & Google Maps Optimization",
-          "Political Campaign Management & Digital War Rooms",
-          "Election Strategy India",
-          "Randeep Singh Surjewala Campaign",
-          "Aditya Surjewala Election Strategy",
-          "Kewal Singh Dhillon BJP Punjab Campaign",
-          "Gurkirat Singh Kotli Campaign",
-          "Shamsher Singh Gogi Campaign",
-          "Bhupinder Lather Campaign",
-          "Rajiv Mamuram Gonder Campaign",
-          "Umesh Sharma Campaign",
+          "Digital Marketing",
+          "Performance Marketing",
+          "Search Engine Optimization",
+          "Local SEO",
+          "Google Ads",
+          "Meta Ads",
+          "Social Media Marketing",
+          "Lead Generation",
+          "Website Development",
           "Real Estate Lead Generation",
           "Immigration & Visa Marketing",
+          "Political Campaign Management",
         ],
       },
       {
         "@type": "ProfessionalService",
-        "@id": "https://www.createverse.in/#localbusiness",
-        name: "CreateVerse — Best Digital Marketing Agency | Growth & Acquisition Partner",
-        url: "https://www.createverse.in",
-        telephone: site.phone,
+        "@id": `${site.url}/#localbusiness`,
+        name: site.name,
+        legalName: site.legalName,
+        description:
+          "Digital marketing agency in Karnal, Haryana — Google Ads, Meta Ads, SEO, lead generation, social media marketing and website development for businesses in Karnal and across India.",
+        url: site.url,
+        image: `${site.url}/icon-512.png`,
+        logo: { "@id": `${site.url}/#logo` },
+        parentOrganization: { "@id": `${site.url}/#organization` },
+        telephone: site.phoneRaw,
         email: site.email,
-        priceRange: "$$",
-        currenciesAccepted: "INR, USD, AED",
+        priceRange: "₹₹",
+        currenciesAccepted: "INR",
         paymentAccepted: "Bank Transfer, UPI, Credit Card",
+        hasMap: site.mapsPlaceUrl,
+        sameAs: [site.instagramUrl, site.mapsPlaceUrl],
         openingHoursSpecification: [
           {
             "@type": "OpeningHoursSpecification",
             dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            opens: "09:00",
-            closes: "20:00",
+            opens: site.hours.opens,
+            closes: site.hours.closes,
           },
         ],
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "Mughal Canal",
-          addressLocality: "Karnal",
-          addressRegion: "Haryana",
-          postalCode: "132001",
-          addressCountry: "IN",
-        },
+        address: postalAddress,
         geo: {
           "@type": "GeoCoordinates",
-          latitude: 29.6857,
-          longitude: 76.9905,
+          latitude: site.geo.latitude,
+          longitude: site.geo.longitude,
         },
         areaServed: [
-          { "@type": "Country", name: "India" },
+          ...site.cities.map((c) => ({ "@type": "City", name: c.name })),
           { "@type": "State", name: "Haryana" },
           { "@type": "State", name: "Punjab" },
           { "@type": "State", name: "Delhi" },
-          { "@type": "State", name: "Uttar Pradesh" },
-          { "@type": "City", name: "Karnal" },
-          { "@type": "City", name: "Panipat" },
-          { "@type": "City", name: "Kurukshetra" },
-          { "@type": "City", name: "Kaithal" },
-          { "@type": "City", name: "Jind" },
-          { "@type": "City", name: "Yamunanagar" },
-          { "@type": "City", name: "Sonipat" },
-          { "@type": "City", name: "Ambala" },
-          { "@type": "City", name: "Gurgaon" },
-          { "@type": "City", name: "Faridabad" },
-          { "@type": "City", name: "Chandigarh" },
-          { "@type": "City", name: "Delhi" },
-          { "@type": "City", name: "Noida" },
+          { "@type": "Country", name: "India" },
         ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "Growth & Digital Acquisition Practices",
+          name: "Digital Marketing Services",
           itemListElement: [
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Google Ads Management",
+                description: "High-intent search, display, and YouTube ad campaigns with strict CPL caps.",
+                url: `${site.url}/services/google-ads`,
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Paid Social Marketing (Meta Ads)",
+                description: "Facebook and Instagram performance advertising designed for verified return on capital.",
+                url: `${site.url}/services/social-media-paid-ads`,
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "SEO & Content Marketing",
+                description: "Search-led content and on-page optimisation that builds lasting organic demand.",
+                url: `${site.url}/services/content-marketing`,
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Lead Generation",
+                description: "Full-funnel inquiry systems connecting ads, qualification, CRM routing and follow-up.",
+                url: `${site.url}/services/lead-generation`,
+              },
+            },
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
                 name: "Real Estate Lead Generation",
                 description: "End-to-end property buyer and investor funnels with site visit attribution.",
+                url: `${site.url}/services/real-estate-lead-generation`,
               },
             },
             {
@@ -397,6 +417,7 @@ export function getOrganizationJsonLd() {
                 "@type": "Service",
                 name: "Immigration & Visa Lead Generation",
                 description: "Consistent inquiry generation for study visa, work permit, and PR consultancies.",
+                url: `${site.url}/services/immigration-lead-generation`,
               },
             },
             {
@@ -405,22 +426,7 @@ export function getOrganizationJsonLd() {
                 "@type": "Service",
                 name: "Political Campaign Management & Digital War Room",
                 description: "24/7 digital war room operations, voter outreach, and rapid response narrative engineering.",
-              },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Google Ads Management",
-                description: "High-intent search, display, and YouTube ad campaigns with strict CPL caps.",
-              },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Paid Social Marketing",
-                description: "Meta and multi-channel performance advertising designed for verified return on capital.",
+                url: `${site.url}/services/political-management`,
               },
             },
             {
@@ -429,6 +435,7 @@ export function getOrganizationJsonLd() {
                 "@type": "Service",
                 name: "Conversion-Led Web Development",
                 description: "Sub-second Next.js web experiences and campaign landing pages built to convert.",
+                url: `${site.url}/services/web-development`,
               },
             },
           ],
@@ -436,16 +443,57 @@ export function getOrganizationJsonLd() {
       },
       {
         "@type": "WebSite",
-        "@id": "https://www.createverse.in/#website",
-        url: "https://www.createverse.in",
-        name: "CreateVerse",
-        description: "Growth & Digital Acquisition Partner",
+        "@id": `${site.url}/#website`,
+        url: site.url,
+        name: site.name,
+        alternateName: "Create Verse",
+        description: "Digital marketing agency in Karnal, India",
         publisher: {
-          "@id": "https://www.createverse.in/#organization",
+          "@id": `${site.url}/#organization`,
         },
-        inLanguage: "en-US",
+        inLanguage: "en-IN",
       },
     ],
+  };
+}
+
+// 1b. Homepage FAQ — the same questions are rendered visibly on the page
+export const homeFaqs = [
+  {
+    q: "Which is the best digital marketing agency in Karnal?",
+    a: "CreateVerse is a full-service digital marketing agency headquartered at Mughal Canal, Karnal. One in-house team handles Google Ads, Meta Ads, SEO, lead generation, social media and website development, and reports on leads and revenue rather than likes. Whichever agency you shortlist, judge it on proof: ask to see live campaigns, client references and the reports you would actually receive.",
+  },
+  {
+    q: "Where is the CreateVerse office in Karnal?",
+    a: `Our office is at ${site.address}. We are open ${site.hours.label}. Call or WhatsApp ${site.phone} before visiting so the right person is available for you.`,
+  },
+  {
+    q: "Do you only work with businesses in Karnal?",
+    a: "No. Karnal is our headquarters, and we work with clients across Haryana — Panipat, Kurukshetra, Kaithal, Jind and Yamunanagar — as well as Punjab, Delhi NCR and the rest of India. Clients outside Karnal work with the same team over calls, WhatsApp and shared reporting dashboards.",
+  },
+  {
+    q: "What digital marketing services does CreateVerse offer?",
+    a: "Google Ads, Meta (Facebook and Instagram) Ads, SEO and content marketing, lead generation systems, social media management, website and landing page development, creative and graphic design, influencer marketing, and political campaign management.",
+  },
+  {
+    q: "How do I get started with CreateVerse?",
+    a: `Send an enquiry from this page, or call or WhatsApp ${site.phone}. We begin with a free 30-minute strategy conversation about your business, budget and goals, and follow up with clear next steps.`,
+  },
+];
+
+export function getFaqJsonLd(faqs: { q: string; a: string }[], pageUrl: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${pageUrl}#faq`,
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a,
+      },
+    })),
   };
 }
 
@@ -461,11 +509,7 @@ export function getServiceJsonLd(service: Service) {
       alternateName: service.shortName,
       description: service.description,
       url: serviceUrl,
-      provider: {
-        "@type": "Organization",
-        name: site.name,
-        url: "https://www.createverse.in",
-      },
+      provider: { "@id": `${site.url}/#organization` },
       serviceType: service.category,
       areaServed: {
         "@type": "Country",
@@ -543,11 +587,7 @@ export function getPoliticalManagementJsonLd() {
         description:
           "Elite political campaign management, booth-level voter micro-targeting, narrative engineering, and 24/7 rapid response digital war rooms for elected leaders and ambitious candidates.",
         url: pageUrl,
-        provider: {
-          "@type": "Organization",
-          name: site.name,
-          url: "https://www.createverse.in",
-        },
+        provider: { "@id": `${site.url}/#organization` },
         serviceType: "Political Consulting & War Room",
         areaServed: {
           "@type": "Country",
@@ -596,91 +636,39 @@ export function getBreadcrumbJsonLd(items: { name: string; url: string }[]) {
   };
 }
 
-// 5. Local Business & Location-Specific JSON-LD
+// 5. Location-Specific JSON-LD
+// Each city page describes a service area of the one real office in Karnal. Marking the other
+// cities up as separate LocalBusiness listings would claim addresses that don't exist.
 export function getLocationJsonLd(location: LocationData) {
-  const pageUrl = `https://www.createverse.in/locations/${location.slug}`;
+  const pageUrl = `${site.url}/locations/${location.slug}`;
 
   return {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": ["ProfessionalService", "LocalBusiness"],
-        "@id": `${pageUrl}#localbusiness`,
-        name: `CreateVerse — ${location.headline}`,
-        alternateName: `Best Digital Marketing Agency in ${location.name}`,
+        "@type": "Service",
+        "@id": `${pageUrl}#service`,
+        name: `Digital Marketing Services in ${location.name}`,
+        serviceType: "Digital marketing",
+        description: location.metaDescription,
         url: pageUrl,
-        telephone: site.phone,
-        email: site.email,
-        priceRange: "$$",
-        currenciesAccepted: "INR, USD, AED",
-        paymentAccepted: "Bank Transfer, UPI, Credit Card",
-        openingHoursSpecification: [
-          {
-            "@type": "OpeningHoursSpecification",
-            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            opens: "09:00",
-            closes: "20:00",
-          },
-        ],
-        address: {
-          "@type": "PostalAddress",
-          ...location.address,
+        provider: { "@id": `${site.url}/#localbusiness` },
+        areaServed: {
+          "@type": "City",
+          name: location.name,
+          containedInPlace: { "@type": "State", name: "Haryana" },
         },
-        geo: {
-          "@type": "GeoCoordinates",
-          latitude: location.geo.latitude,
-          longitude: location.geo.longitude,
-        },
-        areaServed: [
-          { "@type": "City", name: location.name },
-          { "@type": "State", name: "Haryana" },
-          { "@type": "Country", name: "India" },
-        ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",
           name: `Digital Marketing Services in ${location.name}`,
-          itemListElement: [
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Performance Marketing & Paid Ads",
-                description: `High ROAS Google and Meta ads management for ${location.name} businesses.`,
-              },
+          itemListElement: location.coreServices.map((service) => ({
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: `${service.title} in ${location.name}`,
+              description: service.description,
             },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "High-Intent Lead Generation",
-                description: `Verified buyer lead generation funnels for real estate, exports, and services in ${location.name}.`,
-              },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Local SEO & Google Maps Ranking",
-                description: `Map pack dominance and organic search ranking across ${location.name} and Haryana.`,
-              },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Next.js Web Development",
-                description: "Sub-second conversion-first website and landing page design.",
-              },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Political Campaign Management & War Rooms",
-                description: "Booth-level voter outreach and 24/7 digital war room operations.",
-              },
-            },
-          ],
+          })),
         },
       },
       {
@@ -703,13 +691,13 @@ export function getLocationJsonLd(location: LocationData) {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://www.createverse.in",
+            item: site.url,
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Locations",
-            item: "https://www.createverse.in/locations",
+            item: `${site.url}/locations`,
           },
           {
             "@type": "ListItem",
@@ -722,4 +710,3 @@ export function getLocationJsonLd(location: LocationData) {
     ],
   };
 }
-

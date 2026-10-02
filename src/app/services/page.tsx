@@ -7,7 +7,7 @@ import PageHero from "@/components/page-hero";
 import Reveal from "@/components/reveal";
 
 export const metadata: Metadata = {
-  title: "Services & Practices — Lead Generation, Paid Ads & Political Management | CreateVerse",
+  title: "Digital Marketing Services — Ads, SEO, Leads & Web",
   description:
     "Explore CreateVerse specialized practices: real estate lead generation, immigration funnels, Google Ads, paid social, 24/7 political war rooms, conversion web development, and full-funnel acquisition systems.",
   keywords: [

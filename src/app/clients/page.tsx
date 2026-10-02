@@ -5,7 +5,7 @@ import PoliticalClients from "@/components/political-clients";
 import FinalCTA from "@/components/final-cta";
 
 export const metadata: Metadata = {
-  title: "Clients & Strategic Partners | CreateVerse",
+  title: "Clients & Strategic Partners",
   description:
     "Explore CreateVerse clients across political campaign management, real estate acquisitions, immigration consultancies, and performance marketing operations.",
   keywords: [
