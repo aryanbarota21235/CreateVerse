@@ -16,7 +16,6 @@ export default function Navbar() {
   useEffect(() => {
     let ticking = false;
     const onScroll = () => {
-      if (window.innerWidth < 640) return;
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const isScrolled = window.scrollY > 30;
@@ -39,13 +38,13 @@ export default function Navbar() {
     <header className="fixed inset-x-0 top-2 sm:top-5 z-50 px-3 sm:px-8 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]">
       {/* Maximum luxury width floating pill dock */}
       <div
-        className={`navbar-dock mx-auto flex items-center justify-between rounded-full bg-white pointer-events-auto border border-stone-200/90 sm:border-black/[0.12] shadow-[0_8px_24px_rgba(11,15,25,0.08)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] py-2.5 px-5 sm:px-12 ${
+        className={`navbar-dock mx-auto flex items-center justify-between rounded-full bg-white pointer-events-auto border border-stone-200/90 sm:border-black/[0.12] shadow-[0_8px_24px_rgba(11,15,25,0.08)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           scrolled
-            ? "sm:max-w-6xl sm:py-2.5 sm:px-10 sm:shadow-[0_12px_32px_rgba(11,15,25,0.1)]"
-            : "sm:max-w-7xl sm:py-3.5 sm:px-12 sm:shadow-[0_8px_30px_rgba(11,15,25,0.08)]"
+            ? "max-w-[94%] py-1.5 px-4 sm:max-w-6xl sm:py-2.5 sm:px-10 sm:shadow-[0_12px_32px_rgba(11,15,25,0.1)]"
+            : "max-w-full py-2.5 px-5 sm:max-w-7xl sm:py-3.5 sm:px-12 sm:shadow-[0_8px_30px_rgba(11,15,25,0.08)]"
         }`}
       >
-        {/* Brand Logo - Fixed size on mobile, Smooth luxury scale transition on desktop */}
+        {/* Brand Logo - shrinks with the dock once the page is scrolled */}
         <Link
           href="/"
           prefetch={true}
@@ -58,8 +57,8 @@ export default function Navbar() {
             width={360}
             height={148}
             priority
-            className={`w-auto h-[40px] sm:transition-all sm:duration-300 sm:ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              scrolled ? "sm:h-11" : "sm:h-[50px] lg:h-[54px]"
+            className={`w-auto transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              scrolled ? "h-[33px] sm:h-11" : "h-[40px] sm:h-[50px] lg:h-[54px]"
             }`}
           />
         </Link>
