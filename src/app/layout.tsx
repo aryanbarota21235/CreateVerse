@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, Inter_Tight } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -13,17 +13,16 @@ import WhatsAppWidget from "@/components/whatsapp-widget";
 
 import { siteKeywords, getOrganizationJsonLd } from "@/lib/seo";
 
-const inter = Inter({
+const sans = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const grotesk = Space_Grotesk({
-  subsets: ["latin"],
+const display = Inter_Tight({
+  subsets: ["latin", "latin-ext"],
   variable: "--font-display",
   display: "swap",
-  weight: ["400", "500", "600", "700"],
 });
 
 
@@ -116,7 +115,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const organizationJsonLd = getOrganizationJsonLd();
 
   return (
-    <html lang="en" className={`${inter.variable} ${grotesk.variable}`}>
+    <html lang="en" className={`${sans.variable} ${display.variable}`}>
       <head>
         <meta name="theme-color" content="#FAF7F2" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />

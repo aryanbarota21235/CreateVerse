@@ -70,6 +70,14 @@
     background-image: radial-gradient(rgba(11, 15, 25, 0.04) 1px, transparent 1px);
     background-size: 24px 24px;
   }
+  .fade-edges-y {
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 70%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 70%, transparent);
+  }
+  .fade-bottom {
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+    mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  }
   .reveal-wrapper {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -243,5 +251,136 @@ body {
     transform: translate3d(0, 0, 0);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+  }
+}
+
+/* ==========================================================================
+   Decorative illustrations
+   Light pulses travel along beam tracks and nodes float gently. All motion is
+   switched off for visitors who ask for reduced motion.
+   ========================================================================== */
+@keyframes beamFlow {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+@keyframes floatSoft {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+@keyframes nodeRing {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+@keyframes seqPulse {
+  0%, 55%, 100% {
+    opacity: 0;
+  }
+  12%, 32% {
+    opacity: 1;
+  }
+}
+@keyframes starPop {
+  0%, 100% {
+    opacity: 0.25;
+  }
+  20%, 72% {
+    opacity: 1;
+  }
+}
+@keyframes dotBounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-5px);
+  }
+}
+@keyframes railPulse {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(720%);
+  }
+}
+@keyframes flowDash {
+  to {
+    stroke-dashoffset: -280;
+  }
+}
+
+.beam-pulse {
+  stroke-dasharray: 110 890;
+  animation: beamFlow 3.6s linear infinite;
+}
+.float-soft {
+  animation: floatSoft 6s ease-in-out infinite;
+}
+.node-ring {
+  animation: nodeRing 2.4s ease-out infinite;
+}
+.flow-dash {
+  animation: flowDash 14s linear infinite;
+}
+.rail-pulse {
+  animation: railPulse 4.5s linear infinite;
+}
+.ring-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nodeRing 2.4s ease-out infinite;
+}
+.seq-pulse {
+  opacity: 0;
+  animation: seqPulse 3.6s ease-in-out infinite;
+}
+.star-pop {
+  animation: starPop 3.5s ease-in-out infinite;
+}
+.dot-bounce {
+  animation: dotBounce 1.4s ease-in-out infinite;
+}
+/* Beams dissolve before they reach the headline copy in the middle */
+.beam-fade-center {
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 15%, transparent 24%, transparent 76%, #000 85%, #000 100%);
+  mask-image: linear-gradient(to right, #000 0%, #000 15%, transparent 24%, transparent 76%, #000 85%, #000 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beam-pulse {
+    animation: none;
+    opacity: 0;
+  }
+  .float-soft,
+  .node-ring,
+  .flow-dash {
+    animation: none;
+  }
+  .rail-pulse {
+    animation: none;
+    opacity: 0;
+  }
+  .ring-pulse,
+  .star-pop,
+  .dot-bounce {
+    animation: none;
+  }
+  .seq-pulse {
+    animation: none;
+    opacity: 0.6;
+  }
+  .motion-only {
+    display: none;
   }
 }

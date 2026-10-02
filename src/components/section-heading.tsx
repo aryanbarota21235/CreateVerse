@@ -11,11 +11,13 @@ interface Props {
 export default function SectionHeading({ eyebrow, title, description, dark = false, align = "left" }: Props) {
   return (
     <Reveal className={align === "center" ? "text-center" : ""}>
-      <p className={`text-xs font-bold uppercase tracking-[0.22em] ${dark ? "text-brand-orange" : "text-accent"}`}>
+      <p className={`inline-flex items-center gap-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-[0.22em] ${dark ? "text-brand-orange" : "text-accent"}`}>
+        <span className="h-px w-6 bg-current opacity-60" />
         {eyebrow}
+        {align === "center" && <span className="h-px w-6 bg-current opacity-60" />}
       </p>
       <h2
-        className={`text-balance mt-3 font-display text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tightest ${
+        className={`text-balance mt-3 font-display text-[28px] leading-[1.1] sm:text-4xl lg:text-5xl font-bold tracking-tight ${
           dark ? "text-white" : "text-ink"
         } ${align === "center" ? "mx-auto max-w-3xl" : "max-w-3xl"}`}
       >

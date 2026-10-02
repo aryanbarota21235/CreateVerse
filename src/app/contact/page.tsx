@@ -98,6 +98,7 @@ export default function ContactPage() {
       />
       <PageHero
         breadcrumb="Contact"
+        art="contact"
         eyebrow="Contact & Consultations"
         title={
           <>

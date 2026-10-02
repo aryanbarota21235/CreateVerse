@@ -65,7 +65,7 @@ export default function LeadForm({
 
   const containerCls = embedded
     ? `text-ink ${className}`
-    : `rounded-2xl sm:rounded-3xl border border-stone-200 bg-white p-4 sm:p-8 shadow-xl sm:shadow-2xl text-ink ${className}`;
+    : `rounded-3xl sm:rounded-[32px] bg-white p-5 sm:p-9 shadow-soft ring-1 ring-black/[0.04] text-ink ${className}`;
 
   return (
     <form onSubmit={onSubmit} className={containerCls}>

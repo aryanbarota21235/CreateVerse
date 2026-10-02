@@ -5,14 +5,17 @@ import { Check } from "lucide-react";
 export default function FinalCTA() {
   return (
     <section className="relative overflow-hidden bg-paper border-t border-stone-200/80 pt-12 pb-10 sm:pt-20 sm:pb-16 lg:pt-24 lg:pb-20">
-      <div className="grid-texture-light absolute inset-0 opacity-40 pointer-events-none" />
+      <div className="dot-texture fade-bottom absolute inset-0 opacity-60 pointer-events-none" />
       <div className="hidden sm:block absolute -left-32 top-0 h-[380px] w-[380px] rounded-full bg-[radial-gradient(circle,rgba(255,237,213,0.45)_0%,rgba(255,237,213,0.1)_45%,transparent_70%)] pointer-events-none" />
       <div className="hidden sm:block absolute -right-32 bottom-0 h-[380px] w-[380px] rounded-full bg-[radial-gradient(circle,rgba(2,132,199,0.25)_0%,rgba(2,132,199,0.06)_45%,transparent_70%)] pointer-events-none" />
       <div className="container-site relative">
         <div className="grid items-center gap-8 sm:gap-14 lg:grid-cols-2">
           <Reveal>
-            <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.22em] text-accent">Let&apos;s Talk</p>
-            <h2 className="text-balance mt-2.5 sm:mt-4 font-display text-2xl sm:text-5xl lg:text-6xl font-bold tracking-tightest text-ink">
+            <p className="inline-flex items-center gap-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.22em] text-accent">
+              <span className="h-px w-6 bg-current opacity-60" />
+              Let&apos;s Talk
+            </p>
+            <h2 className="text-balance mt-2.5 sm:mt-4 font-display text-[32px] leading-[1.08] sm:text-5xl lg:text-6xl font-bold tracking-tight text-ink">
               Ready to build your next{" "}
               <span className="text-accent">growth engine?</span>
             </h2>

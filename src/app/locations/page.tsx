@@ -5,6 +5,7 @@ import { locations } from "@/lib/locations";
 import { site } from "@/lib/site";
 import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
 import FinalCTA from "@/components/final-cta";
+import { PageArt, PageArtInline } from "@/components/page-art";
 
 export const metadata: Metadata = {
   title: "Locations & Regional Hubs | Best Digital Marketing Agency in Haryana — CreateVerse",
@@ -58,7 +59,8 @@ export default function LocationsHubPage() {
 
       {/* Hero Header */}
       <section className="relative overflow-hidden pt-6 pb-12 sm:pt-10 sm:pb-16 border-b border-stone-200/80">
-        <div className="grid-texture-light absolute inset-0 opacity-40 pointer-events-none" />
+        <div className="dot-texture absolute inset-0 opacity-80 pointer-events-none" />
+        <PageArt variant="locations" className="top-16" />
         <div className="container-site relative">
           <Reveal>
             <div className="max-w-3xl">
@@ -89,6 +91,8 @@ export default function LocationsHubPage() {
                   <span>Weekly In-Person Strategy Reviews</span>
                 </div>
               </div>
+
+              <PageArtInline variant="locations" className="mt-8" />
             </div>
           </Reveal>
         </div>

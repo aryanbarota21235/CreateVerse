@@ -17,15 +17,25 @@ export default function ProcessSection() {
           title="Four steps. No mystery."
           description="A disciplined operating rhythm that keeps strategy honest and execution fast."
         />
-        <Stagger className="mt-8 sm:mt-16 grid grid-cols-2 gap-2.5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4" delayChildren={0.12}>
+        {/* A single timeline rail with a node per step, instead of four boxes */}
+        <Stagger className="mt-10 sm:mt-16 grid grid-cols-2 gap-y-9 lg:grid-cols-4" delayChildren={0.12}>
           {steps.map((s, i) => (
             <StaggerItem key={s.num}>
-              <div className="group relative h-full rounded-xl sm:rounded-2xl border border-black/[0.1] sm:border-black/[0.12] bg-white p-3.5 sm:p-8 shadow-xs sm:shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift">
-                <span className={`font-display text-2xl sm:text-5xl font-bold tracking-tight ${i % 2 === 0 ? "text-accent/40" : "text-brand-orange/45"}`}>
+              <div className="group relative h-full border-t border-ink/10 pr-5 pt-6 sm:pr-10 sm:pt-9">
+                <span
+                  className={`absolute -top-[5px] left-0 h-[9px] w-[9px] rounded-full ring-4 ring-paper transition-transform duration-300 group-hover:scale-150 ${
+                    i % 2 === 0 ? "bg-accent" : "bg-brand-orange"
+                  }`}
+                />
+                <span
+                  className={`block font-display text-5xl sm:text-7xl font-bold leading-none tracking-tight ${
+                    i % 2 === 0 ? "text-accent" : "text-brand-orange"
+                  }`}
+                >
                   {s.num}
                 </span>
-                <h3 className="mt-2 sm:mt-6 font-display text-xs sm:text-2xl font-bold text-ink leading-snug">{s.title}</h3>
-                <p className="mt-1 sm:mt-3 text-[10.5px] sm:text-sm leading-relaxed text-ink/80 font-normal line-clamp-3 sm:line-clamp-none">{s.desc}</p>
+                <h3 className="mt-4 sm:mt-7 font-display text-lg sm:text-2xl font-bold tracking-tight text-ink leading-snug">{s.title}</h3>
+                <p className="mt-1.5 sm:mt-3 text-[13px] sm:text-sm leading-relaxed text-ink/70 font-normal">{s.desc}</p>
               </div>
             </StaggerItem>
           ))}

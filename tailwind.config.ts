@@ -21,6 +21,13 @@ const config: Config = {
           dim: "#0369A1",
           ink: "#FFFFFF",
         },
+        // Card and divider hairlines sitewide use stone-200/300. Retuned cooler and
+        // lighter to sit on the slate paper background, so cards read as soft
+        // surfaces instead of outlined boxes.
+        stone: {
+          200: "#E9EDF2",
+          300: "#D5DBE3",
+        },
         brand: {
           orange: "#EA580C",
           orangedark: "#C2410C",
@@ -36,8 +43,11 @@ const config: Config = {
         tightest: "-0.045em",
       },
       boxShadow: {
-        card: "0 2px 8px rgba(11,15,25,0.05), 0 1px 3px rgba(11,15,25,0.06)",
+        "2xs": "0 1px 2px rgba(11,15,25,0.04)",
+        xs: "0 1px 2px rgba(11,15,25,0.04), 0 6px 16px -6px rgba(11,15,25,0.07)",
+        card: "0 1px 2px rgba(11,15,25,0.04), 0 10px 28px -10px rgba(11,15,25,0.10)",
         lift: "0 8px 24px rgba(11,15,25,0.08), 0 2px 6px rgba(11,15,25,0.04)",
+        soft: "0 1px 2px rgba(11,15,25,0.04), 0 18px 48px -16px rgba(11,15,25,0.12)",
       },
       animation: {
         "pulse-soft": "pulseSoft 3s ease-in-out infinite",

@@ -23,7 +23,7 @@ export default function PoliticalClients({
   const renderClientCard = (p: PoliticianClient) => (
     <div
       key={p.name}
-      className="group h-full flex flex-col items-center justify-between text-center p-3 sm:py-5 sm:px-3 rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-md"
+      className="group h-full flex flex-col items-center justify-between text-center px-1 py-2 sm:px-2 sm:py-3 transition-transform duration-300 hover:-translate-y-1"
     >
       {/* Clickable Portrait and Info Header */}
       {p.href ? (
@@ -34,7 +34,7 @@ export default function PoliticalClients({
         >
           {/* Circular Portrait with Concentric Clean Ring */}
           <div className="relative mb-3 sm:mb-4 shrink-0">
-            <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:scale-105 group-hover:shadow-md">
+            <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-1 bg-white shadow-soft ring-1 ring-black/[0.05] transition-all duration-300 group-hover:scale-105 group-hover:ring-accent/40">
               <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
                 <Image
                   src={p.image}
@@ -82,7 +82,7 @@ export default function PoliticalClients({
       ) : (
         <div className="flex flex-col items-center w-full grow">
           <div className="relative mb-3 sm:mb-4 shrink-0">
-            <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:scale-105 group-hover:shadow-md">
+            <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-1 bg-white shadow-soft ring-1 ring-black/[0.05] transition-all duration-300 group-hover:scale-105 group-hover:ring-accent/40">
               <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
                 <Image
                   src={p.image}
@@ -124,13 +124,13 @@ export default function PoliticalClients({
 
       {/* Social Media Links Pills */}
       {Boolean(p.socials?.instagram || p.socials?.facebook || p.socials?.twitter) && (
-        <div className="mt-3 pt-2.5 sm:mt-4 sm:pt-3 border-t border-stone-200/80 w-full flex items-center justify-center gap-1.5 sm:gap-2">
+        <div className="mt-2.5 sm:mt-3 w-full flex items-center justify-center gap-1 sm:gap-1.5">
           {p.socials.instagram && (
             <a
               href={p.socials.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-[#E4405F] hover:border-[#E4405F]/40 hover:bg-[#E4405F]/[0.05] transition-all shadow-2xs hover:scale-110"
+              className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full text-stone-500 hover:text-[#E4405F] hover:bg-stone-100 transition-all hover:scale-110"
               aria-label={`${p.name} Instagram`}
             >
               <InstagramIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
@@ -141,7 +141,7 @@ export default function PoliticalClients({
               href={p.socials.facebook}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-[#1877F2] hover:border-[#1877F2]/40 hover:bg-[#1877F2]/[0.05] transition-all shadow-2xs hover:scale-110"
+              className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full text-stone-500 hover:text-[#1877F2] hover:bg-stone-100 transition-all hover:scale-110"
               aria-label={`${p.name} Facebook`}
             >
               <FacebookIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
@@ -152,7 +152,7 @@ export default function PoliticalClients({
               href={p.socials.twitter}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-white border border-stone-200 text-stone-600 hover:text-black hover:border-black/40 hover:bg-stone-100 transition-all shadow-2xs hover:scale-110"
+              className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full text-stone-500 hover:text-black hover:bg-stone-100 transition-all hover:scale-110"
               aria-label={`${p.name} X`}
             >
               <XIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
@@ -177,7 +177,7 @@ export default function PoliticalClients({
 
         {/* Primary 6 Politician Cards */}
         <div className="mt-8 sm:mt-10">
-          <Stagger className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3 lg:grid-cols-6 items-stretch" delayChildren={0.02}>
+          <Stagger className="grid grid-cols-2 gap-x-3 gap-y-7 sm:gap-x-4 sm:gap-y-10 sm:grid-cols-3 lg:grid-cols-6 items-stretch" delayChildren={0.02}>
             {primaryClients.map((p) => (
               <StaggerItem key={p.name} className="h-full">
                 {renderClientCard(p)}
@@ -194,7 +194,7 @@ export default function PoliticalClients({
                 exit={{ opacity: 0, height: 0, transition: { duration: 0.26, ease: [0.16, 1, 0.3, 1] } }}
                 className="overflow-hidden"
               >
-                <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3 lg:grid-cols-6 items-stretch pt-3 sm:pt-4">
+                <div className="grid grid-cols-2 gap-x-3 gap-y-7 sm:gap-x-4 sm:gap-y-10 sm:grid-cols-3 lg:grid-cols-6 items-stretch pt-7 sm:pt-10">
                   {secondaryClients.map((p) => renderClientCard(p))}
                 </div>
               </motion.div>
@@ -208,7 +208,7 @@ export default function PoliticalClients({
             <button
               type="button"
               onClick={() => setExpanded((prev) => !prev)}
-              className="pressable group inline-flex items-center gap-2 rounded-full border border-black/[0.14] bg-white px-6 py-2.5 sm:px-7 sm:py-3 text-[11px] sm:text-xs font-bold uppercase tracking-[0.16em] sm:tracking-[0.18em] text-ink shadow-card transition-all duration-150 hover:-translate-y-0.5 hover:border-accent hover:text-accent cursor-pointer"
+              className="pressable group inline-flex items-center gap-2 rounded-full bg-white px-6 py-2.5 sm:px-7 sm:py-3 text-[11px] sm:text-xs font-bold uppercase tracking-[0.16em] sm:tracking-[0.18em] text-ink shadow-soft ring-1 ring-black/[0.06] transition-all duration-150 hover:-translate-y-0.5 hover:ring-accent hover:text-accent cursor-pointer"
             >
               <span>{expanded ? "Collapse Clients" : "See More"}</span>
               <ChevronDown

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 const servicesList = [
   {
@@ -92,42 +92,45 @@ export default function ServicesExplorer() {
   const { openEnquiry } = useEnquiry();
 
   return (
-    <section className="bg-paper py-14 sm:py-20 lg:py-28 scroll-mt-20 border-t border-stone-200" id="services">
+    <section className="bg-paper py-14 sm:py-20 lg:py-28 scroll-mt-20" id="services">
       <div className="container-site">
-        <div className="max-w-3xl pb-6 sm:pb-10 border-b border-stone-200">
-          <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-accent">
+        <div className="max-w-3xl">
+          <p className="inline-flex items-center gap-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-accent">
+            <span className="hidden sm:block h-px w-6 bg-current opacity-60" />
             Acquisition Architecture &amp; Core Practices
           </p>
-          <h2 className="text-balance mt-2.5 sm:mt-3 font-display text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-ink">
-            Everything growth needs, under one roof.
+          <h2 className="text-balance mt-2.5 sm:mt-3 font-display text-[28px] leading-[1.1] sm:text-4xl lg:text-5xl font-bold tracking-tight text-ink">
+            Everything growth needs, <span className="text-accent">under one roof.</span>
           </h2>
-          <p className="mt-2 sm:mt-3 text-xs sm:text-base leading-relaxed text-ink/80 font-normal">
+          <p className="mt-3 sm:mt-4 text-[13px] sm:text-base leading-relaxed text-ink/70 font-normal">
             Explore our 16 specialized growth practices. Click any practice to view deliverables, acquisition process and past case results.
           </p>
         </div>
 
-        {/* Responsive Capsule Grid: 2 Columns on Mobile, 4 Columns on Desktop */}
-        <div className="mt-6 sm:mt-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3.5">
-          {servicesList.map((item) => (
+        {/* Editorial index: hairline rows instead of capsules */}
+        <div className="mt-6 sm:mt-10 grid grid-cols-2 lg:grid-cols-4 gap-x-5 sm:gap-x-8 lg:gap-x-10 border-t border-ink/10">
+          {servicesList.map((item, i) => (
             <Link
               key={item.slug}
               href={`/services/${item.slug}`}
               prefetch={true}
-              className="capsnpills-pill group flex items-center justify-center rounded-full px-3 py-2.5 sm:px-5 sm:py-3 text-center text-[11px] sm:text-sm font-semibold select-none cursor-pointer"
+              className="group flex items-center justify-between gap-2 border-b border-ink/10 py-3 sm:py-4 text-[12px] sm:text-sm xl:text-[15px] font-semibold text-ink/85 transition-colors duration-200 hover:border-accent hover:text-accent select-none cursor-pointer"
             >
-              <span className="truncate tracking-tight sm:hidden">
-                {item.shortName}
+              <span className="flex min-w-0 items-baseline gap-2 sm:gap-3">
+                <span className="font-display text-[10px] sm:text-xs font-semibold tabular-nums text-ink/30 transition-colors group-hover:text-accent/60">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="truncate tracking-tight sm:hidden">{item.shortName}</span>
+                <span className="truncate tracking-tight hidden sm:inline">{item.name}</span>
               </span>
-              <span className="truncate tracking-tight hidden sm:inline">
-                {item.name}
-              </span>
+              <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 text-ink/25 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
             </Link>
           ))}
         </div>
 
         {/* Bottom CTA / Scope Browser with Enquire Now button */}
-        <div className="mt-8 sm:mt-12 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 rounded-2xl border border-stone-200 bg-white/70 backdrop-blur-sm p-4 sm:px-6 sm:py-4 shadow-sm">
-          <p className="text-xs sm:text-sm font-medium text-stone-600 text-center sm:text-left">
+        <div className="mt-8 sm:mt-12 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+          <p className="text-[13px] sm:text-base font-medium text-ink/70 text-center sm:text-left">
             Need a custom acquisition engine combining multiple practices?
           </p>
           <div className="flex items-center gap-2 sm:gap-2.5 w-full sm:w-auto shrink-0">

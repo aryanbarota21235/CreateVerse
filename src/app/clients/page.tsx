@@ -43,6 +43,7 @@ export default function ClientsPage() {
     <>
       <PageHero
         breadcrumb="Clients"
+        art="clients"
         eyebrow="CreateVerse Clients"
         title={
           <>

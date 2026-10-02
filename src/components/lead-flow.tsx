@@ -1,8 +1,9 @@
 "use client";
 
-import { ArrowRight, ArrowDownLeft, Globe, LayoutTemplate, MousePointerClick, CheckCircle2, MessageSquare, Handshake } from "lucide-react";
+import { ArrowRight, Globe, LayoutTemplate, MousePointerClick, CheckCircle2, MessageSquare, Handshake } from "lucide-react";
 import SectionHeading from "@/components/section-heading";
 import Reveal from "@/components/reveal";
+import { PulseRail } from "@/components/illustrations";
 import { useEnquiry } from "@/context/enquiry-context";
 
 const stages = [
@@ -18,8 +19,7 @@ export default function LeadFlow() {
   const { openEnquiry } = useEnquiry();
 
   return (
-    <section className="relative overflow-hidden bg-white py-14 sm:py-20 lg:py-32 border-t border-stone-200">
-      <div className="dot-texture absolute inset-0 opacity-40" />
+    <section className="relative overflow-hidden bg-white py-14 sm:py-20 lg:py-32">
       <div className="container-site relative">
         <SectionHeading
           eyebrow="Lead Generation Systems"
@@ -28,56 +28,65 @@ export default function LeadFlow() {
           align="center"
         />
 
-        <div className="relative mt-10 sm:mt-16 lg:mt-20">
-          {/* Original Desktop Connecting Gradient Line */}
-          <div className="absolute left-0 right-0 top-[34px] hidden h-0.5 bg-gradient-to-r from-transparent via-accent/40 to-transparent lg:block" />
+        <div className="relative mx-auto mt-10 max-w-md sm:mt-16 lg:mt-20 lg:max-w-none">
+          {/* Desktop: a flowing pipeline running behind the stage nodes */}
+          <svg
+            viewBox="0 0 1200 72"
+            fill="none"
+            aria-hidden="true"
+            preserveAspectRatio="none"
+            className="absolute inset-x-0 top-0 hidden h-[72px] w-full lg:block"
+          >
+            <defs>
+              <linearGradient id="flow-stroke" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#0284C7" stopOpacity="0" />
+                <stop offset="0.06" stopColor="#0284C7" stopOpacity="0.7" />
+                <stop offset="0.7" stopColor="#0284C7" stopOpacity="0.5" />
+                <stop offset="1" stopColor="#EA580C" stopOpacity="0.75" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M0 36 C 50 12 150 12 200 36 S 350 60 400 36 S 550 12 600 36 S 750 60 800 36 S 950 12 1000 36 S 1150 60 1200 36"
+              stroke="url(#flow-stroke)"
+              strokeWidth={1.5}
+              strokeDasharray="5 9"
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+              className="flow-dash"
+            />
+          </svg>
 
-          <div className="grid grid-cols-2 gap-3.5 sm:gap-6 lg:grid-cols-6 lg:gap-4 relative">
-            {stages.map((s, i) => {
-              const isLast = i === stages.length - 1;
-              const isLeftColumn = i % 2 === 0;
-              const isRightColumn = i % 2 === 1;
+          {/* Mobile: a vertical rail linking the nodes */}
+          <PulseRail className="absolute bottom-6 left-[21px] top-6 h-[calc(100%-3rem)] w-0.5 sm:left-[25px] lg:hidden" />
 
-              return (
-                <Reveal key={s.title} delay={i * 0.08} className="relative h-full">
-                  <div className="group relative h-full flex flex-col items-center lg:items-start text-center lg:text-left p-3.5 sm:p-4 lg:p-0 rounded-2xl lg:rounded-none bg-[#F8FAFC]/70 lg:bg-transparent border border-stone-200/80 lg:border-0">
-                    {/* Original Circular Icon Container with Orange Number Badge */}
-                    <div className="relative mx-auto flex h-12 w-12 sm:h-14 sm:w-14 lg:h-[68px] lg:w-[68px] items-center justify-center rounded-xl lg:rounded-2xl border border-black/[0.1] lg:border-black/[0.12] bg-white lg:bg-[#F8FAFC] shadow-xs lg:shadow-card transition-all duration-300 group-hover:-translate-y-1 hover:border-accent group-hover:shadow-lift lg:mx-0">
-                      <s.icon className="h-5 w-5 sm:h-6 sm:w-6 text-accent" />
-                      <span className="absolute -right-1.5 -top-1.5 lg:-right-2 lg:-top-2 flex h-5 w-5 lg:h-6 lg:w-6 items-center justify-center rounded-full bg-brand-orange font-display text-[10px] lg:text-[11px] font-bold text-white">
-                        {i + 1}
-                      </span>
-                    </div>
+          <div className="relative grid grid-cols-1 gap-6 sm:gap-7 lg:grid-cols-6 lg:gap-4">
+            {stages.map((s, i) => (
+              <Reveal key={s.title} delay={i * 0.08} className="relative h-full">
+                <div className="group relative flex h-full items-start gap-4 lg:block">
+                  {/* Stage node */}
+                  <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-accent shadow-soft ring-1 ring-accent/15 transition-all duration-300 group-hover:-translate-y-1 group-hover:bg-accent group-hover:text-white sm:h-[52px] sm:w-[52px] lg:h-[72px] lg:w-[72px]">
+                    <s.icon className="h-5 w-5 lg:h-7 lg:w-7" strokeWidth={1.6} />
+                    <span className="absolute -right-1 -top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-brand-orange font-display text-[10px] font-bold text-white ring-2 ring-white lg:-right-0.5 lg:-top-0.5 lg:h-6 lg:w-6 lg:text-[11px]">
+                      {i + 1}
+                    </span>
+                  </div>
 
-                    <h3 className="mt-2.5 lg:mt-5 font-display text-xs sm:text-sm lg:text-lg font-bold text-ink leading-snug">
+                  <div className="pt-0.5 lg:pt-0">
+                    <h3 className="font-display text-base font-bold leading-snug tracking-tight text-ink lg:mt-6 lg:text-xl">
                       {s.title}
                     </h3>
-                    <p className="mt-1 lg:mt-2 text-[10.5px] sm:text-xs lg:text-[13px] leading-relaxed text-ink/80 font-normal line-clamp-3 lg:line-clamp-none">
+                    <p className="mt-1 text-[13px] leading-relaxed text-ink/70 font-normal lg:mt-2">
                       {s.desc}
                     </p>
-
-                    {/* Mobile-ONLY Connector Arrow: Left column to Right column (1 -> 2, 3 -> 4, 5 -> 6) */}
-                    {isLeftColumn && (
-                      <div className="lg:hidden absolute -right-2 top-1/2 -translate-y-1/2 z-10 flex h-4 w-4 items-center justify-center rounded-full bg-white border border-stone-200 text-accent shadow-xs pointer-events-none">
-                        <ArrowRight className="h-2.5 w-2.5" />
-                      </div>
-                    )}
-
-                    {/* Mobile-ONLY Connector Arrow: Right column down-left to next row (2 -> 3, 4 -> 5) */}
-                    {isRightColumn && !isLast && (
-                      <div className="lg:hidden absolute -bottom-2.5 -left-2.5 z-20 flex h-5 w-5 items-center justify-center rounded-full bg-white border border-stone-200 text-accent shadow-xs pointer-events-none">
-                        <ArrowDownLeft className="h-3 w-3" />
-                      </div>
-                    )}
                   </div>
-                </Reveal>
-              );
-            })}
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
 
         {/* Guaranteed Single Line CTA Button on Mobile */}
-        <Reveal delay={0.2} className="mt-8 sm:mt-16 text-center">
+        <Reveal delay={0.2} className="mt-10 sm:mt-16 text-center">
           <button
             onClick={() => openEnquiry("Lead Generation")}
             className="pressable group inline-flex max-w-full items-center justify-center gap-1.5 sm:gap-2 rounded-full bg-accent px-4 sm:px-8 py-3 sm:py-4 text-[10.5px] sm:text-xs font-bold uppercase tracking-[0.06em] sm:tracking-[0.2em] text-white shadow-lift transition-all hover:bg-accent-dim cursor-pointer whitespace-nowrap"

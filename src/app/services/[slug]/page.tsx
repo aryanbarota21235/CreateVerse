@@ -23,6 +23,7 @@ import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
 import Faq from "@/components/faq";
 import ServiceCta from "@/components/service-cta";
 import ServiceHeroButtons from "@/components/service-hero-buttons";
+import { PageArt, PageArtInline } from "@/components/page-art";
 import { caseStudies } from "@/components/case-studies";
 import { serviceSeoKeywords, getServiceJsonLd } from "@/lib/seo";
 
@@ -131,6 +132,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <div className="dot-texture absolute inset-0 opacity-80 pointer-events-none" />
         <div className="hidden sm:block absolute -left-28 top-16 h-[450px] w-[450px] rounded-full bg-[radial-gradient(circle,rgba(255,237,213,0.7)_0%,rgba(255,237,213,0.2)_40%,transparent_70%)] pointer-events-none" />
         <div className="hidden sm:block absolute -right-28 top-12 h-[450px] w-[450px] rounded-full bg-[radial-gradient(circle,rgba(224,242,254,0.6)_0%,rgba(224,242,254,0.2)_40%,transparent_70%)] pointer-events-none" />
+        <PageArt variant="service" service={service.slug} className="top-[190px]" />
 
         <div className="container-site relative pb-12 sm:pb-20 pt-6 sm:pt-16 lg:pt-20 lg:pb-24">
           <Reveal>
@@ -146,7 +148,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               <span className="text-ink font-bold">{service.name}</span>
             </nav>
 
-            <h1 className="text-balance mt-4 sm:mt-6 max-w-4xl font-display text-3xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold tracking-tightest text-ink leading-[1.08]">
+            <h1 className="text-balance mt-4 sm:mt-6 max-w-4xl xl:max-w-3xl font-display text-3xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold tracking-tight text-ink leading-[1.08]">
               {service.name}
             </h1>
 
@@ -159,6 +161,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             </p>
 
             <ServiceHeroButtons serviceName={service.name} />
+            <PageArtInline variant="service" service={service.slug} className="mt-7 sm:mt-9" />
           </Reveal>
 
           {/* 4 Verified Performance Metric Cards (Uniform equal-sized boxes) */}

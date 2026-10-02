@@ -23,6 +23,7 @@ import { politicianClients } from "@/lib/politicians";
 import { services } from "@/lib/services";
 import { InstagramIcon, FacebookIcon, XIcon } from "@/components/social-icons";
 import PoliticalHeroButtons from "./political-hero-buttons";
+import { PageArt, PageArtInline } from "@/components/page-art";
 import PoliticalFaq from "./political-faq";
 import { serviceSeoKeywords, getPoliticalManagementJsonLd } from "@/lib/seo";
 
@@ -168,6 +169,7 @@ export default function PoliticalManagementPage() {
         <div className="dot-texture absolute inset-0 opacity-80 pointer-events-none" />
         <div className="hidden sm:block absolute -left-28 top-16 h-[450px] w-[450px] rounded-full bg-[radial-gradient(circle,rgba(255,237,213,0.7)_0%,rgba(255,237,213,0.2)_40%,transparent_70%)] pointer-events-none" />
         <div className="hidden sm:block absolute -right-28 top-12 h-[450px] w-[450px] rounded-full bg-[radial-gradient(circle,rgba(224,242,254,0.6)_0%,rgba(224,242,254,0.2)_40%,transparent_70%)] pointer-events-none" />
+        <PageArt variant="political" className="top-[190px]" />
 
         <div className="container-site relative pb-12 sm:pb-20 pt-6 sm:pt-16 lg:pt-20 lg:pb-24">
           <Reveal>
@@ -183,7 +185,7 @@ export default function PoliticalManagementPage() {
               <span className="text-ink font-bold">Political Campaign</span>
             </nav>
 
-            <h1 className="text-balance mt-4 sm:mt-6 max-w-4xl font-display text-3xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold tracking-tightest text-ink leading-[1.08]">
+            <h1 className="text-balance mt-4 sm:mt-6 max-w-4xl xl:max-w-3xl font-display text-3xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold tracking-tight text-ink leading-[1.08]">
               Turning Voter Attention into{" "}
               <span className="text-accent">Electoral Mandates.</span>
             </h1>
@@ -197,6 +199,7 @@ export default function PoliticalManagementPage() {
             </p>
 
             <PoliticalHeroButtons />
+            <PageArtInline variant="political" className="mt-7 sm:mt-9" />
           </Reveal>
 
           {/* 4 Core Impact Metrics (Uniform equal-sized boxes) */}

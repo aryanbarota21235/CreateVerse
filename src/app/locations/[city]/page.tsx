@@ -8,6 +8,7 @@ import { site } from "@/lib/site";
 import Faq from "@/components/faq";
 import LocationHeroButtons from "@/components/location-hero-buttons";
 import LeadForm from "@/components/lead-form";
+import { PageArt, PageArtInline } from "@/components/page-art";
 
 export function generateStaticParams() {
   return getAllLocationSlugs().map((slug) => ({ city: slug }));
@@ -96,8 +97,9 @@ export default async function LocationCityPage({
         </div>
 
         {/* Primary SEO Hero Section */}
-        <section className="container-site pt-4 pb-10 sm:pb-14 border-b border-stone-200">
-          <div className="max-w-4xl">
+        <section className="container-site relative pt-4 pb-10 sm:pb-14 border-b border-stone-200">
+          <PageArt variant="locations" right="right-12" className="top-20" />
+          <div className="relative max-w-4xl xl:max-w-3xl">
             {/* Geo Tag Badges */}
             <div className="flex flex-wrap items-center gap-2 mb-4">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-accent border border-accent/20">
@@ -127,6 +129,7 @@ export default async function LocationCityPage({
 
             {/* Action Buttons */}
             <LocationHeroButtons locationName={location.name} />
+            <PageArtInline variant="locations" className="mt-7" />
 
             {/* Quick Contact Bar */}
             <div className="mt-6 pt-5 border-t border-stone-200 flex flex-wrap items-center gap-6 text-xs sm:text-sm text-stone-600 font-medium">

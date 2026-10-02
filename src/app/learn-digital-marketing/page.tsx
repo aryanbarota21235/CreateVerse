@@ -14,10 +14,12 @@ import {
   Users,
   Building2,
   Briefcase,
+  GraduationCap,
 } from "lucide-react";
 import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
 import Faq from "@/components/faq";
 import AcademyHeroButtons from "@/components/academy-hero-buttons";
+import { HeroConverge, academyChannels } from "@/components/illustrations";
 
 export const metadata: Metadata = {
   title: "Learn Digital Marketing | Practical Agency Course in India & Haryana — CreateVerse",
@@ -362,6 +364,14 @@ export default function LearnDigitalMarketingPage() {
               <AcademyHeroButtons className="justify-center" />
             </div>
           </Reveal>
+
+          {/* Skills converge into an agency-ready marketer */}
+          <HeroConverge
+            items={academyChannels}
+            target={GraduationCap}
+            targetLabel="Agency-Ready Marketer"
+            className="mt-9 sm:mt-12"
+          />
 
           {/* Centered Quick Stats / Trust Strip */}
           <Reveal delay={0.25}>

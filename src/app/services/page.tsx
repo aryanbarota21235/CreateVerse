@@ -74,6 +74,7 @@ export default function ServicesPage() {
     <>
       <PageHero
         breadcrumb="Services"
+        art="services"
         eyebrow="Services & Practices"
         title={<>Everything growth needs, <span className="text-accent">under one roof.</span></>}
         description="Acquisition, advertising, creative, and technology — engineered so every service feeds the same goal: verified revenue, not just clicks."
