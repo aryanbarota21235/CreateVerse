@@ -91,12 +91,14 @@ function useReveal() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    // On touch/mobile devices, show immediately so there is zero blink on navigation or back
+    if (window.matchMedia(TOUCH_QUERY).matches) {
+      el.dataset.reveal = "done";
+      return;
+    }
     const io = getObserver();
-    const isGroup = el.hasAttribute("data-reveal-group");
     const inGroup = el.hasAttribute("data-reveal-item") && el.closest("[data-reveal-group]") !== null;
-    // Desktop reveals a group's items together in sequence when the group enters;
-    // phones reveal each item on its own as it scrolls in.
-    if (touch ? isGroup : inGroup) return;
+    if (inGroup) return;
     io.observe(el);
     return () => io.unobserve(el);
   }, []);

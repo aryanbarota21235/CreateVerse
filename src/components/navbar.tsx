@@ -4,12 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Menu, X, ChevronRight } from "lucide-react";
 import { site } from "@/lib/site";
 import { useEnquiry } from "@/context/enquiry-context";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const { openEnquiry } = useEnquiry();
 
@@ -30,6 +31,11 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close mobile menu whenever route changes
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
   if (pathname?.startsWith("/admin")) {
     return null;
   }
@@ -38,13 +44,13 @@ export default function Navbar() {
     <header className="fixed inset-x-0 top-2 sm:top-5 z-50 px-3 sm:px-8 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]">
       {/* Maximum luxury width floating pill dock */}
       <div
-        className={`navbar-dock mx-auto flex items-center justify-between rounded-full bg-white pointer-events-auto border border-stone-200/90 sm:border-black/[0.12] shadow-[0_8px_24px_rgba(11,15,25,0.08)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`navbar-dock mx-auto flex items-center justify-between rounded-full bg-white pointer-events-auto border border-stone-200/90 sm:border-black/[0.12] shadow-[0_8px_24px_rgba(11,15,25,0.08)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] py-2.5 px-4 sm:px-12 ${
           scrolled
-            ? "max-w-[94%] py-1.5 px-4 sm:max-w-6xl sm:py-2.5 sm:px-10 sm:shadow-[0_12px_32px_rgba(11,15,25,0.1)]"
-            : "max-w-full py-2.5 px-5 sm:max-w-7xl sm:py-3.5 sm:px-12 sm:shadow-[0_8px_30px_rgba(11,15,25,0.08)]"
+            ? "sm:max-w-6xl sm:py-2.5 sm:px-10 sm:shadow-[0_12px_32px_rgba(11,15,25,0.1)]"
+            : "sm:max-w-7xl sm:py-3.5 sm:shadow-[0_8px_30px_rgba(11,15,25,0.08)]"
         }`}
       >
-        {/* Brand Logo - shrinks with the dock once the page is scrolled */}
+        {/* Brand Logo - Fixed stable size on mobile, smooth scale on desktop */}
         <Link
           href="/"
           prefetch={true}
@@ -57,8 +63,8 @@ export default function Navbar() {
             width={360}
             height={148}
             priority
-            className={`w-auto transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              scrolled ? "h-[33px] sm:h-11" : "h-[40px] sm:h-[50px] lg:h-[54px]"
+            className={`w-auto h-[38px] sm:h-[50px] lg:h-[54px] sm:transition-all sm:duration-300 sm:ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              scrolled ? "sm:h-11" : ""
             }`}
           />
         </Link>
@@ -66,7 +72,7 @@ export default function Navbar() {
         {/* Desktop Navigation Links */}
         <nav className="hidden items-center gap-8 lg:gap-10 md:flex" aria-label="Primary navigation">
           {site.nav.map((item) => {
-            const active = pathname === item.href || pathname.startsWith(item.href + "/");
+            const active = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
             return (
               <Link
                 key={item.href}
@@ -100,16 +106,64 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Action Button (Strictly 'Enquire' Only, Constant Solid Pill) */}
-        <div className="flex items-center sm:hidden">
+        {/* Mobile Actions: Enquire Button + Menu Toggle */}
+        <div className="flex items-center gap-2 md:hidden">
           <button
             onClick={() => openEnquiry()}
-            className="pressable rounded-full bg-ink px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-white shadow-xs active:bg-accent transition-colors duration-150 cursor-pointer"
+            className="pressable rounded-full bg-ink px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-white shadow-2xs active:bg-accent transition-colors duration-150 cursor-pointer"
           >
             Enquire
           </button>
+          <button
+            onClick={() => setMobileOpen((prev) => !prev)}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            className="p-1.5 rounded-full text-ink hover:text-accent hover:bg-stone-100 transition-colors cursor-pointer"
+          >
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Navigation Dropdown Card */}
+      {mobileOpen && (
+        <div className="pointer-events-auto md:hidden mx-auto mt-2 max-w-full rounded-3xl border border-stone-200/90 bg-white/95 p-3.5 shadow-xl backdrop-blur-md transition-all">
+          <nav className="flex flex-col space-y-1">
+            {site.nav.map((item) => {
+              const active = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`flex items-center justify-between rounded-2xl px-4 py-2.5 text-sm font-semibold transition-colors ${
+                    active ? "bg-accent/10 font-bold text-accent" : "text-ink hover:bg-stone-50"
+                  }`}
+                >
+                  <span>{item.label}</span>
+                  <ChevronRight className="h-4 w-4 text-stone-400" />
+                </Link>
+              );
+            })}
+            <Link
+              href="/learn-digital-marketing"
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center justify-between rounded-2xl px-4 py-2.5 text-sm font-semibold text-ink hover:bg-stone-50 transition-colors"
+            >
+              <span>Learn Marketing</span>
+              <span className="rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent">
+                Academy
+              </span>
+            </Link>
+          </nav>
+          <div className="mt-3 flex items-center justify-between border-t border-stone-100 px-2 pt-3 text-xs text-stone-500">
+            <a href={`tel:${site.phoneRaw}`} className="font-semibold text-ink hover:text-accent">
+              {site.phone}
+            </a>
+            <span>Karnal, Haryana</span>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

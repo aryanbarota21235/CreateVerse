@@ -101,28 +101,38 @@
   transition-delay: var(--reveal-stagger, var(--reveal-delay, 0s));
 }
 
-/* Phones and touch screens: content is visible by default (nothing waits on JS);
-   only what is still below the fold gets parked as "pending" and eases in on scroll.
-   Keep this query in sync with TOUCH_QUERY in components/reveal.tsx. */
+/* Phones and touch screens: content is 100% visible immediately, zero delays, zero flicker on back navigation */
 @media (max-width: 768px), (hover: none) and (pointer: coarse) {
-  .reveal {
+  .reveal,
+  .reveal[data-reveal="pending"],
+  .reveal[data-reveal="in"],
+  .reveal[data-reveal="done"],
+  .reveal-wrapper {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Page Navigation Transition (subtle, seamless crossfade between routes) */
+@keyframes pageFadeIn {
+  from {
+    opacity: 0.94;
+  }
+  to {
     opacity: 1;
-    transform: none;
   }
-  .reveal[data-reveal="pending"] {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  .reveal[data-reveal="in"] {
-    transition-duration: 480ms;
-    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-    transition-delay: var(--reveal-stagger, 0s);
-  }
+}
+
+.page-transition {
+  animation: pageFadeIn 180ms ease-out forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal,
-  .reveal[data-reveal="pending"] {
+  .reveal[data-reveal="pending"],
+  .page-transition {
+    animation: none;
     transform: none;
   }
 }
