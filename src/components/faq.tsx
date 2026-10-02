@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import type { FAQ } from "@/lib/services";
+import Collapse from "@/components/collapse";
 
 export default function Faq({ items, dark = false }: { items: FAQ[]; dark?: boolean }) {
   const [open, setOpen] = useState<number | null>(0);
@@ -33,17 +33,11 @@ export default function Faq({ items, dark = false }: { items: FAQ[]; dark?: bool
               />
             </button>
             {/* Answers stay in the HTML when collapsed so search engines can read every one */}
-            <motion.div
-              initial={false}
-              animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="overflow-hidden"
-              aria-hidden={!isOpen}
-            >
+            <Collapse open={isOpen} keepMounted>
               <p className={`px-6 pb-6 text-sm leading-relaxed sm:px-8 ${dark ? "text-white/80" : "text-ink/80 font-normal"}`}>
                 {f.a}
               </p>
-            </motion.div>
+            </Collapse>
           </div>
         );
       })}

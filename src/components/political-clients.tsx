@@ -3,9 +3,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
+import Collapse from "@/components/collapse";
 import { politicianClients, type PoliticianClient } from "@/lib/politicians";
 import { InstagramIcon, FacebookIcon, XIcon } from "@/components/social-icons";
 
@@ -186,20 +186,13 @@ export default function PoliticalClients({
           </Stagger>
 
           {/* Expandable Secondary Politician Cards (matching Services dropdown animation) */}
-          <AnimatePresence initial={false}>
-            {expanded && secondaryClients.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto", transition: { duration: 0.38, ease: [0.16, 1, 0.3, 1] } }}
-                exit={{ opacity: 0, height: 0, transition: { duration: 0.26, ease: [0.16, 1, 0.3, 1] } }}
-                className="overflow-hidden"
-              >
-                <div className="grid grid-cols-2 gap-x-3 gap-y-7 sm:gap-x-4 sm:gap-y-10 sm:grid-cols-3 lg:grid-cols-6 items-stretch pt-7 sm:pt-10">
-                  {secondaryClients.map((p) => renderClientCard(p))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {secondaryClients.length > 0 && (
+            <Collapse open={expanded}>
+              <div className="grid grid-cols-2 gap-x-3 gap-y-7 sm:gap-x-4 sm:gap-y-10 sm:grid-cols-3 lg:grid-cols-6 items-stretch pt-7 sm:pt-10">
+                {secondaryClients.map((p) => renderClientCard(p))}
+              </div>
+            </Collapse>
+          )}
         </div>
 
         {/* Collapse / See More Button (exact same style as Services collapse button in Hero) */}

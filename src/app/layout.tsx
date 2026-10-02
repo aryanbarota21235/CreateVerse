@@ -10,6 +10,7 @@ import Footer from "@/components/footer";
 import { EnquiryProvider } from "@/context/enquiry-context";
 import EnquiryModal from "@/components/enquiry-modal";
 import WhatsAppWidget from "@/components/whatsapp-widget";
+import ArtPauser from "@/components/art-pauser";
 
 import { siteKeywords, getOrganizationJsonLd } from "@/lib/seo";
 
@@ -169,6 +170,7 @@ gtag('config', 'G-B0X3P49RNE');`,
           <Footer />
           <EnquiryModal />
           <WhatsAppWidget />
+          <ArtPauser />
           <Analytics />
           <SpeedInsights />
         </EnquiryProvider>

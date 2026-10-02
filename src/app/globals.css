@@ -101,39 +101,111 @@
   transition-delay: var(--reveal-stagger, var(--reveal-delay, 0s));
 }
 
-/* Phones and touch screens: content is 100% visible immediately, zero delays, zero flicker on back navigation */
+/* Phones and touch screens: no scroll reveals — content is visible immediately, so
+   nothing can flicker on navigation or back. Keep this query in sync with TOUCH_QUERY
+   in components/reveal.tsx. */
 @media (max-width: 768px), (hover: none) and (pointer: coarse) {
-  .reveal,
-  .reveal[data-reveal="pending"],
-  .reveal[data-reveal="in"],
-  .reveal[data-reveal="done"],
-  .reveal-wrapper {
+  .reveal {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
   }
 }
 
-/* Page Navigation Transition (subtle, seamless crossfade between routes) */
-@keyframes pageFadeIn {
+/* Page navigation: every new route eases in. app/template.tsx adds the class on link
+   navigations only (not on first load or back/forward). There is no fill mode, so no
+   transform is left on the page once the animation ends. */
+@keyframes pageEnter {
   from {
-    opacity: 0.94;
-  }
-  to {
-    opacity: 1;
+    opacity: 0;
+    transform: translateY(14px);
   }
 }
+.page-enter {
+  animation: pageEnter 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
 
-.page-transition {
-  animation: pageFadeIn 180ms ease-out forwards;
+/* Mobile nav menu drops out of the dock */
+@keyframes navMenuEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+}
+.nav-menu-enter {
+  transform-origin: top center;
+  animation: navMenuEnter 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Expanding panels (components/collapse.tsx): the row track animates between 0fr and
+   1fr, so a panel opens to its natural height without any JS measuring it. */
+.expander {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 260ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 260ms ease;
+}
+.expander[data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition-duration: 380ms;
+}
+.expander > div {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Enquiry modal (components/enquiry-modal.tsx) fades in, and out while data-closing */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes modalFadeOut {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes modalCardIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+}
+@keyframes modalCardOut {
+  to {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+}
+.modal-overlay {
+  animation: modalFadeIn 160ms ease-out;
+}
+.modal-overlay .modal-card {
+  animation: modalCardIn 160ms ease-out;
+}
+.modal-overlay[data-closing="true"] {
+  pointer-events: none;
+  animation: modalFadeOut 160ms ease-out forwards;
+}
+.modal-overlay[data-closing="true"] .modal-card {
+  animation: modalCardOut 160ms ease-out forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal,
-  .reveal[data-reveal="pending"],
-  .page-transition {
-    animation: none;
+  .reveal {
     transform: none;
+  }
+  .page-enter,
+  .nav-menu-enter,
+  .modal-overlay,
+  .modal-overlay .modal-card {
+    animation: none !important;
+  }
+  .expander {
+    transition: none;
   }
 }
 
@@ -393,6 +465,11 @@ body {
 }
 .dot-bounce {
   animation: dotBounce 1.4s ease-in-out infinite;
+}
+/* components/art-pauser.tsx marks artwork that is off screen: its loops stop, so the
+   phone only repaints the illustrations the visitor can actually see. */
+[data-art-paused] :is(.beam-pulse, .float-soft, .node-ring, .flow-dash, .rail-pulse, .ring-pulse, .seq-pulse, .star-pop, .dot-bounce) {
+  animation-play-state: paused;
 }
 /* Beams dissolve before they reach the headline copy in the middle */
 .beam-fade-center {

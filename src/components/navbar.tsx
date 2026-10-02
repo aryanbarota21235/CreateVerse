@@ -44,10 +44,10 @@ export default function Navbar() {
     <header className="fixed inset-x-0 top-2 sm:top-5 z-50 px-3 sm:px-8 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]">
       {/* Maximum luxury width floating pill dock */}
       <div
-        className={`navbar-dock mx-auto flex items-center justify-between rounded-full bg-white pointer-events-auto border border-stone-200/90 sm:border-black/[0.12] shadow-[0_8px_24px_rgba(11,15,25,0.08)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] py-2.5 px-4 sm:px-12 ${
+        className={`navbar-dock mx-auto flex items-center justify-between rounded-full bg-white pointer-events-auto border border-stone-200/90 sm:border-black/[0.12] shadow-[0_8px_24px_rgba(11,15,25,0.08)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] py-2.5 px-4 ${
           scrolled
-            ? "sm:max-w-6xl sm:py-2.5 sm:px-10 sm:shadow-[0_12px_32px_rgba(11,15,25,0.1)]"
-            : "sm:max-w-7xl sm:py-3.5 sm:shadow-[0_8px_30px_rgba(11,15,25,0.08)]"
+            ? "sm:max-w-6xl sm:px-10 sm:shadow-[0_12px_32px_rgba(11,15,25,0.1)]"
+            : "sm:max-w-7xl sm:py-3.5 sm:px-12 sm:shadow-[0_8px_30px_rgba(11,15,25,0.08)]"
         }`}
       >
         {/* Brand Logo - Fixed stable size on mobile, smooth scale on desktop */}
@@ -63,8 +63,8 @@ export default function Navbar() {
             width={360}
             height={148}
             priority
-            className={`w-auto h-[38px] sm:h-[50px] lg:h-[54px] sm:transition-all sm:duration-300 sm:ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              scrolled ? "sm:h-11" : ""
+            className={`w-auto h-[38px] sm:transition-all sm:duration-300 sm:ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              scrolled ? "sm:h-11" : "sm:h-[50px] lg:h-[54px]"
             }`}
           />
         </Link>
@@ -72,7 +72,7 @@ export default function Navbar() {
         {/* Desktop Navigation Links */}
         <nav className="hidden items-center gap-8 lg:gap-10 md:flex" aria-label="Primary navigation">
           {site.nav.map((item) => {
-            const active = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+            const active = pathname === item.href || pathname.startsWith(item.href + "/");
             return (
               <Link
                 key={item.href}
@@ -96,7 +96,7 @@ export default function Navbar() {
         </nav>
 
         {/* Right CTA: Enquire Now (Desktop Only) */}
-        <div className="hidden items-center gap-3 sm:flex shrink-0">
+        <div className="hidden items-center gap-3 md:flex shrink-0">
           <button
             onClick={() => openEnquiry()}
             className="pressable group inline-flex items-center gap-1.5 rounded-full bg-ink px-6 py-2.5 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-sm transition-all duration-150 hover:-translate-y-0.5 hover:bg-accent hover:shadow-md hover:shadow-accent/20 cursor-pointer"
@@ -127,10 +127,10 @@ export default function Navbar() {
 
       {/* Mobile Navigation Dropdown Card */}
       {mobileOpen && (
-        <div className="pointer-events-auto md:hidden mx-auto mt-2 max-w-full rounded-3xl border border-stone-200/90 bg-white/95 p-3.5 shadow-xl backdrop-blur-md transition-all">
-          <nav className="flex flex-col space-y-1">
+        <div className="nav-menu-enter pointer-events-auto md:hidden mx-auto mt-2 max-w-full rounded-3xl border border-stone-200/90 bg-white p-3.5 shadow-xl">
+          <nav className="flex flex-col space-y-1" aria-label="Mobile navigation">
             {site.nav.map((item) => {
-              const active = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+              const active = pathname === item.href || pathname.startsWith(item.href + "/");
               return (
                 <Link
                   key={item.href}

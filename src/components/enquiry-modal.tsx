@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X, CheckCircle2, ArrowRight, ShieldCheck, ChevronDown } from "lucide-react";
 import { useEnquiry } from "@/context/enquiry-context";
 import { site } from "@/lib/site";
@@ -187,12 +186,14 @@ function matchService(inputName?: string): string {
   return "";
 }
 
+// Matches the modal keyframes in globals.css
+const EXIT_MS = 160;
+
 const inputCls =
   "w-full rounded-xl border border-stone-200/90 bg-[#F8FAFC] px-3 py-1.5 sm:px-4 sm:py-2 text-base sm:text-sm text-ink placeholder:text-stone-400 outline-none transition-all duration-150 hover:border-stone-300 focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/15 font-normal";
 
 export default function EnquiryModal() {
   const { isOpen, closeEnquiry, selectedService } = useEnquiry();
-  const reduceMotion = useReducedMotion();
 
   const [service, setService] = useState("");
   const [name, setName] = useState("");
@@ -206,16 +207,25 @@ export default function EnquiryModal() {
   // Sync selectedService to state when opened without post-paint flash
   const [prevIsOpen, setPrevIsOpen] = useState(false);
   const [prevSelectedService, setPrevSelectedService] = useState("");
+  // Stays mounted a moment after closing so the fade-out can play
+  const [present, setPresent] = useState(false);
 
   if (isOpen !== prevIsOpen || selectedService !== prevSelectedService) {
     setPrevIsOpen(isOpen);
     setPrevSelectedService(selectedService);
     if (isOpen) {
       setService(selectedService ? matchService(selectedService) : "");
-    } else {
-      setSubmitted(false);
+      // Every fresh open starts on the form; the success screen is left up while closing
+      if (!prevIsOpen) setSubmitted(false);
+      setPresent(true);
     }
   }
+
+  useEffect(() => {
+    if (isOpen || !present) return;
+    const timer = setTimeout(() => setPresent(false), EXIT_MS);
+    return () => clearTimeout(timer);
+  }, [isOpen, present]);
 
   // Handle ESC key to close & desktop-only background scroll lock
   useEffect(() => {
@@ -235,14 +245,16 @@ export default function EnquiryModal() {
   }, [isOpen, closeEnquiry]);
 
   const handleReset = () => {
-    setSubmitted(false);
-    setService("");
-    setName("");
-    setPhone("");
-    setEmail("");
-    setCompany("");
-    setMessage("");
     closeEnquiry();
+    // Cleared once the modal has faded out, so the thank-you text doesn't change mid-fade
+    setTimeout(() => {
+      setService("");
+      setName("");
+      setPhone("");
+      setEmail("");
+      setCompany("");
+      setMessage("");
+    }, EXIT_MS);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -275,15 +287,11 @@ export default function EnquiryModal() {
   };
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          key="modal-overlay"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.16, ease: "easeOut" }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-hidden no-scrollbar bg-black/60"
+    <>
+      {present && (
+        <div
+          data-closing={!isOpen}
+          className="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-hidden no-scrollbar bg-black/60"
           style={{
             WebkitBackfaceVisibility: "hidden",
             backfaceVisibility: "hidden",
@@ -291,12 +299,7 @@ export default function EnquiryModal() {
           onClick={closeEnquiry}
         >
           {/* Compact Centered Modal Card */}
-          <motion.div
-            key="modal-card"
-            initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: reduceMotion ? 0 : 8 }}
-            transition={{ duration: reduceMotion ? 0 : 0.16, ease: "easeOut" }}
+          <div
             onClick={(e) => e.stopPropagation()}
             style={{
               WebkitBackfaceVisibility: "hidden",
@@ -304,7 +307,7 @@ export default function EnquiryModal() {
               WebkitTransform: "translate3d(0, 0, 0)",
               transform: "translate3d(0, 0, 0)",
             }}
-            className="relative z-10 w-full max-w-[min(100%,430px)] sm:max-w-[520px] bg-white rounded-2xl sm:rounded-3xl border border-white/70 sm:border-stone-200/90 shadow-xl sm:shadow-2xl overflow-hidden max-h-[85vh] flex flex-col no-scrollbar my-auto"
+            className="modal-card relative z-10 w-full max-w-[min(100%,430px)] sm:max-w-[520px] bg-white rounded-2xl sm:rounded-3xl border border-white/70 sm:border-stone-200/90 shadow-xl sm:shadow-2xl overflow-hidden max-h-[85vh] flex flex-col no-scrollbar my-auto"
           >
             {/* Tactile Close Button */}
             <button
@@ -535,9 +538,9 @@ export default function EnquiryModal() {
                 </form>
               </div>
             )}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   );
 }

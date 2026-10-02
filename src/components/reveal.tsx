@@ -6,16 +6,11 @@ import { CSSProperties, ReactNode, useEffect, useRef } from "react";
 // compositor; this file only flips a data attribute when an element scrolls into view.
 // One IntersectionObserver is shared by every reveal on the page.
 
+// Phones and touch screens get no scroll reveals at all: content is simply visible.
 // Must stay in sync with the phone/touch media query for `.reveal` in globals.css
 const TOUCH_QUERY = "(max-width: 768px), (hover: none) and (pointer: coarse)";
-const TOUCH_STEP_MS = 70;
-const TOUCH_MAX_STEPS = 4;
-const FLING_PX_PER_MS = 2.4;
 
 let observer: IntersectionObserver | null = null;
-let touch = false;
-let lastTime = 0;
-let lastY = 0;
 
 function groupItems(group: HTMLElement) {
   return Array.from(group.querySelectorAll<HTMLElement>("[data-reveal-item]")).filter(
@@ -24,34 +19,9 @@ function groupItems(group: HTMLElement) {
 }
 
 function onIntersect(entries: IntersectionObserverEntry[]) {
-  let order = 0;
-
-  // During a hard fling a fade would only show up as blank space catching up with the
-  // finger, so content arriving at that speed is shown immediately instead.
-  const now = entries[0]?.time ?? 0;
-  const y = window.scrollY;
-  const flinging = touch && now > lastTime && Math.abs(y - lastY) / (now - lastTime) > FLING_PX_PER_MS;
-  lastTime = now;
-  lastY = y;
-
   for (const entry of entries) {
-    const el = entry.target as HTMLElement;
-    const { top } = entry.boundingClientRect;
-
-    if (touch && !el.dataset.reveal) {
-      // First report after mount. Whatever is already on screen stays exactly as it is
-      // (no blink on load or navigation); only content below the fold is hidden so it
-      // can fade in when scrolled to.
-      if (top < window.innerHeight) {
-        el.dataset.reveal = "done";
-        observer?.unobserve(el);
-      } else {
-        el.dataset.reveal = "pending";
-      }
-      continue;
-    }
-
     if (!entry.isIntersecting) continue;
+    const el = entry.target as HTMLElement;
     observer?.unobserve(el);
 
     if (el.hasAttribute("data-reveal-group")) {
@@ -60,14 +30,7 @@ function onIntersect(entries: IntersectionObserverEntry[]) {
         item.style.setProperty("--reveal-stagger", `${i * step}s`);
         item.dataset.reveal = "in";
       });
-    } else if (touch && (top < 0 || flinging)) {
-      // Entering from the top while scrolling back up, or flung past: just show it
-      el.dataset.reveal = "done";
     } else {
-      if (touch) {
-        // Cards arriving in the same frame (a grid row) follow each other
-        el.style.setProperty("--reveal-stagger", `${Math.min(order++, TOUCH_MAX_STEPS) * TOUCH_STEP_MS}ms`);
-      }
       el.dataset.reveal = "in";
     }
   }
@@ -75,12 +38,8 @@ function onIntersect(entries: IntersectionObserverEntry[]) {
 
 function getObserver() {
   if (!observer) {
-    touch = window.matchMedia(TOUCH_QUERY).matches;
-    observer = new IntersectionObserver(onIntersect, {
-      // Phones start the fade once the element is a little inside the screen so it is
-      // actually seen; desktop starts just before it enters.
-      rootMargin: touch ? "0px 0px -6% 0px" : "120px",
-    });
+    // Start the fade just before the element enters the screen
+    observer = new IntersectionObserver(onIntersect, { rootMargin: "120px" });
   }
   return observer;
 }
@@ -91,14 +50,14 @@ function useReveal() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    // On touch/mobile devices, show immediately so there is zero blink on navigation or back
     if (window.matchMedia(TOUCH_QUERY).matches) {
       el.dataset.reveal = "done";
       return;
     }
-    const io = getObserver();
+    // A group's items are revealed together, in sequence, when the group itself enters
     const inGroup = el.hasAttribute("data-reveal-item") && el.closest("[data-reveal-group]") !== null;
     if (inGroup) return;
+    const io = getObserver();
     io.observe(el);
     return () => io.unobserve(el);
   }, []);

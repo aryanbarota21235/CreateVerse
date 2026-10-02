@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
 import Reveal from "@/components/reveal";
+import Collapse from "@/components/collapse";
 
 const politicalFaqs = [
   {
@@ -68,21 +68,11 @@ export default function PoliticalFaq() {
                       }`}
                     />
                   </button>
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.25, ease: "easeInOut" }}
-                        className="overflow-hidden"
-                      >
-                        <p className="px-5 pb-5 sm:px-8 sm:pb-6 text-xs sm:text-sm leading-relaxed text-stone-600 font-normal">
-                          {f.a}
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  <Collapse open={isOpen} keepMounted>
+                    <p className="px-5 pb-5 sm:px-8 sm:pb-6 text-xs sm:text-sm leading-relaxed text-stone-600 font-normal">
+                      {f.a}
+                    </p>
+                  </Collapse>
                 </div>
               );
             })}

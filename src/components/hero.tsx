@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import Collapse from "@/components/collapse";
 import {
   ArrowRight,
   ChevronDown,
@@ -328,7 +328,7 @@ export default function Hero() {
         {/* Main Editorial Agency Headline */}
         <div className="mx-auto max-w-4xl text-center">
           <Reveal>
-            <div className="inline-flex items-center gap-2 rounded-full border border-black/[0.12] bg-white px-3 py-1 sm:px-4 sm:py-1.5 text-[9px] sm:text-[11px] font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-ink shadow-xs backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 rounded-full border border-black/[0.12] bg-white px-3 py-1 sm:px-4 sm:py-1.5 text-[9px] sm:text-[11px] font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-ink shadow-xs">
               <span className="relative flex h-2 w-2">
                 <span className="hidden sm:inline-flex absolute h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
@@ -406,20 +406,11 @@ export default function Hero() {
               </div>
 
               {/* In-place dropdown animation with identical cells */}
-              <AnimatePresence initial={false}>
-                {showAllServices && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto", transition: { duration: 0.38, ease: [0.16, 1, 0.3, 1] } }}
-                    exit={{ opacity: 0, height: 0, transition: { duration: 0.26, ease: [0.16, 1, 0.3, 1] } }}
-                    className="overflow-hidden"
-                  >
-                    <div className="grid grid-cols-2 lg:grid-cols-4 border-t border-stone-200/70">
-                      {secondaryPillars.map((p) => renderCard(p))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              <Collapse open={showAllServices}>
+                <div className="grid grid-cols-2 lg:grid-cols-4 border-t border-stone-200/70">
+                  {secondaryPillars.map((p) => renderCard(p))}
+                </div>
+              </Collapse>
             </div>
 
             {/* Button shifts downwards when dropdown expands */}
