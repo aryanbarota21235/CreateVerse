@@ -57,6 +57,18 @@ export const politicianClients: PoliticianClient[] = [
     },
   },
   {
+    name: "Bhupinder Lather",
+    slug: "bhupinder-lather",
+    href: "/clients/bhupinder-lather",
+    role: "Political Leader & Social Worker, Karnal",
+    party: "INC",
+    partyName: "Indian National Congress",
+    image: "/politicians/bhupinder-lather.webp",
+    socials: {
+      instagram: "https://www.instagram.com/latherbhupi",
+    },
+  },
+  {
     name: "Gurkirat Singh Kotli",
     slug: "gurkirat-singh-kotli",
     href: "/clients/gurkirat-singh-kotli",
@@ -91,18 +103,6 @@ export const politicianClients: PoliticianClient[] = [
     socials: {
       facebook: "https://www.facebook.com/nifaaindia",
       twitter: "https://x.com/nifaaindia",
-    },
-  },
-  {
-    name: "Bhupinder Lather",
-    slug: "bhupinder-lather",
-    href: "/clients/bhupinder-lather",
-    role: "Political Leader & Social Worker, Karnal",
-    party: "INC",
-    partyName: "Indian National Congress",
-    image: "/politicians/bhupinder-lather.webp",
-    socials: {
-      instagram: "https://www.instagram.com/latherbhupi",
     },
   },
   {

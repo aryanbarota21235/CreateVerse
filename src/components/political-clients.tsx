@@ -23,7 +23,7 @@ export default function PoliticalClients({
   const renderClientCard = (p: PoliticianClient) => (
     <div
       key={p.name}
-      className="group h-full flex flex-col items-center justify-between text-center px-1 py-2 sm:px-2 sm:py-3 transition-transform duration-300 hover:-translate-y-1"
+      className="group h-full flex flex-col items-center justify-between text-center p-3 sm:py-5 sm:px-3 rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-[#F8FAFC] transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-md"
     >
       {/* Clickable Portrait and Info Header */}
       {p.href ? (
@@ -34,7 +34,7 @@ export default function PoliticalClients({
         >
           {/* Circular Portrait with Concentric Clean Ring */}
           <div className="relative mb-3 sm:mb-4 shrink-0">
-            <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-1 bg-white shadow-soft ring-1 ring-black/[0.05] transition-all duration-300 group-hover:scale-105 group-hover:ring-accent/40">
+            <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:scale-105 group-hover:shadow-md">
               <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
                 <Image
                   src={p.image}
@@ -82,7 +82,7 @@ export default function PoliticalClients({
       ) : (
         <div className="flex flex-col items-center w-full grow">
           <div className="relative mb-3 sm:mb-4 shrink-0">
-            <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-1 bg-white shadow-soft ring-1 ring-black/[0.05] transition-all duration-300 group-hover:scale-105 group-hover:ring-accent/40">
+            <div className="relative h-24 w-24 min-[390px]:h-28 min-[390px]:w-28 sm:h-32 sm:w-32 lg:h-28 lg:w-28 xl:h-32 xl:w-32 rounded-full p-[3px] border-[2px] border-stone-200/90 bg-white shadow-xs transition-all duration-300 group-hover:scale-105 group-hover:shadow-md">
               <div className="relative h-full w-full overflow-hidden rounded-full bg-stone-50 flex items-center justify-center">
                 <Image
                   src={p.image}
@@ -177,7 +177,7 @@ export default function PoliticalClients({
 
         {/* Primary 6 Politician Cards */}
         <div className="mt-8 sm:mt-10">
-          <Stagger className="grid grid-cols-2 gap-x-3 gap-y-7 sm:gap-x-4 sm:gap-y-10 sm:grid-cols-3 lg:grid-cols-6 items-stretch" delayChildren={0.02}>
+          <Stagger className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3 lg:grid-cols-6 items-stretch" delayChildren={0.02}>
             {primaryClients.map((p) => (
               <StaggerItem key={p.name} className="h-full">
                 {renderClientCard(p)}
@@ -188,7 +188,7 @@ export default function PoliticalClients({
           {/* Expandable Secondary Politician Cards (matching Services dropdown animation) */}
           {secondaryClients.length > 0 && (
             <Collapse open={expanded}>
-              <div className="grid grid-cols-2 gap-x-3 gap-y-7 sm:gap-x-4 sm:gap-y-10 sm:grid-cols-3 lg:grid-cols-6 items-stretch pt-7 sm:pt-10">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3 lg:grid-cols-6 items-stretch pt-3 sm:pt-4">
                 {secondaryClients.map((p) => renderClientCard(p))}
               </div>
             </Collapse>
