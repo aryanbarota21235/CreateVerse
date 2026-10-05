@@ -56,6 +56,7 @@ export const metadata: Metadata = {
     google: [
       "CT4ge9jqSvzLnsRSrxss6cv6GCW-8x-VMYZNTcXlHtk",
       "googlee2836ec779649f49",
+      "google4bdd41affd0a7b85",
     ],
     other: {
       "facebook-domain-verification": "arjcquzxxrc2rljqusg27q97siy066",
@@ -121,6 +122,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="facebook-domain-verification" content="arjcquzxxrc2rljqusg27q97siy066" />
         <meta name="google-site-verification" content="CT4ge9jqSvzLnsRSrxss6cv6GCW-8x-VMYZNTcXlHtk" />
         <meta name="google-site-verification" content="googlee2836ec779649f49" />
+        <meta name="google-site-verification" content="google4bdd41affd0a7b85" />
         <meta name="geo.region" content="IN-HR" />
         <meta name="geo.placename" content="Karnal" />
         <meta name="geo.position" content={`${site.geo.latitude};${site.geo.longitude}`} />
