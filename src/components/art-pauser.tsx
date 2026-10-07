@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 // repaint on every frame, even when scrolled out of view. This marks the off-screen ones
 // so CSS can pause them. Keep the list in sync with the [data-art-paused] rule there.
 const LOOPS =
-  ".beam-pulse, .float-soft, .node-ring, .flow-dash, .rail-pulse, .ring-pulse, .seq-pulse, .star-pop, .dot-bounce";
+  ".beam-pulse, .float-soft, .node-ring, .flow-dash, .rail-pulse, .ring-pulse, .seq-pulse, .star-pop, .dot-bounce, .bar-shine, .bar-glow, .alert-cycle";
 
 export default function ArtPauser() {
   const pathname = usePathname();

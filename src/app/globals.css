@@ -468,7 +468,59 @@ body {
 }
 /* components/art-pauser.tsx marks artwork that is off screen: its loops stop, so the
    phone only repaints the illustrations the visitor can actually see. */
-[data-art-paused] :is(.beam-pulse, .float-soft, .node-ring, .flow-dash, .rail-pulse, .ring-pulse, .seq-pulse, .star-pop, .dot-bounce) {
+@keyframes barShine {
+  0%, 35% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+@keyframes barGlow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.72;
+  }
+}
+/* Homepage hero dashboard: a light sweeps along each funnel bar; the top bar breathes */
+.bar-shine {
+  position: relative;
+  overflow: hidden;
+}
+.bar-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.55) 50%, transparent 100%);
+  animation: barShine 3.2s ease-in-out infinite;
+  animation-delay: inherit;
+}
+.bar-glow {
+  animation: barGlow 2.6s ease-in-out infinite;
+}
+@keyframes alertCycle {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  5%, 30% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  35%, 100% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+/* Notification card: three alerts take turns (each is visible for a third of the loop) */
+.alert-cycle {
+  opacity: 0;
+  animation: alertCycle 12s ease-in-out infinite;
+}
+[data-art-paused] :is(.beam-pulse, .float-soft, .node-ring, .flow-dash, .rail-pulse, .ring-pulse, .seq-pulse, .star-pop, .dot-bounce, .bar-glow, .alert-cycle),
+[data-art-paused] .bar-shine::after {
   animation-play-state: paused;
 }
 /* Beams dissolve before they reach the headline copy in the middle */
@@ -484,12 +536,20 @@ body {
   }
   .float-soft,
   .node-ring,
-  .flow-dash {
+  .flow-dash,
+  .bar-shine::after,
+  .bar-glow {
     animation: none;
   }
   .rail-pulse {
     animation: none;
     opacity: 0;
+  }
+  .alert-cycle {
+    animation: none;
+  }
+  .alert-cycle:first-child {
+    opacity: 1;
   }
   .ring-pulse,
   .star-pop,

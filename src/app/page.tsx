@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Hero from "@/components/hero";
+import PracticeAreas from "@/components/practice-areas";
 import LeadFlow from "@/components/lead-flow";
 import ServicesExplorer from "@/components/services-explorer";
 import StatsStrip from "@/components/stats-strip";
@@ -54,6 +55,7 @@ export default function HomePage() {
         }}
       />
       <Hero />
+      <PracticeAreas />
       <LeadFlow />
       <ServicesExplorer />
       <StatsStrip />
