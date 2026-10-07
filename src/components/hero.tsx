@@ -24,10 +24,10 @@ const bars = [34, 46, 42, 60, 56, 70, 66, 100];
 
 // `short` is the phone label: all four fit on one line at 375px wide
 const industries = [
-  { name: "Real Estate", short: "Real Estate", color: "bg-accent" },
-  { name: "Immigration", short: "Immigration", color: "bg-amber-500" },
-  { name: "Political Campaigns", short: "Political", color: "bg-sky-500" },
-  { name: "Performance Marketing", short: "Performance Ads", color: "bg-brand-orange" },
+  { name: "Real Estate", short: "Real Estate", color: "bg-accent", href: "/services/real-estate-lead-generation" },
+  { name: "Immigration", short: "Immigration", color: "bg-amber-500", href: "/services/immigration-lead-generation" },
+  { name: "Political Campaigns", short: "Political", color: "bg-sky-500", href: "/services/political-management" },
+  { name: "Performance Marketing", short: "Performance Ads", color: "bg-brand-orange", href: "/services/performance-marketing" },
 ];
 
 // The notification card cycles through these (CSS keyframes, staggered by index)
@@ -87,22 +87,24 @@ export default function Hero() {
             </p>
 
             <div className="mt-5 sm:mt-9 flex flex-col items-stretch gap-3.5 sm:gap-4 sm:items-start">
-              <div className="flex flex-col gap-2.5 min-[380px]:flex-row sm:gap-3">
+              <div className="grid grid-cols-2 gap-2.5 sm:flex sm:gap-3">
                 <button
                   type="button"
                   onClick={() => openEnquiry()}
-                  className="pressable group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-ink px-5 py-3 sm:px-6 sm:py-3.5 text-[14px] sm:text-[15px] font-semibold tracking-[-0.01em] text-white shadow-lift transition-all duration-150 hover:-translate-y-0.5 hover:bg-accent cursor-pointer"
+                  className="pressable group inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap rounded-full bg-ink px-3 py-3 sm:px-6 sm:py-3.5 text-[13px] sm:text-[15px] font-semibold tracking-[-0.01em] text-white shadow-lift transition-all duration-150 hover:-translate-y-0.5 hover:bg-accent cursor-pointer"
                 >
-                  <span>Get a Growth Strategy</span>
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <span className="sm:hidden">Growth Strategy</span>
+                  <span className="hidden sm:inline">Get a Growth Strategy</span>
+                  <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
                 </button>
                 <Link
                   href="/learn-digital-marketing"
                   prefetch={true}
-                  className="pressable group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-amber-500 px-5 py-3 sm:px-6 sm:py-3.5 text-[14px] sm:text-[15px] font-semibold tracking-[-0.01em] text-white shadow-md shadow-amber-500/25 transition-all duration-150 hover:-translate-y-0.5 hover:bg-amber-600"
+                  className="pressable group inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap rounded-full bg-amber-500 px-3 py-3 sm:px-6 sm:py-3.5 text-[13px] sm:text-[15px] font-semibold tracking-[-0.01em] text-white shadow-md shadow-amber-500/25 transition-all duration-150 hover:-translate-y-0.5 hover:bg-amber-600"
                 >
-                  <span>Learn Digital Marketing</span>
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <span className="sm:hidden">Learn Marketing</span>
+                  <span className="hidden sm:inline">Learn Digital Marketing</span>
+                  <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
               <Link
@@ -119,10 +121,20 @@ export default function Hero() {
 
             <ul className="mt-6 flex justify-between whitespace-nowrap text-[11.5px] text-ink/60 sm:mt-10 sm:flex-wrap sm:justify-start sm:gap-x-6 sm:gap-y-3 sm:whitespace-normal sm:text-[14px]">
               {industries.map((i) => (
-                <li key={i.name} className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-                  <span className={`h-1.5 w-1.5 rounded-full ${i.color}`} />
-                  <span className="sm:hidden">{i.short}</span>
-                  <span className="hidden sm:inline">{i.name}</span>
+                <li key={i.name} className="shrink-0">
+                  <Link
+                    href={i.href}
+                    prefetch={true}
+                    className="group/ind inline-flex items-center gap-1.5 py-1 transition-colors hover:text-accent sm:gap-2"
+                  >
+                    <span className={`h-1.5 w-1.5 rounded-full ${i.color}`} />
+                    <span className="border-b border-transparent transition-colors group-hover/ind:border-accent/40 sm:hidden">
+                      {i.short}
+                    </span>
+                    <span className="hidden border-b border-transparent transition-colors group-hover/ind:border-accent/40 sm:inline">
+                      {i.name}
+                    </span>
+                  </Link>
                 </li>
               ))}
             </ul>
