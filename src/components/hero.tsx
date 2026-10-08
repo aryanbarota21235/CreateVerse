@@ -175,7 +175,7 @@ export default function Hero() {
 
             {/* Main funnel card */}
             <div className="relative w-full rounded-[24px] bg-white px-5 pt-5 pb-20 sm:pb-14 shadow-soft ring-1 ring-black/[0.04] sm:ml-auto sm:w-[84%] sm:px-6 sm:pt-6 sm:mt-8 lg:mt-10">
-              <div className="flex items-start justify-between sm:pl-32 lg:pl-36">
+              <div className="flex items-start justify-between sm:pl-24 lg:pl-24">
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-ink/45">
                     Acquisition funnel
