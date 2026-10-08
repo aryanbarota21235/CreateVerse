@@ -143,7 +143,7 @@ export default function Hero() {
           {/* ---------------- Right: layered dashboard ---------------- */}
           <div className="relative mx-auto w-full max-w-[560px] lg:ml-auto lg:mr-0 lg:max-w-[520px]">
             {/* Growth card (front, top-left) */}
-            <div className="relative z-10 mb-3 w-full sm:absolute sm:-top-10 sm:-left-3 sm:mb-0 sm:w-[48%] sm:max-w-[225px] lg:-top-12 lg:-left-5">
+            <div className="relative z-10 mb-3 w-full sm:absolute sm:-top-10 sm:-left-6 sm:mb-0 sm:w-[46%] sm:max-w-[210px] lg:-top-12 lg:-left-8">
               <div
                 className="float-soft rounded-[20px] bg-white p-3.5 shadow-soft ring-1 ring-black/[0.05] sm:p-4"
                 style={{ animationDelay: "-2.2s" }}
@@ -174,8 +174,8 @@ export default function Hero() {
             </div>
 
             {/* Main funnel card */}
-            <div className="relative w-full rounded-[24px] bg-white px-5 pt-5 pb-12 shadow-soft ring-1 ring-black/[0.04] sm:ml-auto sm:w-[84%] sm:px-6 sm:pt-6 sm:pb-12 sm:mt-8 lg:mt-10">
-              <div className="flex items-start justify-between sm:pl-24">
+            <div className="relative w-full rounded-[24px] bg-white px-5 pt-5 pb-20 sm:pb-14 shadow-soft ring-1 ring-black/[0.04] sm:ml-auto sm:w-[84%] sm:px-6 sm:pt-6 sm:mt-8 lg:mt-10">
+              <div className="flex items-start justify-between sm:pl-32 lg:pl-36">
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-ink/45">
                     Acquisition funnel
@@ -222,7 +222,7 @@ export default function Hero() {
             </div>
 
             {/* Notification card (front, bottom-right): three alerts take turns */}
-            <div className="absolute z-10 -bottom-5 left-0 w-[82%] max-w-[360px] sm:-bottom-7 sm:left-0 lg:-left-4">
+            <div className="absolute z-10 -bottom-6 left-3 right-3 max-w-[360px] sm:left-0 sm:right-auto sm:w-[82%] sm:-bottom-7 lg:-left-4">
               <div
                 className="float-soft relative rounded-[18px] bg-white shadow-soft ring-1 ring-black/[0.05] sm:rounded-[20px]"
                 style={{ animationDelay: "-4.1s" }}
