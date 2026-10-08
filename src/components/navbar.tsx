@@ -36,10 +36,6 @@ export default function Navbar() {
     setMobileOpen(false);
   }, [pathname]);
 
-  if (pathname?.startsWith("/admin")) {
-    return null;
-  }
-
   return (
     <header className="fixed inset-x-0 top-2 sm:top-5 z-50 px-3 sm:px-8 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]">
       {/* Maximum luxury width floating pill dock */}

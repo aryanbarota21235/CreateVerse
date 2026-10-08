@@ -11,7 +11,6 @@ export async function GET() {
       endpoints: [
         { path: "/api/health", methods: ["GET"], status: "operational" },
         { path: "/api/enquiry", methods: ["GET", "POST"], status: "operational" },
-        { path: "/api/finance", methods: ["GET", "POST"], status: "operational" },
       ],
     },
     { status: 200 }

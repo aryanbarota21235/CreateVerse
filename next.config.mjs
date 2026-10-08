@@ -19,6 +19,16 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: "/admin",
+        destination: "https://www.createverse.in",
+        permanent: true,
+      },
+      {
+        source: "/admin/:path*",
+        destination: "https://www.createverse.in",
+        permanent: true,
+      },
+      {
         source: "/work",
         destination: "https://www.createverse.in/clients",
         permanent: true,

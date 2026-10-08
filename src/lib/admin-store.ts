@@ -361,11 +361,6 @@ export function addFinancialRecord(record: {
   if (typeof window !== "undefined") {
     try {
       localStorage.setItem(STORAGE_KEY_FINANCE, JSON.stringify(updated));
-      fetch("/api/finance", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newRecord),
-      }).catch((err) => console.warn("API finance sync notice:", err));
     } catch (e) {
       console.error("Failed to save finance record to storage", e);
     }

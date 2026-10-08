@@ -1,18 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { usePathname } from "next/navigation";
 import { X } from "lucide-react";
 import { site } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 export default function WhatsAppWidget() {
-  const pathname = usePathname();
   const [showTooltip, setShowTooltip] = useState(true);
-
-  if (pathname?.startsWith("/admin")) {
-    return null;
-  }
 
   return (
     <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-2">

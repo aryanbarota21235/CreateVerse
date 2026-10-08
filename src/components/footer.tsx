@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { ArrowUpRight, ArrowUp, Mail, Phone, MapPin } from "lucide-react";
 import { site } from "@/lib/site";
 import { services } from "@/lib/services";
@@ -10,12 +9,7 @@ import { useEnquiry } from "@/context/enquiry-context";
 import { InstagramIcon } from "@/components/social-icons";
 
 export default function Footer() {
-  const pathname = usePathname();
   const { openEnquiry } = useEnquiry();
-
-  if (pathname?.startsWith("/admin")) {
-    return null;
-  }
 
   const scrollToTop = () => {
     if (typeof window !== "undefined") {
