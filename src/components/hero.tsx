@@ -143,16 +143,16 @@ export default function Hero() {
           {/* ---------------- Right: layered dashboard ---------------- */}
           <div className="relative mx-auto w-full max-w-[560px] lg:ml-auto lg:mr-0 lg:max-w-[520px]">
             {/* Growth card (front, top-left) */}
-            <div className="relative z-10 mb-3 w-full sm:absolute sm:-top-6 sm:left-0 sm:mb-0 sm:w-[54%] sm:max-w-[260px] lg:top-0">
+            <div className="relative z-10 mb-3 w-full sm:absolute sm:-top-10 sm:-left-3 sm:mb-0 sm:w-[48%] sm:max-w-[225px] lg:-top-12 lg:-left-5">
               <div
-                className="float-soft rounded-[20px] bg-white p-4 shadow-soft ring-1 ring-black/[0.05] sm:p-5"
+                className="float-soft rounded-[20px] bg-white p-3.5 shadow-soft ring-1 ring-black/[0.05] sm:p-4"
                 style={{ animationDelay: "-2.2s" }}
               >
                 <div className="flex items-center justify-between">
                   <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-ink/45">Growth</p>
                   <TrendingUp className="h-4 w-4 text-amber-500" />
                 </div>
-                <div className="mt-4 flex h-16 items-end gap-1.5 sm:h-20">
+                <div className="mt-3 flex h-12 items-end gap-1.5 sm:h-14">
                   {bars.map((h, i) => (
                     <div
                       key={i}
@@ -163,7 +163,7 @@ export default function Hero() {
                     />
                   ))}
                 </div>
-                <div className="mt-3 flex items-center justify-between text-[11.5px]">
+                <div className="mt-2.5 flex items-center justify-between text-[11px]">
                   <span className="text-ink/50">Last 8 weeks</span>
                   <span className="inline-flex items-center gap-1 font-semibold text-sky-600">
                     <ArrowUpRight className="h-3.5 w-3.5" />
@@ -174,8 +174,8 @@ export default function Hero() {
             </div>
 
             {/* Main funnel card */}
-            <div className="relative w-full rounded-[24px] bg-white px-5 pt-5 pb-12 shadow-soft ring-1 ring-black/[0.04] sm:ml-auto sm:w-[80%] sm:px-6 sm:pt-6 sm:pb-12 lg:mt-12">
-              <div className="flex items-start justify-between">
+            <div className="relative w-full rounded-[24px] bg-white px-5 pt-5 pb-12 shadow-soft ring-1 ring-black/[0.04] sm:ml-auto sm:w-[84%] sm:px-6 sm:pt-6 sm:pb-12 sm:mt-8 lg:mt-10">
+              <div className="flex items-start justify-between sm:pl-24">
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-ink/45">
                     Acquisition funnel
