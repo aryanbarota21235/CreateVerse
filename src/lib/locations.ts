@@ -49,23 +49,23 @@ export const locations: LocationData[] = [
     nameHindi: "करनाल",
     headline: "Digital Marketing Company in Karnal",
     subheadline:
-      "CreateVerse is a digital marketing company and growth partner in Karnal, headquartered at Mughal Canal. We deliver verified buyer leads, high-ROAS Google Ads, Meta Facebook & Instagram campaigns, Local SEO, and conversion web development for businesses across Karnal and Haryana.",
+      "CreateVerse is a digital marketing company and growth partner in Karnal, headquartered at Sector 35. We deliver verified buyer leads, high-ROAS Google Ads, Meta Facebook & Instagram campaigns, Local SEO, and conversion web development for businesses across Karnal and Haryana.",
     metaTitle: "Digital Marketing Company in Karnal — SEO, Ads & Web",
     metaDescription:
-      "Digital marketing company in Karnal at Mughal Canal. SEO, Google Ads, Facebook & Instagram ads, social media marketing, lead generation and website development for Karnal businesses. Call +91 91746-91846.",
+      "Digital marketing company in Karnal at Sector 35. SEO, Google Ads, Facebook & Instagram ads, social media marketing, lead generation and website development for Karnal businesses. Call +91 91746-91846.",
     geo: {
-      latitude: 29.6602302,
-      longitude: 77.003249,
+      latitude: 29.65676,
+      longitude: 77.01462,
     },
     address: {
-      streetAddress: "Mughal Canal",
+      streetAddress: "G402, Ras Residency, Sector 35",
       addressLocality: "Karnal",
       addressRegion: "Haryana",
       postalCode: "132001",
       addressCountry: "IN",
     },
-    officeStatus: "Headquarters: Mughal Canal, Karnal",
-    distanceFromHq: "HQ Mughal Canal, Karnal",
+    officeStatus: "Headquarters: Sector 35, Karnal",
+    distanceFromHq: "HQ Sector 35, Karnal",
     phone: "+91 91746-91846",
     email: "info@createverse.in",
     localKeywords: [
@@ -85,10 +85,11 @@ export const locations: LocationData[] = [
       "digital marketing in karnal",
     ],
     commercialHubs: [
-      "Mughal Canal Commercial Hub",
+      "Sector 35 & Ras Residency / Ansal Town",
       "Model Town Karnal",
       "Sector 12 Urban Estate",
       "Sector 13 & Sector 14",
+      "Mughal Canal Commercial Hub",
       "Kunjpura Road & Mall Road",
       "GT Road & Namaste Chowk",
       "Sector 6 & Sector 7",
@@ -134,9 +135,9 @@ export const locations: LocationData[] = [
     ],
     whyChooseUs: [
       {
-        title: "Centrally Located in Mughal Canal, Karnal",
+        title: "Centrally Located in Sector 35, Karnal",
         description:
-          "Our central strategic office is right in Mughal Canal, Karnal. No distant outsourcing or faceless agencies—meet our team face-to-face anytime.",
+          "Our central strategic office is right in Sector 35, Karnal. No distant outsourcing or faceless agencies—meet our team face-to-face anytime.",
       },
       {
         title: "Revenue & Leads, Zero Vanity Metrics",
@@ -157,7 +158,7 @@ export const locations: LocationData[] = [
     faqs: [
       {
         q: "Which digital marketing company in Karnal is right for my business?",
-        a: "Pick the one that can show you live campaigns, real client references and the exact reports you will receive. CreateVerse is headquartered at Mughal Canal, Karnal, and runs full-funnel customer acquisition in-house: Google Ads, Meta Ads (Facebook & Instagram), Local SEO, social media and conversion web development.",
+        a: "Pick the one that can show you live campaigns, real client references and the exact reports you will receive. CreateVerse is headquartered at Sector 35, Karnal, and runs full-funnel customer acquisition in-house: Google Ads, Meta Ads (Facebook & Instagram), Local SEO, social media and conversion web development.",
       },
       {
         q: "What digital marketing services does CreateVerse provide in Karnal?",
@@ -165,7 +166,7 @@ export const locations: LocationData[] = [
       },
       {
         q: "Where is your office located in Karnal?",
-        a: "Our central office is located at Mughal Canal, Karnal - 132001, Haryana. You can visit us in person for an executive strategy session or call us at +91 91746-91846.",
+        a: "Our central office is located at G402, Ras Residency, Sector 35, Karnal - 132001, Haryana. You can visit us in person for an executive strategy session or call us at +91 91746-91846.",
       },
       {
         q: "How much does digital marketing cost in Karnal?",
@@ -272,7 +273,7 @@ export const locations: LocationData[] = [
       {
         title: "Direct Physical Proximity (30 Mins via NH-44)",
         description:
-          "Located conveniently in Mughal Canal, Karnal, our strategy directors conduct regular in-person reviews at your Panipat office or factory.",
+          "Located conveniently in Sector 35, Karnal, our strategy directors conduct regular in-person reviews at your Panipat office or factory.",
       },
       {
         title: "Measurable ROI & Revenue Focus",
@@ -301,7 +302,7 @@ export const locations: LocationData[] = [
       },
       {
         q: "Can your team meet us in person in Panipat?",
-        a: "Yes. Headquartered in Mughal Canal, Karnal, our team is just 30 minutes away via NH-44 and regularly conducts in-person consultations in Panipat.",
+        a: "Yes. Headquartered in Sector 35, Karnal, our team is just 30 minutes away via NH-44 and regularly conducts in-person consultations in Panipat.",
       },
       {
         q: "How does CreateVerse help Panipat businesses get more customers?",
@@ -525,7 +526,7 @@ export const locations: LocationData[] = [
       {
         title: "45-Minute Highway Proximity",
         description:
-          "Located just across the highway at Mughal Canal, Karnal, our senior consultants regularly visit Kaithal for strategy sessions.",
+          "Located just across the highway at Sector 35, Karnal, our senior consultants regularly visit Kaithal for strategy sessions.",
       },
       {
         title: "Focus on Sales & Leads, Not Likes",
@@ -554,7 +555,7 @@ export const locations: LocationData[] = [
       },
       {
         q: "Can our Kaithal business meet the CreateVerse team in person?",
-        a: "Yes. Our central headquarters is in Mughal Canal, Karnal, just 45 minutes away. We also regularly visit clients in Kaithal for on-site reviews.",
+        a: "Yes. Our central headquarters is in Sector 35, Karnal, just 45 minutes away. We also regularly visit clients in Kaithal for on-site reviews.",
       },
       {
         q: "How does digital marketing help local businesses in Kaithal?",
@@ -664,7 +665,7 @@ export const locations: LocationData[] = [
       {
         title: "Rapid On-Site Support",
         description:
-          "Our leadership is available for in-person meetings in Jind or at our primary headquarters in Mughal Canal, Karnal.",
+          "Our leadership is available for in-person meetings in Jind or at our primary headquarters in Sector 35, Karnal.",
       },
     ],
     faqs: [
@@ -775,7 +776,7 @@ export const locations: LocationData[] = [
       {
         title: "Proximity & Rapid On-Site Availability",
         description:
-          "Located just an hour away in Mughal Canal, Karnal, our team regularly conducts on-site executive meetings in Yamunanagar and Jagadhri.",
+          "Located just an hour away in Sector 35, Karnal, our team regularly conducts on-site executive meetings in Yamunanagar and Jagadhri.",
       },
       {
         title: "Focus on Direct Sales & Qualified Inquiries",
@@ -804,7 +805,7 @@ export const locations: LocationData[] = [
       },
       {
         q: "Can our Yamunanagar business meet your team in person?",
-        a: "Yes. Based in Mughal Canal, Karnal, our leadership is just an hour away and frequently visits Yamunanagar and Jagadhri for in-person consultations.",
+        a: "Yes. Based in Sector 35, Karnal, our leadership is just an hour away and frequently visits Yamunanagar and Jagadhri for in-person consultations.",
       },
       {
         q: "How does CreateVerse help Yamunanagar businesses grow?",

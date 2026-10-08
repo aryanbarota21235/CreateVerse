@@ -266,7 +266,7 @@ export const serviceSeoKeywords: Record<string, string[]> = {
 // Name, address, phone, pin and hours here must stay identical to the Google Business Profile.
 const postalAddress = {
   "@type": "PostalAddress",
-  streetAddress: "Mughal Canal",
+  streetAddress: "G402, Ras Residency, Sector 35",
   addressLocality: "Karnal",
   addressRegion: "Haryana",
   postalCode: "132001",
@@ -461,7 +461,7 @@ export function getOrganizationJsonLd() {
 export const homeFaqs = [
   {
     q: "Which is the best digital marketing agency in Karnal?",
-    a: "CreateVerse is a full-service digital marketing agency headquartered at Mughal Canal, Karnal. One in-house team handles Google Ads, Meta Ads, SEO, lead generation, social media and website development, and reports on leads and revenue rather than likes. Whichever agency you shortlist, judge it on proof: ask to see live campaigns, client references and the reports you would actually receive.",
+    a: "CreateVerse is a full-service digital marketing agency headquartered at Sector 35, Karnal. One in-house team handles Google Ads, Meta Ads, SEO, lead generation, social media and website development, and reports on leads and revenue rather than likes. Whichever agency you shortlist, judge it on proof: ask to see live campaigns, client references and the reports you would actually receive.",
   },
   {
     q: "Where is the CreateVerse office in Karnal?",

@@ -6,17 +6,17 @@ export const site = {
   phoneRaw: "+919174691846",
   whatsapp: "919174691846",
   whatsappUrl: "https://wa.me/919174691846?text=Hi%20CreateVerse%2C%20I%20would%20like%20to%20enquire%20about%20your%20services.",
-  location: "Mughal Canal, Karnal - 132001, Haryana, India",
-  address: "Mughal Canal, Karnal - 132001, Haryana, India",
-  mapsUrl: "https://maps.app.goo.gl/ndmYW4eHavoMFWHw5",
+  location: "G402, Ras Residency, Sector 35, Karnal - 132001, Haryana, India",
+  address: "G402, Ras Residency, Sector 35, Karnal - 132001, Haryana, India",
+  mapsUrl: "https://www.google.com/maps/search/?api=1&query=Ras+Residency%2C+Sector+35%2C+Karnal%2C+Haryana",
   instagramUrl: "https://www.instagram.com/createverse.in/",
   // Must mirror the Google Business Profile listing exactly (name, pin, hours)
   url: "https://www.createverse.in",
   legalName: "Createverse Consulting Private Limited",
-  mapsPlaceUrl: "https://www.google.com/maps?cid=7148231721697400408",
+  mapsPlaceUrl: "https://www.google.com/maps/search/?api=1&query=Ras+Residency%2C+Sector+35%2C+Karnal%2C+Haryana",
   mapsEmbedUrl:
-    "https://www.google.com/maps?q=Createverse+Consulting+Private+Limited,+Karnal&output=embed",
-  geo: { latitude: 29.6602302, longitude: 77.003249 },
+    "https://www.google.com/maps?q=Ras+Residency,+Sector+35,+Karnal,+Haryana&output=embed",
+  geo: { latitude: 29.65676, longitude: 77.01462 },
   hours: { days: "Mon – Sat", opens: "09:30", closes: "19:30", label: "Mon – Sat, 9:30 AM – 7:30 PM" },
   // Slugs match src/lib/locations.ts — kept here so client components don't bundle the full city data
   cities: [

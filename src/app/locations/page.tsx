@@ -74,13 +74,13 @@ export default function LocationsHubPage() {
               </h1>
 
               <p className="mt-4 sm:mt-6 text-sm sm:text-lg leading-relaxed text-stone-600 font-normal">
-                Headquartered in Mughal Canal, Karnal, CreateVerse operates dedicated regional growth desks across Haryana&apos;s primary commercial and industrial corridors. We combine tier-1 national advertising intelligence with hyper-local market depth.
+                Headquartered in Sector 35, Karnal, CreateVerse operates dedicated regional growth desks across Haryana&apos;s primary commercial and industrial corridors. We combine tier-1 national advertising intelligence with hyper-local market depth.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-4 text-xs font-semibold text-stone-700">
                 <div className="flex items-center gap-2">
                   <Building2 className="h-4 w-4 text-accent shrink-0" />
-                  <span>HQ: Mughal Canal, Karnal</span>
+                  <span>HQ: Sector 35, Karnal</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />

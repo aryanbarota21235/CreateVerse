@@ -17,7 +17,7 @@ export default function LocalPresence() {
           />
           <Reveal delay={0.08}>
             <p className="mt-4 sm:mt-6 max-w-xl text-sm sm:text-base lg:text-lg leading-relaxed text-ink/80 font-normal">
-              CreateVerse is headquartered at Mughal Canal, Karnal. From here one in-house team runs
+              CreateVerse is headquartered at Sector 35, Karnal. From here one in-house team runs
               Google Ads, Meta Ads, SEO, lead generation, social media and website projects for
               businesses in Karnal and across Haryana, Punjab, Delhi NCR and the rest of India —
               ROI-oriented work, reported in leads and revenue.

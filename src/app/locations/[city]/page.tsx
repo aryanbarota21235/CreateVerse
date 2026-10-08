@@ -303,7 +303,7 @@ export default async function LocationCityPage({
                 <div className="mt-4 overflow-hidden rounded-xl border border-stone-200">
                   <iframe
                     src={site.mapsEmbedUrl}
-                    title="CreateVerse office at Mughal Canal, Karnal on Google Maps"
+                    title="CreateVerse office at Sector 35, Karnal on Google Maps"
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                     className="block h-56 w-full border-0"
