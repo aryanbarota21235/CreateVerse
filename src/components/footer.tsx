@@ -42,7 +42,7 @@ export default function Footer() {
             </Link>
 
             <p className="max-w-sm text-xs sm:text-sm leading-relaxed text-stone-400 font-normal">
-              A digital marketing agency headquartered in Karnal, Haryana, working with clients across India. We engineer verified lead generation systems, 24/7 political war rooms, and high-ROAS performance marketing operations.
+              A performance-led digital marketing agency working with clients across India. We engineer verified lead generation systems, 24/7 political war rooms, and high-ROAS performance marketing operations.
             </p>
 
             {/* Single clean Enquire button */}

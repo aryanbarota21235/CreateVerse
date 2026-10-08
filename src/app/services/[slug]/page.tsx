@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const serviceUrl = `https://www.createverse.in/services/${service.slug}`;
 
   return {
-    title: `${service.name} Agency in Karnal, India`,
+    title: `${service.name} Agency in India`,
     description: service.description,
     keywords,
     alternates: {

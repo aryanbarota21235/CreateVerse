@@ -123,6 +123,57 @@ const nextConfig = {
         destination: "https://www.createverse.in/clients/subhash-sudha",
         permanent: true,
       },
+      // Legacy service URLs from the previous site (still in Google's index, currently 404)
+      {
+        source: "/Google-Ads",
+        destination: "https://www.createverse.in/services/google-ads",
+        permanent: true,
+      },
+      {
+        source: "/google-ads",
+        destination: "https://www.createverse.in/services/google-ads",
+        permanent: true,
+      },
+      {
+        source: "/seo",
+        destination: "https://www.createverse.in/services/content-marketing",
+        permanent: true,
+      },
+      {
+        source: "/SEO",
+        destination: "https://www.createverse.in/services/content-marketing",
+        permanent: true,
+      },
+      {
+        source: "/social-media-marketing",
+        destination: "https://www.createverse.in/services/social-media-marketing",
+        permanent: true,
+      },
+      {
+        source: "/Social-Media-Marketing",
+        destination: "https://www.createverse.in/services/social-media-marketing",
+        permanent: true,
+      },
+      {
+        source: "/web-development",
+        destination: "https://www.createverse.in/services/web-development",
+        permanent: true,
+      },
+      {
+        source: "/Web-Development",
+        destination: "https://www.createverse.in/services/web-development",
+        permanent: true,
+      },
+      {
+        source: "/lead-generation",
+        destination: "https://www.createverse.in/services/lead-generation",
+        permanent: true,
+      },
+      {
+        source: "/Lead-Generation",
+        destination: "https://www.createverse.in/services/lead-generation",
+        permanent: true,
+      },
       // Regional Hub & City Keyword Redirects (Direct to Canonical https://www.createverse.in/locations/[city])
       {
         source: "/haryana",
