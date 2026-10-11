@@ -121,7 +121,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Specialized Acquisition & Practice Pages
   const servicePages: MetadataRoute.Sitemap = services
-    .filter((s) => s.slug !== "political-management")
+    .filter((s) => s.slug !== "political-management" && s.slug !== "paid-social")
     .map((s) => ({
       url: `${base}/services/${s.slug}`,
       lastModified: now,

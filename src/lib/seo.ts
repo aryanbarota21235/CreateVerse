@@ -1,6 +1,7 @@
 import { site } from "@/lib/site";
 import { type Service } from "@/lib/services";
 import { type LocationData } from "@/lib/locations";
+import { politicalFaqs } from "@/lib/political-faqs";
 
 export const siteKeywords = [
   // Core Brand & National Positioning (All India)
@@ -224,7 +225,10 @@ export const serviceSeoKeywords: Record<string, string[]> = {
     "Google Display and YouTube advertising",
     "PPC agency Delhi NCR Haryana",
   ],
-  "paid-social": [
+  "social-media-paid-ads": [
+    "facebook ads agency in karnal",
+    "instagram ads agency karnal",
+    "meta ads agency karnal haryana",
     "paid social media advertising agency",
     "Meta ads agency India",
     "Facebook lead generation ads",
@@ -672,10 +676,20 @@ export function getPoliticalManagementJsonLd() {
         url: pageUrl,
         provider: { "@id": `${site.url}/#organization` },
         serviceType: "Political Consulting & War Room",
-        areaServed: {
-          "@type": "Country",
-          name: "India",
-        },
+        areaServed: [
+          { "@type": "State", name: "Haryana" },
+          { "@type": "State", name: "Punjab" },
+          { "@type": "Country", name: "India" },
+        ],
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${pageUrl}#faq`,
+        mainEntity: politicalFaqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.q,
+          acceptedAnswer: { "@type": "Answer", text: faq.a },
+        })),
       },
       {
         "@type": "BreadcrumbList",

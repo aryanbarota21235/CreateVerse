@@ -184,6 +184,12 @@ const nextConfig = {
         destination: "https://www.createverse.in/services/lead-generation",
         permanent: true,
       },
+      // Duplicate practice page consolidated into the Meta ads page
+      {
+        source: "/services/paid-social",
+        destination: "https://www.createverse.in/services/social-media-paid-ads",
+        permanent: true,
+      },
       {
         source: "/seo-company-karnal",
         destination: "https://www.createverse.in/services/seo",

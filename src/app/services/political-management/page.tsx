@@ -29,9 +29,9 @@ import PoliticalFaq from "./political-faq";
 import { serviceSeoKeywords, getPoliticalManagementJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Political Campaign Management & Digital War Room",
+  title: "Political Campaign Management Company in India",
   description:
-    "Elite political campaign management, booth-level voter micro-targeting, narrative engineering, and 24/7 rapid response digital campaign operations for elected Members of Parliament, State MLAs, and political candidates across India.",
+    "Political campaign management company in India: digital war rooms, booth-level voter targeting, narrative and rapid response for MPs, MLAs and candidates.",
   keywords: serviceSeoKeywords["political-management"],
   alternates: {
     canonical: "https://www.createverse.in/services/political-management",

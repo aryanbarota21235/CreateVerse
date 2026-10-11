@@ -29,7 +29,10 @@ import { getServiceKeywords, getServiceJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 export function generateStaticParams() {
-  return services.filter((s) => s.slug !== "political-management").map((s) => ({ slug: s.slug }));
+  // political-management has its own page; paid-social duplicates social-media-paid-ads and is redirected
+  return services
+    .filter((s) => s.slug !== "political-management" && s.slug !== "paid-social")
+    .map((s) => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
