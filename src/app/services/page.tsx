@@ -7,10 +7,16 @@ import PageHero from "@/components/page-hero";
 import Reveal from "@/components/reveal";
 
 export const metadata: Metadata = {
-  title: "Digital Marketing Services — Ads, SEO, Leads & Web",
+  title: "Digital Marketing Services in Karnal, India — SEO, Ads, Leads & Web",
   description:
-    "Explore CreateVerse specialized practices: real estate lead generation, immigration funnels, Google Ads, paid social, 24/7 political war rooms, conversion web development, and full-funnel acquisition systems.",
+    "Digital marketing services from CreateVerse, Karnal: SEO, Google Ads, Meta ads, lead generation, social media, web development and political campaign management for businesses in Karnal, Haryana and across India.",
   keywords: [
+    "digital marketing services in karnal",
+    "digital marketing services karnal haryana",
+    "seo services in karnal",
+    "google ads services karnal",
+    "social media marketing services karnal",
+    "website development services karnal",
     "digital marketing services India",
     "real estate lead generation services",
     "immigration visa marketing",
@@ -77,7 +83,7 @@ export default function ServicesPage() {
         art="services"
         eyebrow="Services & Practices"
         title={<>Everything growth needs, <span className="text-accent">under one roof.</span></>}
-        description="Acquisition, advertising, creative, and technology — engineered so every service feeds the same goal: verified revenue, not just clicks."
+        description="Acquisition, advertising, creative, and technology from our Karnal, Haryana office — engineered so every service feeds the same goal: verified revenue for businesses in Karnal and across India, not just clicks."
       />
 
       {/* Services Grid with Practice Filters */}

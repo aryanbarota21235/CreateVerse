@@ -141,7 +141,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${base}/locations/${slug}`,
       lastModified: now,
       changeFrequency: "daily" as const,
-      priority: 0.95,
+      // Karnal is the headquarters page and the primary local landing page
+      priority: slug === "karnal" ? 1.0 : 0.9,
     })),
   ];
 

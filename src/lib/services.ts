@@ -16,6 +16,10 @@ export interface Service {
   description: string;
   icon: string; // lucide icon key
   priority: boolean; // visually emphasized in the services grid
+  /** Optional <title> override (template appends "| CreateVerse"). Default: "{name} Agency in Karnal, India" */
+  metaTitle?: string;
+  /** Optional meta description override. */
+  metaDescription?: string;
   category: "Acquisition" | "Advertising" | "Creative" | "Campaigns" | "Technology";
   problem: { title: string; desc: string };
   deliverables: string[];
@@ -200,6 +204,53 @@ export const services: Service[] = [
       { q: "What budget do we need to start?", a: "It depends on your industry's click costs and lead targets. We model expected CPC, conversion rate and lead cost before recommending a monthly budget." },
       { q: "How is this different from boosting posts?", a: "Google Ads captures existing demand — people actively searching for what you sell. It requires proper tracking, keyword strategy and landing-page alignment to be profitable." },
       { q: "When do results show?", a: "Traffic starts immediately; meaningful optimization data typically matures within 2–4 weeks of live spend." },
+    ],
+  },
+  {
+    slug: "seo",
+    name: "SEO Services",
+    shortName: "SEO",
+    tagline: "Rank at the top of Google — in Karnal, across Haryana and all of India.",
+    description:
+      "Local SEO, Google Business Profile optimisation, technical SEO and search-led content that puts your business on page one for the searches your customers actually make.",
+    icon: "Search",
+    priority: true,
+    metaTitle: "SEO Company in Karnal, Haryana — Rank #1 on Google",
+    metaDescription:
+      "SEO company in Karnal, Haryana. Local SEO, Google Business Profile, Google Maps ranking, technical SEO and content marketing for businesses in Karnal and across India. Call +91 91746-91846.",
+    category: "Acquisition",
+    problem: {
+      title: "Ads stop the day you stop paying. Rankings keep working.",
+      desc: "Most businesses in Karnal and Haryana either have no organic presence or a website Google cannot understand. SEO done properly turns Google Search and Google Maps into a lead source that compounds month after month.",
+    },
+    deliverables: [
+      "Technical SEO audit — speed, Core Web Vitals, indexing, schema markup",
+      "Keyword research mapped to buyer intent and city-level searches",
+      "On-page optimisation — titles, headings, content and internal links",
+      "Local SEO — Google Business Profile, Google Maps 3-Pack, citations and review strategy",
+      "SEO content — service pages, location pages, blogs and guides",
+      "Authority building — digital PR, local directories and quality backlinks",
+      "Monthly ranking, traffic and lead reporting from Search Console and GA4",
+    ],
+    process: [
+      { title: "Audit & Keyword Map", desc: "We audit your site, competitors and Google Business Profile, then map the exact searches that bring customers in Karnal, Haryana and your wider market." },
+      { title: "Technical & On-Page Fixes", desc: "Speed, mobile, indexing, schema and page structure are fixed first so Google can read and trust every page." },
+      { title: "Local & Content Build", desc: "Google Business Profile, location pages, service pages and content are built around the keyword map — with reviews and citations working in parallel." },
+      { title: "Authority & Growth", desc: "Links, digital PR and monthly content keep rankings climbing while we report traffic, calls and leads — not just positions." },
+    ],
+    benefits: [
+      "Page-one rankings for 'near me' and city searches in Karnal and Haryana",
+      "Google Maps 3-Pack visibility that drives calls and walk-ins",
+      "Organic leads that keep arriving without ad spend",
+      "Transparent monthly reporting from Google Search Console and GA4",
+    ],
+    industries: ["Real estate", "Immigration & visa", "Healthcare & clinics", "Education & institutes", "Local & B2B services", "E-commerce"],
+    faqs: [
+      { q: "Which is the best SEO company in Karnal?", a: "Judge any SEO company on proof: live rankings they can show, Search Console reports you will actually receive, and whether they own the work in-house. CreateVerse runs SEO from its Sector 35, Karnal office — technical, on-page, local and content SEO under one team — and reports on traffic, calls and leads, not just keyword positions." },
+      { q: "How long does SEO take to show results in Karnal?", a: "Local SEO and Google Maps improvements usually show within 4–8 weeks. Competitive organic keywords typically take 3–6 months of consistent work. We share Search Console data every month so you can see progress before the leads arrive." },
+      { q: "What does SEO cost in Karnal?", a: "Pricing depends on your market, competition and how many locations or services you want to rank for. We scope a fixed monthly plan after a free audit, with clear deliverables and no hidden fees." },
+      { q: "Do you also handle Google Business Profile and Google Maps ranking?", a: "Yes. Local SEO is the core of our Karnal practice: profile optimisation, categories, photos, posts, review strategy, citations and local landing pages that push your business into the Google 3-Pack." },
+      { q: "Can you do SEO for businesses outside Karnal?", a: "Yes. We run SEO for clients across Haryana — Panipat, Kurukshetra, Kaithal, Jind and Yamunanagar — as well as Punjab, Delhi NCR and the rest of India. The same team, the same reporting." },
     ],
   },
   {

@@ -81,9 +81,9 @@ export default function Hero() {
             </h1>
 
             <p className="mt-3.5 sm:mt-6 max-w-[560px] text-[14.5px] sm:text-[16px] lg:text-[17px] leading-[1.5] sm:leading-[1.6] text-ink/65">
-              CreateVerse builds digital growth systems for real estate, immigration, political
-              campaigns and ambitious businesses — generating qualified leads, acquiring customers
-              and scaling campaigns that perform.
+              CreateVerse is a digital marketing company in Karnal, Haryana, building growth systems
+              for real estate, immigration, political campaigns and ambitious businesses across India —
+              Google Ads, Meta Ads, SEO, lead generation and websites that generate qualified leads.
             </p>
 
             <div className="mt-5 sm:mt-9 flex flex-col items-stretch gap-3.5 sm:gap-4 sm:items-start">

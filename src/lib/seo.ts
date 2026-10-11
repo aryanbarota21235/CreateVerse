@@ -48,9 +48,34 @@ export const siteKeywords = [
   "top digital marketing agency Haryana",
   "performance marketing Delhi NCR",
   "seo agency in karnal",
+  "seo company in karnal",
+  "best seo company in karnal",
+  "seo services in karnal",
+  "local seo karnal",
   "google ads agency karnal",
+  "ppc company in karnal",
+  "google ads company karnal",
   "social media marketing karnal",
+  "social media marketing company in karnal",
+  "facebook ads agency karnal",
+  "instagram marketing karnal",
   "website development company in karnal",
+  "website designing company in karnal",
+  "web design karnal",
+  "lead generation company in karnal",
+  "online marketing company in karnal",
+  "internet marketing karnal",
+  "advertising agency in karnal",
+  "branding agency in karnal",
+  "digital marketing company in karnal",
+  "digital marketing company karnal",
+  "digital marketing agency near me karnal",
+  "digital marketing karnal haryana",
+  "digital marketing agency in haryana",
+  "best digital marketing company in haryana",
+  "seo company in haryana",
+  "digital marketing agency in panipat haryana",
+  "digital marketing agency in kurukshetra haryana",
 
   // Core Specialized Verticals
   "real estate lead generation agency",
@@ -111,6 +136,24 @@ export const siteKeywords = [
 ];
 
 export const serviceSeoKeywords: Record<string, string[]> = {
+  seo: [
+    "seo company in karnal",
+    "best seo company in karnal",
+    "seo services in karnal",
+    "seo agency karnal",
+    "local seo karnal",
+    "google maps ranking karnal",
+    "google business profile optimisation karnal",
+    "seo company in haryana",
+    "seo services haryana",
+    "seo company in panipat",
+    "seo company in kurukshetra",
+    "seo agency India",
+    "local seo services India",
+    "technical seo agency",
+    "ecommerce seo services India",
+    "seo expert karnal",
+  ],
   "real-estate-lead-generation": [
     "real estate lead generation",
     "real estate digital marketing agency",
@@ -262,6 +305,26 @@ export const serviceSeoKeywords: Record<string, string[]> = {
   ],
 };
 
+/**
+ * Full keyword list for a service page: the hand-written bank above plus
+ * city variants, so every service page also targets "<service> in karnal".
+ */
+export function getServiceKeywords(service: Service): string[] {
+  const base = serviceSeoKeywords[service.slug] ?? [];
+  const name = (service.shortName ?? service.name).toLowerCase();
+  const generic = [name, `${name} agency`, `${name} services`, `${name} company`];
+  const local = [
+    `${name} agency in karnal`,
+    `${name} company in karnal`,
+    `${name} services in karnal`,
+    `best ${name} agency karnal`,
+    `${name} agency haryana`,
+    `${name} agency india`,
+    ...site.cities.filter((c) => c.slug !== "karnal").map((c) => `${name} agency in ${c.name.toLowerCase()}`),
+  ];
+  return Array.from(new Set([...base, ...generic, ...local]));
+}
+
 // 1. Organization & LocalBusiness JSON-LD
 // Name, address, phone, pin and hours here must stay identical to the Google Business Profile.
 const postalAddress = {
@@ -388,8 +451,17 @@ export function getOrganizationJsonLd() {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "SEO & Content Marketing",
-                description: "Search-led content and on-page optimisation that builds lasting organic demand.",
+                name: "SEO Services & Local SEO",
+                description: "Technical, on-page and local SEO that ranks businesses in Karnal, Haryana and across India on Google Search and Maps.",
+                url: `${site.url}/services/seo`,
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Content Marketing",
+                description: "Search-led content, blogs and guides that build lasting organic demand.",
                 url: `${site.url}/services/content-marketing`,
               },
             },
@@ -476,6 +548,10 @@ export const homeFaqs = [
     a: "Google Ads, Meta (Facebook and Instagram) Ads, SEO and content marketing, lead generation systems, social media management, website and landing page development, creative and graphic design, influencer marketing, and political campaign management.",
   },
   {
+    q: "Do you provide SEO services in Karnal?",
+    a: "Yes. SEO is a core practice at CreateVerse: technical SEO, on-page optimisation, Google Business Profile and Google Maps ranking, and search-led content for businesses in Karnal and across Haryana. Local SEO results usually show within 4–8 weeks; competitive organic keywords take 3–6 months, and we report from Google Search Console every month.",
+  },
+  {
     q: "How do I get started with CreateVerse?",
     a: `Send an enquiry from this page, or call or WhatsApp ${site.phone}. We begin with a free 30-minute strategy conversation about your business, budget and goals, and follow up with clear next steps.`,
   },
@@ -509,11 +585,18 @@ export function getServiceJsonLd(service: Service) {
       alternateName: service.shortName,
       description: service.description,
       url: serviceUrl,
-      provider: { "@id": `${site.url}/#organization` },
+      provider: { "@id": `${site.url}/#localbusiness` },
       serviceType: service.category,
-      areaServed: {
-        "@type": "Country",
-        name: "India",
+      areaServed: [
+        { "@type": "City", name: "Karnal", containedInPlace: { "@type": "State", name: "Haryana" } },
+        { "@type": "State", name: "Haryana" },
+        { "@type": "Country", name: "India" },
+      ],
+      availableChannel: {
+        "@type": "ServiceChannel",
+        serviceUrl: serviceUrl,
+        servicePhone: site.phoneRaw,
+        availableLanguage: ["English", "Hindi", "Punjabi"],
       },
       hasOfferCatalog: {
         "@type": "OfferCatalog",

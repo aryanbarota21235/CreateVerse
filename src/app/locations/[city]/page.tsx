@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MapPin, Phone, Mail, CheckCircle2, ArrowRight, Building2 } from "lucide-react";
-import { locations, getLocation, getAllLocationSlugs } from "@/lib/locations";
+import { locations, getLocation, getAllLocationSlugs, getLocationServiceHref } from "@/lib/locations";
 import { getLocationJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 import Faq from "@/components/faq";
@@ -162,20 +162,27 @@ export default async function LocationCityPage({
 
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
               {location.coreServices.map((service) => (
-                <div
+                <Link
                   key={service.title}
-                  className="rounded-2xl border border-stone-200 bg-white p-6 shadow-xs hover:border-stone-300 transition-all"
+                  href={getLocationServiceHref(service.title)}
+                  prefetch={true}
+                  title={`${service.title} in ${location.name}`}
+                  className="group block rounded-2xl border border-stone-200 bg-white p-6 shadow-xs hover:border-accent/50 transition-all"
                 >
                   <span className="inline-flex rounded-full bg-accent/10 px-2.5 py-0.5 text-[11px] font-bold text-accent mb-2">
                     {service.tag}
                   </span>
-                  <h3 className="font-display text-lg sm:text-xl font-bold text-ink">
+                  <h3 className="font-display text-lg sm:text-xl font-bold text-ink group-hover:text-accent transition-colors">
                     {service.title} in {location.name}
                   </h3>
                   <p className="mt-2 text-xs sm:text-sm leading-relaxed text-stone-600 font-normal">
                     {service.description}
                   </p>
-                </div>
+                  <span className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-accent">
+                    <span>See how we deliver it</span>
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                </Link>
               ))}
             </div>
           </div>

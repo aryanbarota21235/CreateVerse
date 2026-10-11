@@ -7,11 +7,13 @@ import ProcessSection from "@/components/process-section";
 import Reveal from "@/components/reveal";
 
 export const metadata: Metadata = {
-  title: "About CreateVerse — Growth & Digital Acquisition Partner",
+  title: "About CreateVerse — Digital Marketing Agency in Karnal, Haryana",
   description:
-    "Learn about CreateVerse: our operating philosophy, leadership standards, data sovereignty principles, and track record turning digital attention into verified commercial revenue.",
+    "Learn about CreateVerse, a digital marketing agency headquartered in Karnal, Haryana: our operating philosophy, leadership standards, data sovereignty principles, and track record turning digital attention into verified commercial revenue.",
   keywords: [
     "about CreateVerse",
+    "digital marketing agency in karnal",
+    "digital marketing company karnal team",
     "growth marketing leadership",
     "digital acquisition partner India",
     "data sovereignty marketing",

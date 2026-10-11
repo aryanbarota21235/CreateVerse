@@ -25,7 +25,8 @@ import ServiceCta from "@/components/service-cta";
 import ServiceHeroButtons from "@/components/service-hero-buttons";
 import { PageArt, PageArtInline } from "@/components/page-art";
 import { caseStudies } from "@/components/case-studies";
-import { serviceSeoKeywords, getServiceJsonLd } from "@/lib/seo";
+import { getServiceKeywords, getServiceJsonLd } from "@/lib/seo";
+import { site } from "@/lib/site";
 
 export function generateStaticParams() {
   return services.filter((s) => s.slug !== "political-management").map((s) => ({ slug: s.slug }));
@@ -36,26 +37,24 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const service = getService(slug);
   if (!service) return {};
 
-  const keywords = serviceSeoKeywords[service.slug] ?? [
-    service.name,
-    `${service.name} agency India`,
-    `${service.name} services`,
-    "performance marketing agency",
-    "lead generation company India",
-  ];
+  const keywords = getServiceKeywords(service);
 
   const serviceUrl = `https://www.createverse.in/services/${service.slug}`;
+  const title = service.metaTitle ?? `${service.name} Agency in Karnal, India`;
+  const description =
+    service.metaDescription ??
+    `${service.name} by CreateVerse, a digital marketing agency in Karnal, Haryana. ${service.tagline} Serving businesses in Karnal, across Haryana and all of India. Call ${site.phone}.`;
 
   return {
-    title: `${service.name} Agency in India`,
-    description: service.description,
+    title,
+    description,
     keywords,
     alternates: {
       canonical: serviceUrl,
     },
     openGraph: {
-      title: `${service.name} — CreateVerse`,
-      description: service.tagline,
+      title: `${title} — CreateVerse`,
+      description,
       url: serviceUrl,
       siteName: "CreateVerse",
       type: "website",
@@ -71,8 +70,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     },
     twitter: {
       card: "summary_large_image",
-      title: `${service.name} — CreateVerse`,
-      description: service.tagline,
+      title: `${title} — CreateVerse`,
+      description,
       images: ["/logo.png"],
     },
     robots: {
@@ -150,6 +149,10 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
             <h1 className="text-balance mt-4 sm:mt-6 max-w-4xl xl:max-w-3xl font-display text-3xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold tracking-tight text-ink leading-[1.08]">
               {service.name}
+              {/* Local qualifier inside the H1 so every service page carries the city keyword */}
+              <span className="mt-2 block font-sans text-sm sm:text-lg lg:text-xl font-semibold tracking-normal text-ink/55">
+                in Karnal, Haryana &amp; across India
+              </span>
             </h1>
 
             <p className="mt-3 sm:mt-6 max-w-3xl text-sm sm:text-xl font-bold leading-snug text-ink/90">
@@ -463,7 +466,79 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      {/* 6. Frequently Asked Questions */}
+      {/* 6. Local presence — the service, anchored to the Karnal office and Haryana service area */}
+      <section className="bg-white py-14 sm:py-20 border-t border-stone-200">
+        <div className="container-site grid gap-8 sm:gap-12 lg:grid-cols-12">
+          <Reveal className="lg:col-span-7">
+            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-accent">
+              Karnal · Haryana · India
+            </span>
+            <h2 className="mt-2 font-display text-2xl sm:text-4xl font-bold tracking-tight text-ink">
+              {service.shortName ?? service.name} in Karnal, Haryana
+            </h2>
+            <p className="mt-4 text-sm sm:text-base leading-relaxed text-ink/80 font-normal">
+              CreateVerse is a digital marketing agency headquartered at Sector 35, Karnal. Our{" "}
+              {(service.shortName ?? service.name).toLowerCase()} team sits in this office — strategists, media buyers,
+              designers and developers under one roof — so businesses in Karnal can meet us in person, and clients
+              across Haryana, Punjab, Delhi NCR and the rest of India work with the same team over calls, WhatsApp and
+              shared reporting dashboards.
+            </p>
+            <p className="mt-3 text-sm sm:text-base leading-relaxed text-ink/80 font-normal">
+              Whether you are searching for a {(service.shortName ?? service.name).toLowerCase()} agency in Karnal or a
+              partner who can run it across multiple cities, you get the same thing: a clear plan, transparent
+              reporting, and work measured in enquiries and revenue — not likes.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/locations/karnal"
+                prefetch={true}
+                className="pressable inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-xs sm:text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-accent"
+              >
+                <span>Digital marketing agency in Karnal</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+              <Link
+                href="/contact"
+                prefetch={true}
+                className="pressable inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white px-5 py-2.5 text-xs sm:text-sm font-bold text-ink transition-all hover:-translate-y-0.5 hover:border-accent hover:text-accent"
+              >
+                <span>Visit our Karnal office</span>
+              </Link>
+            </div>
+          </Reveal>
+          <Reveal delay={0.1} className="lg:col-span-5">
+            <div className="rounded-2xl border border-stone-200 bg-paper p-5 sm:p-7">
+              <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-ink/60">
+                Cities we serve in Haryana
+              </p>
+              <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-sm font-semibold text-ink">
+                {site.cities.map((city) => (
+                  <li key={city.slug}>
+                    <Link
+                      href={`/locations/${city.slug}`}
+                      prefetch={true}
+                      title={`${service.shortName ?? service.name} agency in ${city.name}`}
+                      className="inline-flex items-center gap-1.5 underline decoration-ink/20 underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+                    >
+                      <ChevronRight className="h-3.5 w-3.5 text-accent" />
+                      <span>{service.shortName ?? service.name} in {city.name}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-5 border-t border-stone-200 pt-4 text-xs sm:text-sm leading-relaxed text-ink/70">
+                Headquarters: {site.address}. {site.hours.label}. Call or WhatsApp{" "}
+                <a href={`tel:${site.phoneRaw}`} className="font-semibold text-ink hover:text-accent">
+                  {site.phone}
+                </a>
+                .
+              </p>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 7. Frequently Asked Questions */}
       <section className="bg-paper py-14 sm:py-20 lg:py-28">
         <div className="container-site grid gap-6 sm:gap-12 lg:grid-cols-12">
           <Reveal className="lg:col-span-4">
@@ -483,7 +558,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      {/* 7. Executive Strategy CTA & Related Practices */}
+      {/* 8. Executive Strategy CTA & Related Practices */}
       <ServiceCta service={service} related={related} />
     </>
   );

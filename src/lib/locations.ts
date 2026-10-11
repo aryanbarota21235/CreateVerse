@@ -815,6 +815,24 @@ export const locations: LocationData[] = [
   },
 ];
 
+/**
+ * Resolve a city service card to its service page so every city page
+ * links into the service pages with "<service> in <city>" anchor text.
+ */
+export function getLocationServiceHref(title: string): string {
+  const t = title.toLowerCase();
+  if (t.includes("seo") || t.includes("maps")) return "/services/seo";
+  if (t.includes("google ads") || t.includes("ppc") || t.includes("search")) return "/services/google-ads";
+  if (t.includes("meta") || t.includes("facebook") || t.includes("instagram")) return "/services/social-media-paid-ads";
+  if (t.includes("political") || t.includes("war room")) return "/services/political-management";
+  if (t.includes("website") || t.includes("web") || t.includes("landing page")) return "/services/web-development";
+  if (t.includes("social media")) return "/services/social-media-management";
+  if (t.includes("real estate") || t.includes("property")) return "/services/real-estate-lead-generation";
+  if (t.includes("immigration") || t.includes("visa")) return "/services/immigration-lead-generation";
+  if (t.includes("lead")) return "/services/lead-generation";
+  return "/services";
+}
+
 export function getLocation(slug: string): LocationData | undefined {
   return locations.find((l) => l.slug.toLowerCase() === slug.toLowerCase());
 }

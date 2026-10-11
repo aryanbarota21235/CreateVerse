@@ -146,12 +146,12 @@ const nextConfig = {
       },
       {
         source: "/seo",
-        destination: "https://www.createverse.in/services/content-marketing",
+        destination: "https://www.createverse.in/services/seo",
         permanent: true,
       },
       {
         source: "/SEO",
-        destination: "https://www.createverse.in/services/content-marketing",
+        destination: "https://www.createverse.in/services/seo",
         permanent: true,
       },
       {
@@ -182,6 +182,21 @@ const nextConfig = {
       {
         source: "/Lead-Generation",
         destination: "https://www.createverse.in/services/lead-generation",
+        permanent: true,
+      },
+      {
+        source: "/seo-company-karnal",
+        destination: "https://www.createverse.in/services/seo",
+        permanent: true,
+      },
+      {
+        source: "/seo-services-karnal",
+        destination: "https://www.createverse.in/services/seo",
+        permanent: true,
+      },
+      {
+        source: "/google-ads-agency-karnal",
+        destination: "https://www.createverse.in/services/google-ads",
         permanent: true,
       },
       // Regional Hub & City Keyword Redirects (Direct to Canonical https://www.createverse.in/locations/[city])
