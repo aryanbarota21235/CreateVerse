@@ -133,6 +133,17 @@ const nextConfig = {
         destination: "https://www.createverse.in/clients/subhash-sudha",
         permanent: true,
       },
+      // Old-site entry points still in Google's index (Search Console: 404 / 403)
+      {
+        source: "/index.html",
+        destination: "https://www.createverse.in",
+        permanent: true,
+      },
+      {
+        source: "/index.php",
+        destination: "https://www.createverse.in",
+        permanent: true,
+      },
       // Legacy service URLs from the previous site (still in Google's index, currently 404)
       {
         source: "/Google-Ads",
