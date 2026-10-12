@@ -47,9 +47,9 @@ export const locations: LocationData[] = [
     slug: "karnal",
     name: "Karnal",
     nameHindi: "करनाल",
-    headline: "Digital Marketing Company in Karnal",
+    headline: "Best Digital Marketing Agency in Karnal",
     subheadline:
-      "CreateVerse is a digital marketing company and growth partner in Karnal, headquartered at Sector 35. We deliver verified buyer leads, high-ROAS Google Ads, Meta Facebook & Instagram campaigns, Local SEO, and conversion web development for businesses across Karnal and Haryana.",
+      "CreateVerse is the digital marketing agency and growth partner headquartered at Sector 35, Karnal. We deliver verified buyer leads, high-ROAS Google Ads, Meta Facebook & Instagram campaigns, Local SEO, and conversion web development for businesses across Karnal and Haryana.",
     metaTitle: "Digital Marketing Company in Karnal — SEO, Ads & Web",
     metaDescription:
       "Digital marketing company in Karnal at Sector 35. SEO, Google Ads, Facebook & Instagram ads, social media marketing, lead generation and website development for Karnal businesses. Call +91 91746-91846.",
@@ -833,10 +833,19 @@ export function getLocationServiceHref(title: string): string {
   return "/services";
 }
 
+/** Karnal is the headquarters: the homepage is its landing page, not a /locations/* page. */
+export const HQ_SLUG = "karnal";
+
+/** Internal href for a city. The HQ city resolves to the homepage so Karnal anchors strengthen it. */
+export function getLocationHref(slug: string): string {
+  return slug === HQ_SLUG ? "/" : `/locations/${slug}`;
+}
+
 export function getLocation(slug: string): LocationData | undefined {
   return locations.find((l) => l.slug.toLowerCase() === slug.toLowerCase());
 }
 
+/** Slugs that get their own /locations/<city> page (the HQ city is served by the homepage). */
 export function getAllLocationSlugs(): string[] {
-  return locations.map((l) => l.slug);
+  return locations.filter((l) => l.slug !== HQ_SLUG).map((l) => l.slug);
 }

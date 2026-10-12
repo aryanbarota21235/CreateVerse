@@ -222,19 +222,26 @@ const nextConfig = {
         destination: "https://www.createverse.in/locations",
         permanent: true,
       },
+      // Karnal is the HQ: the homepage is the Karnal landing page, so the old
+      // /locations/karnal duplicate and every Karnal keyword URL consolidate into it.
+      {
+        source: "/locations/karnal",
+        destination: "https://www.createverse.in",
+        permanent: true,
+      },
       {
         source: "/karnal",
-        destination: "https://www.createverse.in/locations/karnal",
+        destination: "https://www.createverse.in",
         permanent: true,
       },
       {
         source: "/digital-marketing-agency-karnal",
-        destination: "https://www.createverse.in/locations/karnal",
+        destination: "https://www.createverse.in",
         permanent: true,
       },
       {
         source: "/best-digital-marketing-agency-karnal",
-        destination: "https://www.createverse.in/locations/karnal",
+        destination: "https://www.createverse.in",
         permanent: true,
       },
       {

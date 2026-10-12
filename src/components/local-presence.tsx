@@ -4,6 +4,7 @@ import Reveal from "@/components/reveal";
 import SectionHeading from "@/components/section-heading";
 import Faq from "@/components/faq";
 import { site } from "@/lib/site";
+import { getLocationHref } from "@/lib/locations";
 import { homeFaqs } from "@/lib/seo";
 
 export default function LocalPresence() {
@@ -63,7 +64,7 @@ export default function LocalPresence() {
                 {site.cities.map((city) => (
                   <li key={city.slug}>
                     <Link
-                      href={`/locations/${city.slug}`}
+                      href={getLocationHref(city.slug)}
                       title={`Digital marketing agency in ${city.name}`}
                       className="underline decoration-ink/20 underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
                     >
@@ -73,10 +74,10 @@ export default function LocalPresence() {
                 ))}
               </ul>
               <Link
-                href="/locations/karnal"
+                href="/contact"
                 className="group mt-5 inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-accent"
               >
-                <span>Digital marketing services in Karnal</span>
+                <span>Visit our Karnal office</span>
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>

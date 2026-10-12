@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, ArrowUp, Mail, Phone, MapPin } from "lucide-react";
 import { site } from "@/lib/site";
+import { getLocationHref } from "@/lib/locations";
 import { services } from "@/lib/services";
 import { useEnquiry } from "@/context/enquiry-context";
 import { InstagramIcon } from "@/components/social-icons";
@@ -234,7 +235,7 @@ export default function Footer() {
           {site.cities.map((city) => (
             <Link
               key={city.slug}
-              href={`/locations/${city.slug}`}
+              href={getLocationHref(city.slug)}
               prefetch={true}
               title={`Digital marketing agency in ${city.name}`}
               className="transition-colors hover:text-white"

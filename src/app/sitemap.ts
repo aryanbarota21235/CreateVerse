@@ -137,12 +137,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.95,
     },
+    // Karnal (HQ) is served by the homepage; only the service-area cities get their own page.
     ...getAllLocationSlugs().map((slug) => ({
       url: `${base}/locations/${slug}`,
       lastModified: now,
       changeFrequency: "daily" as const,
-      // Karnal is the headquarters page and the primary local landing page
-      priority: slug === "karnal" ? 1.0 : 0.9,
+      priority: 0.9,
     })),
   ];
 

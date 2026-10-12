@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MapPin, ArrowRight, Building2, ShieldCheck, CheckCircle2 } from "lucide-react";
-import { locations } from "@/lib/locations";
+import { locations, getLocationHref } from "@/lib/locations";
 import { site } from "@/lib/site";
 import Reveal, { Stagger, StaggerItem } from "@/components/reveal";
 import FinalCTA from "@/components/final-cta";
@@ -119,7 +119,7 @@ export default function LocationsHubPage() {
             {locations.map((loc) => (
               <StaggerItem key={loc.slug} className="h-full">
                 <Link
-                  href={`/locations/${loc.slug}`}
+                  href={getLocationHref(loc.slug)}
                   className="group flex h-full flex-col justify-between rounded-2xl border border-stone-200/90 bg-white p-6 sm:p-8 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift"
                 >
                   <div>

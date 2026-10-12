@@ -27,6 +27,7 @@ import { PageArt, PageArtInline } from "@/components/page-art";
 import { caseStudies } from "@/components/case-studies";
 import { getServiceKeywords, getServiceJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { getLocationHref } from "@/lib/locations";
 
 export function generateStaticParams() {
   // political-management has its own page; paid-social duplicates social-media-paid-ads and is redirected
@@ -493,7 +494,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
-                href="/locations/karnal"
+                href="/"
                 prefetch={true}
                 className="pressable inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-xs sm:text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-accent"
               >
@@ -518,7 +519,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 {site.cities.map((city) => (
                   <li key={city.slug}>
                     <Link
-                      href={`/locations/${city.slug}`}
+                      href={getLocationHref(city.slug)}
                       prefetch={true}
                       title={`${service.shortName ?? service.name} agency in ${city.name}`}
                       className="inline-flex items-center gap-1.5 underline decoration-ink/20 underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"

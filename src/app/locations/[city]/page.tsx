@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MapPin, Phone, Mail, CheckCircle2, ArrowRight, Building2 } from "lucide-react";
-import { locations, getLocation, getAllLocationSlugs, getLocationServiceHref } from "@/lib/locations";
+import { locations, getLocation, getAllLocationSlugs, getLocationServiceHref, getLocationHref, HQ_SLUG } from "@/lib/locations";
 import { getLocationJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 import Faq from "@/components/faq";
@@ -21,7 +21,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { city } = await params;
   const location = getLocation(city);
-  if (!location) return {};
+  if (!location || location.slug === HQ_SLUG) return {};
 
   const pageUrl = `https://www.createverse.in/locations/${location.slug}`;
 
@@ -68,11 +68,10 @@ export default async function LocationCityPage({
 }) {
   const { city } = await params;
   const location = getLocation(city);
-  if (!location) notFound();
+  if (!location || location.slug === HQ_SLUG) notFound();
 
   const jsonLd = getLocationJsonLd(location);
   const otherLocations = locations.filter((l) => l.slug !== location.slug);
-  const isHq = location.slug === "karnal";
 
   return (
     <>
@@ -262,7 +261,7 @@ export default async function LocationCityPage({
               {otherLocations.map((other) => (
                 <Link
                   key={other.slug}
-                  href={`/locations/${other.slug}`}
+                  href={getLocationHref(other.slug)}
                   className="inline-flex items-center gap-1.5 rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-stone-700 hover:border-accent hover:text-accent transition-all shadow-2xs"
                 >
                   <MapPin className="h-3 w-3 text-accent" />
@@ -305,18 +304,6 @@ export default async function LocationCityPage({
                 <p><strong>Email:</strong> {site.email}</p>
                 <p><strong>Hours:</strong> {site.hours.label}</p>
               </div>
-
-              {isHq && (
-                <div className="mt-4 overflow-hidden rounded-xl border border-stone-200">
-                  <iframe
-                    src={site.mapsEmbedUrl}
-                    title="CreateVerse office at Sector 35, Karnal on Google Maps"
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    className="block h-56 w-full border-0"
-                  />
-                </div>
-              )}
             </div>
 
             <div className="rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 shadow-card">
