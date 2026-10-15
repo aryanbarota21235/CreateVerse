@@ -126,9 +126,6 @@ export const siteKeywords = [
   "Bhupinder Lather",
   "भूपिंदर लाठर",
   "Bhuppi Lather",
-  "Rajiv Mamuram Gonder",
-  "राजीव मामूराम गोंदर",
-  "राजीव गोंदर",
   "Umesh Sharma",
   "उमेश शर्मा",
   "CreateVerse public figure clients",
@@ -202,7 +199,6 @@ export const serviceSeoKeywords: Record<string, string[]> = {
     "Gurkirat Singh Kotli election campaign Khanna",
     "Shamsher Singh Gogi campaign Assandh",
     "Bhupinder Lather campaign Karnal",
-    "Rajiv Mamuram Gonder campaign Nilokheri",
     "Umesh Sharma campaign Sonipat",
   ],
   "lead-generation": [

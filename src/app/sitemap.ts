@@ -88,12 +88,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: `${base}/clients/rajiv-mamuram-gonder`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 1.0,
-    },
-    {
       url: `${base}/clients/umesh-sharma`,
       lastModified: now,
       changeFrequency: "daily",

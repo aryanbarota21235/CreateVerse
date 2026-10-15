@@ -114,13 +114,18 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/clients/rajiv-mamuram-gonder",
+        destination: "https://www.createverse.in/clients",
+        permanent: true,
+      },
+      {
         source: "/rajiv-mamuram-gonder",
-        destination: "https://www.createverse.in/clients/rajiv-mamuram-gonder",
+        destination: "https://www.createverse.in/clients",
         permanent: true,
       },
       {
         source: "/rajiv-mamuram-gondar",
-        destination: "https://www.createverse.in/clients/rajiv-mamuram-gonder",
+        destination: "https://www.createverse.in/clients",
         permanent: true,
       },
       {

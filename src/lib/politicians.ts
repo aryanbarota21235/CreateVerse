@@ -8,6 +8,7 @@ export interface PoliticianClient {
   image: string;
   badge?: string;
   reach?: string;
+  hidden?: boolean;
   socials: {
     instagram?: string;
     facebook?: string;
@@ -15,7 +16,7 @@ export interface PoliticianClient {
   };
 }
 
-export const politicianClients: PoliticianClient[] = [
+export const allPoliticianClients: PoliticianClient[] = [
   {
     name: "Randeep Singh Surjewala",
     slug: "randeep-singh-surjewala",
@@ -113,6 +114,7 @@ export const politicianClients: PoliticianClient[] = [
     party: "INC",
     partyName: "Indian National Congress",
     image: "/politicians/rajiv-mamuram-gonder.webp",
+    hidden: true,
     socials: {
       facebook: "https://www.facebook.com/RajivGondarOfficial",
       instagram: "https://www.instagram.com/rajivgonderofficial",
@@ -130,3 +132,6 @@ export const politicianClients: PoliticianClient[] = [
     },
   },
 ];
+
+export const politicianClients: PoliticianClient[] = allPoliticianClients.filter((p) => !p.hidden);
+
