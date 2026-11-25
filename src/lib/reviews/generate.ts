@@ -62,7 +62,7 @@ const CATEGORY_HINT: Record<string, string> = {
 };
 
 // Stiff, generic or salesy wording that real customers don't write. Drafts using these are dropped.
-const STIFF = /\d|\b(a|one|two|three|four|five|six|few|couple of) (day|week|month|hour|minute)s?\b|\b(doubled|tripled|overnight|within (a|one) (day|week))\b|\b(our|my) (bakery|shop|store|restaurant|clinic|salon|product|brand new)\b|\b(dashboard|reporting|transparency|deliverables?|synergy|top[- ]class|top[- ]notch|exceptional|impeccable|seamless|commendable|utmost|second to none|state[- ]of[- ]the[- ]art|one[- ]stop|hassle[- ]free experience|wonderful experience|I am (very )?(much )?impressed|kudos)\b/i;
+const STIFF = /\d|\b(reports?|metrics|onboarding|paperwork|invoice|KPIs?)\b|\b(a|one|two|three|four|five|six|few|couple of) (day|week|month|hour|minute)s?\b|\b(doubled|tripled|overnight|within (a|one) (day|week))\b|\b(our|my) (bakery|shop|store|restaurant|clinic|salon|product|brand new)\b|\b(dashboard|reporting|transparency|deliverables?|synergy|top[- ]class|top[- ]notch|exceptional|impeccable|seamless|commendable|utmost|second to none|state[- ]of[- ]the[- ]art|one[- ]stop|hassle[- ]free experience|wonderful experience|I am (very )?(much )?impressed|kudos)\b/i;
 
 // Low ratings must not read as praise: drafts with these words are thrown away for 1 and 2 stars.
 const PRAISE = /\b(excellent|amazing|awesome|outstanding|fantastic|wonderful|superb|perfect|great|best|loved|lovely|highly recommend|recommend|top class|will (definitely )?(come|visit) again|badhiya|shandaar|lajawab|zabardast|kamaal)\b|बहुत अच्छ|बढ़िया|शानदार|लाजवाब|बेहतरीन|ज़बरदस्त|ਬਹੁਤ ਵਧੀਆ|ਸ਼ਾਨਦਾਰ/i;
@@ -102,8 +102,8 @@ const LANGUAGE_NOTE: Record<string, string> = {
 const languageNote = (l: string) => LANGUAGE_NOTE[l] ?? `${l}, in its usual script`;
 
 function fingerprint(b: ReviewBusiness) {
-  // Bumped whenever the writing rules change, so saved pools are rewritten ("v5": results-first, no invented facts or time spans).
-  return createHash("sha1").update(["v5", b.name, b.category, b.highlights].join("|")).digest("hex").slice(0, 16);
+  // Bumped whenever the writing rules change, so saved pools are rewritten ("v6": results-first, no invented facts or time spans).
+  return createHash("sha1").update(["v6", b.name, b.category, b.highlights].join("|")).digest("hex").slice(0, 16);
 }
 
 async function writePool(b: ReviewBusiness, rating: number, language: string): Promise<{ reviews: string[]; source: string }> {
@@ -127,15 +127,22 @@ async function writePool(b: ReviewBusiness, rating: number, language: string): P
     .filter((l) => l !== null)
     .join("\n");
 
-  const ai = await askJson(SYSTEM, prompt, (v) => {
-    const list = (v as { reviews?: unknown })?.reviews;
-    if (!Array.isArray(list)) return null;
-    const clean = [...new Set(list.filter((r): r is string => typeof r === "string").map((r) => r.trim()).filter((r) => r.length > 10 && r.length < 500))].filter(
-      (r) => !STIFF.test(r) && (rating > 2 || !PRAISE.test(r)),
-    );
-    return clean.length >= SHOWN ? clean : null;
-  });
-  if (ai) return { reviews: ai.value, source: ai.provider };
+  // Drafts that break the rules are dropped, so a reply can come back short. Up to two tries,
+  // keeping the good drafts from both; the templates are only used if AI gives too few.
+  const keep = (r: string) => !STIFF.test(r) && (rating > 2 || !PRAISE.test(r));
+  const good: string[] = [];
+  let provider = "";
+  for (let attempt = 0; attempt < 2 && good.length < SHOWN + 2; attempt++) {
+    const ai = await askJson(SYSTEM, prompt, (v) => {
+      const list = (v as { reviews?: unknown })?.reviews;
+      if (!Array.isArray(list)) return null;
+      return list.filter((r): r is string => typeof r === "string").map((r) => r.trim()).filter((r) => r.length > 10 && r.length < 500);
+    });
+    if (!ai) break;
+    provider = ai.provider;
+    for (const r of ai.value) if (keep(r) && !good.includes(r)) good.push(r);
+  }
+  if (good.length >= SHOWN) return { reviews: good, source: provider };
   return { reviews: templateReviews({ ...b, language }, rating, POOL_SIZE), source: "Templates" };
 }
 

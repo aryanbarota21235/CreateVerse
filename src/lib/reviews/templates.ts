@@ -210,10 +210,10 @@ const EN: Lang = {
   highlight: [(h) => `Special mention for the ${h}.`, (h) => `Loved the ${h}.`, (h) => `The ${h} stood out.`],
   open: {
     5: [(n) => `Had a wonderful experience at ${n}.`, (n) => `Great experience at ${n}!`, (n) => `Highly recommend ${n}.`, () => ""],
-    4: [(n) => `Good experience at ${n}.`, (n) => `Nice visit to ${n}.`, () => `Overall a good experience.`, () => ""],
-    3: [(n) => `Average experience at ${n}.`, () => `It was an okay visit.`, () => `Mixed experience this time.`],
-    2: [(n) => `Not fully satisfied with my visit to ${n}.`, (n) => `My visit to ${n} was a bit disappointing.`, () => `Expected better this time.`],
-    1: [(n) => `Not a good experience at ${n} this time.`, () => `Disappointed with my visit.`, (n) => `My experience at ${n} was not good.`],
+    4: [(n) => `Good experience at ${n}.`, (n) => `Good experience with ${n}.`, () => `Overall a good experience.`, () => ""],
+    3: [(n) => `Average experience at ${n}.`, () => `It was an okay experience.`, () => `Mixed experience this time.`],
+    2: [(n) => `Not fully satisfied with ${n} this time.`, (n) => `My experience with ${n} was a bit disappointing.`, () => `Expected better this time.`],
+    1: [(n) => `Not a good experience at ${n} this time.`, () => `Disappointed this time.`, (n) => `My experience with ${n} was not good.`],
   },
   close: {
     5: ["Will definitely come back!", "Highly recommended.", "Keep up the great work!", "Thank you to the whole team."],
