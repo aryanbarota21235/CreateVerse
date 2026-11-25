@@ -51,6 +51,14 @@ async function writeLocal(data: Local) {
   await fs.writeFile(FILE, JSON.stringify(data, null, 2));
 }
 
+// Local mode keeps one JSON file, so every read-modify-write runs one at a time.
+let queue: Promise<unknown> = Promise.resolve();
+function locked<T>(fn: () => Promise<T>): Promise<T> {
+  const run = queue.then(fn, fn);
+  queue = run.catch(() => undefined);
+  return run;
+}
+
 const fromRow = <T extends Doc>(r: Row): T => ({ ...(r.data as object), id: r.id, createdAt: r.created_at }) as T;
 
 // ---------- API ----------
@@ -100,11 +108,13 @@ export async function insert<T extends Doc>(collection: Collection, data: Omit<T
     if (error) throw new Error(error.message);
     return fromRow<T>(row as Row);
   }
-  const local = await readLocal();
-  const doc = { ...data, id, createdAt } as unknown as T;
-  local[collection] = [...(local[collection] ?? []), doc as unknown as Record<string, unknown>];
-  await writeLocal(local);
-  return doc;
+  return locked(async () => {
+    const local = await readLocal();
+    const doc = { ...data, id, createdAt } as unknown as T;
+    local[collection] = [...(local[collection] ?? []), doc as unknown as Record<string, unknown>];
+    await writeLocal(local);
+    return doc;
+  });
 }
 
 export async function update<T extends Doc>(
@@ -129,11 +139,13 @@ export async function update<T extends Doc>(
     if (error) throw new Error(error.message);
     return fromRow<T>(data as Row);
   }
-  const local = await readLocal();
-  const next = { ...rest, id, createdAt: current.createdAt } as unknown as T;
-  local[collection] = (local[collection] ?? []).map((d) => (d.id === id ? (next as unknown as Record<string, unknown>) : d));
-  await writeLocal(local);
-  return next;
+  return locked(async () => {
+    const local = await readLocal();
+    const next = { ...rest, id, createdAt: current.createdAt } as unknown as T;
+    local[collection] = (local[collection] ?? []).map((d) => (d.id === id ? (next as unknown as Record<string, unknown>) : d));
+    await writeLocal(local);
+    return next;
+  });
 }
 
 export async function remove(collection: Collection, id: string): Promise<void> {
@@ -143,9 +155,11 @@ export async function remove(collection: Collection, id: string): Promise<void> 
     if (error) throw new Error(error.message);
     return;
   }
-  const local = await readLocal();
-  local[collection] = (local[collection] ?? []).filter((d) => d.id !== id);
-  await writeLocal(local);
+  await locked(async () => {
+    const local = await readLocal();
+    local[collection] = (local[collection] ?? []).filter((d) => d.id !== id);
+    await writeLocal(local);
+  });
 }
 
 /** Deletes every record in `collection` whose `field` equals `value` (e.g. a business's events). */
@@ -156,7 +170,9 @@ export async function removeWhere(collection: Collection, field: string, value: 
     if (error) throw new Error(error.message);
     return;
   }
-  const local = await readLocal();
-  local[collection] = (local[collection] ?? []).filter((d) => String(d[field] ?? "") !== value);
-  await writeLocal(local);
+  await locked(async () => {
+    const local = await readLocal();
+    local[collection] = (local[collection] ?? []).filter((d) => String(d[field] ?? "") !== value);
+    await writeLocal(local);
+  });
 }

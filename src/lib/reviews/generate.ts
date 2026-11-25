@@ -30,12 +30,15 @@ interface SuggestionPool {
 }
 
 const TONE: Record<number, string> = {
-  5: "Very happy customer. Warm, enthusiastic and specific about what they liked.",
-  4: "Happy customer. Positive overall, maybe one tiny suggestion phrased kindly.",
-  3: "Mixed experience. Mention what was good AND one clear thing that could be better. Neutral, fair tone.",
-  2: "Disappointed but polite. Clearly say what needs improvement and acknowledge anything that was okay. Constructive, never rude.",
-  1: "Unhappy customer. Polite and constructive: clearly state what needs to improve, credit anything that was fine, hope it gets better. Never rude, abusive or exaggerated, and never praise-heavy: it must read like a 1-star review.",
+  5: "Very happy customer. Warm and specific about what they liked. Example: \"Loved the food and the staff were so welcoming. Will definitely come back!\"",
+  4: "Happy customer. Positive overall, maybe one small suggestion said kindly. Example: \"Good food and quick service. Seating was a bit cramped, but overall a nice visit.\"",
+  3: "Mixed, average experience. One thing was fine AND one thing clearly needs to be better. Neutral. Example: \"Food was okay, but we waited too long for our order. Average experience.\"",
+  2: "DISAPPOINTED customer. The main message is what went wrong and needs improvement. At most one short polite remark about something that was okay. No praise words. Example: \"The food was cold and service was slow. Staff were polite, but they need to improve.\"",
+  1: "UNHAPPY customer: this was a bad experience. Every draft must clearly say the experience was poor and name what needs to improve. Polite and calm, never abusive, but NO praise at all: no 'good', 'great', 'excellent', 'recommend' or 'will come again'. Example: \"Not a good experience. The food was not fresh and we had to wait a long time. Hope they improve.\"",
 };
+
+// Low ratings must not read as praise: drafts with these words are thrown away for 1 and 2 stars.
+const PRAISE = /\b(excellent|amazing|awesome|outstanding|fantastic|wonderful|superb|perfect|great|best|loved|lovely|highly recommend|recommend|top class|will (definitely )?(come|visit) again|badhiya|shandaar|lajawab|zabardast|kamaal)\b|बहुत अच्छ|बढ़िया|शानदार|लाजवाब|बेहतरीन|ज़बरदस्त|ਬਹੁਤ ਵਧੀਆ|ਸ਼ਾਨਦਾਰ/i;
 
 const SYSTEM = `You write short Google review drafts for customers of a local business in India. A customer picks one, edits it if they like, and posts it under their own name.
 
@@ -59,7 +62,8 @@ const LANGUAGE_NOTE: Record<string, string> = {
 const languageNote = (l: string) => LANGUAGE_NOTE[l] ?? `${l}, in its usual script`;
 
 function fingerprint(b: ReviewBusiness) {
-  return createHash("sha1").update([b.name, b.category, b.highlights].join("|")).digest("hex").slice(0, 16);
+  // "v2": pools written before the low-rating fix are rewritten.
+  return createHash("sha1").update(["v2", b.name, b.category, b.highlights].join("|")).digest("hex").slice(0, 16);
 }
 
 async function writePool(b: ReviewBusiness, rating: number, language: string): Promise<{ reviews: string[]; source: string }> {
@@ -67,12 +71,17 @@ async function writePool(b: ReviewBusiness, rating: number, language: string): P
     `Business: ${b.name}`,
     `Category: ${b.category}`,
     b.city ? `City: ${b.city}` : null,
-    b.highlights ? `Things customers can mention: ${b.highlights}` : null,
+    b.highlights
+      ? rating <= 3
+        ? `Topics the review may be about (not things to praise for this rating): ${b.highlights}`
+        : `Things customers can mention: ${b.highlights}`
+      : null,
     `Language: ${languageNote(language)}`,
-    `Star rating: ${rating} of 5`,
+    "",
+    `Star rating: ${rating} of 5 stars.`,
     `Tone: ${TONE[rating]}`,
     "",
-    `Write ${POOL_SIZE} different review drafts.`,
+    `Write ${POOL_SIZE} different ${rating}-star review drafts.`,
   ]
     .filter((l) => l !== null)
     .join("\n");
@@ -80,7 +89,9 @@ async function writePool(b: ReviewBusiness, rating: number, language: string): P
   const ai = await askJson(SYSTEM, prompt, (v) => {
     const list = (v as { reviews?: unknown })?.reviews;
     if (!Array.isArray(list)) return null;
-    const clean = [...new Set(list.filter((r): r is string => typeof r === "string").map((r) => r.trim()).filter((r) => r.length > 10 && r.length < 600))];
+    const clean = [...new Set(list.filter((r): r is string => typeof r === "string").map((r) => r.trim()).filter((r) => r.length > 10 && r.length < 600))].filter(
+      (r) => rating > 2 || !PRAISE.test(r),
+    );
     return clean.length >= SHOWN ? clean : null;
   });
   if (ai) return { reviews: ai.value, source: ai.provider };
@@ -121,6 +132,26 @@ export async function suggestReviews(b: ReviewBusiness, rating: number, language
   for (const r of shuffled) if (picked.length < SHOWN && !seen.has(opening(r))) (seen.add(opening(r)), picked.push(r));
   for (const r of shuffled) if (picked.length < SHOWN && !picked.includes(r)) picked.push(r);
   return picked;
+}
+
+/**
+ * Saved, up-to-date pools for a business, by language then star rating. The review page gets
+ * these with its HTML, so tapping a star shows suggestions instantly.
+ */
+export async function savedPools(b: ReviewBusiness): Promise<Record<string, Record<number, string[]>>> {
+  const fp = fingerprint(b);
+  const out: Record<string, Record<number, string[]>> = {};
+  for (const p of await db.list<SuggestionPool>("suggestions", { businessId: b.id })) {
+    const lang = p.language ?? "English";
+    if (p.fingerprint !== fp || !b.languages.includes(lang)) continue;
+    (out[lang] ??= {})[p.rating] = p.reviews;
+  }
+  return out;
+}
+
+/** Writes any missing or outdated pools for the main language, all five ratings at once. */
+export async function warmPools(b: ReviewBusiness): Promise<void> {
+  await Promise.all([5, 4, 3, 2, 1].map((r) => poolFor(b, r, b.languages[0]).catch(() => null)));
 }
 
 /**

@@ -22,9 +22,22 @@ interface Props {
   category: string;
   googleUrl: string;
   languages: string[];
+  /** Saved suggestions sent with the page, by language then star rating */
+  pools: Record<string, Record<number, string[]>>;
 }
 
-export default function ReviewFlow({ slug, name, category, googleUrl, languages }: Props) {
+/** Four drafts from a pool, preferring different openings. */
+function pickFour(pool: string[]): string[] {
+  const shuffled = [...pool].sort(() => Math.random() - 0.5);
+  const opening = (r: string) => r.split(/\s+/).slice(0, 3).join(" ").toLowerCase();
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const r of shuffled) if (out.length < 4 && !seen.has(opening(r))) (seen.add(opening(r)), out.push(r));
+  for (const r of shuffled) if (out.length < 4 && !out.includes(r)) out.push(r);
+  return out;
+}
+
+export default function ReviewFlow({ slug, name, category, googleUrl, languages, pools }: Props) {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [lang, setLang] = useState(languages[0] ?? "English");
@@ -45,10 +58,28 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages 
 
   async function load(r: number, language = lang) {
     const id = ++reqId.current;
-    setLoading(true);
     setError("");
     setPicked(null);
     setText("");
+
+    // Saved suggestions came with the page: show them instantly, count the rating in the background.
+    const saved = pools[language]?.[r];
+    if (saved && saved.length) {
+      setLoading(false);
+      setSuggestions(pickFour(saved));
+      if (!rated.current) {
+        rated.current = true;
+        fetch("/api/reviews/event", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ slug, rating: r, type: "rated" }),
+          keepalive: true,
+        }).catch(() => {});
+      }
+      return;
+    }
+
+    setLoading(true);
     try {
       const res = await fetch("/api/reviews/suggest", {
         method: "POST",
@@ -112,7 +143,7 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages 
       body: JSON.stringify({ slug, rating }),
       keepalive: true,
     }).catch(() => {});
-    setTimeout(() => (window.location.href = googleUrl), ok ? 800 : 1800);
+    setTimeout(() => (window.location.href = googleUrl), ok ? 1600 : 2500);
   }
 
   const shown = hover || rating;
@@ -264,7 +295,13 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages 
                 "Pick a review above"
               )}
             </button>
-            <p className="mt-2 text-center text-xs text-slate-500">On Google, tap the stars, paste your review and press Post.</p>
+            {copied ? (
+              <p className="mt-2 text-center text-sm font-semibold text-slate-900">
+                On Google: tap the stars, then hold the review box and tap <span className="text-emerald-700">Paste</span>.
+              </p>
+            ) : (
+              <p className="mt-2 text-center text-xs text-slate-500">Your review is copied, then Google opens. Paste it there and press Post.</p>
+            )}
           </div>
         </div>
       , document.body)}

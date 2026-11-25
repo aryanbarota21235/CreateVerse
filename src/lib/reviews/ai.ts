@@ -70,7 +70,7 @@ export async function askJson<T>(
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${p.key}` },
         body: JSON.stringify({
           model: p.model,
-          temperature: 0.9,
+          temperature: 0.7,
           messages: [
             { role: "system", content: system },
             { role: "user", content: user },
