@@ -16,7 +16,7 @@ import type { ReviewBusiness } from "./types";
 
 const POOL_SIZE = 12;
 const SHOWN = 4;
-const RETRY_TEMPLATE_POOL_MS = 6 * 3600_000;
+const RETRY_TEMPLATE_POOL_MS = 30 * 60_000;
 
 interface SuggestionPool {
   id: string;
@@ -30,25 +30,58 @@ interface SuggestionPool {
 }
 
 const TONE: Record<number, string> = {
-  5: "Very happy customer. Warm and specific about what they liked. Example: \"Loved the food and the staff were so welcoming. Will definitely come back!\"",
-  4: "Happy customer. Positive overall, maybe one small suggestion said kindly. Example: \"Good food and quick service. Seating was a bit cramped, but overall a nice visit.\"",
-  3: "Mixed, average experience. One thing was fine AND one thing clearly needs to be better. Neutral. Example: \"Food was okay, but we waited too long for our order. Average experience.\"",
-  2: "DISAPPOINTED customer. The main message is what went wrong and needs improvement. At most one short polite remark about something that was okay. No praise words. Example: \"The food was cold and service was slow. Staff were polite, but they need to improve.\"",
-  1: "UNHAPPY customer: this was a bad experience. Every draft must clearly say the experience was poor and name what needs to improve. Polite and calm, never abusive, but NO praise at all: no 'good', 'great', 'excellent', 'recommend' or 'will come again'. Example: \"Not a good experience. The food was not fresh and we had to wait a long time. Hope they improve.\"",
+  5: `Delighted customer. Warm, specific, sounds like a real person who would happily recommend the place.
+Good: "Got my root canal done here and honestly it was painless. Doctor explained everything before starting. Very happy."
+Good: "Started running ads with them for our showroom and the enquiries really picked up within a month. Team replies fast on WhatsApp too."`,
+  4: `Happy customer. Clearly positive, with one small thing that could be a bit better, said kindly.
+Good: "Food was really tasty and came out quickly. Parking is a little tight on weekends, but we'll definitely come back."`,
+  3: `Average experience. One thing was fine AND one thing clearly needs to improve. Neutral and fair, neither praising nor complaining hard.
+Good: "Haircut was fine, but I had to wait 30 minutes even with an appointment. Okay overall."`,
+  2: `Disappointed customer. The main message is what went wrong. At most one short polite remark about something that was okay. No praise words.
+Good: "Food came cold and we had to remind them twice for water. Staff were polite, but the service needs work."`,
+  1: `Unhappy customer. This was a bad experience. Clearly say what went wrong and that it needs to improve. Calm and polite, never abusive, but NO praise at all: never "good", "great", "excellent", "recommend" or "will come again".
+Good: "Not a good experience. Waited over an hour past my appointment and nobody told us why. Hope they fix this."`,
 };
+
+// What real customers of each kind of business notice. Steers the AI away from office jargon.
+const CATEGORY_HINT: Record<string, string> = {
+  "Restaurant / Café": "taste of specific dishes, portion size, freshness, how quickly food came, staff behaviour, cleanliness, seating, value for money, family-friendly",
+  "Salon / Spa": "the haircut/colour/facial result, the stylist listening to what they wanted, hygiene, waiting time, relaxing feel, value for money",
+  "Clinic / Hospital": "the doctor listening and explaining properly, correct diagnosis, waiting time, staff behaviour, cleanliness, feeling better after treatment",
+  "Dental Clinic": "painless treatment, doctor explaining the procedure, hygiene and sterilised tools, waiting time, gentle with kids/nervous patients",
+  "Gym / Fitness": "trainers guiding properly, equipment condition, cleanliness, crowd at peak hours, results they are seeing, motivating atmosphere",
+  "Hotel / Resort": "room cleanliness and comfort, check-in, staff helpfulness, food/breakfast, location, value for money, hot water, wifi",
+  "Retail Store": "range of products, prices compared to other shops, staff helping choose, billing speed, after-sales or exchange",
+  "Real Estate": "honest guidance, showing properties that matched the budget, clear paperwork, no hidden charges, quick replies, help after booking",
+  "Education / Coaching": "teachers explaining concepts clearly, doubt clearing, study material, regular tests, personal attention, results/marks improving",
+  "Immigration Consultancy": "honest advice about chances, help with documents, regular updates on the file, quick replies, visa/admission outcome if positive",
+  "Digital Marketing Agency": "more enquiries/leads or calls after ads, Instagram/Facebook page growth, good website, team understanding the business, quick replies on WhatsApp/calls, regular updates on results",
+  "Automobile / Service Centre": "car/bike delivered on time, problem fixed properly, honest estimate with no extra charges, washing/cleaning, staff explaining the work",
+};
+
+// Stiff, generic or salesy wording that real customers don't write. Drafts using these are dropped.
+const STIFF = /\b(reporting|transparency|deliverables?|synergy|top[- ]class|top[- ]notch|exceptional|impeccable|seamless|commendable|utmost|second to none|state[- ]of[- ]the[- ]art|one[- ]stop|hassle[- ]free experience|wonderful experience|I am (very )?(much )?impressed|kudos)\b/i;
 
 // Low ratings must not read as praise: drafts with these words are thrown away for 1 and 2 stars.
 const PRAISE = /\b(excellent|amazing|awesome|outstanding|fantastic|wonderful|superb|perfect|great|best|loved|lovely|highly recommend|recommend|top class|will (definitely )?(come|visit) again|badhiya|shandaar|lajawab|zabardast|kamaal)\b|बहुत अच्छ|बढ़िया|शानदार|लाजवाब|बेहतरीन|ज़बरदस्त|ਬਹੁਤ ਵਧੀਆ|ਸ਼ਾਨਦਾਰ/i;
 
-const SYSTEM = `You write short Google review drafts for customers of a local business in India. A customer picks one, edits it if they like, and posts it under their own name.
+const SYSTEM = `You write Google review drafts for customers of a local business in India. A real customer picks one, may edit it, and posts it under their own name, so every draft must sound like that customer wrote it on their phone.
 
-Rules:
-- Match the star rating's tone exactly. A low rating must read as a low rating: constructive and polite, never secretly positive.
-- 1 to 3 sentences, 15 to 50 words each. Sound like a real local customer, not marketing copy. No hashtags, no emojis, no ALL CAPS.
-- Only mention things that fit the business category, and the business's own listed highlights if given. Never invent names, prices, dates, durations, outcomes, or details about the customer's own life or business.
-- Every draft takes a different angle and starts with different words.
-- Do not mention AI, stars, or that this is a draft.
-- Reply with JSON only: {"reviews": ["...", "..."]}`;
+How real reviews sound:
+- Plain, everyday words. Like telling a friend. Short sentences. Indian English is fine ("very nice", "got it done", "they replied fast").
+- About the customer's own visit: what they came for, what happened, how they felt. Concrete, not generic praise.
+- Mix of lengths: some one line (8-15 words), most 2-3 sentences (20-45 words). Never longer than 55 words.
+- Each draft has a different angle (a different thing they noticed) and starts with different words. Don't start most of them with the business name.
+- At most one exclamation mark per draft. No emojis, no hashtags, no ALL CAPS.
+
+Never:
+- Office or marketing words: reporting, transparency, deliverables, strategy execution, top class, exceptional, seamless, impeccable, commendable, "I am impressed", "wonderful experience".
+- Invent facts a customer couldn't know or that might be false: names of staff, prices, exact numbers, dates, awards, guarantees, "best in the city".
+- Mention AI, stars, ratings, or that this is a draft.
+
+Match the star rating exactly. A low rating must clearly read as a complaint, politely.
+
+Reply with JSON only: {"reviews": ["...", "..."]}`;
 
 // Languages that need a word of explanation; any other is written "in <language>, in its usual script".
 const LANGUAGE_NOTE: Record<string, string> = {
@@ -62,8 +95,8 @@ const LANGUAGE_NOTE: Record<string, string> = {
 const languageNote = (l: string) => LANGUAGE_NOTE[l] ?? `${l}, in its usual script`;
 
 function fingerprint(b: ReviewBusiness) {
-  // "v2": pools written before the low-rating fix are rewritten.
-  return createHash("sha1").update(["v2", b.name, b.category, b.highlights].join("|")).digest("hex").slice(0, 16);
+  // Bumped whenever the writing rules change, so saved pools are rewritten ("v3": natural-voice prompt).
+  return createHash("sha1").update(["v3", b.name, b.category, b.highlights].join("|")).digest("hex").slice(0, 16);
 }
 
 async function writePool(b: ReviewBusiness, rating: number, language: string): Promise<{ reviews: string[]; source: string }> {
@@ -71,10 +104,11 @@ async function writePool(b: ReviewBusiness, rating: number, language: string): P
     `Business: ${b.name}`,
     `Category: ${b.category}`,
     b.city ? `City: ${b.city}` : null,
+    CATEGORY_HINT[b.category] ? `What customers of this kind of business usually talk about: ${CATEGORY_HINT[b.category]}` : null,
     b.highlights
       ? rating <= 3
-        ? `Topics the review may be about (not things to praise for this rating): ${b.highlights}`
-        : `Things customers can mention: ${b.highlights}`
+        ? `This business's main services (topics only, not things to praise at this rating): ${b.highlights}`
+        : `This business is known for (mention some of these naturally): ${b.highlights}`
       : null,
     `Language: ${languageNote(language)}`,
     "",
@@ -89,8 +123,8 @@ async function writePool(b: ReviewBusiness, rating: number, language: string): P
   const ai = await askJson(SYSTEM, prompt, (v) => {
     const list = (v as { reviews?: unknown })?.reviews;
     if (!Array.isArray(list)) return null;
-    const clean = [...new Set(list.filter((r): r is string => typeof r === "string").map((r) => r.trim()).filter((r) => r.length > 10 && r.length < 600))].filter(
-      (r) => rating > 2 || !PRAISE.test(r),
+    const clean = [...new Set(list.filter((r): r is string => typeof r === "string").map((r) => r.trim()).filter((r) => r.length > 10 && r.length < 500))].filter(
+      (r) => !STIFF.test(r) && (rating > 2 || !PRAISE.test(r)),
     );
     return clean.length >= SHOWN ? clean : null;
   });

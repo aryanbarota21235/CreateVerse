@@ -177,9 +177,13 @@ export interface ReviewStats {
   byRating: Record<1 | 2 | 3 | 4 | 5, number>;
 }
 
+/**
+ * Google's write-review link, in the exact form Google's own "Ask for reviews" share button
+ * produces (the same link RevmeAI uses). Its source/laa parameters mark it as a review request.
+ */
 export function googleReviewUrl(b: Pick<ReviewBusiness, "placeId" | "reviewUrl">): string {
   if (b.reviewUrl) return b.reviewUrl;
-  return `https://search.google.com/local/writereview?placeid=${encodeURIComponent(b.placeId)}`;
+  return `https://search.google.com/local/writereview?placeid=${encodeURIComponent(b.placeId)}&source=g.page.m.ia._&laa=nmx-review-solicitation-ia2`;
 }
 
 export function slugify(s: string): string {

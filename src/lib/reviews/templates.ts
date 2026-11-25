@@ -120,10 +120,10 @@ const BANKS: Record<string, Bank> = {
   },
   "Digital Marketing Agency": {
     aspects: [
-      { en: "the strategy", hl: "strategy", hi: "स्ट्रैटेजी", pa: "ਸਟ੍ਰੈਟਜੀ", g: "f" },
-      { en: "the work", hl: "kaam", hi: "काम", pa: "ਕੰਮ", g: "m" },
-      { en: "the reporting", hl: "reporting", hi: "रिपोर्टिंग", pa: "ਰਿਪੋਰਟਿੰਗ", g: "f" },
-      { en: "the communication", hl: "baat-cheet", hi: "बातचीत", pa: "ਗੱਲਬਾਤ", g: "f" },
+      { en: "the ad campaign", hl: "ad campaign", hi: "ऐड कैंपेन", pa: "ਐਡ ਕੈਂਪੇਨ", g: "m" },
+      { en: "the website they made", hl: "website", hi: "वेबसाइट", pa: "ਵੈੱਬਸਾਈਟ", g: "f" },
+      { en: "the social media work", hl: "social media ka kaam", hi: "सोशल मीडिया का काम", pa: "ਸੋਸ਼ਲ ਮੀਡੀਆ ਦਾ ਕੰਮ", g: "m" },
+      { en: "the response time", hl: "response time", hi: "रिस्पॉन्स टाइम", pa: "ਰਿਸਪਾਂਸ ਟਾਈਮ", g: "m" },
     ],
     people: TEAM,
   },
@@ -189,8 +189,8 @@ const EN: Lang = {
   great: [
     (a) => `${cap(a.en)} ${was(a)} excellent.`,
     (a) => `Really loved ${a.en}.`,
-    (a) => `${cap(a.en)} ${was(a)} top class.`,
-    (a) => `Very impressed with ${a.en}.`,
+    (a) => `${cap(a.en)} ${was(a)} spot on.`,
+    (a) => `Really happy with ${a.en}.`,
     (a) => `${cap(a.en)} ${was(a)} just perfect.`,
   ],
   good: [(a) => `${cap(a.en)} ${was(a)} really good.`, (a) => `Happy with ${a.en}.`, (a) => `${cap(a.en)} ${was(a)} nice.`, (a) => `Liked ${a.en}.`],
@@ -228,7 +228,7 @@ const HL: Lang = {
   great: [
     (a) => `${cap(a.hl)} ekdum badhiya ${tha(a)}.`,
     (a) => `${cap(a.hl)} bahut ${ach(a)} ${tha(a)}.`,
-    (a) => `${cap(a.hl)} top class ${tha(a)}.`,
+    (a) => `${cap(a.hl)} zabardast ${tha(a)}.`,
     (a) => `${cap(oHl(a))} ka jawaab nahi.`,
   ],
   good: [(a) => `${cap(a.hl)} ${ach(a)} ${tha(a)}.`, (a) => `${cap(oHl(a))} se khush hoon.`, (a) => `${cap(a.hl)} kaafi ${ach(a)} ${tha(a)}.`],
