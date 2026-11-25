@@ -15,13 +15,7 @@ const SAMPLES = [
   { label: "Dentist", name: "Smile Dental", category: "Dental Clinic", highlights: "" },
   { label: "Salon", name: "Glow Salon", category: "Salon / Spa", highlights: "hair spa" },
   { label: "Gym", name: "Iron Fitness", category: "Gym / Fitness", highlights: "" },
-  { label: "Hotel", name: "Hotel Royal Inn", category: "Hotel / Resort", highlights: "" },
-  { label: "Shop", name: "Gupta Electronics", category: "Retail Store", highlights: "" },
-  { label: "Coaching", name: "Bright Future Academy", category: "Education / Coaching", highlights: "" },
-  { label: "Car service", name: "Speed Auto Care", category: "Automobile / Service Centre", highlights: "" },
-  { label: "Real estate", name: "Karnal Homes", category: "Real Estate", highlights: "" },
-  { label: "Immigration", name: "Global Visa Point", category: "Immigration Consultancy", highlights: "" },
-];
+]
 const LANGS = ["English", "Hindi", "Hinglish", "Punjabi"];
 
 export default function Demo() {
@@ -48,12 +42,13 @@ export default function Demo() {
     <div className="relative mx-auto w-full min-w-0 max-w-[360px]">
       {/* Controls */}
       <div className="mb-4 space-y-2">
-        <div className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-1 [scrollbar-width:none]" role="group" aria-label="Business type">
+        <div className="flex flex-wrap gap-1.5" role="group" aria-label="Business type">
           {SAMPLES.map((x, i) => (
             <button key={x.label} onClick={() => setSample(i)} aria-pressed={sample === i} className={chip(sample === i)}>
               {x.label}
             </button>
           ))}
+          <span className="shrink-0 rounded-full px-2 py-1.5 text-xs font-semibold text-[#102A43]/55">and more</span>
         </div>
         <div className="flex flex-wrap items-center gap-1.5" role="group" aria-label="Review language">
           {LANGS.map((l) => (
@@ -61,7 +56,7 @@ export default function Demo() {
               {l}
             </button>
           ))}
-          <span className="pl-1 text-xs text-[#102A43]/55">+ Marathi, Gujarati, Tamil and more</span>
+          <span className="shrink-0 rounded-full px-2 py-1.5 text-xs font-semibold text-[#102A43]/55">and many more</span>
         </div>
       </div>
 
@@ -90,7 +85,7 @@ export default function Demo() {
                   <Shuffle size={13} />
                 </button>
               </div>
-              <div className="mt-1.5 space-y-1.5" aria-live="polite">
+              <div className="mt-1.5 h-[244px] space-y-1.5 overflow-hidden" aria-live="polite">
                 {reviews.map((r, i) => (
                   <button
                     key={r}

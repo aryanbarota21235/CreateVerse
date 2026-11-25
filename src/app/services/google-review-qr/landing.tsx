@@ -50,6 +50,19 @@ export default function Landing({ plans }: { plans: PublicPlan[] }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [formOpen]);
 
+  // Bring the whole pricing block into view, clear of the fixed navbar.
+  function scrollToPlans() {
+    // Aim at the cards themselves (just under the navbar) so every card shows in full;
+    // on tall screens the heading above stays in view too.
+    const cards = document.getElementById("plan-cards") ?? document.getElementById("plans");
+    if (!cards) return;
+    const rect = cards.getBoundingClientRect();
+    const navbar = 100;
+    const room = window.innerHeight - navbar;
+    const extra = Math.max(0, Math.min(200, (room - rect.height) / 2));
+    window.scrollTo({ top: rect.top + window.scrollY - navbar - extra, behavior: "smooth" });
+  }
+
   function choose(id: string) {
     setPlanId(id);
     setFormOpen(true);
@@ -63,8 +76,8 @@ export default function Landing({ plans }: { plans: PublicPlan[] }) {
           className="pointer-events-none absolute inset-0 opacity-[0.5] [background-image:radial-gradient(#102A43_0.6px,transparent_0.6px)] [background-size:18px_18px] [mask-image:linear-gradient(to_bottom,black,transparent_85%)]"
           aria-hidden="true"
         />
-        <div className="container-site relative grid items-center gap-12 pb-16 pt-6 sm:pb-24 lg:pt-14 lg:grid-cols-[1.1fr_1fr] lg:gap-8">
-          <div className="max-w-xl">
+        <div className="container-site relative grid items-start gap-12 pb-16 pt-6 sm:pb-24 lg:pt-14 lg:grid-cols-[1.1fr_1fr] lg:gap-8">
+          <div className="max-w-xl lg:pt-16">
             <div className="flex items-center gap-1" aria-hidden="true">
               {[0, 1, 2, 3, 4].map((i) => (
                 <Star key={i} className="h-5 w-5 fill-[#F6B500] text-[#F6B500]" />
@@ -82,7 +95,7 @@ export default function Landing({ plans }: { plans: PublicPlan[] }) {
                 href="#plans"
                 onClick={(e) => {
                   e.preventDefault();
-                  document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" });
+                  scrollToPlans();
                 }}
                 className="inline-flex items-center rounded-full bg-[#0284C7] px-7 py-3.5 text-sm font-bold text-white shadow-[0_10px_24px_-10px_rgba(2,132,199,0.7)] transition hover:bg-[#0369A1]"
               >
@@ -98,18 +111,18 @@ export default function Landing({ plans }: { plans: PublicPlan[] }) {
                 How it works
               </a>
             </div>
-            <ul className="mt-10 grid max-w-md grid-cols-3 gap-4 border-t border-[#102A43]/10 pt-6 text-sm">
+            <ul className="mt-10 grid max-w-lg grid-cols-3 gap-5 border-t border-[#102A43]/10 pt-6 text-sm">
               <li>
                 <p className={`${DISPLAY} text-2xl font-bold`}>&lt;1 min</p>
-                <p className="text-[#102A43]/60">for the customer</p>
+                <p className="mt-0.5 leading-snug text-[#102A43]/60">for a customer to post a review</p>
               </li>
               <li>
                 <p className={`${DISPLAY} text-2xl font-bold`}>12+</p>
-                <p className="text-[#102A43]/60">Indian languages</p>
+                <p className="mt-0.5 leading-snug text-[#102A43]/60">Indian languages, their choice</p>
               </li>
               <li>
-                <p className={`${DISPLAY} text-2xl font-bold`}>0</p>
-                <p className="text-[#102A43]/60">apps to install</p>
+                <p className={`${DISPLAY} text-2xl font-bold`}>1 scan</p>
+                <p className="mt-0.5 leading-snug text-[#102A43]/60">with any phone camera, no app</p>
               </li>
             </ul>
           </div>
@@ -136,7 +149,7 @@ export default function Landing({ plans }: { plans: PublicPlan[] }) {
       </section>
 
       {/* Pricing */}
-      <section id="plans" className="scroll-mt-24 bg-[#EAF2F8] py-20 sm:py-28">
+      <section id="plans" className="bg-[#EAF2F8] py-16 sm:py-20">
         <div className="container-site">
           <div className="max-w-2xl">
             <h2 className={`${DISPLAY} text-4xl font-bold tracking-[-0.03em] sm:text-5xl`}>Simple plans. Pay after we call you.</h2>
@@ -152,7 +165,7 @@ export default function Landing({ plans }: { plans: PublicPlan[] }) {
               </button>
             </div>
           ) : (
-            <div className={`mt-12 grid items-stretch gap-5 ${plans.length === 2 ? "md:grid-cols-2 max-w-4xl" : plans.length >= 3 ? "md:grid-cols-3" : "max-w-md"}`}>
+            <div id="plan-cards" className={`mt-10 grid items-stretch gap-5 ${plans.length === 2 ? "md:grid-cols-2 max-w-4xl" : plans.length >= 3 ? "md:grid-cols-3" : "max-w-md"}`}>
               {plans.map((p) => {
                 const hot = p.popular;
                 return (
@@ -232,7 +245,7 @@ export default function Landing({ plans }: { plans: PublicPlan[] }) {
             aria-modal="true"
             aria-label="Sign up for Google Review QR"
             onMouseDown={(e) => e.stopPropagation()}
-            className="relative max-h-[94dvh] w-full max-w-xl overflow-y-auto rounded-t-[28px] bg-white sm:rounded-[28px]"
+            className="relative max-h-[94dvh] w-full max-w-xl overflow-y-auto rounded-t-[28px] bg-[#EAF2F8] sm:rounded-[28px]"
           >
             <button
               onClick={() => setFormOpen(false)}

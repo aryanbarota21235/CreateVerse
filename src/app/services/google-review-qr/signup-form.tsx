@@ -1,13 +1,15 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { CheckCircle2 } from "lucide-react";
+import { Check, CheckCircle2, ChevronDown } from "lucide-react";
 import { REVIEW_CATEGORIES } from "@/lib/reviews/types";
 import { site } from "@/lib/site";
 import { inr, period, type PublicPlan } from "./plan-format";
 
 const field =
-  "w-full rounded-2xl border border-[#102A43]/15 bg-[#F6F9FC] px-4 py-3 text-base text-[#102A43] placeholder:text-[#102A43]/35 outline-none transition focus:border-[#0284C7] focus:ring-4 focus:ring-[#0284C7]/10 sm:text-[15px]";
+  "w-full rounded-2xl border border-[#102A43]/10 bg-white px-4 py-3 text-base text-[#102A43] placeholder:text-[#102A43]/35 outline-none transition focus:border-[#0284C7] focus:ring-4 focus:ring-[#0284C7]/10 sm:text-[15px]";
+// Native dropdown arrows sit at the very edge; hide it and draw our own, inset like the text.
+const select = `${field} cursor-pointer appearance-none pr-11`;
 const label = "mb-1.5 block text-sm font-semibold text-[#102A43]";
 
 export default function SignupForm({
@@ -64,22 +66,45 @@ export default function SignupForm({
   const chosen = plans.find((p) => p.id === planId);
 
   return (
-    <form onSubmit={onSubmit} className="p-6 sm:p-9">
+    <form onSubmit={onSubmit} className="p-6 pt-8 sm:p-9">
       <h2 className="font-display text-3xl font-bold tracking-[-0.03em] text-[#102A43]">Get your QR code</h2>
       <p className="mb-6 mt-1.5 text-sm text-[#102A43]/65">No payment now. We call you, you pay by UPI or bank transfer, and your QR and poster arrive on WhatsApp.</p>
       {plans.length > 0 && (
-        <div>
-          <label htmlFor="su-plan" className={label}>Plan</label>
-          <select id="su-plan" value={planId} onChange={(e) => onPlanChange(e.target.value)} className={`${field} cursor-pointer`}>
-            <option value="">Help me choose on the call</option>
-            {plans.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.name}: {inr(p.priceInr)} / {period(p.months)}
-              </option>
-            ))}
-          </select>
-          {chosen && <p className="mt-1.5 text-sm text-[#102A43]/60">Nothing to pay now. We confirm {chosen.name} with you on the call.</p>}
-        </div>
+        <fieldset>
+          <legend className={label}>Your plan</legend>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {plans.map((p) => {
+              const on = p.id === planId;
+              return (
+                <button
+                  type="button"
+                  key={p.id}
+                  onClick={() => onPlanChange(on ? "" : p.id)}
+                  aria-pressed={on}
+                  className={`relative rounded-2xl px-4 py-3 text-left transition ${
+                    on ? "bg-[#102A43] text-white shadow-[0_10px_24px_-12px_rgba(16,42,67,0.7)]" : "bg-white text-[#102A43] ring-1 ring-[#102A43]/10 hover:ring-[#102A43]/25"
+                  }`}
+                >
+                  <span className="flex items-center justify-between gap-2">
+                    <span className="text-sm font-semibold">{p.name}</span>
+                    {on && (
+                      <span className="flex size-5 items-center justify-center rounded-full bg-[#F6B500] text-[#102A43]">
+                        <Check className="size-3" strokeWidth={3} />
+                      </span>
+                    )}
+                  </span>
+                  <span className="mt-0.5 block font-display text-xl font-bold">
+                    {inr(p.priceInr)}
+                    <span className={`text-xs font-medium ${on ? "text-white/60" : "text-[#102A43]/50"}`}> / {period(p.months)}</span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+          <p className="mt-2 text-sm text-[#102A43]/60">
+            {chosen ? `Nothing to pay now. We confirm ${chosen.name} with you on the call.` : "Not sure? Send the form and we'll help you choose."}
+          </p>
+        </fieldset>
       )}
 
       <div className={`grid gap-4 sm:grid-cols-2 ${plans.length ? "mt-6" : ""}`}>
@@ -89,10 +114,13 @@ export default function SignupForm({
         </div>
         <div>
           <label htmlFor="su-cat" className={label}>Type of business</label>
-          <select id="su-cat" name="category" defaultValue="" className={`${field} cursor-pointer`}>
-            <option value="" disabled>Choose one</option>
-            {REVIEW_CATEGORIES.map((c) => <option key={c}>{c}</option>)}
-          </select>
+          <div className="relative">
+            <select id="su-cat" name="category" defaultValue="" className={select}>
+              <option value="" disabled>Choose one</option>
+              {REVIEW_CATEGORIES.map((c) => <option key={c}>{c}</option>)}
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-4 top-1/2 size-[18px] -translate-y-1/2 text-[#102A43]/60" aria-hidden="true" />
+          </div>
         </div>
         <div>
           <label htmlFor="su-city" className={label}>City</label>
