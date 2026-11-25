@@ -154,10 +154,7 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages,
     <div className="mx-auto w-full max-w-[25rem] pb-40">
       {/* Business */}
       <header className="flex flex-col items-center pt-2 text-center">
-        <span className="flex size-16 items-center justify-center rounded-[20px] bg-gradient-to-br from-[#38BDF8] to-[#0369A1] text-2xl font-semibold text-white shadow-[0_10px_24px_-10px_rgba(3,105,161,0.6)]">
-          {name.trim().charAt(0).toUpperCase()}
-        </span>
-        <h1 className="mt-3 text-[22px] font-semibold leading-tight tracking-[-0.02em] text-slate-900">{name}</h1>
+        <h1 className="text-[24px] font-semibold leading-tight tracking-[-0.02em] text-slate-900">{name}</h1>
         <p className="mt-0.5 text-[13px] text-slate-500">{category}</p>
       </header>
 

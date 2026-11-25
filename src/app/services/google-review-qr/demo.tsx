@@ -70,10 +70,7 @@ export default function Demo() {
         <div className="relative overflow-hidden rounded-[36px] px-3.5 pb-4 pt-9" style={{ backgroundImage: "linear-gradient(180deg, #E3F0FA 0%, #F4F7FA 45%)" }}>
           <div className="absolute left-1/2 top-2.5 h-5 w-24 -translate-x-1/2 rounded-full bg-[#102A43]" aria-hidden="true" />
           <div className="flex flex-col items-center text-center">
-            <span className="flex size-10 items-center justify-center rounded-[13px] bg-gradient-to-br from-[#38BDF8] to-[#0369A1] text-base font-semibold text-white">
-              {s.name.charAt(0)}
-            </span>
-            <p className="mt-1.5 text-[15px] font-semibold text-slate-900">{s.name}</p>
+            <p className="text-[16px] font-semibold text-slate-900">{s.name}</p>
           </div>
 
           <div className="mt-3 overflow-hidden rounded-[20px] bg-white shadow-[0_10px_30px_-18px_rgba(15,23,42,0.3)]">
