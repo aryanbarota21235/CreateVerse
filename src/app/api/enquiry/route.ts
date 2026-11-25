@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { createEnquiry } from "@/lib/admin-data";
 
 export async function GET() {
   return NextResponse.json(
@@ -49,6 +50,25 @@ export async function POST(request: Request) {
     };
 
     console.log("[CreateVerse API] New Inquiry Received:", record);
+
+    // Keep a copy for the admin panel (/admin/enquiries). Never blocks the visitor.
+    try {
+      await createEnquiry({
+        name: record.name,
+        phone: record.phone,
+        email: record.email,
+        company: record.company,
+        service: record.service,
+        budget: record.budget,
+        source: record.source,
+        channel: record.channel,
+        message: record.message,
+        status: "New",
+        notes: "",
+      });
+    } catch (saveError) {
+      console.error("[CreateVerse API] Could not store enquiry:", saveError);
+    }
 
     // Forward lead payload to Make.com Webhook
     const MAKE_WEBHOOK_URL =

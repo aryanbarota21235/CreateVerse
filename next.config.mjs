@@ -18,16 +18,8 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      {
-        source: "/admin",
-        destination: "https://www.createverse.in",
-        permanent: true,
-      },
-      {
-        source: "/admin/:path*",
-        destination: "https://www.createverse.in",
-        permanent: true,
-      },
+      // The old Review Studio address now lives in the admin panel
+      { source: "/review-studio", destination: "/admin/clients", permanent: true },
       {
         source: "/work",
         destination: "https://www.createverse.in/clients",

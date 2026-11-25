@@ -1,0 +1,162 @@
+import { promises as fs } from "fs";
+import path from "path";
+import { randomUUID } from "crypto";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+
+/*
+ * A tiny document store for the admin panel and the review service.
+ *
+ * Every record lives in one Supabase table, `cv_records` (collection, id, data jsonb), see
+ * supabase/schema.sql. Without SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY (local dev) records are kept
+ * in .data/db.json instead. Vercel's filesystem is read-only, so there the keys are required.
+ */
+
+export type Collection = "businesses" | "events" | "plans" | "signups" | "payments" | "enquiries";
+
+export interface Doc {
+  id: string;
+  createdAt: string;
+}
+
+type Row = { collection: Collection; id: string; data: Record<string, unknown>; created_at: string };
+
+let client: SupabaseClient | null | undefined;
+function supabase(): SupabaseClient | null {
+  if (client === undefined) {
+    const url = process.env.SUPABASE_URL;
+    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    client = url && key ? createClient(url, key, { auth: { persistSession: false } }) : null;
+  }
+  return client;
+}
+
+export const storageLabel = () => (supabase() ? "Supabase" : "Local file (.data/db.json)");
+
+// ---------- local fallback ----------
+const FILE = path.join(process.cwd(), ".data", "db.json");
+type Local = Partial<Record<Collection, Record<string, unknown>[]>>;
+
+async function readLocal(): Promise<Local> {
+  try {
+    return JSON.parse(await fs.readFile(FILE, "utf8")) as Local;
+  } catch {
+    return {};
+  }
+}
+async function writeLocal(data: Local) {
+  if (process.env.VERCEL) {
+    throw new Error("Storage is not set up: add SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in Vercel, then redeploy.");
+  }
+  await fs.mkdir(path.dirname(FILE), { recursive: true });
+  await fs.writeFile(FILE, JSON.stringify(data, null, 2));
+}
+
+const fromRow = <T extends Doc>(r: Row): T => ({ ...(r.data as object), id: r.id, createdAt: r.created_at }) as T;
+
+// ---------- API ----------
+
+/** All records of a collection, newest first. `where` matches top-level fields exactly. */
+export async function list<T extends Doc>(collection: Collection, where?: Partial<Record<keyof T, string>>): Promise<T[]> {
+  const s = supabase();
+  if (s) {
+    let q = s.from("cv_records").select("*").eq("collection", collection);
+    for (const [k, v] of Object.entries(where ?? {})) q = q.eq(`data->>${k}`, v as string);
+    const { data, error } = await q.order("created_at", { ascending: false });
+    if (error) throw new Error(error.message);
+    return (data as Row[]).map((r) => fromRow<T>(r));
+  }
+  const all = ((await readLocal())[collection] ?? []) as unknown as T[];
+  const matched = all.filter((d) =>
+    Object.entries(where ?? {}).every(([k, v]) => String((d as Record<string, unknown>)[k] ?? "") === v),
+  );
+  return [...matched].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+}
+
+export async function get<T extends Doc>(collection: Collection, id: string): Promise<T | null> {
+  const s = supabase();
+  if (s) {
+    const { data, error } = await s.from("cv_records").select("*").eq("collection", collection).eq("id", id).maybeSingle();
+    if (error) throw new Error(error.message);
+    return data ? fromRow<T>(data as Row) : null;
+  }
+  const all = ((await readLocal())[collection] ?? []) as unknown as T[];
+  return all.find((d) => d.id === id) ?? null;
+}
+
+export async function findOne<T extends Doc>(collection: Collection, where: Partial<Record<keyof T, string>>): Promise<T | null> {
+  return (await list<T>(collection, where))[0] ?? null;
+}
+
+export async function insert<T extends Doc>(collection: Collection, data: Omit<T, "id" | "createdAt">): Promise<T> {
+  const id = randomUUID();
+  const createdAt = new Date().toISOString();
+  const s = supabase();
+  if (s) {
+    const { data: row, error } = await s
+      .from("cv_records")
+      .insert({ collection, id, data, created_at: createdAt })
+      .select("*")
+      .single();
+    if (error) throw new Error(error.message);
+    return fromRow<T>(row as Row);
+  }
+  const local = await readLocal();
+  const doc = { ...data, id, createdAt } as unknown as T;
+  local[collection] = [...(local[collection] ?? []), doc as unknown as Record<string, unknown>];
+  await writeLocal(local);
+  return doc;
+}
+
+export async function update<T extends Doc>(
+  collection: Collection,
+  id: string,
+  patch: Partial<Omit<T, "id" | "createdAt">>,
+): Promise<T | null> {
+  const current = await get<T>(collection, id);
+  if (!current) return null;
+  const { id: _i, createdAt: _c, ...rest } = { ...current, ...patch } as T & Record<string, unknown>;
+  void _i;
+  void _c;
+  const s = supabase();
+  if (s) {
+    const { data, error } = await s
+      .from("cv_records")
+      .update({ data: rest })
+      .eq("collection", collection)
+      .eq("id", id)
+      .select("*")
+      .single();
+    if (error) throw new Error(error.message);
+    return fromRow<T>(data as Row);
+  }
+  const local = await readLocal();
+  const next = { ...rest, id, createdAt: current.createdAt } as unknown as T;
+  local[collection] = (local[collection] ?? []).map((d) => (d.id === id ? (next as unknown as Record<string, unknown>) : d));
+  await writeLocal(local);
+  return next;
+}
+
+export async function remove(collection: Collection, id: string): Promise<void> {
+  const s = supabase();
+  if (s) {
+    const { error } = await s.from("cv_records").delete().eq("collection", collection).eq("id", id);
+    if (error) throw new Error(error.message);
+    return;
+  }
+  const local = await readLocal();
+  local[collection] = (local[collection] ?? []).filter((d) => d.id !== id);
+  await writeLocal(local);
+}
+
+/** Deletes every record in `collection` whose `field` equals `value` (e.g. a business's events). */
+export async function removeWhere(collection: Collection, field: string, value: string): Promise<void> {
+  const s = supabase();
+  if (s) {
+    const { error } = await s.from("cv_records").delete().eq("collection", collection).eq(`data->>${field}`, value);
+    if (error) throw new Error(error.message);
+    return;
+  }
+  const local = await readLocal();
+  local[collection] = (local[collection] ?? []).filter((d) => String(d[field] ?? "") !== value);
+  await writeLocal(local);
+}

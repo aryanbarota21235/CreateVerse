@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { getBusinessBySlug, logEvent } from "@/lib/reviews/store";
 import { generateReviews } from "@/lib/reviews/generate";
+import { isLive } from "@/lib/reviews/types";
+import { isAdmin } from "@/lib/admin-auth";
 
 // Basic per-IP limit so a public QR page can't be used to burn AI credits.
 const hits = new Map<string, { count: number; reset: number }>();
@@ -37,7 +39,7 @@ export async function POST(req: Request) {
   }
 
   const business = await getBusinessBySlug(slug);
-  if (!business || !business.active) {
+  if (!business || (!isLive(business) && !(await isAdmin()))) {
     return NextResponse.json({ error: "Business not found." }, { status: 404 });
   }
 

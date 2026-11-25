@@ -167,7 +167,10 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               {service.description}
             </p>
 
-            <ServiceHeroButtons serviceName={service.name} />
+            <ServiceHeroButtons
+              serviceName={service.name}
+              signup={service.slug === "google-review-qr" ? { href: "/get-google-reviews", label: "See plans & sign up" } : undefined}
+            />
             <PageArtInline variant="service" service={service.slug} className="mt-7 sm:mt-9" />
           </Reveal>
 
