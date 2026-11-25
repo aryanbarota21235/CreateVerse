@@ -1,11 +1,20 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
-import { Star, RefreshCw, ArrowUpRight, Check, Store } from "lucide-react";
-import { CARD, EYEBROW, FIELD, PRIMARY } from "@/lib/reviews/look";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { Star, Shuffle, Check, PenLine } from "lucide-react";
+import { poppins } from "@/lib/reviews/look";
 
-const LABELS = ["", "Poor", "Below average", "Average", "Good", "Excellent"];
+/*
+ * The page a customer sees after scanning. One card, one question at a time:
+ * tap the stars, tap a suggestion (it becomes editable right there), press the button
+ * pinned to the bottom. Low ratings get honest wording; the button works for every rating.
+ */
+
+const WORDS = ["", "Poor", "Below average", "Average", "Good", "Excellent"];
+const WORD_COLOR = ["", "text-rose-600", "text-orange-600", "text-amber-600", "text-lime-700", "text-emerald-700"];
+const WRITE_OWN = -1;
 
 interface Props {
   slug: string;
@@ -17,8 +26,8 @@ interface Props {
 
 export default function ReviewFlow({ slug, name, category, googleUrl, languages }: Props) {
   const [rating, setRating] = useState(0);
-  const [lang, setLang] = useState(languages[0] ?? "English");
   const [hover, setHover] = useState(0);
+  const [lang, setLang] = useState(languages[0] ?? "English");
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [picked, setPicked] = useState<number | null>(null);
   const [text, setText] = useState("");
@@ -26,15 +35,20 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages 
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
   const rated = useRef(false);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  // The site's page wrapper animates with a transform, which breaks position:fixed inside it,
+  // so the pinned button is portalled to <body>.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const reqId = useRef(0);
+  const editorRef = useRef<HTMLTextAreaElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   async function load(r: number, language = lang) {
     const id = ++reqId.current;
     setLoading(true);
     setError("");
-    setSuggestions([]);
     setPicked(null);
+    setText("");
     try {
       const res = await fetch("/api/reviews/suggest", {
         method: "POST",
@@ -44,25 +58,37 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages 
       rated.current = true;
       const data = await res.json();
       if (id !== reqId.current) return;
-      if (!res.ok) throw new Error(data.error || "Something went wrong.");
+      if (!res.ok) throw new Error(data.error || "Couldn't load suggestions. You can still write your own.");
       setSuggestions(data.suggestions ?? []);
     } catch (e) {
-      if (id === reqId.current) setError(e instanceof Error ? e.message : "Something went wrong.");
+      if (id === reqId.current) setError(e instanceof Error ? e.message : "Couldn't load suggestions. You can still write your own.");
     } finally {
       if (id === reqId.current) setLoading(false);
     }
   }
 
-  function choose(r: number) {
+  function rate(r: number) {
+    const first = rating === 0;
     setRating(r);
-    setText("");
     load(r);
+    if (first) setTimeout(() => listRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 150);
   }
 
   function pick(i: number) {
     setPicked(i);
-    setText(suggestions[i]);
+    setText(i === WRITE_OWN ? "" : suggestions[i]);
   }
+
+  // Grow the editor with its text, and focus it when "write my own" is picked.
+  useEffect(() => {
+    const el = editorRef.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = `${el.scrollHeight}px`;
+  }, [text, picked]);
+  useEffect(() => {
+    if (picked === WRITE_OWN) editorRef.current?.focus();
+  }, [picked]);
 
   async function copyAndGo() {
     const value = text.trim();
@@ -72,8 +98,8 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages 
       await navigator.clipboard.writeText(value);
       ok = true;
     } catch {
-      // Older in-app browsers: fall back to selecting the textarea and copying
-      const el = textareaRef.current;
+      // Older in-app browsers: select the editor's text and copy
+      const el = editorRef.current;
       if (el) {
         el.select();
         ok = document.execCommand("copy");
@@ -86,190 +112,194 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages 
       body: JSON.stringify({ slug, rating }),
       keepalive: true,
     }).catch(() => {});
-    setTimeout(() => {
-      window.location.href = googleUrl;
-    }, ok ? 700 : 1800);
+    setTimeout(() => (window.location.href = googleUrl), ok ? 800 : 1800);
   }
 
   const shown = hover || rating;
+  const ready = text.trim().length > 0;
 
   return (
-    <div className="mx-auto w-full max-w-[26rem]">
-      {/* Who is being reviewed */}
-      <div className={`${CARD} flex items-center gap-3 p-4`}>
-        <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-accent-dim">
-          <Store size={20} strokeWidth={1.8} />
+    <div className="mx-auto w-full max-w-[25rem] pb-40">
+      {/* Business */}
+      <header className="flex flex-col items-center pt-2 text-center">
+        <span className="flex size-16 items-center justify-center rounded-[20px] bg-gradient-to-br from-[#38BDF8] to-[#0369A1] text-2xl font-semibold text-white shadow-[0_10px_24px_-10px_rgba(3,105,161,0.6)]">
+          {name.trim().charAt(0).toUpperCase()}
         </span>
-        <div className="min-w-0">
-          <h1 className="truncate text-[17px] font-semibold leading-tight tracking-tight text-slate-900">{name}</h1>
-          <p className="text-[13px] text-slate-500">{category}</p>
-        </div>
-      </div>
+        <h1 className="mt-3 text-[22px] font-semibold leading-tight tracking-[-0.02em] text-slate-900">{name}</h1>
+        <p className="mt-0.5 text-[13px] text-slate-500">{category}</p>
+      </header>
 
       {languages.length > 1 && (
-        <div className="mt-3 flex flex-wrap justify-center gap-1.5" role="group" aria-label="Review language">
-          {languages.map((l) => (
-            <button
-              key={l}
-              type="button"
-              aria-pressed={lang === l}
-              onClick={() => {
-                setLang(l);
-                if (rating) load(rating, l);
-              }}
-              className={`h-8 rounded-full border px-3 text-xs font-semibold transition-colors ${
-                lang === l ? "border-accent bg-accent text-white" : "border-slate-200 bg-white text-slate-600"
-              }`}
-            >
-              {l}
-            </button>
-          ))}
+        <div className="mt-4 flex justify-center">
+          <div className="inline-flex rounded-full bg-white p-1 shadow-[0_1px_2px_rgba(15,23,42,0.06),0_0_0_1px_rgba(15,23,42,0.06)]" role="group" aria-label="Review language">
+            {languages.map((l) => (
+              <button
+                key={l}
+                type="button"
+                aria-pressed={lang === l}
+                onClick={() => {
+                  setLang(l);
+                  if (rating) load(rating, l);
+                }}
+                className={`h-8 rounded-full px-3.5 text-[13px] font-medium transition-colors ${lang === l ? "bg-slate-900 text-white" : "text-slate-600"}`}
+              >
+                {l}
+              </button>
+            ))}
+          </div>
         </div>
       )}
 
-      {/* Rating */}
-      <section className={`${CARD} mt-3 p-5`}>
-        <h2 className={EYEBROW}>Rate your visit</h2>
-        <div
-          className="mt-3 flex justify-between gap-1"
-          onMouseLeave={() => setHover(0)}
-          role="radiogroup"
-          aria-label="Rating"
-        >
-          {[1, 2, 3, 4, 5].map((n) => (
-            <button
-              key={n}
-              type="button"
-              role="radio"
-              aria-checked={rating === n}
-              aria-label={`${n} star${n > 1 ? "s" : ""}`}
-              onMouseEnter={() => setHover(n)}
-              onClick={() => choose(n)}
-              className={`flex aspect-square flex-1 items-center justify-center rounded-xl border transition active:scale-95 ${
-                n <= shown ? "border-amber-200 bg-amber-50" : "border-slate-200 bg-white hover:bg-slate-50"
-              }`}
-            >
-              <Star
-                size={26}
-                strokeWidth={1.6}
-                className={n <= shown ? "fill-amber-400 text-amber-400" : "text-slate-300"}
-              />
-            </button>
-          ))}
-        </div>
-        <p className="mt-2 h-5 text-center text-[13px] font-medium text-slate-600">
-          {LABELS[shown] || "Tap a star"}
-        </p>
-      </section>
-
-      {/* Suggestions + text */}
-      {rating > 0 && (
-        <section className={`${CARD} mt-3 overflow-hidden`}>
-          <div className="flex min-h-12 items-center justify-between gap-2 border-b border-slate-100 px-5 py-2.5">
-            <h2 className="text-sm font-semibold tracking-tight text-slate-900">Pick a review</h2>
-            <button
-              type="button"
-              onClick={() => load(rating)}
-              disabled={loading}
-              className="inline-flex h-8 items-center gap-1.5 rounded-lg px-2 text-xs font-semibold text-accent-dim hover:bg-sky-50 disabled:opacity-40"
-            >
-              <RefreshCw size={14} className={loading ? "animate-spin" : ""} /> New ideas
-            </button>
+      <main className="mt-5 overflow-hidden rounded-[28px] bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04),0_20px_50px_-24px_rgba(15,23,42,0.25)]">
+        {/* Rating */}
+        <section className="px-6 pb-6 pt-7 text-center">
+          <h2 className="text-[19px] font-semibold tracking-[-0.01em] text-slate-900">How was your visit?</h2>
+          <div className="mt-5 flex justify-center gap-2" onMouseLeave={() => setHover(0)} role="radiogroup" aria-label="Your rating">
+            {[1, 2, 3, 4, 5].map((n) => (
+              <button
+                key={n}
+                type="button"
+                role="radio"
+                aria-checked={rating === n}
+                aria-label={`${n} star${n > 1 ? "s" : ""}`}
+                onMouseEnter={() => setHover(n)}
+                onClick={() => rate(n)}
+                className="rounded-full p-1 transition-transform duration-150 active:scale-90 motion-reduce:transition-none"
+              >
+                <Star
+                  size={42}
+                  strokeWidth={1.4}
+                  className={`transition-colors ${n <= shown ? "fill-[#FBBC04] text-[#FBBC04]" : "fill-slate-100 text-slate-300"} ${n === rating ? "scale-110" : ""}`}
+                />
+              </button>
+            ))}
           </div>
+          <p className={`mt-2 h-5 text-sm font-semibold ${shown ? WORD_COLOR[shown] : "text-slate-400"}`}>{shown ? WORDS[shown] : "Tap a star to rate"}</p>
+        </section>
 
-          <div className="p-3" aria-live="polite">
-            {loading &&
-              [0, 1, 2].map((i) => (
-                <div key={i} className="mb-2 space-y-2 rounded-xl border border-slate-100 p-3.5 last:mb-0">
-                  <div className="h-3 w-11/12 animate-pulse rounded bg-slate-100" />
-                  <div className="h-3 w-3/4 animate-pulse rounded bg-slate-100" />
-                </div>
-              ))}
+        {/* Suggestions */}
+        {rating > 0 && (
+          <section ref={listRef} className="scroll-mt-4 border-t border-slate-100 px-4 pb-4 pt-5">
+            <div className="flex items-center justify-between px-2">
+              <h2 className="text-[15px] font-semibold text-slate-900">Pick what fits, then edit</h2>
+              <button
+                type="button"
+                onClick={() => load(rating)}
+                disabled={loading}
+                aria-label="Show other suggestions"
+                className="flex size-9 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 disabled:opacity-40"
+              >
+                <Shuffle size={17} className={loading ? "animate-pulse" : ""} />
+              </button>
+            </div>
 
-            {error && (
-              <p className="rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-3 text-[13px] text-rose-700">{error}</p>
-            )}
+            <div className="mt-3 space-y-2" aria-live="polite">
+              {loading &&
+                [0, 1, 2].map((i) => (
+                  <div key={i} className="space-y-2 rounded-2xl bg-slate-50 px-4 py-4">
+                    <div className="h-3 w-11/12 animate-pulse rounded-full bg-slate-200/80" />
+                    <div className="h-3 w-2/3 animate-pulse rounded-full bg-slate-200/80" />
+                  </div>
+                ))}
 
-            {!loading &&
-              suggestions.map((s, i) => {
-                const on = picked === i;
-                return (
-                  <button
-                    key={i}
-                    type="button"
-                    onClick={() => pick(i)}
-                    aria-pressed={on}
-                    className={`mb-2 flex w-full items-start gap-3 rounded-xl border p-3.5 text-left text-[14px] leading-relaxed transition last:mb-0 ${
-                      on
-                        ? "border-accent bg-sky-50/70 ring-2 ring-sky-100"
-                        : "border-slate-200 hover:border-slate-300 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span
-                      className={`mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full border ${
-                        on ? "border-accent bg-accent text-white" : "border-slate-300"
-                      }`}
+              {error && <p className="rounded-2xl bg-rose-50 px-4 py-3 text-[13px] text-rose-700">{error}</p>}
+
+              {!loading &&
+                suggestions.map((s, i) =>
+                  picked === i ? (
+                    <Editor key={i} refEl={editorRef} value={text} onChange={setText} />
+                  ) : (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => pick(i)}
+                      className="block w-full rounded-2xl bg-slate-50 px-4 py-3.5 text-left text-[15px] leading-relaxed text-slate-700 transition-colors hover:bg-slate-100 active:bg-slate-100"
                     >
-                      {on && <Check size={12} strokeWidth={3} />}
-                    </span>
-                    <span className="text-slate-800">{s}</span>
+                      {s}
+                    </button>
+                  ),
+                )}
+
+              {!loading &&
+                (picked === WRITE_OWN ? (
+                  <Editor refEl={editorRef} value={text} onChange={setText} placeholder="Write about your visit in your own words" />
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => pick(WRITE_OWN)}
+                    className="flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-slate-300 px-4 py-3 text-sm font-medium text-slate-600 hover:border-slate-400 hover:text-slate-900"
+                  >
+                    <PenLine size={15} /> Write my own
                   </button>
-                );
-              })}
-          </div>
+                ))}
+            </div>
+          </section>
+        )}
+      </main>
 
-          <div className="border-t border-slate-100 p-5">
-            <label htmlFor="review-text" className="mb-1 block text-xs font-semibold text-slate-600">
-              Your review <span className="font-normal text-slate-400">(edit freely)</span>
-            </label>
-            <textarea
-              id="review-text"
-              ref={textareaRef}
-              value={text}
-              onChange={(e) => {
-                setText(e.target.value);
-                setPicked(null);
-              }}
-              rows={4}
-              placeholder="Pick one above or write your own…"
-              className={`${FIELD} resize-none leading-relaxed`}
-            />
+      <a href="https://www.createverse.in/services/google-review-qr" className="mt-8 flex flex-col items-center gap-1 text-[11px] text-slate-400">
+        Powered by
+        <Image src="/logo.png" alt="CreateVerse" width={88} height={36} className="h-auto w-[88px] opacity-80" />
+      </a>
 
+      {/* Pinned action */}
+      {rating > 0 && mounted && createPortal(
+        <div className={`${poppins.className} fixed inset-x-0 bottom-0 z-40 border-t border-slate-200/70 bg-white/90 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur`}>
+          <div className="mx-auto max-w-[25rem]">
             <button
               type="button"
               onClick={copyAndGo}
-              disabled={!text.trim() || copied}
-              className={`${PRIMARY} mt-4 h-12 w-full text-[15px] ${copied ? "!bg-emerald-600 !opacity-100" : ""}`}
+              disabled={!ready || copied}
+              className={`flex h-14 w-full items-center justify-center gap-2 rounded-2xl text-base font-semibold text-white transition-colors ${
+                copied ? "bg-emerald-600" : ready ? "bg-slate-900 hover:bg-slate-800" : "bg-slate-300"
+              }`}
             >
               {copied ? (
                 <>
-                  <Check size={18} /> Copied — opening Google
+                  <Check size={20} /> Copied, opening Google
                 </>
+              ) : ready ? (
+                "Copy and post on Google"
               ) : (
-                <>
-                  Copy &amp; post on Google <ArrowUpRight size={18} />
-                </>
+                "Pick a review above"
               )}
             </button>
-            <ol className="mt-4 grid grid-cols-3 gap-2 text-center text-[11px] leading-tight text-slate-500">
-              {["Text is copied", "Google opens", "Paste & tap Post"].map((step, i) => (
-                <li key={step} className="rounded-lg bg-slate-50 px-1.5 py-2">
-                  <span className="mb-0.5 block text-xs font-semibold text-slate-700">{i + 1}</span>
-                  {step}
-                </li>
-              ))}
-            </ol>
+            <p className="mt-2 text-center text-xs text-slate-500">On Google, tap the stars, paste your review and press Post.</p>
           </div>
-        </section>
-      )}
+        </div>
+      , document.body)}
+    </div>
+  );
+}
 
-      <a
-        href="https://www.createverse.in/services/google-review-qr"
-        className="mt-6 flex flex-col items-center gap-1 text-[11px] text-slate-400 hover:text-slate-500"
-      >
-        Powered by
-        <Image src="/logo.png" alt="CreateVerse" width={96} height={40} className="h-auto w-24 opacity-90" />
-      </a>
+function Editor({
+  refEl,
+  value,
+  onChange,
+  placeholder,
+}: {
+  refEl: React.RefObject<HTMLTextAreaElement | null>;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+}) {
+  return (
+    <div className="rounded-2xl bg-sky-50 px-4 pb-2 pt-3.5 ring-2 ring-[#0284C7]">
+      <label htmlFor="review-text" className="sr-only">
+        Your review
+      </label>
+      <textarea
+        id="review-text"
+        ref={refEl}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        rows={3}
+        placeholder={placeholder}
+        className="block w-full resize-none overflow-hidden bg-transparent text-[16px] leading-relaxed text-slate-900 outline-none placeholder:text-slate-400"
+      />
+      <p className="mt-1 flex items-center gap-1 text-[11px] font-medium text-[#0369A1]">
+        <PenLine size={11} /> Tap to change anything
+      </p>
     </div>
   );
 }

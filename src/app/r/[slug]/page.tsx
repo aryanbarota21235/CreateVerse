@@ -42,9 +42,12 @@ export default async function ReviewPage({ params }: Props) {
   }
 
   return (
-    <div className={`${ROOT} px-4 py-6 sm:py-12`}>
+    <div
+      className={`${ROOT} px-4 pt-6 sm:pt-12`}
+      style={{ backgroundImage: "linear-gradient(180deg, #E3F0FA 0%, #F4F7FA 38%, #F4F7FA 100%)" }}
+    >
       {preview && (
-        <p className="mx-auto mb-3 max-w-[26rem] rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-center text-xs font-medium text-amber-800">
+        <p className="mx-auto mb-3 max-w-[25rem] rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-center text-xs font-medium text-amber-800">
           Admin preview: customers see “not active” until a payment is recorded and the client is live.
         </p>
       )}
