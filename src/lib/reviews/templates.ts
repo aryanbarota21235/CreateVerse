@@ -9,8 +9,6 @@
  * Hindi gender agreement (accha/acchi, tha/thi) per noun.
  */
 
-import type { ReviewLanguage } from "./types";
-
 type G = "m" | "f";
 interface Aspect {
   en: string;
@@ -277,13 +275,14 @@ const HI: Lang = {
   },
 };
 
-const LANGS: Record<ReviewLanguage, Lang> = { English: EN, Hinglish: HL, Hindi: HI };
+const LANGS: Record<string, Lang> = { English: EN, Hinglish: HL, Hindi: HI };
 
 export interface TemplateInput {
   name: string;
   category: string;
   highlights: string;
-  language: ReviewLanguage;
+  /** English, Hinglish or Hindi; anything else is written in English. */
+  language: string;
 }
 
 function one(b: TemplateInput, rating: number): string {

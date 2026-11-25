@@ -18,8 +18,8 @@ export default function PlansView({ plans, used }: { plans: Plan[]; used: Record
   return (
     <>
       <PageHead
-        title="Plans & pricing"
-        sub="Live plans show on the public sign-up form. Prices are what you charge; payments are collected by your team."
+        title="Plans"
+        sub="Plans marked live show on the website\u2019s pricing section."
         actions={<button onClick={() => setEditing("new")} className={PRIMARY}><Plus size={16} /> Add plan</button>}
       />
       <Panel title="Plans" count={plans.length}>

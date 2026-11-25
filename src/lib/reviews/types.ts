@@ -14,9 +14,29 @@ export const REVIEW_CATEGORIES = [
   "Other",
 ] as const;
 
-export const REVIEW_LANGUAGES = ["English", "Hinglish", "Hindi"] as const;
+/** Quick picks in the admin. Any other language can be typed in; the AI writes in whatever is set. */
+export const REVIEW_LANGUAGES = [
+  "English",
+  "Hindi",
+  "Hinglish",
+  "Punjabi",
+  "Haryanvi",
+  "Urdu",
+  "Marathi",
+  "Gujarati",
+  "Bengali",
+  "Tamil",
+  "Telugu",
+  "Kannada",
+  "Malayalam",
+  "Odia",
+] as const;
 
-export type ReviewLanguage = (typeof REVIEW_LANGUAGES)[number];
+/** The built-in (no-AI) writer only knows these; other languages fall back to English without AI. */
+export const TEMPLATE_LANGUAGES = ["English", "Hinglish", "Hindi"] as const;
+export type ReviewLanguage = (typeof TEMPLATE_LANGUAGES)[number];
+
+export const MAX_LANGUAGES = 6;
 
 export interface ReviewBusiness {
   id: string;
@@ -26,7 +46,8 @@ export interface ReviewBusiness {
   city: string;
   /** Comma-separated things customers can mention, e.g. "biryani, rooftop seating, quick service" */
   highlights: string;
-  language: ReviewLanguage;
+  /** Languages customers can pick on the review page; the first is the default. */
+  languages: string[];
   /** Google Place ID, used to build the write-review link */
   placeId: string;
   /** Optional override, e.g. a g.page/r/... short link from Google Business Profile */

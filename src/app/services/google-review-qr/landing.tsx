@@ -9,7 +9,7 @@ import { inr, period, type PublicPlan } from "./plan-format";
 export type { PublicPlan };
 
 
-const DISPLAY = "font-[family-name:var(--font-rq)]";
+const DISPLAY = "font-display";
 const INK = "text-[#102A43]";
 
 const STEPS = [
@@ -29,7 +29,7 @@ const FAQS = [
   },
   {
     q: "Which languages are the suggestions in?",
-    a: "English, Hinglish or Hindi. You choose per business, and customers can always edit the text.",
+    a: "English, Hindi, Hinglish, Punjabi, Haryanvi, Marathi, Gujarati, Tamil, Telugu and more. You pick the languages for your business, customers choose theirs on the review page, and they can always edit the text.",
   },
   {
     q: "How do I pay?",
@@ -90,8 +90,8 @@ export default function Landing({ plans }: { plans: PublicPlan[] }) {
                 <p className="text-[#102A43]/60">for the customer</p>
               </li>
               <li>
-                <p className={`${DISPLAY} text-2xl font-bold`}>3</p>
-                <p className="text-[#102A43]/60">languages</p>
+                <p className={`${DISPLAY} text-2xl font-bold`}>12+</p>
+                <p className="text-[#102A43]/60">Indian languages</p>
               </li>
               <li>
                 <p className={`${DISPLAY} text-2xl font-bold`}>0</p>

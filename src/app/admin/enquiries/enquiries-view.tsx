@@ -31,7 +31,7 @@ export default function EnquiriesView({ enquiries }: { enquiries: Enquiry[] }) {
 
   return (
     <>
-      <PageHead title="Website enquiries" sub="Every enquiry form on createverse.in. They still go to Make.com as before; this is the team's copy." />
+      <PageHead title="Enquiries" sub="Every enquiry form on createverse.in. They still go to Make.com as before; this is the team's copy." />
 
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <div role="tablist" className="flex gap-1 overflow-x-auto rounded-2xl border border-slate-200 bg-white p-2 shadow-sm [scrollbar-width:none]">

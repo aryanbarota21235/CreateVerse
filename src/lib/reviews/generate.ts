@@ -23,6 +23,7 @@ interface SuggestionPool {
   createdAt: string;
   businessId: string;
   rating: number;
+  language: string;
   fingerprint: string;
   source: string;
   reviews: string[];
@@ -46,23 +47,28 @@ Rules:
 - Do not mention AI, stars, or that this is a draft.
 - Reply with JSON only: {"reviews": ["...", "..."]}`;
 
-const LANGUAGE: Record<string, string> = {
+// Languages that need a word of explanation; any other is written "in <language>, in its usual script".
+const LANGUAGE_NOTE: Record<string, string> = {
   English: "Simple Indian English",
   Hinglish: "Hinglish: Hindi written in Roman (English) letters, mixed with English words, the way people text in North India",
   Hindi: "Hindi in Devanagari script",
+  Haryanvi: "Haryanvi, written in Devanagari script, the way people speak in Haryana",
+  Punjabi: "Punjabi in Gurmukhi script",
+  Urdu: "Urdu in Nastaliq (Urdu) script",
 };
+const languageNote = (l: string) => LANGUAGE_NOTE[l] ?? `${l}, in its usual script`;
 
 function fingerprint(b: ReviewBusiness) {
-  return createHash("sha1").update([b.name, b.category, b.highlights, b.language].join("|")).digest("hex").slice(0, 16);
+  return createHash("sha1").update([b.name, b.category, b.highlights].join("|")).digest("hex").slice(0, 16);
 }
 
-async function writePool(b: ReviewBusiness, rating: number): Promise<{ reviews: string[]; source: string }> {
+async function writePool(b: ReviewBusiness, rating: number, language: string): Promise<{ reviews: string[]; source: string }> {
   const prompt = [
     `Business: ${b.name}`,
     `Category: ${b.category}`,
     b.city ? `City: ${b.city}` : null,
     b.highlights ? `Things customers can mention: ${b.highlights}` : null,
-    `Language: ${LANGUAGE[b.language] ?? LANGUAGE.English}`,
+    `Language: ${languageNote(language)}`,
     `Star rating: ${rating} of 5`,
     `Tone: ${TONE[rating]}`,
     "",
@@ -78,32 +84,35 @@ async function writePool(b: ReviewBusiness, rating: number): Promise<{ reviews: 
     return clean.length >= SHOWN ? clean : null;
   });
   if (ai) return { reviews: ai.value, source: ai.provider };
-  return { reviews: templateReviews(b, rating, POOL_SIZE), source: "Templates" };
+  return { reviews: templateReviews({ ...b, language }, rating, POOL_SIZE), source: "Templates" };
 }
 
-async function poolFor(b: ReviewBusiness, rating: number): Promise<SuggestionPool> {
+async function poolFor(b: ReviewBusiness, rating: number, language: string): Promise<SuggestionPool> {
   const fp = fingerprint(b);
-  const saved = (await db.list<SuggestionPool>("suggestions", { businessId: b.id })).find((p) => p.rating === rating);
+  const saved = (await db.list<SuggestionPool>("suggestions", { businessId: b.id })).find(
+    (p) => p.rating === rating && (p.language ?? "English") === language,
+  );
   const stale =
     !saved ||
     saved.fingerprint !== fp ||
     (saved.source === "Templates" && providers().length > 0 && Date.now() - Date.parse(saved.createdAt) > RETRY_TEMPLATE_POOL_MS);
   if (!stale) return saved;
 
-  const { reviews, source } = await writePool(b, rating);
+  const { reviews, source } = await writePool(b, rating, language);
   try {
     if (saved) await db.remove("suggestions", saved.id);
-    return await db.insert<SuggestionPool>("suggestions", { businessId: b.id, rating, fingerprint: fp, source, reviews });
+    return await db.insert<SuggestionPool>("suggestions", { businessId: b.id, rating, language, fingerprint: fp, source, reviews });
   } catch (e) {
     // Couldn't save (e.g. storage not set up): still show the reviews.
     console.error("[reviews] could not save suggestions", e instanceof Error ? e.message : e);
-    return { id: "", createdAt: new Date().toISOString(), businessId: b.id, rating, fingerprint: fp, source, reviews };
+    return { id: "", createdAt: new Date().toISOString(), businessId: b.id, rating, language, fingerprint: fp, source, reviews };
   }
 }
 
-/** SHOWN reviews for a customer, picked at random from the saved pool. */
-export async function suggestReviews(b: ReviewBusiness, rating: number): Promise<string[]> {
-  const pool = await poolFor(b, rating);
+/** SHOWN reviews for a customer in `language` (one of the business's), picked from the saved pool. */
+export async function suggestReviews(b: ReviewBusiness, rating: number, language?: string): Promise<string[]> {
+  const lang = language && b.languages.includes(language) ? language : b.languages[0];
+  const pool = await poolFor(b, rating, lang);
   const shuffled = [...pool.reviews].sort(() => Math.random() - 0.5);
   // Prefer drafts that open differently, so the four on screen don't look alike.
   const opening = (r: string) => r.split(/\s+/).slice(0, 3).join(" ").toLowerCase();
@@ -114,11 +123,14 @@ export async function suggestReviews(b: ReviewBusiness, rating: number): Promise
   return picked;
 }
 
-/** Admin "Prepare reviews": rewrites all five pools now. Returns where each came from. */
+/**
+ * Admin "Prepare reviews": rewrites all five ratings in the main language now (5 AI requests).
+ * Other languages are written the first time a customer picks them.
+ */
 export async function regenerateAll(b: ReviewBusiness): Promise<Record<number, string>> {
   await db.removeWhere("suggestions", "businessId", b.id);
   const out: Record<number, string> = {};
-  for (const r of [5, 4, 3, 2, 1]) out[r] = (await poolFor(b, r)).source;
+  for (const r of [5, 4, 3, 2, 1]) out[r] = (await poolFor(b, r, b.languages[0])).source;
   return out;
 }
 

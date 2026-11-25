@@ -30,9 +30,9 @@ import { site } from "@/lib/site";
 import { getLocationHref } from "@/lib/locations";
 
 export function generateStaticParams() {
-  // political-management has its own page; paid-social duplicates social-media-paid-ads and is redirected
+  // political-management and google-review-qr have their own pages; paid-social duplicates social-media-paid-ads and is redirected
   return services
-    .filter((s) => s.slug !== "political-management" && s.slug !== "paid-social")
+    .filter((s) => s.slug !== "political-management" && s.slug !== "google-review-qr" && s.slug !== "paid-social")
     .map((s) => ({ slug: s.slug }));
 }
 
@@ -167,10 +167,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               {service.description}
             </p>
 
-            <ServiceHeroButtons
-              serviceName={service.name}
-              signup={service.slug === "google-review-qr" ? { href: "/get-google-reviews", label: "See plans & sign up" } : undefined}
-            />
+            <ServiceHeroButtons serviceName={service.name} />
             <PageArtInline variant="service" service={service.slug} className="mt-7 sm:mt-9" />
           </Reveal>
 

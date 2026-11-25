@@ -20,6 +20,7 @@ const nextConfig = {
     return [
       // The old Review Studio address now lives in the admin panel
       { source: "/review-studio", destination: "/admin/clients", permanent: true },
+      { source: "/get-google-reviews", destination: "/services/google-review-qr", permanent: true },
       {
         source: "/work",
         destination: "https://www.createverse.in/clients",

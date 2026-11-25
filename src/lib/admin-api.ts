@@ -4,7 +4,7 @@ import {
   ENQUIRY_STATUSES,
   PAYMENT_METHODS,
   REVIEW_CATEGORIES,
-  REVIEW_LANGUAGES,
+  MAX_LANGUAGES,
   SIGNUP_STATUSES,
   slugify,
   type ReviewBusinessInput,
@@ -50,7 +50,11 @@ export function parseBusiness(b: Record<string, unknown>, partial = false): Part
     if (!v.slug) throw new BadInput("QR link is required.");
   }
   if (has("category")) v.category = oneOf(b.category, REVIEW_CATEGORIES, "Other");
-  if (has("language")) v.language = oneOf(b.language, REVIEW_LANGUAGES, "English");
+  if (has("languages")) {
+    const raw = Array.isArray(b.languages) ? b.languages : [];
+    const list = [...new Set(raw.map((l) => str(l, 30)).filter((l) => /^[\p{L} ()-]{2,30}$/u.test(l)))].slice(0, MAX_LANGUAGES);
+    v.languages = list.length ? list : ["English"];
+  }
   if (has("city")) v.city = str(b.city, 80);
   if (has("highlights")) v.highlights = str(b.highlights, 400);
   if (has("placeId")) v.placeId = str(b.placeId, 200);

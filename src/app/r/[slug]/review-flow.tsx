@@ -12,10 +12,12 @@ interface Props {
   name: string;
   category: string;
   googleUrl: string;
+  languages: string[];
 }
 
-export default function ReviewFlow({ slug, name, category, googleUrl }: Props) {
+export default function ReviewFlow({ slug, name, category, googleUrl, languages }: Props) {
   const [rating, setRating] = useState(0);
+  const [lang, setLang] = useState(languages[0] ?? "English");
   const [hover, setHover] = useState(0);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [picked, setPicked] = useState<number | null>(null);
@@ -27,7 +29,7 @@ export default function ReviewFlow({ slug, name, category, googleUrl }: Props) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const reqId = useRef(0);
 
-  async function load(r: number) {
+  async function load(r: number, language = lang) {
     const id = ++reqId.current;
     setLoading(true);
     setError("");
@@ -37,7 +39,7 @@ export default function ReviewFlow({ slug, name, category, googleUrl }: Props) {
       const res = await fetch("/api/reviews/suggest", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug, rating: r, first: !rated.current }),
+        body: JSON.stringify({ slug, rating: r, language, first: !rated.current }),
       });
       rated.current = true;
       const data = await res.json();
@@ -103,6 +105,27 @@ export default function ReviewFlow({ slug, name, category, googleUrl }: Props) {
           <p className="text-[13px] text-slate-500">{category}</p>
         </div>
       </div>
+
+      {languages.length > 1 && (
+        <div className="mt-3 flex flex-wrap justify-center gap-1.5" role="group" aria-label="Review language">
+          {languages.map((l) => (
+            <button
+              key={l}
+              type="button"
+              aria-pressed={lang === l}
+              onClick={() => {
+                setLang(l);
+                if (rating) load(rating, l);
+              }}
+              className={`h-8 rounded-full border px-3 text-xs font-semibold transition-colors ${
+                lang === l ? "border-accent bg-accent text-white" : "border-slate-200 bg-white text-slate-600"
+              }`}
+            >
+              {l}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Rating */}
       <section className={`${CARD} mt-3 p-5`}>

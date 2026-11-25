@@ -8,10 +8,10 @@ import { LayoutDashboard, Inbox, Store, Tags, MessageSquareText, LogOut, Menu, X
 
 const NAV = [
   { href: "/admin", label: "Overview", icon: LayoutDashboard, exact: true },
-  { href: "/admin/signups", label: "Review sign-ups", icon: Inbox, badge: "signups" as const },
-  { href: "/admin/clients", label: "Review clients", icon: Store },
-  { href: "/admin/plans", label: "Plans & pricing", icon: Tags },
-  { href: "/admin/enquiries", label: "Website enquiries", icon: MessageSquareText, badge: "enquiries" as const },
+  { href: "/admin/signups", label: "New sign-ups", icon: Inbox, badge: "signups" as const },
+  { href: "/admin/clients", label: "Clients", icon: Store },
+  { href: "/admin/plans", label: "Plans", icon: Tags },
+  { href: "/admin/enquiries", label: "Enquiries", icon: MessageSquareText, badge: "enquiries" as const },
 ];
 
 export default function Shell({ children, badges }: { children: ReactNode; badges: { signups: number; enquiries: number } }) {

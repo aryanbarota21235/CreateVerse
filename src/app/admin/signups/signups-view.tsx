@@ -39,7 +39,7 @@ export default function SignupsView({ signups, plans }: { signups: Signup[]; pla
 
   return (
     <>
-      <PageHead title="Review sign-ups" sub="Businesses that filled the Google Review QR form. Call them, collect payment, then convert them to a client." />
+      <PageHead title="New sign-ups" sub="Businesses that filled the form on the website. Call them, then press Make client." />
 
       <div role="tablist" className="mb-4 flex gap-1 overflow-x-auto rounded-2xl border border-slate-200 bg-white p-2 shadow-sm [scrollbar-width:none]">
         {tabs.map((t) => (

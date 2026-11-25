@@ -50,7 +50,7 @@ export default function SignupForm({
     return (
       <div className="flex flex-col items-start rounded-[28px] bg-[#EAF2F8] p-8 sm:p-10">
         <CheckCircle2 className="h-10 w-10 text-[#0284C7]" />
-        <h3 className="mt-4 font-[family-name:var(--font-rq)] text-3xl font-bold tracking-[-0.02em] text-[#102A43]">Form sent. We&apos;ll call you soon.</h3>
+        <h3 className="mt-4 font-display text-3xl font-bold tracking-[-0.02em] text-[#102A43]">Form sent. We&apos;ll call you soon.</h3>
         <p className="mt-2 max-w-md text-[#102A43]/70">
           We usually call back the same working day to confirm your plan. Once you&apos;ve paid, your QR code and poster arrive on WhatsApp.
         </p>

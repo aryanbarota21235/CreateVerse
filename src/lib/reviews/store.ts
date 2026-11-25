@@ -16,7 +16,7 @@ const DEFAULTS: Omit<ReviewBusinessInput, "slug" | "name"> = {
   category: "Other",
   city: "",
   highlights: "",
-  language: "English",
+  languages: ["English"],
   placeId: "",
   reviewUrl: "",
   active: true,
@@ -29,7 +29,13 @@ const DEFAULTS: Omit<ReviewBusinessInput, "slug" | "name"> = {
 };
 
 /** Fills fields added after a record was first saved. */
-const normalize = (b: ReviewBusiness): ReviewBusiness => ({ ...DEFAULTS, ...b });
+const normalize = (b: ReviewBusiness): ReviewBusiness => {
+  const n = { ...DEFAULTS, ...b };
+  // Records saved before multi-language support had a single `language`.
+  const legacy = (b as unknown as { language?: string }).language;
+  if (!b.languages?.length) n.languages = [legacy || "English"];
+  return n;
+};
 
 export async function listBusinesses(): Promise<ReviewBusiness[]> {
   return (await db.list<ReviewBusiness>("businesses")).map(normalize);

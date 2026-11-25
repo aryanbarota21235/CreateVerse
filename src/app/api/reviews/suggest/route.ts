@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Too many requests. Please try again in a few minutes." }, { status: 429 });
   }
 
-  let body: { slug?: unknown; rating?: unknown; first?: unknown };
+  let body: { slug?: unknown; rating?: unknown; first?: unknown; language?: unknown };
   try {
     body = await req.json();
   } catch {
@@ -44,6 +44,6 @@ export async function POST(req: Request) {
   }
 
   if (body.first === true) await logEvent(business.id, "rated", rating);
-  const suggestions = await suggestReviews(business, rating);
+  const suggestions = await suggestReviews(business, rating, typeof body.language === "string" ? body.language : undefined);
   return NextResponse.json({ suggestions });
 }

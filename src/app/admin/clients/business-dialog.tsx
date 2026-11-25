@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { FIELD, LABEL } from "@/lib/reviews/look";
-import { REVIEW_CATEGORIES, REVIEW_LANGUAGES, inr, slugify, type Plan, type ReviewBusiness } from "@/lib/reviews/types";
+import { MAX_LANGUAGES, REVIEW_CATEGORIES, REVIEW_LANGUAGES, inr, slugify, type Plan, type ReviewBusiness } from "@/lib/reviews/types";
 import { Dialog, DialogButtons, Problem, useAction } from "../ui";
 
 export type BusinessForm = {
@@ -11,7 +11,7 @@ export type BusinessForm = {
   category: string;
   city: string;
   highlights: string;
-  language: string;
+  languages: string[];
   placeId: string;
   reviewUrl: string;
   contactName: string;
@@ -26,7 +26,7 @@ export const formFrom = (b: Partial<ReviewBusiness>): BusinessForm => ({
   category: b.category ?? REVIEW_CATEGORIES[0],
   city: b.city ?? "Karnal",
   highlights: b.highlights ?? "",
-  language: b.language ?? "English",
+  languages: b.languages?.length ? b.languages : ["English"],
   placeId: b.placeId ?? "",
   reviewUrl: b.reviewUrl ?? "",
   contactName: b.contactName ?? "",
@@ -62,7 +62,20 @@ export default function BusinessDialog({
   const [slugTouched, setSlugTouched] = useState(Boolean(slugLocked));
   const { run, busy, error } = useAction();
 
-  const set = (k: keyof BusinessForm) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const [otherLang, setOtherLang] = useState("");
+  function toggleLang(l: string) {
+    setF((p) => {
+      if (p.languages.includes(l)) return p.languages.length > 1 ? { ...p, languages: p.languages.filter((x) => x !== l) } : p;
+      return p.languages.length < MAX_LANGUAGES ? { ...p, languages: [...p.languages, l] } : p;
+    });
+  }
+  function addOther() {
+    const l = otherLang.trim().replace(/\b\w/g, (c) => c.toUpperCase());
+    if (l && !f.languages.includes(l)) toggleLang(l);
+    setOtherLang("");
+  }
+
+  const set = (k: Exclude<keyof BusinessForm, "languages">) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const v = e.target.value;
     setF((p) => ({ ...p, [k]: v, ...(k === "name" && !slugTouched ? { slug: slugify(v) } : {}) }));
   };
@@ -135,17 +148,49 @@ export default function BusinessDialog({
           </select>
           <p className={hint}>The QR goes live once you record a payment.</p>
         </div>
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className={LABEL} htmlFor="b-city">City</label>
-            <input id="b-city" value={f.city} onChange={set("city")} className={FIELD} />
+        <div>
+          <label className={LABEL} htmlFor="b-city">City</label>
+          <input id="b-city" value={f.city} onChange={set("city")} className={FIELD} />
+        </div>
+        <div className="sm:col-span-2">
+          <span className={LABEL}>Review languages</span>
+          <div className="flex flex-wrap gap-1.5">
+            {[...new Set([...f.languages, ...REVIEW_LANGUAGES])].map((l) => {
+              const on = f.languages.includes(l);
+              const first = f.languages[0] === l;
+              return (
+                <button
+                  type="button"
+                  key={l}
+                  onClick={() => toggleLang(l)}
+                  aria-pressed={on}
+                  className={`h-8 rounded-full border px-3 text-xs font-semibold transition-colors ${
+                    on ? "border-accent bg-sky-50 text-accent-dim" : "border-slate-200 bg-white text-slate-600 hover:border-slate-300"
+                  }`}
+                >
+                  {l}
+                  {first && <span className="ml-1 font-normal text-slate-500">(main)</span>}
+                </button>
+              );
+            })}
           </div>
-          <div>
-            <label className={LABEL} htmlFor="b-lang">Review language</label>
-            <select id="b-lang" value={f.language} onChange={set("language")} className={FIELD}>
-              {REVIEW_LANGUAGES.map((l) => <option key={l}>{l}</option>)}
-            </select>
+          <div className="mt-2 flex gap-2">
+            <input
+              value={otherLang}
+              onChange={(e) => setOtherLang(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addOther())}
+              className={`${FIELD} !w-56`}
+              placeholder="Another language"
+              aria-label="Add another language"
+            />
+            <button type="button" onClick={addOther} className="h-10 rounded-[10px] px-3 text-sm font-semibold text-accent-dim hover:bg-sky-50">
+              Add
+            </button>
           </div>
+          <p className={hint}>
+            Customers choose from these on the review page. The first one you pick is the main language. Up to {MAX_LANGUAGES}. Without an AI key, only
+            English, Hindi and Hinglish are written; others show in English.
+          </p>
         </div>
         <div className="sm:col-span-2">
           <label className={LABEL} htmlFor="b-hl">What customers can mention</label>

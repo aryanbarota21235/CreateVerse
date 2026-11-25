@@ -5,7 +5,7 @@ import { providerNames } from "@/lib/reviews/ai";
 import { poolSources } from "@/lib/reviews/generate";
 import ClientsView from "./clients-view";
 
-export const metadata = { title: "Review clients" };
+export const metadata = { title: "Clients" };
 
 export default async function ClientsPage() {
   const [businesses, stats, plans, sources] = await Promise.all([listBusinesses(), statsByBusiness(), listPlans(), poolSources()]);

@@ -27,12 +27,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
     {
-      url: `${base}/get-google-reviews`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-    {
       url: `${base}/industries`,
       lastModified: now,
       changeFrequency: "weekly",
