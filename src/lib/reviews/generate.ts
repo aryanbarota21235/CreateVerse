@@ -199,7 +199,8 @@ export async function savedPools(b: ReviewBusiness): Promise<Record<string, Reco
 
 /** Writes any missing or outdated pools for the main language, all five ratings at once. */
 export async function warmPools(b: ReviewBusiness): Promise<void> {
-  await Promise.all([5, 4, 3, 2, 1].map((r) => poolFor(b, r, b.languages[0]).catch(() => null)));
+  // One after another: free AI plans limit tokens per minute, and five at once trips that limit.
+  for (const r of [5, 4, 3, 2, 1]) await poolFor(b, r, b.languages[0]).catch(() => null);
 }
 
 /**
