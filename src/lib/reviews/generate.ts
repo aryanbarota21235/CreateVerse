@@ -14,7 +14,7 @@ import type { ReviewBusiness } from "./types";
  * template writer fills in (and the pool is retried with AI later).
  */
 
-const POOL_SIZE = 12;
+const POOL_SIZE = 14;
 const SHOWN = 4;
 const RETRY_TEMPLATE_POOL_MS = 30 * 60_000;
 
@@ -30,37 +30,39 @@ interface SuggestionPool {
 }
 
 const TONE: Record<number, string> = {
-  5: `Delighted customer. Warm, specific, sounds like a real person who would happily recommend the place.
+  5: `Delighted customer. Warm, specific about what they got, sounds like a real person who would happily recommend the place.
 Good: "Got my root canal done here and honestly it was painless. Doctor explained everything before starting. Very happy."
-Good: "Started running ads with them for our showroom and the enquiries really picked up within a month. Team replies fast on WhatsApp too."`,
+Good: "Since they started our ads, we're getting a lot more enquiries and calls. Our business has really grown. Thank you team!"
+Good: "Many more people know about our brand now. The leads are coming in regularly and the team always replies quickly."`,
   4: `Happy customer. Clearly positive, with one small thing that could be a bit better, said kindly.
 Good: "Food was really tasty and came out quickly. Parking is a little tight on weekends, but we'll definitely come back."`,
   3: `Average experience. One thing was fine AND one thing clearly needs to improve. Neutral and fair, neither praising nor complaining hard.
 Good: "Haircut was fine, but I had to wait 30 minutes even with an appointment. Okay overall."`,
   2: `Disappointed customer. The main message is what went wrong. At most one short polite remark about something that was okay. No praise words.
 Good: "Food came cold and we had to remind them twice for water. Staff were polite, but the service needs work."`,
-  1: `Unhappy customer. This was a bad experience. Clearly say what went wrong and that it needs to improve. Calm and polite, never abusive, but NO praise at all: never "good", "great", "excellent", "recommend" or "will come again".
-Good: "Not a good experience. Waited over an hour past my appointment and nobody told us why. Hope they fix this."`,
+  1: `Unhappy customer. This was a bad experience. Clearly say what went wrong, in general terms, and that it needs to improve. Calm and polite, never abusive, but NO praise at all: never "good", "great", "excellent", "recommend" or "will come again".
+Good: "Not a good experience. We didn't get the results we expected and replies were slow. Hope they improve."
+Good: "The food was not fresh and service was very slow. Disappointed with this visit."`,
 };
 
-// What real customers of each kind of business notice. Steers the AI away from office jargon.
+// What the customer got out of it, most important first. Reviews should be mostly about the first items.
 const CATEGORY_HINT: Record<string, string> = {
-  "Restaurant / Café": "taste of specific dishes, portion size, freshness, how quickly food came, staff behaviour, cleanliness, seating, value for money, family-friendly",
-  "Salon / Spa": "the haircut/colour/facial result, the stylist listening to what they wanted, hygiene, waiting time, relaxing feel, value for money",
-  "Clinic / Hospital": "the doctor listening and explaining properly, correct diagnosis, waiting time, staff behaviour, cleanliness, feeling better after treatment",
-  "Dental Clinic": "painless treatment, doctor explaining the procedure, hygiene and sterilised tools, waiting time, gentle with kids/nervous patients",
-  "Gym / Fitness": "trainers guiding properly, equipment condition, cleanliness, crowd at peak hours, results they are seeing, motivating atmosphere",
-  "Hotel / Resort": "room cleanliness and comfort, check-in, staff helpfulness, food/breakfast, location, value for money, hot water, wifi",
-  "Retail Store": "range of products, prices compared to other shops, staff helping choose, billing speed, after-sales or exchange",
-  "Real Estate": "honest guidance, showing properties that matched the budget, clear paperwork, no hidden charges, quick replies, help after booking",
-  "Education / Coaching": "teachers explaining concepts clearly, doubt clearing, study material, regular tests, personal attention, results/marks improving",
-  "Immigration Consultancy": "honest advice about chances, help with documents, regular updates on the file, quick replies, visa/admission outcome if positive",
-  "Digital Marketing Agency": "more enquiries/leads or calls after ads, Instagram/Facebook page growth, good website, team understanding the business, quick replies on WhatsApp/calls, regular updates on results",
-  "Automobile / Service Centre": "car/bike delivered on time, problem fixed properly, honest estimate with no extra charges, washing/cleaning, staff explaining the work",
+  "Restaurant / Café": "the food first: taste, freshness, specific dishes if listed, portion size; then service speed, staff behaviour, cleanliness, ambience, value for money",
+  "Salon / Spa": "the result first: haircut, colour, facial, how they looked and felt after; then the stylist understanding what they wanted, hygiene, relaxing feel, value for money",
+  "Clinic / Hospital": "feeling better and the doctor first: doctor listened, explained clearly, treatment worked; then staff behaviour, cleanliness, waiting time",
+  "Dental Clinic": "the treatment first: painless, done properly, doctor explained the procedure; then hygiene, gentle with nervous patients or kids, waiting time",
+  "Gym / Fitness": "trainers and equipment first: trainers guide properly and push you, good and well-kept machines; then results they feel, cleanliness, atmosphere, crowd",
+  "Hotel / Resort": "the stay first: clean, comfortable room, good sleep, helpful staff; then food, location, value for money",
+  "Retail Store": "the products first: good range and quality, fair prices; then staff helping choose, quick billing, easy exchange",
+  "Real Estate": "finding the right property first: honest guidance, options within budget, deal done smoothly; then clear paperwork, quick replies",
+  "Education / Coaching": "learning and results first: concepts became clear, marks or confidence improved, teachers explain well; then doubt clearing, study material, tests",
+  "Immigration Consultancy": "the outcome and guidance first: honest advice, file handled properly, visa or admission process went smoothly; then help with documents, regular updates",
+  "Digital Marketing Agency": "business results first: more leads, enquiries and calls started coming, the business grew, more people know about the brand now (visibility), more customers; then the team understood the business, replies fast, regular updates",
+  "Automobile / Service Centre": "the vehicle first: problem fixed properly, runs smoothly now, delivered on time; then honest charges, staff explaining the work",
 };
 
 // Stiff, generic or salesy wording that real customers don't write. Drafts using these are dropped.
-const STIFF = /\b(reporting|transparency|deliverables?|synergy|top[- ]class|top[- ]notch|exceptional|impeccable|seamless|commendable|utmost|second to none|state[- ]of[- ]the[- ]art|one[- ]stop|hassle[- ]free experience|wonderful experience|I am (very )?(much )?impressed|kudos)\b/i;
+const STIFF = /\d|\b(our|my) (bakery|shop|store|restaurant|clinic|salon|product|brand new)\b|\b(dashboard|reporting|transparency|deliverables?|synergy|top[- ]class|top[- ]notch|exceptional|impeccable|seamless|commendable|utmost|second to none|state[- ]of[- ]the[- ]art|one[- ]stop|hassle[- ]free experience|wonderful experience|I am (very )?(much )?impressed|kudos)\b/i;
 
 // Low ratings must not read as praise: drafts with these words are thrown away for 1 and 2 stars.
 const PRAISE = /\b(excellent|amazing|awesome|outstanding|fantastic|wonderful|superb|perfect|great|best|loved|lovely|highly recommend|recommend|top class|will (definitely )?(come|visit) again|badhiya|shandaar|lajawab|zabardast|kamaal)\b|बहुत अच्छ|बढ़िया|शानदार|लाजवाब|बेहतरीन|ज़बरदस्त|ਬਹੁਤ ਵਧੀਆ|ਸ਼ਾਨਦਾਰ/i;
@@ -74,10 +76,15 @@ How real reviews sound:
 - Each draft has a different angle (a different thing they noticed) and starts with different words. Don't start most of them with the business name.
 - At most one exclamation mark per draft. No emojis, no hashtags, no ALL CAPS.
 
+- Focus on what the customer got out of it (see "What matters to customers" in the request). Most drafts should be about the first things listed there.
+- Keep it general enough that ANY real customer of this business could post it truthfully.
+
 Never:
-- Office or marketing words: reporting, transparency, deliverables, strategy execution, top class, exceptional, seamless, impeccable, commendable, "I am impressed", "wonderful experience".
-- Invent facts a customer couldn't know or that might be false: names of staff, prices, exact numbers, dates, awards, guarantees, "best in the city".
-- Mention AI, stars, ratings, or that this is a draft.
+- Numbers of any kind: no follower counts, percentages, prices, days, weeks, months, hours, minutes. Say "quickly", "soon", "a lot more" instead.
+- The customer's own business type or product (don't say "our bakery", "my shop", "our new product"). Say "our business", "my business" at most.
+- Made-up specific incidents (a late meeting, spelling mistakes, a missed Friday deadline, a named staff member). Low ratings complain about general things: slow replies, expectations not met, results not coming, service needs to improve.
+- Office or marketing words: reporting, transparency, deliverables, dashboard, strategy execution, top class, exceptional, seamless, impeccable, commendable, "I am impressed", "wonderful experience".
+- Awards, guarantees, "best in the city", or mentioning AI, stars, ratings, or that this is a draft.
 
 Match the star rating exactly. A low rating must clearly read as a complaint, politely.
 
@@ -95,8 +102,8 @@ const LANGUAGE_NOTE: Record<string, string> = {
 const languageNote = (l: string) => LANGUAGE_NOTE[l] ?? `${l}, in its usual script`;
 
 function fingerprint(b: ReviewBusiness) {
-  // Bumped whenever the writing rules change, so saved pools are rewritten ("v3": natural-voice prompt).
-  return createHash("sha1").update(["v3", b.name, b.category, b.highlights].join("|")).digest("hex").slice(0, 16);
+  // Bumped whenever the writing rules change, so saved pools are rewritten ("v4": results-first, no invented facts).
+  return createHash("sha1").update(["v4", b.name, b.category, b.highlights].join("|")).digest("hex").slice(0, 16);
 }
 
 async function writePool(b: ReviewBusiness, rating: number, language: string): Promise<{ reviews: string[]; source: string }> {
@@ -104,7 +111,7 @@ async function writePool(b: ReviewBusiness, rating: number, language: string): P
     `Business: ${b.name}`,
     `Category: ${b.category}`,
     b.city ? `City: ${b.city}` : null,
-    CATEGORY_HINT[b.category] ? `What customers of this kind of business usually talk about: ${CATEGORY_HINT[b.category]}` : null,
+    CATEGORY_HINT[b.category] ? `What matters to customers, most important first: ${CATEGORY_HINT[b.category]}` : null,
     b.highlights
       ? rating <= 3
         ? `This business's main services (topics only, not things to praise at this rating): ${b.highlights}`
