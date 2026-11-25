@@ -143,7 +143,8 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages,
       body: JSON.stringify({ slug, rating }),
       keepalive: true,
     }).catch(() => {});
-    setTimeout(() => (window.location.href = googleUrl), ok ? 1600 : 2500);
+    // Same hand-off RevmeAI uses: copy, then open Google's review link in this tab after half a second.
+    setTimeout(() => window.open(googleUrl, "_self"), ok ? 500 : 2000);
   }
 
   const shown = hover || rating;

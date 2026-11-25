@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { Check, Minus, Plus, Star } from "lucide-react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import { Check, Minus, Plus, Star, X } from "lucide-react";
 import Demo from "./demo";
 import SignupForm from "./signup-form";
 import { inr, period, type PublicPlan } from "./plan-format";
@@ -24,10 +25,6 @@ const FAQS = [
     a: "Yes. They choose the stars, pick or edit a suggested review, and post it from their own Google account. Nobody posts on their behalf.",
   },
   {
-    q: "What if someone gives 1 or 2 stars?",
-    a: "They can still post. The suggestions stay polite and say what needs improving, so you get honest feedback without abuse. Google doesn't allow sending only happy customers to Google, and this doesn't.",
-  },
-  {
     q: "Which languages are the suggestions in?",
     a: "English, Hindi, Hinglish, Punjabi, Haryanvi, Marathi, Gujarati, Tamil, Telugu and more. You pick the languages for your business, customers choose theirs on the review page, and they can always edit the text.",
   },
@@ -37,18 +34,25 @@ const FAQS = [
   },
   {
     q: "I have more than one branch.",
-    a: "Each branch gets its own QR code linked to its own Google listing, with its own numbers. Mention the number of branches in the form.",
+    a: "Each branch gets its own QR code linked to its own Google listing. Tell us on the call and we'll set them all up.",
   },
 ];
 
 export default function Landing({ plans }: { plans: PublicPlan[] }) {
   const popular = plans.find((p) => p.popular)?.id;
   const [planId, setPlanId] = useState(popular ?? (plans.length === 1 ? plans[0].id : ""));
-  const formRef = useRef<HTMLElement>(null);
+  const [formOpen, setFormOpen] = useState(false);
+
+  useEffect(() => {
+    if (!formOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setFormOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [formOpen]);
 
   function choose(id: string) {
     setPlanId(id);
-    formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setFormOpen(true);
   }
 
   return (
@@ -76,11 +80,21 @@ export default function Landing({ plans }: { plans: PublicPlan[] }) {
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
                 href="#plans"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" });
+                }}
                 className="inline-flex items-center rounded-full bg-[#0284C7] px-7 py-3.5 text-sm font-bold text-white shadow-[0_10px_24px_-10px_rgba(2,132,199,0.7)] transition hover:bg-[#0369A1]"
               >
                 See plans
               </a>
-              <a href="#how" className="inline-flex items-center rounded-full px-5 py-3.5 text-sm font-bold text-[#102A43] ring-1 ring-[#102A43]/15 transition hover:bg-white">
+              <a
+                href="#how"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("how")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="inline-flex items-center rounded-full px-5 py-3.5 text-sm font-bold text-[#102A43] ring-1 ring-[#102A43]/15 transition hover:bg-white">
                 How it works
               </a>
             </div>
@@ -121,30 +135,6 @@ export default function Landing({ plans }: { plans: PublicPlan[] }) {
         </div>
       </section>
 
-      {/* Honest low ratings */}
-      <section className="bg-[#102A43] py-20 text-white sm:py-24">
-        <div className="container-site grid gap-10 lg:grid-cols-2 lg:items-center">
-          <div>
-            <h2 className={`${DISPLAY} text-4xl font-bold tracking-[-0.03em] sm:text-5xl`}>Every rating can be posted. Low ones stay polite.</h2>
-            <p className="mt-5 max-w-lg leading-relaxed text-white/70">
-              Google removes reviews and can penalise listings when only happy customers are sent to review. So everyone can post. A 1 or 2-star
-              suggestion says what needs improving, credits what was fine, and never turns abusive. You get honest feedback you can act on.
-            </p>
-          </div>
-          <figure className="rounded-3xl bg-white/[0.06] p-6 ring-1 ring-white/10 sm:p-8">
-            <div className="flex gap-1" aria-label="2 stars">
-              {[0, 1, 2, 3, 4].map((i) => (
-                <Star key={i} className={`h-5 w-5 ${i < 2 ? "fill-[#F6B500] text-[#F6B500]" : "text-white/25"}`} />
-              ))}
-            </div>
-            <blockquote className="mt-4 text-xl leading-relaxed text-white/90">
-              “The food needs some improvement this time. The staff were polite though. Hope they improve.”
-            </blockquote>
-            <figcaption className="mt-4 text-sm text-white/50">A typical 2-star suggestion for a restaurant</figcaption>
-          </figure>
-        </div>
-      </section>
-
       {/* Pricing */}
       <section id="plans" className="scroll-mt-24 bg-[#EAF2F8] py-20 sm:py-28">
         <div className="container-site">
@@ -165,7 +155,6 @@ export default function Landing({ plans }: { plans: PublicPlan[] }) {
             <div className={`mt-12 grid items-stretch gap-5 ${plans.length === 2 ? "md:grid-cols-2 max-w-4xl" : plans.length >= 3 ? "md:grid-cols-3" : "max-w-md"}`}>
               {plans.map((p) => {
                 const hot = p.popular;
-                const chosen = planId === p.id;
                 return (
                   <div
                     key={p.id}
@@ -202,7 +191,7 @@ export default function Landing({ plans }: { plans: PublicPlan[] }) {
                           hot ? "bg-[#F6B500] text-[#102A43] hover:bg-[#ffc61a]" : "bg-[#102A43] text-white hover:bg-[#1b3a57]"
                         }`}
                       >
-                        {chosen ? "Selected" : `Choose ${p.name}`}
+                        {`Choose ${p.name}`}
                       </button>
                     </div>
                   </div>
@@ -210,27 +199,6 @@ export default function Landing({ plans }: { plans: PublicPlan[] }) {
               })}
             </div>
           )}
-        </div>
-      </section>
-
-      {/* Sign-up */}
-      <section ref={formRef} id="signup" className="scroll-mt-24 py-20 sm:py-28">
-        <div className="container-site grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-          <div>
-            <h2 className={`${DISPLAY} text-4xl font-bold tracking-[-0.03em] sm:text-5xl`}>Get your QR code.</h2>
-            <p className="mt-4 max-w-sm leading-relaxed text-[#102A43]/70">
-              Tell us about your business. We call you back, usually the same working day, then set up your QR code and send a print-ready poster.
-            </p>
-            <ol className="mt-8 space-y-4 text-[15px]">
-              {["We call you to confirm the plan", "You pay by UPI or bank transfer", "Your QR code and poster arrive on WhatsApp"].map((t, i) => (
-                <li key={t} className="flex items-center gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EAF2F8] text-xs font-bold">{i + 1}</span>
-                  {t}
-                </li>
-              ))}
-            </ol>
-          </div>
-          <SignupForm plans={plans} planId={planId} onPlanChange={setPlanId} />
         </div>
       </section>
 
@@ -252,6 +220,32 @@ export default function Landing({ plans }: { plans: PublicPlan[] }) {
           </div>
         </div>
       </section>
+
+      {/* Portalled to <body>: the site's page wrapper uses a transform, which traps position:fixed */}
+      {formOpen && createPortal(
+        <div
+          className="fixed inset-0 z-[100] flex items-end justify-center bg-[#102A43]/50 backdrop-blur-sm sm:items-center sm:p-4"
+          onMouseDown={() => setFormOpen(false)}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Sign up for Google Review QR"
+            onMouseDown={(e) => e.stopPropagation()}
+            className="relative max-h-[94dvh] w-full max-w-xl overflow-y-auto rounded-t-[28px] bg-white sm:rounded-[28px]"
+          >
+            <button
+              onClick={() => setFormOpen(false)}
+              aria-label="Close"
+              className="absolute right-4 top-4 z-10 flex size-9 items-center justify-center rounded-full bg-white/80 text-[#102A43] hover:bg-[#EAF2F8]"
+            >
+              <X size={18} />
+            </button>
+            <SignupForm plans={plans} planId={planId} onPlanChange={setPlanId} />
+          </div>
+        </div>,
+        document.body,
+      )}
     </div>
   );
 }

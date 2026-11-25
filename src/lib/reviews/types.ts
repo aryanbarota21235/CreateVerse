@@ -33,7 +33,7 @@ export const REVIEW_LANGUAGES = [
 ] as const;
 
 /** The built-in (no-AI) writer only knows these; other languages fall back to English without AI. */
-export const TEMPLATE_LANGUAGES = ["English", "Hinglish", "Hindi"] as const;
+export const TEMPLATE_LANGUAGES = ["English", "Hinglish", "Hindi", "Punjabi"] as const;
 export type ReviewLanguage = (typeof TEMPLATE_LANGUAGES)[number];
 
 export const MAX_LANGUAGES = 6;

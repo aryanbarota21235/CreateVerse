@@ -35,7 +35,6 @@ export async function POST(req: Request) {
   const plans = await listActivePlans();
   const planId = plans.some((p) => p.id === str(b.planId)) ? str(b.planId) : "";
   const category = (REVIEW_CATEGORIES as readonly string[]).includes(str(b.category)) ? str(b.category) : "Other";
-  const branches = Math.min(Math.max(Math.round(Number(b.branches) || 1), 1), 100);
 
   try {
     const signup = await createSignup({
@@ -47,7 +46,7 @@ export async function POST(req: Request) {
       city: str(b.city, 80),
       mapsLink: str(b.mapsLink, 500),
       planId,
-      branches,
+      branches: 1,
       message: str(b.message, 1000),
       status: "New",
       notes: "",
@@ -64,7 +63,7 @@ export async function POST(req: Request) {
       budget: plan ? `${plan.name} (₹${plan.priceInr} / ${plan.months} mo)` : "Not chosen",
       source: "Google Review QR sign-up form",
       channel: "Direct Traffic",
-      message: `${category}, ${signup.city}, ${branches} branch(es). ${signup.message}`.trim(),
+      message: `${category}, ${signup.city}. ${signup.message}`.trim(),
       submittedAt: signup.createdAt,
     });
     return NextResponse.json({ ok: true });

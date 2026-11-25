@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 import { inr, period, type PublicPlan } from "./plan-format";
 
 const field =
-  "w-full rounded-2xl border border-[#102A43]/15 bg-white px-4 py-3 text-base text-[#102A43] placeholder:text-[#102A43]/35 outline-none transition focus:border-[#0284C7] focus:ring-4 focus:ring-[#0284C7]/10 sm:text-[15px]";
+  "w-full rounded-2xl border border-[#102A43]/15 bg-[#F6F9FC] px-4 py-3 text-base text-[#102A43] placeholder:text-[#102A43]/35 outline-none transition focus:border-[#0284C7] focus:ring-4 focus:ring-[#0284C7]/10 sm:text-[15px]";
 const label = "mb-1.5 block text-sm font-semibold text-[#102A43]";
 
 export default function SignupForm({
@@ -48,7 +48,7 @@ export default function SignupForm({
 
   if (done) {
     return (
-      <div className="flex flex-col items-start rounded-[28px] bg-[#EAF2F8] p-8 sm:p-10">
+      <div className="flex flex-col items-start p-8 sm:p-10">
         <CheckCircle2 className="h-10 w-10 text-[#0284C7]" />
         <h3 className="mt-4 font-display text-3xl font-bold tracking-[-0.02em] text-[#102A43]">Form sent. We&apos;ll call you soon.</h3>
         <p className="mt-2 max-w-md text-[#102A43]/70">
@@ -64,7 +64,9 @@ export default function SignupForm({
   const chosen = plans.find((p) => p.id === planId);
 
   return (
-    <form onSubmit={onSubmit} className="rounded-[28px] bg-[#EAF2F8] p-6 sm:p-9">
+    <form onSubmit={onSubmit} className="p-6 sm:p-9">
+      <h2 className="font-display text-3xl font-bold tracking-[-0.03em] text-[#102A43]">Get your QR code</h2>
+      <p className="mb-6 mt-1.5 text-sm text-[#102A43]/65">No payment now. We call you, you pay by UPI or bank transfer, and your QR and poster arrive on WhatsApp.</p>
       {plans.length > 0 && (
         <div>
           <label htmlFor="su-plan" className={label}>Plan</label>
@@ -104,13 +106,9 @@ export default function SignupForm({
           <label htmlFor="su-phone" className={label}>Mobile / WhatsApp</label>
           <input id="su-phone" name="phone" required type="tel" inputMode="tel" className={field} autoComplete="tel" placeholder="98xxxxxxxx" />
         </div>
-        <div>
+        <div className="sm:col-span-2">
           <label htmlFor="su-email" className={label}>Email <span className="font-normal text-[#102A43]/45">(optional)</span></label>
           <input id="su-email" name="email" type="email" className={field} autoComplete="email" />
-        </div>
-        <div>
-          <label htmlFor="su-branches" className={label}>Branches</label>
-          <input id="su-branches" name="branches" type="number" min={1} max={100} defaultValue={1} className={field} />
         </div>
         <div className="sm:col-span-2">
           <label htmlFor="su-maps" className={label}>Google Maps link <span className="font-normal text-[#102A43]/45">(optional)</span></label>
