@@ -64,6 +64,7 @@ export async function updateBusiness(id: string, patch: Partial<ReviewBusinessIn
 export async function deleteBusiness(id: string) {
   await db.remove("businesses", id);
   await db.removeWhere("events", "businessId", id);
+  await db.removeWhere("suggestions", "businessId", id);
 }
 
 // ---------- payments ----------

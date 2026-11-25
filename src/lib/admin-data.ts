@@ -5,7 +5,10 @@ import type { Enquiry, Plan, Signup } from "@/lib/reviews/types";
 
 // ---------- plans ----------
 
-export const listPlans = () => db.list<Plan>("plans");
+/** Fills fields added after a plan was first saved. */
+const normalizePlan = (p: Plan): Plan => ({ ...p, features: p.features ?? [], popular: p.popular ?? false, description: p.description ?? "" });
+
+export const listPlans = async () => (await db.list<Plan>("plans")).map(normalizePlan);
 
 export async function listActivePlans(): Promise<Plan[]> {
   return (await listPlans()).filter((p) => p.active).sort((a, b) => a.priceInr - b.priceInr);

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import QRCode from "qrcode";
-import { Check, Copy, Download, ExternalLink, FileImage, IndianRupee, Pause, Pencil, Play, Plus, QrCode, Send, Star, Store, Trash2 } from "lucide-react";
+import { Check, Copy, Download, ExternalLink, FileImage, IndianRupee, Pause, Pencil, Play, Plus, QrCode, Send, Sparkles, Star, Store, Trash2 } from "lucide-react";
 import { FIELD, LABEL, PRIMARY, QUIET_SM } from "@/lib/reviews/look";
 import {
   PAYMENT_METHODS,
@@ -32,13 +32,15 @@ export default function ClientsView({
   businesses,
   stats,
   plans,
-  aiEnabled,
+  aiProviders,
+  sources,
   storage,
 }: {
   businesses: ReviewBusiness[];
   stats: Record<string, ReviewStats>;
   plans: Plan[];
-  aiEnabled: boolean;
+  aiProviders: string[];
+  sources: Record<string, string[]>;
   storage: string;
 }) {
   const [editing, setEditing] = useState<ReviewBusiness | "new" | null>(null);
@@ -66,7 +68,9 @@ export default function ClientsView({
         title="Review clients"
         sub={
           <div className="flex flex-wrap gap-1.5 pt-1">
-            <Pill tone={aiEnabled ? "good" : "warn"}>{aiEnabled ? "AI suggestions on" : "AI off — using templates"}</Pill>
+            <Pill tone={aiProviders.length ? "good" : "warn"}>
+              {aiProviders.length ? `Review writer: ${aiProviders.join(", then ")}, then templates` : "Review writer: free templates (no AI key set)"}
+            </Pill>
             <Pill>Storage: {storage}</Pill>
           </div>
         }
@@ -105,6 +109,7 @@ export default function ClientsView({
                     s={stats[b.id] ?? NO_STATS}
                     plan={plans.find((p) => p.id === b.planId)}
                     sub={subscriptionOf(b, today)}
+                    source={sources[b.id]}
                     origin={origin}
                     onEdit={() => setEditing(b)}
                     onPay={() => setPaying(b)}
@@ -154,6 +159,7 @@ function Row({
   s,
   plan,
   sub,
+  source,
   origin,
   onEdit,
   onPay,
@@ -164,6 +170,7 @@ function Row({
   s: ReviewStats;
   plan?: Plan;
   sub: Subscription;
+  source?: string[];
   origin: string;
   onEdit: () => void;
   onPay: () => void;
@@ -183,6 +190,16 @@ function Row({
     setTimeout(() => setCopied(false), 1500);
   }
   const maxBar = Math.max(1, ...Object.values(s.byRating));
+  const prep = useAction();
+  const [prepNote, setPrepNote] = useState("");
+
+  async function prepare() {
+    setPrepNote("Writing reviews…");
+    const res = await prep.run(`/api/admin/businesses/${b.id}/suggestions`, "POST");
+    const used = res ? [...new Set(Object.values(res.sources as Record<string, string>))].join(", ") : "";
+    setPrepNote(res ? `Ready (${used})` : prep.error || "Failed");
+  }
+  const sourceLabel = source?.length ? [...new Set(source)].join(", ") : "";
 
   return (
     <tr className={TR}>
@@ -220,6 +237,9 @@ function Row({
       <td className={TD}>
         <Status tone={SUB_TONE[sub]}>{sub}</Status>
         <div className="mt-0.5 whitespace-nowrap text-xs text-slate-500">{b.paidUntil ? `until ${fmtDate(b.paidUntil)}` : "No payment yet"}</div>
+        <div className="mt-0.5 whitespace-nowrap text-xs text-slate-400">
+          {prepNote || (sourceLabel ? `Reviews ready: ${sourceLabel} (${source!.length}/5)` : "Reviews not prepared")}
+        </div>
       </td>
       <td className={`${TD} text-right font-semibold text-slate-900`}>{s.scans}</td>
       <td className={`${TD} text-right font-semibold text-slate-900`}>{s.copied}</td>
@@ -238,6 +258,9 @@ function Row({
           <button onClick={onPay} className={`${QUIET_SM} ${sub === "Active" ? "" : "!border-sky-200 !bg-sky-50 !text-accent-dim"}`}>
             <IndianRupee size={14} /> {sub === "Unpaid" ? "Record payment" : "Renew"}
           </button>
+          <Act label="Prepare reviews (writes all 5 star ratings now)" onClick={prepare}>
+            <Sparkles size={16} className={prep.busy ? "animate-pulse text-accent" : ""} />
+          </Act>
           <Act label="Download poster" onClick={() => downloadPoster(b, link)}><FileImage size={16} /></Act>
           <Act label="Download QR only" onClick={() => downloadQr(b, link)}><Download size={16} /></Act>
           <Act label="Open customer page" onClick={() => window.open(`/r/${b.slug}`, "_blank")}><ExternalLink size={16} /></Act>

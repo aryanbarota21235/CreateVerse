@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getBusinessBySlug, logEvent } from "@/lib/reviews/store";
-import { generateReviews } from "@/lib/reviews/generate";
+import { suggestReviews } from "@/lib/reviews/generate";
 import { isLive } from "@/lib/reviews/types";
 import { isAdmin } from "@/lib/admin-auth";
 
@@ -44,6 +44,6 @@ export async function POST(req: Request) {
   }
 
   if (body.first === true) await logEvent(business.id, "rated", rating);
-  const suggestions = await generateReviews(business, rating);
+  const suggestions = await suggestReviews(business, rating);
   return NextResponse.json({ suggestions });
 }

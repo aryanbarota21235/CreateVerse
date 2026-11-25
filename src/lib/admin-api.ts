@@ -74,7 +74,7 @@ export function parseBusiness(b: Record<string, unknown>, partial = false): Part
 }
 
 export function parsePlan(b: Record<string, unknown>, partial = false) {
-  const v: { name?: string; priceInr?: number; months?: number; description?: string; active?: boolean } = {};
+  const v: { name?: string; priceInr?: number; months?: number; description?: string; features?: string[]; popular?: boolean; active?: boolean } = {};
   const has = (k: string) => !partial || k in b;
   if (has("name")) {
     v.name = str(b.name, 60);
@@ -89,6 +89,12 @@ export function parsePlan(b: Record<string, unknown>, partial = false) {
     if (!(v.months >= 1 && v.months <= 60)) throw new BadInput("Months must be between 1 and 60.");
   }
   if (has("description")) v.description = str(b.description, 300);
+  if (has("features")) {
+    const raw = Array.isArray(b.features) ? b.features.join("\n") : str(b.features, 2000);
+    v.features = raw.split("\n").map((l) => l.trim().slice(0, 120)).filter(Boolean).slice(0, 10);
+  }
+  if ("popular" in b) v.popular = Boolean(b.popular);
+  else if (!partial) v.popular = false;
   if ("active" in b) v.active = Boolean(b.active);
   else if (!partial) v.active = true;
   return v;

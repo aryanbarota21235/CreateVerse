@@ -61,6 +61,10 @@ export interface Plan {
   priceInr: number;
   months: number;
   description: string;
+  /** What's included, one line each, shown as a checklist on the pricing card */
+  features: string[];
+  /** Highlighted as "Most popular" on the pricing page */
+  popular: boolean;
   active: boolean;
 }
 

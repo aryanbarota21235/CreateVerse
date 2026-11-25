@@ -43,7 +43,7 @@ export default function PlansView({ plans, used }: { plans: Plan[]; used: Record
                 {plans.map((p) => (
                   <tr key={p.id} className={TR}>
                     <td className={TD}>
-                      <div className="font-semibold text-slate-900">{p.name}</div>
+                      <div className="flex items-center gap-2 font-semibold text-slate-900">{p.name}{p.popular && <span className="rounded-full bg-amber-100 px-2 py-px text-[11px] font-semibold text-amber-800">Most popular</span>}</div>
                       <div className="max-w-md text-xs text-slate-500">{p.description}</div>
                     </td>
                     <td className={`${TD} text-right font-semibold text-slate-900`}>{inr(p.priceInr)}</td>
@@ -75,6 +75,8 @@ function PlanDialog({ plan, onClose }: { plan: Plan | null; onClose: () => void 
     priceInr: plan ? String(plan.priceInr) : "",
     months: plan ? String(plan.months) : "12",
     description: plan?.description ?? "",
+    features: (plan?.features ?? []).join("\n"),
+    popular: plan?.popular ?? false,
     active: plan?.active ?? true,
   });
   const { run, busy, error } = useAction();
@@ -101,9 +103,17 @@ function PlanDialog({ plan, onClose }: { plan: Plan | null; onClose: () => void 
           <input id="p-months" required inputMode="numeric" value={f.months} onChange={(e) => setF({ ...f, months: e.target.value.replace(/\D/g, "") })} className={FIELD} />
         </div>
         <div className="sm:col-span-2">
-          <label className={LABEL} htmlFor="p-desc">What's included (shown on the form)</label>
-          <textarea id="p-desc" rows={2} value={f.description} onChange={(e) => setF({ ...f, description: e.target.value })} className={`${FIELD} resize-none`} placeholder="1 QR code, printed poster, AI suggestions, monthly report" />
+          <label className={LABEL} htmlFor="p-desc">One-line summary</label>
+          <input id="p-desc" value={f.description} onChange={(e) => setF({ ...f, description: e.target.value })} className={FIELD} placeholder="For one shop or clinic" />
         </div>
+        <div className="sm:col-span-2">
+          <label className={LABEL} htmlFor="p-feat">What's included (one per line)</label>
+          <textarea id="p-feat" rows={5} value={f.features} onChange={(e) => setF({ ...f, features: e.target.value })} className={`${FIELD} resize-none`} placeholder={"1 review QR code\nPrinted counter poster\nReview suggestions in English, Hinglish or Hindi\nMonthly rating report"} />
+        </div>
+        <label className="flex items-center gap-2 text-sm text-slate-700 sm:col-span-2">
+          <input type="checkbox" checked={f.popular} onChange={(e) => setF({ ...f, popular: e.target.checked })} className="size-4 accent-[#0284C7]" />
+          Mark as most popular (highlighted on the pricing page)
+        </label>
         <label className="flex items-center gap-2 text-sm text-slate-700 sm:col-span-2">
           <input type="checkbox" checked={f.active} onChange={(e) => setF({ ...f, active: e.target.checked })} className="size-4 accent-[#0284C7]" />
           Show this plan on the public sign-up form
