@@ -14,3 +14,5 @@ create index if not exists cv_records_business_idx on cv_records ((data->>'busin
 -- The site reads and writes only from the server with the service-role key.
 -- Row level security with no policies blocks the public anon key entirely.
 alter table cv_records enable row level security;
+-- New Supabase projects may not grant API roles on new tables automatically.
+grant all on table cv_records to service_role;

@@ -7,6 +7,11 @@ import { cookies } from "next/headers";
  * password, so changing the password logs everyone out.
  */
 
+/** ADMIN_PASSWORD, or the older name REVIEW_ADMIN_PASSWORD. */
+function adminPassword(): string | undefined {
+  return process.env.ADMIN_PASSWORD || process.env.REVIEW_ADMIN_PASSWORD;
+}
+
 export const ADMIN_COOKIE = "cv_admin";
 const MAX_AGE = 60 * 60 * 24 * 14; // 14 days
 
@@ -21,23 +26,23 @@ function safeEqual(a: string, b: string) {
 }
 
 export function adminConfigured() {
-  return Boolean(process.env.ADMIN_PASSWORD);
+  return Boolean(adminPassword());
 }
 
 export function checkPassword(input: string) {
-  const pw = process.env.ADMIN_PASSWORD;
+  const pw = adminPassword();
   return Boolean(pw) && safeEqual(input, pw!);
 }
 
 export async function isAdmin(): Promise<boolean> {
-  const pw = process.env.ADMIN_PASSWORD;
+  const pw = adminPassword();
   if (!pw) return false;
   const value = (await cookies()).get(ADMIN_COOKIE)?.value;
   return Boolean(value) && safeEqual(value!, token(pw));
 }
 
 export async function setAdminCookie() {
-  (await cookies()).set(ADMIN_COOKIE, token(process.env.ADMIN_PASSWORD!), {
+  (await cookies()).set(ADMIN_COOKIE, token(adminPassword()!), {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
