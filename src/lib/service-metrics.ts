@@ -59,6 +59,12 @@ export const SERVICE_METRICS_MAP: Record<string, ServiceMetric[]> = {
     { value: "100%", label: "Commercial Usage Rights", desc: "Whitelisting and spark ad licensing pre-negotiated" },
     { value: "0%", label: "Vanity Engagement Waste", desc: "Strict fraud-audit on follower legitimacy & bot comments" },
   ],
+  "google-review-qr": [
+    { value: "< 1 Min", label: "Scan to Review", desc: "Rate, pick or edit a draft, paste and post" },
+    { value: "3", label: "Review Languages", desc: "English, Hinglish and Hindi suggestions" },
+    { value: "1–5★", label: "Every Rating Welcome", desc: "No review gating, within Google's rules" },
+    { value: "0", label: "Apps to Install", desc: "Works in any phone camera and browser" },
+  ],
   "content-marketing": [
     { value: "340%", label: "Organic Search Growth", desc: "High-authority editorial and search-optimized content" },
     { value: "Top-10", label: "Target Keyword Rankings", desc: "Dominating commercial intent search queries" },

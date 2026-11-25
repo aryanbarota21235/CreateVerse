@@ -13,6 +13,7 @@ import {
   Palette,
   PenLine,
   Plane,
+  QrCode,
   Search,
   Share2,
   Target,
@@ -42,6 +43,7 @@ export const iconMap: Record<string, LucideIcon> = {
   Newspaper,
   Palette,
   Search,
+  QrCode,
 };
 
 type CategoryFilter = "all" | Service["category"];

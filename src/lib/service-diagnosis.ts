@@ -96,6 +96,25 @@ export function getServiceDiagnosis(slug: string, category: string): ServiceDiag
     };
   }
 
+  // Google Review QR
+  if (slug === "google-review-qr") {
+    return {
+      eyebrow: "Reputation Diagnosis",
+      sectionTitle: "Why Happy Customers Don't Leave Reviews",
+      sectionDesc:
+        "Customers are happy to help, but finding your listing and writing a review feels like work. Here is how we make it take less than a minute.",
+      problemResult: "Result: Few recent reviews, a lower Google Maps ranking, and calls going to competitors.",
+      solutionBadge: "The CreateVerse Standard",
+      solutionTitle: "Scan, Rate, Post: Under a Minute",
+      solutionDesc:
+        "A QR code at the moment of delight opens a rating page with suggested wording that fits your business. The customer edits it if they like and posts it on Google from their own account.",
+      solutionResult: "Result: A steady flow of genuine, written Google reviews, with every rating welcome.",
+      deliverablesIntro:
+        "Everything from Google Business Profile checks to the printed poster and the review dashboard, set up by one team.",
+      playbookIntro: "From profile check to the first reviews arriving, usually within a week.",
+    };
+  }
+
   // 5. Influencer Marketing
   if (slug === "influencer-marketing") {
     return {

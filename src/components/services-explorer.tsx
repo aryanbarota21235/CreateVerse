@@ -103,7 +103,7 @@ export default function ServicesExplorer() {
             Everything growth needs, <span className="text-accent">under one roof.</span>
           </h2>
           <p className="mt-3 sm:mt-4 text-[13px] sm:text-base leading-relaxed text-ink/70 font-normal">
-            Explore our 16 specialized growth practices. Click any practice to view deliverables, acquisition process and past case results.
+            Explore our 17 specialized growth practices. Click any practice to view deliverables, acquisition process and past case results.
           </p>
         </div>
 

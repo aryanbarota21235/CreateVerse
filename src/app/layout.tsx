@@ -11,6 +11,7 @@ import { EnquiryProvider } from "@/context/enquiry-context";
 import EnquiryModal from "@/components/enquiry-modal";
 import WhatsAppWidget from "@/components/whatsapp-widget";
 import ArtPauser from "@/components/art-pauser";
+import SiteChrome from "@/components/site-chrome";
 
 import { siteKeywords, getOrganizationJsonLd } from "@/lib/seo";
 
@@ -167,11 +168,15 @@ gtag('config', 'G-B0X3P49RNE');`,
       </head>
       <body className="font-sans bg-paper text-ink">
         <EnquiryProvider>
-          <Navbar />
+          <SiteChrome>
+            <Navbar />
+          </SiteChrome>
           <main>{children}</main>
-          <Footer />
-          <EnquiryModal />
-          <WhatsAppWidget />
+          <SiteChrome>
+            <Footer />
+            <EnquiryModal />
+            <WhatsAppWidget />
+          </SiteChrome>
           <ArtPauser />
           <Analytics />
           <SpeedInsights />

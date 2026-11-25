@@ -263,6 +263,53 @@ export const services: Service[] = [
     ],
   },
   {
+    slug: "google-review-qr",
+    name: "Google Review QR System",
+    shortName: "Google Review QR",
+    tagline: "More genuine Google reviews — one scan at the counter.",
+    description:
+      "A QR code for your counter, table or reception that turns happy (and unhappy) customers into written Google reviews in under a minute, with AI-suggested wording that fits your business.",
+    icon: "QrCode",
+    priority: false,
+    metaTitle: "Google Review QR Code System for Businesses in Karnal",
+    metaDescription:
+      "Get more Google reviews with a CreateVerse review QR code. Customers scan, rate, pick AI-suggested wording they can edit, and post on Google in under a minute. Restaurants, clinics, salons and more.",
+    category: "Acquisition",
+    problem: {
+      title: "Happy customers rarely leave a review. Asking isn't enough.",
+      desc: "Most customers are willing to review you, but opening Google Maps, finding your listing and writing something feels like work, so they don't. Fewer reviews means a lower spot in the Google Maps 3-Pack and fewer calls from people searching nearby.",
+    },
+    deliverables: [
+      "A unique review QR code and link for each business or branch",
+      "Print-ready table / counter poster with your name and QR",
+      "Rating page in English, Hinglish or Hindi, built for phones",
+      "AI-suggested review wording matched to your category and the star rating chosen",
+      "One tap to copy the review and open your Google review form",
+      "Dashboard of ratings given and reviews sent to Google",
+      "Google Business Profile check: Place ID, categories and review link set up correctly",
+    ],
+    process: [
+      { title: "Profile Check", desc: "We verify your Google Business Profile, find your Place ID and note what customers usually praise, so suggestions sound like your business." },
+      { title: "QR & Poster", desc: "We set up your review page and hand over a print-ready poster for counters, tables, receptions or invoices." },
+      { title: "Go Live", desc: "Your staff ask customers to scan at the right moment: after the meal, the appointment or the handover." },
+      { title: "Track & Reply", desc: "We watch ratings and reviews sent to Google, and help you reply to reviews so new searchers see an active, responsive business." },
+    ],
+    benefits: [
+      "More written Google reviews without chasing customers",
+      "Customers finish in under a minute on their own phone",
+      "Every rating can still be posted, so your profile stays honest and within Google's rules",
+      "Early warning when ratings dip, before it shows up on Maps",
+    ],
+    industries: ["Restaurants & cafés", "Clinics & dental care", "Salons & spas", "Gyms & fitness", "Hotels", "Retail & showrooms", "Coaching institutes"],
+    faqs: [
+      { q: "Does the customer post the review themselves?", a: "Yes. The customer chooses the stars, picks or edits a suggested review, and posts it from their own Google account. We never post on anyone's behalf." },
+      { q: "What happens if a customer gives 1 or 2 stars?", a: "They can still post. The suggested wording is polite and constructive, so the review says what needs improving without being abusive. Google's rules don't allow sending only happy customers to Google, and this system doesn't." },
+      { q: "Are the reviews written by AI?", a: "The AI suggests short drafts that fit your business and the rating chosen. The customer picks one, edits it to match their experience, or writes their own. Drafts never invent details like names, prices or results." },
+      { q: "Which businesses is this for?", a: "Any business with walk-in or in-person customers and a Google Business Profile: restaurants, clinics, salons, gyms, hotels, showrooms and institutes." },
+      { q: "Can I use it for more than one branch?", a: "Yes. Each branch gets its own QR code linked to its own Google listing, with separate numbers for each." },
+    ],
+  },
+  {
     slug: "social-media-paid-ads",
     name: "Social Media Paid Ads",
     shortName: "Paid Social",
