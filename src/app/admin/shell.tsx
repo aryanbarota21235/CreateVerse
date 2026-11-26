@@ -35,7 +35,7 @@ export default function Shell({ children, badges }: { children: ReactNode; badge
             href={n.href}
             onClick={() => setOpen(false)}
             className={`flex h-10 items-center gap-2.5 rounded-[10px] px-3 text-[13px] font-medium transition-colors ${
-              on ? "bg-sky-50 font-semibold text-accent-dim" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+              on ? "bg-accent/10 font-semibold text-accent-dim" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
             }`}
           >
             <n.icon size={17} strokeWidth={1.8} />
@@ -67,8 +67,8 @@ export default function Shell({ children, badges }: { children: ReactNode; badge
   return (
     <div className="lg:flex">
       {/* Desktop sidebar */}
-      <aside className="sticky top-0 hidden h-[100dvh] w-60 shrink-0 flex-col border-r border-slate-200 bg-white lg:flex">
-        <div className="flex h-16 items-center border-b border-slate-100 px-5">{logo}</div>
+      <aside className="sticky top-0 hidden h-[100dvh] w-60 shrink-0 flex-col border-r border-[#102A43]/[0.06] bg-white lg:flex">
+        <div className="flex h-16 items-center border-b border-[#102A43]/[0.06] px-5">{logo}</div>
         {nav}
       </aside>
 

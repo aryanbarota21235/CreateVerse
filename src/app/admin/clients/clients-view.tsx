@@ -228,7 +228,7 @@ function ClientPanel({
     if (confirm(`Delete ${b.name}? Its QR code stops working. Payments stay on record.`) && (await act.run(`/api/admin/businesses/${b.id}`, "DELETE"))) onClose();
   }
 
-  const section = "border-t border-slate-100 pt-5 mt-5";
+  const section = "mt-4 rounded-2xl bg-white p-4 ring-1 ring-[#102A43]/[0.06]";
   const heading = "text-sm font-semibold text-slate-900";
 
   return (
@@ -299,7 +299,7 @@ function ClientPanel({
             ))}
           </div>
         </div>
-        <div className="mt-3 flex flex-wrap items-center gap-3 rounded-xl bg-slate-50 px-3 py-2.5">
+        <div className="mt-3 flex flex-wrap items-center gap-3 rounded-xl bg-white px-3.5 py-3 ring-1 ring-[#102A43]/[0.06]">
           <p className="flex-1 text-xs text-slate-600">
             {prepNote ||
               (source?.length
@@ -357,7 +357,7 @@ function PaymentDialog({ b, plans, onClose }: { b: ReviewBusiness; plans: Plan[]
 
   return (
     <Dialog title={`Record payment for ${b.name}`} onClose={onClose} onSubmit={save} footer={<DialogButtons onClose={onClose} busy={busy} label="Save payment" />}>
-      <p className="mb-4 rounded-lg bg-slate-50 px-3 py-2 text-[13px] text-slate-600">
+      <p className="mb-4 rounded-xl bg-white px-3.5 py-2.5 ring-1 ring-[#102A43]/[0.06] text-[13px] text-slate-600">
         {stillPaid
           ? `Paid until ${fmtDate(b.paidUntil)}. This adds ${f.months || "…"} month(s) after that.`
           : `This makes the QR live from today for ${f.months || "…"} month(s).`}

@@ -125,8 +125,8 @@ export default function BusinessDialog({
   }
 
   const hint = "mt-1 text-xs text-slate-500";
-  const group = "rounded-xl border border-slate-200 bg-slate-50/60 p-4 sm:col-span-2";
-  const groupTitle = "text-xs font-bold uppercase tracking-wider text-stone-500";
+  const group = "rounded-2xl bg-white/70 p-4 ring-1 ring-[#102A43]/[0.06] sm:col-span-2";
+  const groupTitle = "text-sm font-semibold text-[#102A43]";
 
   return (
     <Dialog title={title} onClose={onClose} onSubmit={save} wide footer={<DialogButtons onClose={onClose} busy={busy} label={submitLabel} />}>

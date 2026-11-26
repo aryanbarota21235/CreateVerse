@@ -31,23 +31,23 @@ export function Dialog({
   }, [onClose]);
   const Box = onSubmit ? "form" : "div";
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-slate-900/40 sm:items-center sm:p-4" onMouseDown={onClose}>
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-[#102A43]/40 backdrop-blur-[2px] sm:items-center sm:p-4" onMouseDown={onClose}>
       <Box
         onSubmit={onSubmit}
         onMouseDown={(e: React.MouseEvent) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className={`flex max-h-[92dvh] w-full ${wide ? "max-w-2xl" : "max-w-xl"} flex-col rounded-t-2xl bg-white shadow-[0_8px_24px_-6px_rgb(15_23_42/0.16),0_0_0_1px_rgb(15_23_42/0.06)] sm:rounded-2xl`}
+        className={`flex max-h-[92dvh] w-full ${wide ? "max-w-2xl" : "max-w-xl"} flex-col overflow-hidden rounded-t-[28px] bg-[#EEF4FA] shadow-[0_30px_80px_-30px_rgba(16,42,67,0.5)] sm:rounded-[28px]`}
       >
-        <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3.5">
-          <h2 className="text-base font-semibold tracking-tight text-slate-900">{title}</h2>
-          <button type="button" onClick={onClose} aria-label="Close" className="flex size-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100">
+        <div className="flex items-center justify-between px-6 pb-2 pt-5">
+          <h2 className="text-xl font-semibold tracking-[-0.02em] text-[#102A43]">{title}</h2>
+          <button type="button" onClick={onClose} aria-label="Close" className="flex size-9 items-center justify-center rounded-full bg-white text-[#102A43]/70 ring-1 ring-[#102A43]/10 hover:text-[#102A43]">
             <X size={18} />
           </button>
         </div>
-        <div className="overflow-y-auto px-5 py-5">{children}</div>
-        {footer && <div className="flex flex-wrap justify-end gap-2 border-t border-slate-100 px-5 py-3.5">{footer}</div>}
+        <div className="overflow-y-auto px-6 pb-6 pt-3">{children}</div>
+        {footer && <div className="flex flex-wrap justify-end gap-2 border-t border-[#102A43]/[0.06] bg-white/70 px-6 py-4">{footer}</div>}
       </Box>
     </div>
   );

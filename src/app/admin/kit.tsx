@@ -106,8 +106,8 @@ export function Panel({
 }) {
   return (
     <section className={`${CARD} overflow-hidden ${className}`}>
-      <div className="flex min-h-12 flex-wrap items-center justify-between gap-2 border-b border-slate-100 px-4 py-2.5">
-        <h2 className="text-sm font-semibold tracking-tight text-slate-900">
+      <div className="flex min-h-14 flex-wrap items-center justify-between gap-2 border-b border-[#102A43]/[0.06] px-5 py-3">
+        <h2 className="text-[15px] font-semibold tracking-tight text-[#102A43]">
           {title}
           {count !== undefined && (
             <span className="ml-1.5 rounded-full bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold text-slate-500">{count}</span>
@@ -122,9 +122,9 @@ export function Panel({
 
 /** Zoho-style table classes. */
 export const TABLE = "w-full border-collapse text-[13px]";
-export const TH = "border-b border-[#ebeaf2] bg-[#f9f9fb] px-3 py-2.5 text-left text-[11px] font-semibold uppercase tracking-[0.02em] text-[#6c718a] whitespace-nowrap first:pl-4 last:pr-4";
-export const TD = "border-b border-[#ebeaf2] px-3 py-3 align-middle first:pl-4 last:pr-4";
-export const TR = "transition-colors hover:bg-[#f8f8fc] [&:last-child>td]:border-b-0";
+export const TH = "border-b border-[#102A43]/[0.06] bg-[#F7F9FC] px-3 py-3 text-left text-xs font-semibold text-[#102A43]/50 whitespace-nowrap first:pl-5 last:pr-5";
+export const TD = "border-b border-[#102A43]/[0.05] px-3 py-3.5 align-middle first:pl-5 last:pr-5";
+export const TR = "transition-colors hover:bg-[#F5F9FD] [&:last-child>td]:border-b-0";
 
 export function Empty({ icon: Icon, title, sub, action }: { icon: React.ComponentType<{ size?: number }>; title: string; sub: string; action?: ReactNode }) {
   return (
