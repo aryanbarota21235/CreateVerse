@@ -322,8 +322,25 @@ export interface TemplateInput {
   name: string;
   category: string;
   highlights: string;
+  /** e.g. "sweet shop"; with city gives "best sweet shop in Karnal" lines */
+  keyword?: string;
+  city?: string;
   /** English, Hinglish, Hindi or Punjabi; anything else is written in English. */
   language: string;
+}
+
+/** "Best sweet shop in Karnal." style line for local search, or null without keyword and city. */
+function localLine(b: TemplateInput, lang: "en" | "hl" | "hi" | "pa"): string | null {
+  const kw = b.keyword?.trim();
+  const city = b.city?.trim();
+  if (!kw || !city) return null;
+  const options: Record<typeof lang, string[]> = {
+    en: [`Best ${kw} in ${city}.`, `Easily one of the best ${kw}s in ${city}.`, `If you need a ${kw} in ${city}, go here.`],
+    hl: [`${city} mein best ${kw}.`, `${city} mein ${kw} chahiye to yahin aaiye.`],
+    hi: [`${city} में बेस्ट ${kw}।`, `${city} में ${kw} ढूँढ रहे हैं तो यहीं आइए।`],
+    pa: [`${city} ਵਿੱਚ ਬੈਸਟ ${kw}।`, `${city} ਵਿੱਚ ${kw} ਲੱਭ ਰਹੇ ਹੋ ਤਾਂ ਇੱਥੇ ਆਓ।`],
+  };
+  return pick(options[lang]);
 }
 
 function one(b: TemplateInput, rating: number): string {
@@ -333,11 +350,14 @@ function one(b: TemplateInput, rating: number): string {
   const highlights = b.highlights.split(",").map((h) => h.trim()).filter(Boolean);
   const parts: string[] = [pick(L.open[rating])(b.name)];
 
+  const local = localLine(b, L === EN ? "en" : L === HL ? "hl" : L === HI ? "hi" : L === PA ? "pa" : "en");
   if (rating === 5) {
     parts.push(pick(L.great)(a1));
+    if (local && Math.random() < 0.5) parts.push(local);
     parts.push(highlights.length && Math.random() < 0.6 ? pick(L.highlight)(pick(highlights)) : pick(L.great)(a2));
   } else if (rating === 4) {
     parts.push(pick(L.good)(a1));
+    if (local && Math.random() < 0.35) parts.push(local.replace(/^Best /, "A good ").replace(/^Easily one of the best/, "One of the good"));
     parts.push(highlights.length && Math.random() < 0.5 ? pick(L.highlight)(pick(highlights)) : pick(L.good)(a2));
   } else if (rating === 3) {
     parts.push(pick(L.okay)(a1), pick(L.improve)(a2));

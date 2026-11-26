@@ -84,7 +84,7 @@ Never:
 - The customer's own business type or product (don't say "our bakery", "my shop", "our new product"). Say "our business", "my business" at most.
 - Made-up specific incidents (a late meeting, spelling mistakes, a missed Friday deadline, a named staff member). Low ratings complain about general things: slow replies, expectations not met, results not coming, service needs to improve.
 - Office or marketing words: reporting, transparency, deliverables, dashboard, strategy execution, top class, exceptional, seamless, impeccable, commendable, "I am impressed", "wonderful experience".
-- Awards, guarantees, "best in the city", or mentioning AI, stars, ratings, or that this is a draft.
+- Awards, guarantees, or mentioning AI, stars, ratings, or that this is a draft.
 
 Match the star rating exactly. A low rating must clearly read as a complaint, politely.
 
@@ -102,8 +102,27 @@ const LANGUAGE_NOTE: Record<string, string> = {
 const languageNote = (l: string) => LANGUAGE_NOTE[l] ?? `${l}, in its usual script`;
 
 function fingerprint(b: ReviewBusiness) {
-  // Bumped whenever the writing rules change, so saved pools are rewritten ("v6": results-first, no invented facts or time spans).
-  return createHash("sha1").update(["v6", b.name, b.category, b.highlights].join("|")).digest("hex").slice(0, 16);
+  // Bumped whenever the writing rules change, so saved pools are rewritten ("v7": keyword + city; results-first, no invented facts or time spans).
+  return createHash("sha1").update(["v7", b.name, b.category, b.highlights, b.keyword, b.city].join("|")).digest("hex").slice(0, 16);
+}
+
+/**
+ * Local search: some good reviews name what the business is and where, the way people search
+ * ("best sweet shop in Karnal"). Google reads review text, so this helps the listing show up for
+ * those searches. Only for 4-5 stars, and only in some drafts so they don't all sound the same.
+ */
+function seoLine(b: ReviewBusiness, rating: number): string | null {
+  if (rating < 4) return null;
+  const what = b.keyword.trim() || `(a plain everyday name for this kind of business, like "sweet shop" or "dental clinic")`;
+  const where = b.city.trim();
+  if (!where && !b.keyword.trim()) return null;
+  return [
+    `Search wording: in about half of the drafts (not all), naturally mention what the business is${where ? " and the city" : ""}, the way people search on Google.`,
+    `What it is: ${what}.${where ? ` City: ${where}.` : ""}`,
+    where
+      ? `Vary it, e.g. "best ${b.keyword.trim() || "sweet shop"} in ${where}", "if you need a ${b.keyword.trim() || "sweet shop"} in ${where}", "one of the best in ${where}". No made-up landmarks or areas. Use it at most once per draft, in the language of the review.`
+      : `Use it at most once per draft.`,
+  ].join("\n");
 }
 
 async function writePool(b: ReviewBusiness, rating: number, language: string): Promise<{ reviews: string[]; source: string }> {
@@ -118,6 +137,7 @@ async function writePool(b: ReviewBusiness, rating: number, language: string): P
         : `This business is known for (mention some of these naturally): ${b.highlights}`
       : null,
     `Language: ${languageNote(language)}`,
+    seoLine(b, rating),
     "",
     `Star rating: ${rating} of 5 stars.`,
     `Tone: ${TONE[rating]}`,

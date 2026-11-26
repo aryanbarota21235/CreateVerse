@@ -11,6 +11,7 @@ export type BusinessForm = {
   category: string;
   city: string;
   highlights: string;
+  keyword: string;
   languages: string[];
   placeId: string;
   reviewUrl: string;
@@ -28,6 +29,7 @@ export const formFrom = (b: Partial<ReviewBusiness>): BusinessForm => ({
   category: b.category ?? REVIEW_CATEGORIES[0],
   city: b.city ?? "Karnal",
   highlights: b.highlights ?? "",
+  keyword: b.keyword ?? "",
   languages: b.languages?.length ? b.languages : ["English"],
   placeId: b.placeId ?? "",
   reviewUrl: b.reviewUrl ?? "",
@@ -226,6 +228,13 @@ export default function BusinessDialog({
           </div>
           <p className={hint}>
             Customers choose from these on the review page. The first one you pick is the main language. Up to {MAX_LANGUAGES}. If the AI is unavailable, English, Hindi, Hinglish and Punjabi still work; others show in English.
+          </p>
+        </div>
+        <div className="sm:col-span-2">
+          <label className={LABEL} htmlFor="b-kw">Main keyword (what people search on Google)</label>
+          <input id="b-kw" value={f.keyword} onChange={set("keyword")} className={FIELD} placeholder="sweet shop, TV repair shop, dental clinic, digital marketing agency" />
+          <p className={hint}>
+            Some 4 and 5-star suggestions mention this with the city, like &quot;best {f.keyword || "sweet shop"} in {f.city || "Karnal"}&quot;, which helps the business show up in Google searches.
           </p>
         </div>
         <div className="sm:col-span-2">

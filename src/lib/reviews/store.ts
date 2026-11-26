@@ -15,6 +15,7 @@ const DEFAULTS: Omit<ReviewBusinessInput, "slug" | "name"> = {
   category: "Other",
   city: "",
   highlights: "",
+  keyword: "",
   languages: ["English"],
   placeId: "",
   reviewUrl: "",

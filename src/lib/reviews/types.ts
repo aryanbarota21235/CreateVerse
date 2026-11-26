@@ -46,6 +46,8 @@ export interface ReviewBusiness {
   city: string;
   /** Comma-separated things customers can mention, e.g. "biryani, rooftop seating, quick service" */
   highlights: string;
+  /** What the business wants to be found for on Google, e.g. "sweet shop" or "TV repair shop" */
+  keyword: string;
   /** Languages customers can pick on the review page; the first is the default. */
   languages: string[];
   /** Google Place ID, used to build the write-review link */

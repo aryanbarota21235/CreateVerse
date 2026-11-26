@@ -57,6 +57,7 @@ export function parseBusiness(b: Record<string, unknown>, partial = false): Part
   }
   if (has("city")) v.city = str(b.city, 80);
   if (has("highlights")) v.highlights = str(b.highlights, 400);
+  if (has("keyword")) v.keyword = str(b.keyword, 60);
   if (has("placeId")) v.placeId = str(b.placeId, 200);
   if (has("reviewUrl")) {
     v.reviewUrl = str(b.reviewUrl, 500);
