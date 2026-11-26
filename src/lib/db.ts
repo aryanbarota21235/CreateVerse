@@ -11,7 +11,7 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
  * in .data/db.json instead. Vercel's filesystem is read-only, so there the keys are required.
  */
 
-export type Collection = "businesses" | "events" | "plans" | "signups" | "payments" | "enquiries" | "suggestions";
+export type Collection = "businesses" | "events" | "plans" | "signups" | "payments" | "enquiries" | "suggestions" | "daily";
 
 export interface Doc {
   id: string;
@@ -173,6 +173,68 @@ export async function removeWhere(collection: Collection, field: string, value: 
   await locked(async () => {
     const local = await readLocal();
     local[collection] = (local[collection] ?? []).filter((d) => String(d[field] ?? "") !== value);
+    await writeLocal(local);
+  });
+}
+
+// ---------- daily scan counters (table cv_daily_stats, see supabase/schema.sql) ----------
+
+export type StatColumn = "rated1" | "rated2" | "rated3" | "rated4" | "rated5" | "copied";
+export type StatTotals = Record<StatColumn, number>;
+const STAT_COLUMNS: StatColumn[] = ["rated1", "rated2", "rated3", "rated4", "rated5", "copied"];
+type LocalDaily = { businessId: string; day: string } & StatTotals;
+
+/** Adds 1 to one counter for a business on a day ("YYYY-MM-DD"), atomically. */
+export async function bumpStat(businessId: string, day: string, column: StatColumn): Promise<void> {
+  const s = supabase();
+  if (s) {
+    const { error } = await s.rpc("cv_bump_stat", { p_business: businessId, p_day: day, p_col: column });
+    if (error) throw new Error(error.message);
+    return;
+  }
+  await locked(async () => {
+    const local = await readLocal();
+    const rows = (local.daily ?? []) as unknown as LocalDaily[];
+    let row = rows.find((r) => r.businessId === businessId && r.day === day);
+    if (!row) {
+      row = { businessId, day, rated1: 0, rated2: 0, rated3: 0, rated4: 0, rated5: 0, copied: 0 };
+      rows.push(row);
+    }
+    row[column] += 1;
+    local.daily = rows as unknown as Record<string, unknown>[];
+    await writeLocal(local);
+  });
+}
+
+/** All-time totals per business. */
+export async function statTotals(): Promise<Record<string, StatTotals>> {
+  const out: Record<string, StatTotals> = {};
+  const s = supabase();
+  if (s) {
+    const { data, error } = await s.from("cv_stats_totals").select("*");
+    if (error) throw new Error(error.message);
+    for (const r of data as ({ business_id: string } & StatTotals)[]) {
+      out[r.business_id] = Object.fromEntries(STAT_COLUMNS.map((c) => [c, Number(r[c]) || 0])) as StatTotals;
+    }
+    return out;
+  }
+  for (const r of ((await readLocal()).daily ?? []) as unknown as LocalDaily[]) {
+    const t = (out[r.businessId] ??= { rated1: 0, rated2: 0, rated3: 0, rated4: 0, rated5: 0, copied: 0 });
+    for (const c of STAT_COLUMNS) t[c] += r[c];
+  }
+  return out;
+}
+
+export async function removeStats(businessId: string): Promise<void> {
+  const s = supabase();
+  if (s) {
+    const { error } = await s.from("cv_daily_stats").delete().eq("business_id", businessId);
+    if (error) throw new Error(error.message);
+    return;
+  }
+  await locked(async () => {
+    const local = await readLocal();
+    local.daily = ((local.daily ?? []) as unknown as LocalDaily[]).filter((r) => r.businessId !== businessId) as unknown as Record<string, unknown>[];
     await writeLocal(local);
   });
 }

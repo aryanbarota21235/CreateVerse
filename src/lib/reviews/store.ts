@@ -5,7 +5,6 @@ import {
   type Payment,
   type ReviewBusiness,
   type ReviewBusinessInput,
-  type ReviewEvent,
   type ReviewEventType,
   type ReviewStats,
 } from "./types";
@@ -69,7 +68,7 @@ export async function updateBusiness(id: string, patch: Partial<ReviewBusinessIn
 
 export async function deleteBusiness(id: string) {
   await db.remove("businesses", id);
-  await db.removeWhere("events", "businessId", id);
+  await db.removeStats(id);
   await db.removeWhere("suggestions", "businessId", id);
 }
 
@@ -110,28 +109,28 @@ function nextDay(day: string) {
   return d.toISOString().slice(0, 10);
 }
 
-// ---------- events & stats ----------
+// ---------- scan counters ----------
+// One row per business per day (cv_daily_stats), not one row per scan, so storage stays tiny.
 
 export async function logEvent(businessId: string, type: ReviewEventType, rating: number | null) {
   // Stats must never block a customer's review, so a failed write is only logged.
   try {
-    await db.insert<ReviewEvent>("events", { businessId, type, rating });
+    const column: db.StatColumn | null =
+      type === "copied" ? "copied" : rating && rating >= 1 && rating <= 5 ? (`rated${rating}` as db.StatColumn) : null;
+    if (column) await db.bumpStat(businessId, todayIST(), column);
   } catch (e) {
     console.error("[reviews] logEvent failed", e instanceof Error ? e.message : e);
   }
 }
 
 export async function statsByBusiness(): Promise<Record<string, ReviewStats>> {
-  const events = await db.list<ReviewEvent>("events");
   const out: Record<string, ReviewStats> = {};
-  for (const e of events) {
-    const st = (out[e.businessId] ??= { scans: 0, copied: 0, byRating: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 } });
-    if (e.type === "rated") {
-      st.scans++;
-      if (e.rating && e.rating >= 1 && e.rating <= 5) st.byRating[e.rating as 1 | 2 | 3 | 4 | 5]++;
-    } else if (e.type === "copied") {
-      st.copied++;
-    }
+  for (const [id, t] of Object.entries(await db.statTotals())) {
+    out[id] = {
+      scans: t.rated1 + t.rated2 + t.rated3 + t.rated4 + t.rated5,
+      copied: t.copied,
+      byRating: { 1: t.rated1, 2: t.rated2, 3: t.rated3, 4: t.rated4, 5: t.rated5 },
+    };
   }
   return out;
 }
