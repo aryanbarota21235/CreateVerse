@@ -108,22 +108,12 @@ export default function SignupsView({ signups, plans }: { signups: Signup[]; pla
             phone: converting.phone,
             email: converting.email,
             planId: converting.planId,
-            reviewUrl: /^https:\/\//.test(converting.mapsLink) && /review/i.test(converting.mapsLink) ? converting.mapsLink : "",
           })}
+          initialLink={converting.mapsLink}
           plans={plans}
           url={`/api/admin/signups/${converting.id}/convert`}
           method="POST"
           submitLabel="Create client"
-          note={
-            converting.mapsLink ? (
-              <p className="mb-4 rounded-lg bg-slate-50 px-3 py-2 text-[13px] text-slate-600">
-                Their Google link:{" "}
-                <a href={converting.mapsLink} target="_blank" rel="noreferrer" className="break-all font-medium text-accent-dim hover:underline">
-                  {converting.mapsLink}
-                </a>
-              </p>
-            ) : undefined
-          }
           onClose={() => setConverting(null)}
         />
       )}

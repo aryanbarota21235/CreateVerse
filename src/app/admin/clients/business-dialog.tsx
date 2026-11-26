@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FIELD, LABEL } from "@/lib/reviews/look";
-import { MAX_LANGUAGES, REVIEW_CATEGORIES, REVIEW_LANGUAGES, inr, slugify, type Plan, type ReviewBusiness } from "@/lib/reviews/types";
+import { MAX_LANGUAGES, REVIEW_CATEGORIES, REVIEW_LANGUAGES, googleReviewUrl, inr, slugify, type Plan, type ReviewBusiness } from "@/lib/reviews/types";
 import { Dialog, DialogButtons, Problem, useAction } from "../ui";
 
 export type BusinessForm = {
@@ -19,6 +19,8 @@ export type BusinessForm = {
   email: string;
   planId: string;
 };
+
+const testUrl = (f: { placeId: string; reviewUrl: string }) => googleReviewUrl(f);
 
 export const formFrom = (b: Partial<ReviewBusiness>): BusinessForm => ({
   name: b.name ?? "",
@@ -45,6 +47,7 @@ export default function BusinessDialog({
   submitLabel,
   slugLocked,
   note,
+  initialLink,
   onClose,
 }: {
   title: string;
@@ -56,11 +59,45 @@ export default function BusinessDialog({
   /** Existing clients: changing the link breaks printed QR codes, so warn. */
   slugLocked?: string;
   note?: React.ReactNode;
+  /** A Google link from a sign-up form, read automatically when the dialog opens */
+  initialLink?: string;
   onClose: () => void;
 }) {
   const [f, setF] = useState(initial);
   const [slugTouched, setSlugTouched] = useState(Boolean(slugLocked));
   const { run, busy, error } = useAction();
+
+  const [glink, setGlink] = useState(
+    initialLink || initial.reviewUrl || (initial.placeId ? `https://search.google.com/local/writereview?placeid=${initial.placeId}` : ""),
+  );
+  const [linkState, setLinkState] = useState<"idle" | "checking" | "bad">("idle");
+  const [linkError, setLinkError] = useState("");
+
+  // Reads the pasted link on the server and fills the Place ID / review link from it.
+  async function checkLink(link: string) {
+    const value = link.trim();
+    if (!value) return;
+    setLinkState("checking");
+    const res = await fetch("/api/admin/google-link", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ link: value }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      setLinkState("bad");
+      setLinkError(data.error || "Couldn't read that link.");
+      setF((p) => ({ ...p, placeId: "", reviewUrl: "" }));
+      return;
+    }
+    setLinkState("idle");
+    setF((p) => ({ ...p, placeId: data.placeId ?? "", reviewUrl: data.reviewUrl ?? "" }));
+  }
+
+  useEffect(() => {
+    if (initialLink) checkLink(initialLink);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [otherLang, setOtherLang] = useState("");
   function toggleLang(l: string) {
@@ -188,8 +225,7 @@ export default function BusinessDialog({
             </button>
           </div>
           <p className={hint}>
-            Customers choose from these on the review page. The first one you pick is the main language. Up to {MAX_LANGUAGES}. Without an AI key, only
-            English, Hindi and Hinglish are written; others show in English.
+            Customers choose from these on the review page. The first one you pick is the main language. Up to {MAX_LANGUAGES}. If the AI is unavailable, English, Hindi, Hinglish and Punjabi still work; others show in English.
           </p>
         </div>
         <div className="sm:col-span-2">
@@ -200,23 +236,29 @@ export default function BusinessDialog({
 
         <div className={group}>
           <p className={groupTitle}>Google listing</p>
-          <div className="mt-3 grid gap-4 sm:grid-cols-2">
-            <div>
-              <label className={LABEL} htmlFor="b-pid">Place ID</label>
-              <input id="b-pid" value={f.placeId} onChange={set("placeId")} className={FIELD} placeholder="ChIJ…" />
-              <p className={hint}>
-                Find it with{" "}
-                <a className="font-medium text-accent-dim hover:underline" href="https://developers.google.com/maps/documentation/places/web-service/place-id" target="_blank" rel="noreferrer">
-                  Place ID finder
-                </a>
-              </p>
-            </div>
-            <div>
-              <label className={LABEL} htmlFor="b-url">or review link</label>
-              <input id="b-url" value={f.reviewUrl} onChange={set("reviewUrl")} className={FIELD} placeholder="https://g.page/r/…/review" />
-              <p className={hint}>From Business Profile → Ask for reviews. Wins over Place ID.</p>
-            </div>
-          </div>
+          <label className={`${LABEL} mt-3`} htmlFor="b-glink">Google Maps link of the business</label>
+          <input
+            id="b-glink"
+            value={glink}
+            onChange={(e) => setGlink(e.target.value)}
+            onBlur={() => checkLink(glink)}
+            onPaste={(e) => checkLink(e.clipboardData.getData("text"))}
+            className={FIELD}
+            placeholder="Paste any Google Maps link or review link"
+          />
+          <p className={hint}>
+            Open the business on Google Maps, tap Share, copy the link and paste it here. No owner access needed.
+          </p>
+          {linkState === "checking" && <p className="mt-2 text-xs font-medium text-slate-500">Checking link…</p>}
+          {linkState === "bad" && <p className="mt-2 text-xs font-medium text-rose-700">{linkError}</p>}
+          {(f.placeId || f.reviewUrl) && linkState !== "checking" && (
+            <p className="mt-2 flex flex-wrap items-center gap-2 text-xs font-medium text-[#3a6729]">
+              ✓ Google listing found.
+              <a href={testUrl(f)} target="_blank" rel="noreferrer" className="text-accent-dim underline">
+                Open the review page to check it
+              </a>
+            </p>
+          )}
         </div>
       </div>
       <Problem message={error} />
