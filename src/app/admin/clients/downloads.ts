@@ -55,23 +55,35 @@ export async function downloadPoster(b: ReviewBusiness, link: string) {
   ctx.font = `400 38px ${font}`;
   ctx.fillText((b.tagline || b.category).replace(/\s+/g, " ").trim(), W / 2, y + 66);
 
-  // White card with a soft shadow
+  // The card carries the depth: a wide soft shadow plus a closer, tighter one (like a card
+  // lifted off the page), and a faint light edge on top.
   const cardX = 110;
   const cardW = W - 220;
   const cardY = y + 140;
   // Fits above the footer even when a long name takes two lines
   const cardH = Math.min(1110, H - 250 - cardY);
+  const cardPath = () => {
+    ctx.beginPath();
+    ctx.roundRect(cardX, cardY, cardW, cardH, 72);
+  };
   ctx.save();
-  ctx.shadowColor = "rgba(15, 23, 42, 0.12)";
-  ctx.shadowBlur = 80;
-  ctx.shadowOffsetY = 36;
-  const cardFill = ctx.createLinearGradient(0, cardY, 0, cardY + cardH);
-  cardFill.addColorStop(0, "#ffffff");
-  cardFill.addColorStop(1, "#F7FAFD");
-  ctx.fillStyle = cardFill;
-  ctx.beginPath();
-  ctx.roundRect(cardX, cardY, cardW, cardH, 72);
+  ctx.fillStyle = "#ffffff";
+  ctx.shadowColor = "rgba(15, 42, 80, 0.18)";
+  ctx.shadowBlur = 140;
+  ctx.shadowOffsetY = 70;
+  cardPath();
   ctx.fill();
+  ctx.shadowColor = "rgba(15, 42, 80, 0.10)";
+  ctx.shadowBlur = 24;
+  ctx.shadowOffsetY = 10;
+  cardPath();
+  ctx.fill();
+  ctx.restore();
+  ctx.save();
+  ctx.strokeStyle = "rgba(15, 42, 80, 0.06)";
+  ctx.lineWidth = 2;
+  cardPath();
+  ctx.stroke();
   ctx.restore();
 
   // Inside the card: question, gold stars, QR, call to action
@@ -83,32 +95,12 @@ export async function downloadPoster(b: ReviewBusiness, link: string) {
   const starsW = 5 * starSize + 4 * gap;
   for (let i = 0; i < 5; i++) drawStar(ctx, (W - starsW) / 2 + starSize / 2 + i * (starSize + gap), cardY + 225, starSize / 2, "#FBBC04");
 
-  // The QR sits on its own raised tile: a soft drop shadow plus a hairline edge give it depth.
-  const qrSize = 560;
-  const pad = 34;
-  const tile = qrSize + pad * 2;
-  const tileX = (W - tile) / 2;
-  const tileY = cardY + 286;
-  ctx.save();
-  ctx.shadowColor = "rgba(15, 23, 42, 0.16)";
-  ctx.shadowBlur = 48;
-  ctx.shadowOffsetY = 18;
-  ctx.fillStyle = "#ffffff";
-  ctx.beginPath();
-  ctx.roundRect(tileX, tileY, tile, tile, 40);
-  ctx.fill();
-  ctx.restore();
-  ctx.save();
-  ctx.strokeStyle = "rgba(15, 23, 42, 0.07)";
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.roundRect(tileX, tileY, tile, tile, 40);
-  ctx.stroke();
-  ctx.restore();
+  // The QR is flat on the card, white on white, so it blends in.
+  const qrSize = 600;
   const qr = new window.Image();
   qr.src = await QRCode.toDataURL(link, { width: Math.round(qrSize * SCALE), margin: 0, color: { dark: "#0f172a", light: "#ffffff" } });
   await qr.decode();
-  ctx.drawImage(qr, tileX + pad, tileY + pad, qrSize, qrSize);
+  ctx.drawImage(qr, (W - qrSize) / 2, cardY + 300, qrSize, qrSize);
   ctx.imageSmoothingEnabled = true;
 
   ctx.fillStyle = "#0f172a";
