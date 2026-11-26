@@ -12,6 +12,7 @@ export type BusinessForm = {
   city: string;
   highlights: string;
   keyword: string;
+  tagline: string;
   languages: string[];
   placeId: string;
   reviewUrl: string;
@@ -30,6 +31,7 @@ export const formFrom = (b: Partial<ReviewBusiness>): BusinessForm => ({
   city: b.city ?? "Karnal",
   highlights: b.highlights ?? "",
   keyword: b.keyword ?? "",
+  tagline: b.tagline ?? "",
   languages: b.languages?.length ? b.languages : ["English"],
   placeId: b.placeId ?? "",
   reviewUrl: b.reviewUrl ?? "",
@@ -229,6 +231,11 @@ export default function BusinessDialog({
           <p className={hint}>
             Customers choose from these on the review page. The first one you pick is the main language. Up to {MAX_LANGUAGES}. If the AI is unavailable, English, Hindi, Hinglish and Punjabi still work; others show in English.
           </p>
+        </div>
+        <div className="sm:col-span-2">
+          <label className={LABEL} htmlFor="b-tag">Line under the name (poster and review page)</label>
+          <input id="b-tag" value={f.tagline} onChange={set("tagline")} className={FIELD} placeholder={`${f.category} (leave empty to use this)`} maxLength={60} />
+          <p className={hint}>For example &quot;Unisex Gym, Sector 12&quot; or &quot;Sweets &amp; Namkeen since 1985&quot;. Empty shows the category.</p>
         </div>
         <div className="sm:col-span-2">
           <label className={LABEL} htmlFor="b-kw">Main keyword (what people search on Google)</label>
