@@ -14,7 +14,7 @@ import type { ReviewBusiness } from "./types";
  * template writer fills in (and the pool is retried with AI later).
  */
 
-const POOL_SIZE = 14;
+const POOL_SIZE = 10;
 const SHOWN = 4;
 const RETRY_TEMPLATE_POOL_MS = 30 * 60_000;
 
@@ -147,12 +147,13 @@ async function writePool(b: ReviewBusiness, rating: number, language: string): P
     .filter((l) => l !== null)
     .join("\n");
 
-  // Drafts that break the rules are dropped, so a reply can come back short. Up to two tries,
+  // Drafts that break the rules are dropped, so a reply can come back short. A second try only if
+  // fewer than SHOWN survive (each try costs tokens). Up to two tries,
   // keeping the good drafts from both; the templates are only used if AI gives too few.
   const keep = (r: string) => !STIFF.test(r) && (rating > 2 || !PRAISE.test(r));
   const good: string[] = [];
   let provider = "";
-  for (let attempt = 0; attempt < 2 && good.length < SHOWN + 2; attempt++) {
+  for (let attempt = 0; attempt < 2 && good.length < SHOWN; attempt++) {
     const ai = await askJson(SYSTEM, prompt, (v) => {
       const list = (v as { reviews?: unknown })?.reviews;
       if (!Array.isArray(list)) return null;

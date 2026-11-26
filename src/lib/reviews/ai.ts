@@ -78,19 +78,39 @@ export async function askJson<T>(
       const id = `${p.name}:${model}`;
       if (missing.has(id)) continue;
       try {
-        const res = await fetch(p.url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Authorization: `Bearer ${p.key}` },
-          body: JSON.stringify({
-            model,
-            temperature: 0.8,
-            messages: [
-              { role: "system", content: system },
-              { role: "user", content: user },
-            ],
-          }),
-          signal: AbortSignal.timeout(30_000),
-        });
+        const payload: Record<string, unknown> = {
+          model,
+          temperature: 0.8,
+          // Short reviews never need more; caps a runaway reply's cost.
+          max_tokens: 1800,
+          messages: [
+            { role: "system", content: system },
+            { role: "user", content: user },
+          ],
+        };
+        // gpt-oss "thinks" before answering, and those hidden tokens are billed as output.
+        // Writing short reviews needs very little of it.
+        if (/gpt-oss/.test(model)) {
+          payload.reasoning_effort = "low";
+          payload.include_reasoning = false;
+        }
+        const call = (body: Record<string, unknown>) =>
+          fetch(p.url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${p.key}` },
+            body: JSON.stringify(body),
+            signal: AbortSignal.timeout(30_000),
+          });
+        let res = await call(payload);
+        if (res.status === 400 && "reasoning_effort" in payload) {
+          // A provider that doesn't know the reasoning settings: try once without them.
+          const body = (await res.clone().text()).slice(0, 300);
+          if (/reasoning/i.test(body)) {
+            delete payload.reasoning_effort;
+            delete payload.include_reasoning;
+            res = await call(payload);
+          }
+        }
         if (!res.ok) {
           const body = (await res.text()).slice(0, 300);
           console.error(`[ai] ${id} HTTP ${res.status}: ${body}`);
@@ -100,7 +120,12 @@ export async function askJson<T>(
           }
           break; // quota / auth / outage: try the next provider
         }
-        const data = (await res.json()) as { choices?: { message?: { content?: string } }[] };
+        const data = (await res.json()) as {
+          choices?: { message?: { content?: string } }[];
+          usage?: { prompt_tokens?: number; completion_tokens?: number; total_tokens?: number };
+        };
+        // One line per call in the Vercel logs, to keep an eye on token use.
+        console.log(`[ai] ${id} tokens in=${data.usage?.prompt_tokens ?? "?"} out=${data.usage?.completion_tokens ?? "?"}`);
         const value = accept(parseJson(data.choices?.[0]?.message?.content ?? ""));
         if (value) return { value, provider: p.name };
         console.error(`[ai] ${id} returned unusable output`);
