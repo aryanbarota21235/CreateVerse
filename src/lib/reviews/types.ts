@@ -1,5 +1,6 @@
 export const REVIEW_CATEGORIES = [
   "Restaurant / Café",
+  "Sweet Shop / Bakery",
   "Salon / Spa",
   "Clinic / Hospital",
   "Dental Clinic",
@@ -11,6 +12,7 @@ export const REVIEW_CATEGORIES = [
   "Immigration Consultancy",
   "Digital Marketing Agency",
   "Automobile / Service Centre",
+  "Mobile / Laptop / TV Repair",
   "Other",
 ] as const;
 

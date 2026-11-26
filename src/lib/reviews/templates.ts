@@ -127,6 +127,24 @@ const BANKS: Record<string, Bank> = {
     ],
     people: TEAM,
   },
+  "Sweet Shop / Bakery": {
+    aspects: [
+      { en: "the sweets", pl: true, hl: "mithai", hi: "मिठाई", pa: "ਮਠਿਆਈ", g: "f" },
+      { en: "the freshness", hl: "freshness", hi: "ताज़गी", pa: "ਤਾਜ਼ਗੀ", g: "f" },
+      { en: "the packing", hl: "packing", hi: "पैकिंग", pa: "ਪੈਕਿੰਗ", g: "f" },
+      { en: "the taste", hl: "swaad", hi: "स्वाद", pa: "ਸੁਆਦ", g: "m" },
+    ],
+    people: STAFF,
+  },
+  "Mobile / Laptop / TV Repair": {
+    aspects: [
+      { en: "the repair work", hl: "repair ka kaam", hi: "रिपेयर का काम", pa: "ਰਿਪੇਅਰ ਦਾ ਕੰਮ", g: "m" },
+      { en: "the delivery time", hl: "delivery time", hi: "डिलीवरी टाइम", pa: "ਡਿਲਿਵਰੀ ਟਾਈਮ", g: "m" },
+      { en: "the pricing", hl: "rate", hi: "रेट", pa: "ਰੇਟ", g: "m" },
+      { en: "the parts quality", hl: "parts ki quality", hi: "पार्ट्स की क्वालिटी", pa: "ਪਾਰਟਸ ਦੀ ਕੁਆਲਿਟੀ", g: "f" },
+    ],
+    people: STAFF,
+  },
   "Automobile / Service Centre": {
     aspects: [
       SERVICE,

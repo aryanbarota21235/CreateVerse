@@ -2,21 +2,27 @@ import { createHash } from "crypto";
 import * as db from "@/lib/db";
 import { askJson, providers } from "./ai";
 import { templateReviews } from "./templates";
+import { libraryReviews } from "./library";
 import type { ReviewBusiness } from "./types";
 
 /*
- * Review suggestions, saved per business and star rating.
+ * Review suggestions, saved per business, star rating and language ("pools").
  *
- * The first time a rating is needed, one AI request writes a pool of POOL_SIZE reviews, which is
- * saved and reused: each scan (and each "New ideas" tap) shows a random SHOWN of them, so free
- * AI limits are spent once per business, not once per customer. Editing the business's name,
- * category, highlights or language makes a fresh pool. If no AI provider works, the free
- * template writer fills in (and the pool is retried with AI later).
+ * - A pool holds POOL_SIZE drafts. Each scan shows SHOWN of them at random.
+ * - When a customer copies a draft to Google it is marked used: removed from the pool and its
+ *   fingerprint remembered, so the same text is never offered again for that business and every
+ *   posted review stays unique. When fewer than LOW are left, the pool is topped up.
+ * - Writers, in order: AI (free-tier providers, see ai.ts), then the hand-written library
+ *   (library.ts, English), then the phrase-bank templates (templates.ts, other languages).
+ * - The team can edit a pool in the admin ("manual"); manual pools are never rewritten,
+ *   only topped up when they run low.
  */
 
 const POOL_SIZE = 10;
 const SHOWN = 4;
-const RETRY_TEMPLATE_POOL_MS = 30 * 60_000;
+const LOW = 6;
+const MAX_USED = 1000;
+const RETRY_FALLBACK_POOL_MS = 30 * 60_000;
 
 interface SuggestionPool {
   id: string;
@@ -25,9 +31,42 @@ interface SuggestionPool {
   rating: number;
   language: string;
   fingerprint: string;
+  /** Who wrote the drafts: an AI provider name, "Library", "Templates" or "Manual" */
   source: string;
   reviews: string[];
+  /** Fingerprints of drafts already posted by customers */
+  used?: string[];
+  /** Edited by the team in the admin: never rewritten automatically */
+  manual?: boolean;
 }
+
+/** Same text (ignoring case, spacing and punctuation) gives the same fingerprint. */
+/**
+ * Fills placeholders the team can write in their own reviews (and the library uses):
+ * {name} {city} {keyword} (or {kw}) {thing} (one of the highlights). A sentence whose
+ * placeholder has no value for this client (say, no city yet) is left out, so nothing reads
+ * like "Best sweet shop in."; if every sentence would go, the text is kept with the gaps closed.
+ */
+export function render(b: Pick<ReviewBusiness, "name" | "city" | "keyword" | "highlights">, text: string): string {
+  if (!text.includes("{")) return text;
+  const things = b.highlights.split(",").map((h) => h.trim()).filter(Boolean);
+  const values: Record<string, string> = {
+    name: b.name.trim(),
+    city: b.city.trim(),
+    keyword: b.keyword.trim(),
+    kw: b.keyword.trim(),
+    thing: things[Math.floor(Math.random() * things.length)] ?? "",
+  };
+  const fill = (t: string) => t.replace(/\{(\w+)\}/g, (_, k: string) => values[k.toLowerCase()] ?? "");
+  const complete = (t: string) => [...t.matchAll(/\{(\w+)\}/g)].every((m) => values[m[1].toLowerCase()]);
+  const sentences = text.match(/[^.!?।]+[.!?।]*\s*/g) ?? [text];
+  const kept = sentences.filter(complete);
+  const out = kept.length ? kept.join("") : sentences.join("");
+  return fill(out).replace(/\s{2,}/g, " ").replace(/\s+([.,!?।])/g, "$1").trim();
+}
+
+export const textHash = (t: string) =>
+  createHash("sha1").update(t.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim()).digest("hex").slice(0, 12);
 
 const TONE: Record<number, string> = {
   5: `Delighted customer. Warm, specific about what they got, sounds like a real person who would happily recommend the place.
@@ -58,6 +97,8 @@ const CATEGORY_HINT: Record<string, string> = {
   "Education / Coaching": "learning and results first: concepts became clear, marks or confidence improved, teachers explain well; then doubt clearing, study material, tests",
   "Immigration Consultancy": "the outcome and guidance first: honest advice, file handled properly, visa or admission process went smoothly; then help with documents, regular updates",
   "Digital Marketing Agency": "business results first: more leads, enquiries and calls started coming, the business grew, more people know about the brand now (visibility), more customers; then the team understood the business, replies fast, regular updates",
+  "Sweet Shop / Bakery": "taste and freshness of the sweets/cakes first, specific items if listed, quality of ghee/ingredients, neat packing for gifts and functions; then fair prices, polite staff, cleanliness",
+  "Mobile / Laptop / TV Repair": "the device first: problem fixed properly, works like new, done on time or same day; then honest estimate with no extra charges, genuine parts, staff explaining the fault",
   "Automobile / Service Centre": "the vehicle first: problem fixed properly, runs smoothly now, delivered on time; then honest charges, staff explaining the work",
 };
 
@@ -125,7 +166,13 @@ function seoLine(b: ReviewBusiness, rating: number): string | null {
   ].join("\n");
 }
 
-async function writePool(b: ReviewBusiness, rating: number, language: string): Promise<{ reviews: string[]; source: string }> {
+async function writeDrafts(
+  b: ReviewBusiness,
+  rating: number,
+  language: string,
+  count: number,
+  avoid: Set<string>,
+): Promise<{ reviews: string[]; source: string }> {
   const prompt = [
     `Business: ${b.name}`,
     `Category: ${b.category}`,
@@ -142,18 +189,18 @@ async function writePool(b: ReviewBusiness, rating: number, language: string): P
     `Star rating: ${rating} of 5 stars.`,
     `Tone: ${TONE[rating]}`,
     "",
-    `Write ${POOL_SIZE} different ${rating}-star review drafts.`,
+    `Write ${count} different ${rating}-star review drafts.`,
   ]
     .filter((l) => l !== null)
     .join("\n");
 
-  // Drafts that break the rules are dropped, so a reply can come back short. A second try only if
-  // fewer than SHOWN survive (each try costs tokens). Up to two tries,
-  // keeping the good drafts from both; the templates are only used if AI gives too few.
-  const keep = (r: string) => !STIFF.test(r) && (rating > 2 || !PRAISE.test(r));
+  const fresh = (r: string) => !avoid.has(textHash(r));
+  // Drafts that break the rules are dropped, so a reply can come back short. A second try only
+  // if fewer than SHOWN survive (each try costs tokens); the good drafts from both are kept.
+  const keep = (r: string) => !STIFF.test(r) && (rating > 2 || !PRAISE.test(r)) && fresh(r);
   const good: string[] = [];
   let provider = "";
-  for (let attempt = 0; attempt < 2 && good.length < SHOWN; attempt++) {
+  for (let attempt = 0; attempt < 2 && good.length < Math.min(SHOWN, count); attempt++) {
     const ai = await askJson(SYSTEM, prompt, (v) => {
       const list = (v as { reviews?: unknown })?.reviews;
       if (!Array.isArray(list)) return null;
@@ -161,40 +208,112 @@ async function writePool(b: ReviewBusiness, rating: number, language: string): P
     });
     if (!ai) break;
     provider = ai.provider;
-    for (const r of ai.value) if (keep(r) && !good.includes(r)) good.push(r);
+    for (const r of ai.value) if (keep(r) && !good.some((g) => textHash(g) === textHash(r))) good.push(r);
   }
-  if (good.length >= SHOWN) return { reviews: good, source: provider };
-  return { reviews: templateReviews({ ...b, language }, rating, POOL_SIZE), source: "Templates" };
+  if (good.length >= Math.min(SHOWN, count)) return { reviews: good.slice(0, count), source: provider };
+
+  // No AI: the hand-written library (English), topped up with phrase-bank templates.
+  const out: string[] = [];
+  const add = (list: string[]) => {
+    for (const r of list.sort(() => Math.random() - 0.5)) {
+      if (out.length >= count) break;
+      if (fresh(r) && !out.some((o) => textHash(o) === textHash(r))) out.push(r);
+    }
+  };
+  if (language === "English") add(libraryReviews(b, rating));
+  const fromLibrary = out.length;
+  if (out.length < count) add(templateReviews({ ...b, language }, rating, count * 2));
+  return { reviews: out, source: fromLibrary >= out.length / 2 && fromLibrary > 0 ? "Library" : "Templates" };
+}
+
+const isFallback = (source: string) => source === "Templates" || source === "Library";
+
+async function findPool(businessId: string, rating: number, language: string): Promise<SuggestionPool | undefined> {
+  return (await db.list<SuggestionPool>("suggestions", { businessId })).find(
+    (p) => p.rating === rating && (p.language ?? "English") === language,
+  );
+}
+
+async function savePool(saved: SuggestionPool | undefined, data: Omit<SuggestionPool, "id" | "createdAt">): Promise<SuggestionPool> {
+  try {
+    if (saved?.id) {
+      const updated = await db.update<SuggestionPool>("suggestions", saved.id, data);
+      if (updated) return updated;
+    }
+    return await db.insert<SuggestionPool>("suggestions", data);
+  } catch (e) {
+    // Couldn't save (e.g. storage not set up): still show the reviews.
+    console.error("[reviews] could not save suggestions", e instanceof Error ? e.message : e);
+    return { ...data, id: "", createdAt: new Date().toISOString() };
+  }
 }
 
 async function poolFor(b: ReviewBusiness, rating: number, language: string): Promise<SuggestionPool> {
   const fp = fingerprint(b);
-  const saved = (await db.list<SuggestionPool>("suggestions", { businessId: b.id })).find(
-    (p) => p.rating === rating && (p.language ?? "English") === language,
-  );
+  const saved = await findPool(b.id, rating, language);
   const stale =
     !saved ||
-    saved.fingerprint !== fp ||
-    (saved.source === "Templates" && providers().length > 0 && Date.now() - Date.parse(saved.createdAt) > RETRY_TEMPLATE_POOL_MS);
-  if (!stale) return saved;
-
-  const { reviews, source } = await writePool(b, rating, language);
-  try {
-    if (saved) await db.remove("suggestions", saved.id);
-    return await db.insert<SuggestionPool>("suggestions", { businessId: b.id, rating, language, fingerprint: fp, source, reviews });
-  } catch (e) {
-    // Couldn't save (e.g. storage not set up): still show the reviews.
-    console.error("[reviews] could not save suggestions", e instanceof Error ? e.message : e);
-    return { id: "", createdAt: new Date().toISOString(), businessId: b.id, rating, language, fingerprint: fp, source, reviews };
+    saved.reviews.length === 0 ||
+    (!saved.manual && saved.fingerprint !== fp) ||
+    (!saved.manual && isFallback(saved.source) && providers().length > 0 && Date.now() - Date.parse(saved.createdAt) > RETRY_FALLBACK_POOL_MS);
+  if (!stale) {
+    if (saved.reviews.length < LOW) return topUp(b, saved);
+    return saved;
   }
+  const used = saved?.used ?? [];
+  const keepManual = saved?.manual ? saved.reviews : [];
+  const { reviews, source } = await writeDrafts(b, rating, language, POOL_SIZE - keepManual.length, new Set([...used, ...keepManual.map((r) => textHash(render(b, r)))]));
+  return savePool(saved, {
+    businessId: b.id,
+    rating,
+    language,
+    fingerprint: fp,
+    source: saved?.manual ? "Manual" : source,
+    reviews: [...keepManual, ...reviews],
+    used,
+    manual: saved?.manual ?? false,
+  });
+}
+
+/** Adds drafts to a pool that is running low. */
+async function topUp(b: ReviewBusiness, pool: SuggestionPool): Promise<SuggestionPool> {
+  const avoid = new Set([...(pool.used ?? []), ...pool.reviews.map((r) => textHash(render(b, r)))]);
+  const { reviews, source } = await writeDrafts(b, pool.rating, pool.language ?? "English", POOL_SIZE - pool.reviews.length, avoid);
+  if (!reviews.length) return pool;
+  const { id: _i, createdAt: _c, ...rest } = pool;
+  void _i;
+  void _c;
+  return savePool(pool, { ...rest, reviews: [...pool.reviews, ...reviews], source: pool.manual ? "Manual" : source });
+}
+
+/**
+ * A customer copied `draft` to post on Google: never offer it again for this business, and top
+ * the pool up when it runs low. Runs after the response (see /api/reviews/event).
+ */
+export async function markUsed(b: ReviewBusiness, rating: number, language: string, draft: string): Promise<void> {
+  const lang = b.languages.includes(language) ? language : b.languages[0];
+  const pool = await findPool(b.id, rating, lang);
+  if (!pool) return;
+  const h = textHash(draft);
+  const used = [...new Set([...(pool.used ?? []), h])].slice(-MAX_USED);
+  const reviews = pool.reviews.filter((r) => textHash(render(b, r)) !== h);
+  const { id: _i, createdAt: _c, ...rest } = pool;
+  void _i;
+  void _c;
+  const saved = await savePool(pool, { ...rest, reviews, used });
+  if (reviews.length < LOW) await topUp(b, saved);
 }
 
 /** SHOWN reviews for a customer in `language` (one of the business's), picked from the saved pool. */
 export async function suggestReviews(b: ReviewBusiness, rating: number, language?: string): Promise<string[]> {
   const lang = language && b.languages.includes(language) ? language : b.languages[0];
   const pool = await poolFor(b, rating, lang);
-  const shuffled = [...pool.reviews].sort(() => Math.random() - 0.5);
-  // Prefer drafts that open differently, so the four on screen don't look alike.
+  return pickShown(pool.reviews.map((r) => render(b, r)));
+}
+
+/** A random SHOWN, preferring drafts that open differently so the four on screen don't look alike. */
+function pickShown(reviews: string[]): string[] {
+  const shuffled = [...reviews].sort(() => Math.random() - 0.5);
   const opening = (r: string) => r.split(/\s+/).slice(0, 3).join(" ").toLowerCase();
   const picked: string[] = [];
   const seen = new Set<string>();
@@ -212,33 +331,92 @@ export async function savedPools(b: ReviewBusiness): Promise<Record<string, Reco
   const out: Record<string, Record<number, string[]>> = {};
   for (const p of await db.list<SuggestionPool>("suggestions", { businessId: b.id })) {
     const lang = p.language ?? "English";
-    if (p.fingerprint !== fp || !b.languages.includes(lang)) continue;
-    (out[lang] ??= {})[p.rating] = p.reviews;
+    if ((!p.manual && p.fingerprint !== fp) || !b.languages.includes(lang) || !p.reviews.length) continue;
+    (out[lang] ??= {})[p.rating] = p.reviews.map((r) => render(b, r));
   }
   return out;
 }
 
-/** Writes any missing or outdated pools for the main language, all five ratings at once. */
+/** Writes any missing or outdated pools for the main language, one rating at a time. */
 export async function warmPools(b: ReviewBusiness): Promise<void> {
   // One after another: free AI plans limit tokens per minute, and five at once trips that limit.
   for (const r of [5, 4, 3, 2, 1]) await poolFor(b, r, b.languages[0]).catch(() => null);
 }
 
 /**
- * Admin "Prepare reviews": rewrites all five ratings in the main language now (5 AI requests).
- * Other languages are written the first time a customer picks them.
+ * Admin "Prepare reviews": rewrites the main language's pools now (up to 5 AI requests).
+ * Pools the team edited by hand are kept. Used drafts stay remembered.
  */
 export async function regenerateAll(b: ReviewBusiness): Promise<Record<number, string>> {
-  await db.removeWhere("suggestions", "businessId", b.id);
   const out: Record<number, string> = {};
-  for (const r of [5, 4, 3, 2, 1]) out[r] = (await poolFor(b, r, b.languages[0])).source;
+  const lang = b.languages[0];
+  for (const r of [5, 4, 3, 2, 1]) {
+    const saved = await findPool(b.id, r, lang);
+    if (saved?.manual) {
+      out[r] = "Manual";
+      continue;
+    }
+    const used = saved?.used ?? [];
+    const { reviews, source } = await writeDrafts(b, r, lang, POOL_SIZE, new Set(used));
+    await savePool(saved, { businessId: b.id, rating: r, language: lang, fingerprint: fingerprint(b), source, reviews, used, manual: false });
+    out[r] = source;
+  }
   return out;
 }
 
-/** Where each rating's saved reviews came from, for the admin panel. */
+/** Where each business's saved reviews came from, for the admin panel. */
 export async function poolSources(): Promise<Record<string, string[]>> {
   const pools = await db.list<SuggestionPool>("suggestions");
   const out: Record<string, string[]> = {};
   for (const p of pools) (out[p.businessId] ??= []).push(p.source);
   return out;
+}
+
+export interface PoolView {
+  rating: number;
+  language: string;
+  reviews: string[];
+  used: number;
+  source: string;
+  manual: boolean;
+}
+
+/** All pools of one business, for the admin's suggestion editor. */
+export async function listPools(b: ReviewBusiness): Promise<PoolView[]> {
+  const pools = await db.list<SuggestionPool>("suggestions", { businessId: b.id });
+  return pools
+    .filter((p) => b.languages.includes(p.language ?? "English"))
+    .map((p) => ({
+      rating: p.rating,
+      language: p.language ?? "English",
+      reviews: p.reviews,
+      used: p.used?.length ?? 0,
+      source: p.source,
+      manual: Boolean(p.manual),
+    }));
+}
+
+/**
+ * The team's own list for one rating and language. Drafts already posted are dropped (so a
+ * listing never gets the same text twice); returns how many were dropped.
+ */
+export async function setPool(b: ReviewBusiness, rating: number, language: string, reviews: string[]): Promise<{ saved: number; skipped: number }> {
+  const saved = await findPool(b.id, rating, language);
+  const used = new Set(saved?.used ?? []);
+  const clean: string[] = [];
+  for (const r of reviews.map((x) => x.trim()).filter((x) => x.length > 5)) {
+    if (used.has(textHash(render(b, r))) || clean.some((c) => textHash(c) === textHash(r))) continue;
+    clean.push(r.slice(0, 600));
+  }
+  await savePool(saved, {
+    businessId: b.id,
+    rating,
+    language,
+    fingerprint: fingerprint(b),
+    source: "Manual",
+    reviews: clean,
+    used: saved?.used ?? [],
+    manual: true,
+  });
+  return { saved: clean.length, skipped: reviews.filter((x) => x.trim().length > 5).length - clean.length };
 }

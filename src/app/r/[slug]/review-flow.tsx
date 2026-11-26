@@ -140,7 +140,14 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages,
     fetch("/api/reviews/event", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ slug, rating }),
+      // The suggestion they started from (even if edited), so it's never offered again here.
+      body: JSON.stringify({
+        slug,
+        rating,
+        type: "copied",
+        language: lang,
+        draft: picked !== null && picked >= 0 ? suggestions[picked] : undefined,
+      }),
       keepalive: true,
     }).catch(() => {});
     // Same hand-off RevmeAI uses: copy, then open Google's review link in this tab after half a second.

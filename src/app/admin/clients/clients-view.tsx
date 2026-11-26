@@ -185,7 +185,7 @@ function ClientPanel({
   origin: string;
   onClose: () => void;
 }) {
-  const [view, setView] = useState<"main" | "edit" | "pay">("main");
+  const [view, setView] = useState<"main" | "edit" | "pay" | "reviews">("main");
   const [copied, setCopied] = useState(false);
   const [prepNote, setPrepNote] = useState("");
   const act = useAction();
@@ -210,6 +210,7 @@ function ClientPanel({
     );
   }
   if (view === "pay") return <PaymentDialog b={b} plans={plans} onClose={() => setView("main")} />;
+  if (view === "reviews") return <SuggestionsDialog b={b} onClose={() => setView("main")} />;
 
   async function copy() {
     await navigator.clipboard.writeText(link);
@@ -306,8 +307,11 @@ function ClientPanel({
                 ? `Suggestions saved and ready (written by ${[...new Set(source)].join(", ")}).`
                 : "Suggestions are written the first time a customer taps a star. Prepare them now so the first customer doesn't wait.")}
           </p>
+          <button onClick={() => setView("reviews")} className={`${PRIMARY} h-9`}>
+            <Pencil size={15} /> Edit suggestions
+          </button>
           <button onClick={prepare} disabled={act.busy} className={`${PLAIN} h-9 ring-1 ring-slate-200`}>
-            <Sparkles size={15} className={act.busy ? "animate-pulse text-accent" : ""} /> Prepare reviews
+            <Sparkles size={15} className={act.busy ? "animate-pulse text-accent" : ""} /> Write new with AI
           </button>
         </div>
       </div>
@@ -325,6 +329,117 @@ function ClientPanel({
         </button>
       </div>
       <Problem message={act.error} />
+    </Dialog>
+  );
+}
+
+type PoolView = { rating: number; language: string; reviews: string[]; used: number; source: string; manual: boolean };
+
+/**
+ * The team's view of a client's suggestions: one tab per star rating, one suggestion per line.
+ * Saving makes that list the client's own ("manual"): AI never rewrites it, only tops it up
+ * when customers have used most of it.
+ */
+function SuggestionsDialog({ b, onClose }: { b: ReviewBusiness; onClose: () => void }) {
+  const [pools, setPools] = useState<PoolView[] | null>(null);
+  const [rating, setRating] = useState(5);
+  const [lang, setLang] = useState(b.languages[0]);
+  const [text, setText] = useState("");
+  const [note, setNote] = useState("");
+  const { run, busy, error } = useAction();
+
+  const current = pools?.find((p) => p.rating === rating && p.language === lang);
+
+  useEffect(() => {
+    fetch(`/api/admin/businesses/${b.id}/suggestions`)
+      .then((r) => r.json())
+      .then((d) => setPools(d.pools ?? []))
+      .catch(() => setPools([]));
+  }, [b.id]);
+  useEffect(() => {
+    setText((current?.reviews ?? []).join("\n"));
+    setNote("");
+  }, [current]);
+
+  async function save() {
+    const reviews = text.split("\n").map((l) => l.trim()).filter(Boolean);
+    const res = await run(`/api/admin/businesses/${b.id}/suggestions`, "PUT", { rating, language: lang, reviews });
+    if (!res) return;
+    setPools((ps) =>
+      (ps ?? [])
+        .filter((p) => !(p.rating === rating && p.language === lang))
+        .concat({ rating, language: lang, reviews: reviews.slice(0, Number(res.saved)), used: current?.used ?? 0, source: "Manual", manual: true }),
+    );
+    setNote(`Saved ${res.saved} suggestions${Number(res.skipped) ? `. ${res.skipped} skipped: already posted or repeated.` : "."}`);
+  }
+
+  const lines = text.split("\n").filter((l) => l.trim()).length;
+
+  return (
+    <Dialog
+      title={`Suggestions for ${b.name}`}
+      onClose={onClose}
+      wide
+      footer={
+        <>
+          <button type="button" onClick={onClose} className={PLAIN}>
+            Close
+          </button>
+          <button type="button" onClick={save} disabled={busy || pools === null} className={PRIMARY}>
+            {busy ? "Saving…" : `Save ${rating}★ suggestions`}
+          </button>
+        </>
+      }
+    >
+      <div className="flex flex-wrap items-center gap-2">
+        <div role="tablist" className="flex gap-1 rounded-2xl bg-white p-1 ring-1 ring-[#102A43]/[0.06]">
+          {[5, 4, 3, 2, 1].map((r) => (
+            <button
+              key={r}
+              role="tab"
+              aria-selected={rating === r}
+              onClick={() => setRating(r)}
+              className={`flex items-center gap-1 rounded-xl px-3 py-1.5 text-sm font-semibold ${rating === r ? "bg-accent text-white" : "text-[#102A43]/70 hover:text-[#102A43]"}`}
+            >
+              {r}
+              <Star size={13} className={rating === r ? "fill-white" : "fill-amber-400 text-amber-400"} />
+            </button>
+          ))}
+        </div>
+        {b.languages.length > 1 && (
+          <select value={lang} onChange={(e) => setLang(e.target.value)} className={`${FIELD} !w-auto`} aria-label="Language">
+            {b.languages.map((l) => (
+              <option key={l}>{l}</option>
+            ))}
+          </select>
+        )}
+      </div>
+
+      {pools === null ? (
+        <p className="mt-4 text-sm text-slate-500">Loading suggestions… (writing any that are missing)</p>
+      ) : (
+        <>
+          <p className="mt-4 text-xs text-slate-500">
+            {lines} suggestions{current ? `, ${current.used} already posted by customers` : ""}
+            {current ? `. Written by ${current.manual ? "your team" : current.source}.` : "."} One suggestion per line.
+          </p>
+          <textarea
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            rows={14}
+            className={`${FIELD} mt-2 resize-y font-normal leading-relaxed`}
+            placeholder={"Best {keyword} in {city}. The sweets are always fresh.\nLoved the {thing} at {name}. Will come again."}
+          />
+          <p className="mt-2 rounded-xl bg-white px-3.5 py-3 text-xs leading-relaxed text-slate-600 ring-1 ring-[#102A43]/[0.06]">
+            You can use <b>{"{name}"}</b>, <b>{"{city}"}</b>, <b>{"{keyword}"}</b> and <b>{"{thing}"}</b> (one of the highlights). They fill in from this
+            client&apos;s details, so &quot;Best {"{keyword}"} in {"{city}"}&quot; shows as &quot;Best {b.keyword || "sweet shop"} in {b.city || "Karnal"}&quot;. A
+            sentence is left out if its value is empty. Each suggestion is shown until a customer posts it, then never again. Once you save, AI only adds
+            more when fewer than 6 are left.
+          </p>
+          {note && <p className="mt-2 text-xs font-medium text-[#3a6729]">{note}</p>}
+        </>
+      )}
+      <Problem message={error} />
     </Dialog>
   );
 }
