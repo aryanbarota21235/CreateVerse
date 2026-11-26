@@ -366,9 +366,10 @@ export async function regenerateAll(b: ReviewBusiness): Promise<Record<number, s
 
 /** Where each business's saved reviews came from, for the admin panel. */
 export async function poolSources(): Promise<Record<string, string[]>> {
-  const pools = await db.list<SuggestionPool>("suggestions");
+  // Only two small fields: the pools' review texts are not needed here.
+  const rows = await db.listFields("suggestions", ["businessId", "source"]);
   const out: Record<string, string[]> = {};
-  for (const p of pools) (out[p.businessId] ??= []).push(p.source);
+  for (const p of rows) (out[p.businessId] ??= []).push(p.source);
   return out;
 }
 

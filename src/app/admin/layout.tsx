@@ -17,8 +17,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   // Badges in the sidebar: what's waiting for the team.
   const [signups, enquiries] = await Promise.all([listSignups(), listEnquiries()]);
   const badges = {
-    signups: signups.filter((s) => s.status === "New").length,
-    enquiries: enquiries.filter((e) => e.status === "New").length,
+    leads: signups.filter((s) => s.status === "New" || s.status === "Contacted").length + enquiries.filter((e) => e.status === "New").length,
   };
   return (
     <div className={ROOT}>

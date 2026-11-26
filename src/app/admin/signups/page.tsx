@@ -1,9 +1,5 @@
-import { listPlans, listSignups } from "@/lib/admin-data";
-import SignupsView from "./signups-view";
+import { redirect } from "next/navigation";
 
-export const metadata = { title: "New sign-ups" };
-
-export default async function SignupsPage() {
-  const [signups, plans] = await Promise.all([listSignups(), listPlans()]);
-  return <SignupsView signups={signups} plans={plans} />;
+export default function SignupsPage() {
+  redirect("/admin/leads");
 }

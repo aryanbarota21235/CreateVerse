@@ -4,7 +4,7 @@ import { useState } from "react";
 import { MessageSquareText, Phone, Trash2 } from "lucide-react";
 import { FIELD, LABEL, QUIET_SM } from "@/lib/reviews/look";
 import type { Enquiry } from "@/lib/reviews/types";
-import { Dialog, Empty, PageHead, Panel, Problem, TABLE, TD, TH, TR, fmtDateTime, useAction } from "../ui";
+import { Dialog, Empty, Panel, Problem, TABLE, TD, TH, TR, fmtDateTime, useAction } from "../ui";
 
 const wa = (phone: string) => `https://wa.me/${phone.replace(/\D/g, "").replace(/^(?=\d{10}$)/, "91")}`;
 
@@ -23,10 +23,9 @@ export default function EnquiriesView({ enquiries }: { enquiries: Enquiry[] }) {
 
   return (
     <>
-      <PageHead title="Enquiries" sub="Every enquiry form on createverse.in. Tick Done once you've called them." />
 
       <Panel
-        title="To call"
+        title="Website enquiries"
         count={toHandle}
         actions={<input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search" className={`${FIELD} !min-h-9 !w-48 !py-1.5`} aria-label="Search enquiries" />}
       >

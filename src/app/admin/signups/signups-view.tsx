@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ArrowRightCircle, Inbox, MapPin, Phone, X } from "lucide-react";
 import { FIELD, LABEL, PRIMARY, QUIET_SM } from "@/lib/reviews/look";
 import { inr, type Plan, type Signup } from "@/lib/reviews/types";
-import { Dialog, Empty, PageHead, Panel, Problem, TABLE, TD, TH, TR, fmtDate, useAction } from "../ui";
+import { Dialog, Empty, Panel, Problem, TABLE, TD, TH, TR, fmtDate, useAction } from "../ui";
 import BusinessDialog, { formFrom } from "../clients/business-dialog";
 
 const wa = (phone: string) => `https://wa.me/${phone.replace(/\D/g, "").replace(/^(?=\d{10}$)/, "91")}`;
@@ -27,11 +27,9 @@ export default function SignupsView({ signups, plans }: { signups: Signup[]; pla
 
   return (
     <>
-      <PageHead title="New sign-ups" sub="Businesses that filled the form on the website. Call them, then make them a client." />
-
-      <Panel title="Waiting for a call" count={waiting.length}>
+      <Panel title="Google Review QR sign-ups" count={waiting.length}>
         {waiting.length === 0 ? (
-          <Empty icon={Inbox} title="All caught up" sub="New sign-ups from the website show up here." />
+          <Empty icon={Inbox} title="No new sign-ups" sub="Businesses that fill the Google Review QR form show up here." />
         ) : (
           <div className="overflow-x-auto">
             <table className={TABLE}>

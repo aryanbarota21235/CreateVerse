@@ -13,73 +13,113 @@ export async function downloadQr(b: ReviewBusiness, link: string) {
   save(await QRCode.toDataURL(link, { width: 1200, margin: 2 }), `${b.slug}-qr.png`);
 }
 
-/** A printable A5-ratio table card: business name, stars, QR, "Scan to review us", CreateVerse logo. */
+/**
+ * A printable A5 table card in the same look as the customer review page: soft blue
+ * background, the business name on top, one white card holding the stars and the QR code,
+ * and a quiet "Powered by CreateVerse" at the foot.
+ */
 export async function downloadPoster(b: ReviewBusiness, link: string) {
   const W = 1240;
   const H = 1748;
   const font = poppins.style.fontFamily;
+  const name = b.name.replace(/\s+/g, " ").trim();
   await document.fonts.ready;
   const canvas = document.createElement("canvas");
   canvas.width = W;
   canvas.height = H;
   const ctx = canvas.getContext("2d")!;
-
-  ctx.fillStyle = "#f5f8f6";
-  ctx.fillRect(0, 0, W, H);
-  ctx.fillStyle = "#ffffff";
-  ctx.strokeStyle = "#e2e8f0";
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.roundRect(70, 70, W - 140, H - 140, 48);
-  ctx.fill();
-  ctx.stroke();
-  const band = ctx.createLinearGradient(70, 0, W - 70, 0);
-  band.addColorStop(0, "#0284C7");
-  band.addColorStop(1, "#EA580C");
-  ctx.fillStyle = band;
-  ctx.fillRect(160, 70, W - 320, 10);
-
   ctx.textAlign = "center";
-  ctx.fillStyle = "#0284C7";
-  ctx.font = `700 34px ${font}`;
-  ctx.fillText("LOVED YOUR VISIT?", W / 2, 230);
+  ctx.textBaseline = "alphabetic";
+
+  // Background: the review page's gradient
+  const bg = ctx.createLinearGradient(0, 0, 0, H);
+  bg.addColorStop(0, "#DCEBF8");
+  bg.addColorStop(0.45, "#EEF4FA");
+  bg.addColorStop(1, "#F4F7FA");
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // Business name and type
   ctx.fillStyle = "#0f172a";
-  ctx.font = `600 72px ${font}`;
-  const lines = wrap(ctx, b.name, W - 280);
-  lines.forEach((l, i) => ctx.fillText(l, W / 2, 330 + i * 84));
+  ctx.font = `600 84px ${font}`;
+  const lines = wrap(ctx, name, W - 240);
+  let y = 230;
+  lines.forEach((l, i) => ctx.fillText(l, W / 2, y + i * 96));
+  y += (lines.length - 1) * 96;
+  ctx.fillStyle = "#64748b";
+  ctx.font = `400 38px ${font}`;
+  ctx.fillText(b.category, W / 2, y + 66);
 
-  const starsY = 330 + lines.length * 84 + 20;
-  ctx.fillStyle = "#fbbf24";
-  ctx.font = `72px ${font}`;
-  ctx.fillText("★★★★★", W / 2, starsY);
-
-  const qrSize = 700;
-  const qrY = starsY + 60;
-  const qr = new window.Image();
-  qr.src = await QRCode.toDataURL(link, { width: qrSize, margin: 1, color: { dark: "#0f172a", light: "#ffffff" } });
-  await qr.decode();
-  ctx.strokeStyle = "#e2e8f0";
+  // White card with a soft shadow
+  const cardX = 110;
+  const cardW = W - 220;
+  const cardY = y + 140;
+  // Fits above the footer even when a long name takes two lines
+  const cardH = Math.min(1110, H - 250 - cardY);
+  ctx.save();
+  ctx.shadowColor = "rgba(15, 23, 42, 0.12)";
+  ctx.shadowBlur = 80;
+  ctx.shadowOffsetY = 36;
+  ctx.fillStyle = "#ffffff";
   ctx.beginPath();
-  ctx.roundRect((W - qrSize - 60) / 2, qrY, qrSize + 60, qrSize + 60, 32);
-  ctx.stroke();
-  ctx.drawImage(qr, (W - qrSize) / 2, qrY + 30, qrSize, qrSize);
+  ctx.roundRect(cardX, cardY, cardW, cardH, 72);
+  ctx.fill();
+  ctx.restore();
+
+  // Inside the card: question, gold stars, QR, call to action
+  ctx.fillStyle = "#0f172a";
+  ctx.font = `600 56px ${font}`;
+  ctx.fillText("Loved your visit?", W / 2, cardY + 130);
+  const starSize = 76;
+  const gap = 22;
+  const starsW = 5 * starSize + 4 * gap;
+  for (let i = 0; i < 5; i++) drawStar(ctx, (W - starsW) / 2 + starSize / 2 + i * (starSize + gap), cardY + 225, starSize / 2, "#FBBC04");
+
+  const qrSize = 600;
+  const qr = new window.Image();
+  qr.src = await QRCode.toDataURL(link, { width: qrSize, margin: 0, color: { dark: "#0f172a", light: "#ffffff" } });
+  await qr.decode();
+  ctx.drawImage(qr, (W - qrSize) / 2, cardY + 310, qrSize, qrSize);
 
   ctx.fillStyle = "#0f172a";
   ctx.font = `600 54px ${font}`;
-  ctx.fillText("Scan to review us on Google", W / 2, qrY + qrSize + 160);
+  ctx.fillText("Scan to review us on Google", W / 2, cardY + 1000);
   ctx.fillStyle = "#64748b";
-  ctx.font = `400 34px ${font}`;
-  ctx.fillText("Takes less than a minute", W / 2, qrY + qrSize + 215);
+  ctx.font = `400 36px ${font}`;
+  ctx.fillText("Takes less than a minute", W / 2, cardY + 1056);
 
+  // Footer
   const logo = new window.Image();
   logo.src = "/logo.png";
   await logo.decode();
-  ctx.font = `500 24px ${font}`;
   ctx.fillStyle = "#94a3b8";
-  ctx.fillText("Powered by", W / 2, H - 205);
-  ctx.drawImage(logo, (W - 240) / 2, H - 190, 240, 99);
+  ctx.font = `400 28px ${font}`;
+  ctx.fillText("Powered by", W / 2, H - 170);
+  ctx.drawImage(logo, (W - 220) / 2, H - 150, 220, 91);
 
   save(canvas.toDataURL("image/png"), `${b.slug}-review-poster.png`);
+}
+
+/** A rounded five-point star, centred on (cx, cy). */
+function drawStar(ctx: CanvasRenderingContext2D, cx: number, cy: number, r: number, color: string) {
+  ctx.save();
+  ctx.fillStyle = color;
+  ctx.strokeStyle = color;
+  ctx.lineJoin = "round";
+  ctx.lineWidth = r * 0.18;
+  ctx.beginPath();
+  for (let i = 0; i < 10; i++) {
+    const radius = i % 2 === 0 ? r : r * 0.48;
+    const angle = -Math.PI / 2 + (i * Math.PI) / 5;
+    const px = cx + radius * Math.cos(angle);
+    const py = cy + radius * Math.sin(angle);
+    if (i === 0) ctx.moveTo(px, py);
+    else ctx.lineTo(px, py);
+  }
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+  ctx.restore();
 }
 
 function wrap(ctx: CanvasRenderingContext2D, text: string, maxW: number): string[] {

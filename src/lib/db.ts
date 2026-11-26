@@ -238,3 +238,17 @@ export async function removeStats(businessId: string): Promise<void> {
     await writeLocal(local);
   });
 }
+
+/** Only some top-level fields of a collection's records (much lighter than list() for big records). */
+export async function listFields<K extends string>(collection: Collection, fields: K[]): Promise<Record<K, string>[]> {
+  const s = supabase();
+  if (s) {
+    const select = fields.map((f) => `${f}:data->>${f}`).join(",");
+    const { data, error } = await s.from("cv_records").select(select).eq("collection", collection);
+    if (error) throw new Error(error.message);
+    return data as unknown as Record<K, string>[];
+  }
+  return (((await readLocal())[collection] ?? []) as Record<string, unknown>[]).map(
+    (r) => Object.fromEntries(fields.map((f) => [f, String(r[f] ?? "")])) as Record<K, string>,
+  );
+}

@@ -29,15 +29,15 @@ export default async function Overview() {
     <>
       <PageHead title="Overview" sub="What needs the team today." />
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
-        <Tile label="New sign-ups" value={newSignups.length} sub="Waiting for a call" icon={Inbox} tone={newSignups.length ? "brand" : "plain"} href="/admin/signups" />
+        <Tile label="New sign-ups" value={newSignups.length} sub="Waiting for a call" icon={Inbox} tone={newSignups.length ? "brand" : "plain"} href="/admin/leads" />
         <Tile label="Live review clients" value={live} sub={`${businesses.length} clients in all`} icon={Store} tone="good" href="/admin/clients" />
         <Tile label="Need renewal or payment" value={attention.length} sub="Expiring, expired or unpaid" icon={AlarmClock} tone={attention.length ? "warn" : "plain"} href="/admin/clients" />
         <Tile label="Collected this month" value={inr(collected)} sub="Review QR payments" icon={IndianRupee} />
-        <Tile label="New enquiries" value={newEnquiries} sub="From website forms" icon={MessageSquareText} tone={newEnquiries ? "brand" : "plain"} href="/admin/enquiries" />
+        <Tile label="New enquiries" value={newEnquiries} sub="From website forms" icon={MessageSquareText} tone={newEnquiries ? "brand" : "plain"} href="/admin/leads" />
       </div>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-2">
-        <Panel title="New sign-ups" count={newSignups.length} actions={<Link href="/admin/signups" className="text-xs font-semibold text-accent-dim hover:underline">All sign-ups</Link>}>
+        <Panel title="New sign-ups" count={newSignups.length} actions={<Link href="/admin/leads" className="text-xs font-semibold text-accent-dim hover:underline">All leads</Link>}>
           {newSignups.length === 0 ? (
             <p className="px-4 py-8 text-center text-sm text-slate-500">No new sign-ups.</p>
           ) : (

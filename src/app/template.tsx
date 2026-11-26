@@ -25,7 +25,9 @@ export default function Template({ children }: { children: ReactNode }) {
   // Layout effect: the class has to be on before the new page's first paint.
   useLayoutEffect(() => {
     const el = ref.current;
-    if (el && lastPath !== null && lastPath !== pathname && !wentBack) {
+    // The admin panel and the customer review page are tools, not pages to browse: no animation.
+    const tool = pathname.startsWith("/admin") || pathname.startsWith("/r/");
+    if (el && !tool && lastPath !== null && lastPath !== pathname && !wentBack) {
       el.classList.remove("page-enter");
       void el.offsetWidth;
       el.classList.add("page-enter");
