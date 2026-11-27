@@ -30,7 +30,6 @@ import {
   Search,
   Share2,
   Smartphone,
-  Sparkles,
   Star,
   Target,
   ThumbsUp,
@@ -491,7 +490,7 @@ function BrandKitArt() {
       </g>
       <g className="float-soft" style={{ animationDelay: "-4s" }}>
         <rect x={262} y={28} width={62} height={62} rx={16} fill={SUN} />
-        <Sparkles x={280} y={46} width={26} height={26} color={ORANGE} strokeWidth={1.9} />
+        <PenTool x={280} y={46} width={26} height={26} color={ORANGE} strokeWidth={1.9} />
       </g>
       <Card x={156} y={106} w={152} h={40} r={14} />
       {swatches.map((c, i) => (

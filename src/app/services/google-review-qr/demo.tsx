@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Shuffle, Star } from "lucide-react";
 import { templateReviews } from "@/lib/reviews/templates";
@@ -40,26 +41,6 @@ export default function Demo() {
 
   return (
     <div className="relative mx-auto w-full min-w-0 max-w-[360px]">
-      {/* Controls */}
-      <div className="mb-4 space-y-2">
-        <div className="flex flex-wrap gap-1.5" role="group" aria-label="Business type">
-          {SAMPLES.map((x, i) => (
-            <button key={x.label} onClick={() => setSample(i)} aria-pressed={sample === i} className={chip(sample === i)}>
-              {x.label}
-            </button>
-          ))}
-          <span className="shrink-0 rounded-full px-2 py-1.5 text-xs font-semibold text-[#102A43]/55">and more</span>
-        </div>
-        <div className="flex flex-wrap items-center gap-1.5" role="group" aria-label="Review language">
-          {LANGS.map((l) => (
-            <button key={l} onClick={() => setLang(l)} aria-pressed={lang === l} className={chip(lang === l, true)}>
-              {l}
-            </button>
-          ))}
-          <span className="shrink-0 rounded-full px-2 py-1.5 text-xs font-semibold text-[#102A43]/55">and many more</span>
-        </div>
-      </div>
-
       {/* Phone: same look as the real customer page, in a real phone's shape (about 9 by 19.5) */}
       <div className="relative mx-auto w-full max-w-[318px] sm:max-w-[336px]">
         {/* Side buttons */}
@@ -69,14 +50,14 @@ export default function Demo() {
         <div className="rounded-[54px] bg-gradient-to-b from-[#3A4C63] via-[#1A2E45] to-[#0B1B2E] p-[3px] shadow-[0_40px_80px_-30px_rgba(11,27,46,0.65)]">
           <div className="rounded-[51px] bg-[#0B1B2E] p-[9px]">
             <div
-              className="relative flex aspect-[9/19.5] flex-col overflow-hidden rounded-[42px]"
+              className="relative flex aspect-[9/18] flex-col overflow-hidden rounded-[42px]"
               style={{ backgroundImage: "linear-gradient(180deg, #E3F0FA 0%, #F4F7FA 42%)" }}
             >
               {/* Status bar and Dynamic Island */}
-              <div className="flex items-center justify-between px-7 pt-3.5 text-[12px] font-semibold text-slate-900" aria-hidden="true">
-                <span>9:41</span>
+              <div className="grid grid-cols-[1fr_auto_1fr] items-center px-6 pt-3 text-[12px] font-semibold text-slate-900" aria-hidden="true">
+                <span className="justify-self-start pl-1">9:41</span>
                 <span className="h-[26px] w-[92px] rounded-full bg-[#0B1B2E]" />
-                <span className="flex items-center gap-1">
+                <span className="flex items-center gap-1 justify-self-end pr-0.5">
                   <span className="flex items-end gap-[2px]">
                     <span className="h-[4px] w-[3px] rounded-sm bg-slate-900" />
                     <span className="h-[6px] w-[3px] rounded-sm bg-slate-900" />
@@ -112,13 +93,13 @@ export default function Demo() {
                         <Shuffle size={13} />
                       </button>
                     </div>
-                    <div className="mt-1.5 min-h-0 flex-1 space-y-1.5 overflow-hidden" aria-live="polite">
+                    <div className="mt-1.5 min-h-0 flex-1 space-y-1.5 overflow-hidden [mask-image:linear-gradient(to_bottom,black_82%,transparent)]" aria-live="polite">
                       {reviews.map((r, i) => (
                         <button
                           key={r}
                           onClick={() => setPicked(i)}
                           className={`block w-full rounded-xl px-3 py-2 text-left text-[12px] leading-snug ${
-                            picked === i ? "bg-sky-50 text-slate-900 ring-2 ring-[#0284C7]" : "bg-slate-50 text-slate-700"
+                            picked === i ? "bg-sky-50 text-slate-900 ring-2 ring-inset ring-[#0284C7]" : "bg-slate-50 text-slate-700"
                           }`}
                         >
                           {r}
@@ -128,7 +109,10 @@ export default function Demo() {
                   </div>
                 </div>
                 <div className="mt-3 rounded-2xl bg-slate-900 py-3 text-center text-[13px] font-semibold text-white">Copy and post on Google</div>
-                <p className="mt-2 text-center text-[10px] text-slate-400">Powered by CreateVerse</p>
+                <div className="mt-2 flex flex-col items-center gap-0.5 text-[9px] text-slate-400">
+                  Powered by
+                  <Image src="/logo.png" alt="CreateVerse" width={88} height={36} className="h-auto w-[62px] opacity-80" />
+                </div>
               </div>
               {/* Home indicator */}
               <span className="mx-auto mb-2 h-[5px] w-[120px] shrink-0 rounded-full bg-slate-900/80" aria-hidden="true" />
@@ -137,6 +121,27 @@ export default function Demo() {
         </div>
       </div>
       <p className="mt-3 text-center text-xs text-[#102A43]/55">This is the page your customers see after scanning.</p>
+
+      {/* Try it: one labelled row each, scrolling sideways on small phones instead of wrapping */}
+      <div className="mt-5 rounded-[22px] bg-white/80 p-4 ring-1 ring-[#102A43]/[0.08]">
+        <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#102A43]/50">Try it for a</p>
+        <div className="-mx-4 mt-2 flex gap-1.5 overflow-x-auto px-4 pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" role="group" aria-label="Business type">
+          {SAMPLES.map((x, i) => (
+            <button key={x.label} onClick={() => setSample(i)} aria-pressed={sample === i} className={chip(sample === i)}>
+              {x.label}
+            </button>
+          ))}
+        </div>
+        <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.14em] text-[#102A43]/50">Review language</p>
+        <div className="-mx-4 mt-2 flex gap-1.5 overflow-x-auto px-4 pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" role="group" aria-label="Review language">
+          {LANGS.map((l) => (
+            <button key={l} onClick={() => setLang(l)} aria-pressed={lang === l} className={chip(lang === l, true)}>
+              {l}
+            </button>
+          ))}
+        </div>
+        <p className="mt-3 text-[12px] text-[#102A43]/55">Works for any business, in 12+ Indian languages.</p>
+      </div>
     </div>
   );
 }

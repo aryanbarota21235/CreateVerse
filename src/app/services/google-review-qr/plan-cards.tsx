@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Sparkles } from "lucide-react";
+import { Check } from "lucide-react";
 import { inr, period, type PublicPlan } from "./plan-format";
 
 /*
@@ -9,7 +9,7 @@ import { inr, period, type PublicPlan } from "./plan-format";
  * the others are white with a hairline.
  */
 export default function PlanCards({ plans, onChoose, compact = false }: { plans: PublicPlan[]; onChoose: (id: string) => void; compact?: boolean }) {
-  const cols = plans.length >= 3 ? "md:grid-cols-3" : plans.length === 2 ? `sm:grid-cols-2 ${compact ? "" : "max-w-4xl"}` : "max-w-md";
+  const cols = plans.length >= 3 ? "md:grid-cols-3" : plans.length === 2 ? `sm:grid-cols-2 ${compact ? "" : "max-w-4xl"}` : "mx-auto w-full max-w-md";
   return (
     <div className={`grid items-stretch gap-4 sm:gap-5 ${cols}`}>
       {plans.map((p) => {
@@ -32,8 +32,8 @@ export default function PlanCards({ plans, onChoose, compact = false }: { plans:
             <div className="relative flex items-center justify-between gap-3">
               <h3 className="font-display text-[17px] font-semibold tracking-tight">{p.name}</h3>
               {hot && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold tracking-wide text-sky-100 ring-1 ring-white/15">
-                  <Sparkles className="h-3 w-3 text-sky-300" /> Most popular
+                <span className="rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-sky-100 ring-1 ring-white/15">
+                  Most popular
                 </span>
               )}
             </div>

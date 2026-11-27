@@ -13,7 +13,6 @@ import {
   Zap,
   Flame,
   Layers,
-  Sparkles,
 } from "lucide-react";
 import { getService, services } from "@/lib/services";
 import { getServiceMetrics } from "@/lib/service-metrics";
@@ -423,7 +422,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 </div>
 
                 <div className="mt-6 pt-4 border-t border-stone-100 flex items-center gap-2 text-xs font-bold text-accent">
-                  <Sparkles className="h-4 w-4" />
+                  <Layers className="h-4 w-4" />
                   <span>Tailored acquisition frameworks per vertical</span>
                 </div>
               </div>

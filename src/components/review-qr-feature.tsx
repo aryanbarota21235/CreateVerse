@@ -56,12 +56,12 @@ export default function ReviewQrFeature() {
             ))}
           </ul>
 
-          <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <div className="mt-6 sm:mt-8 flex items-center gap-2.5 sm:gap-3">
             {/* The service page opens with its plans pop-up (?plans), so visitors see the page too */}
             <Link
               href="/services/google-review-qr?plans=1"
               prefetch
-              className="pressable group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-[13.5px] sm:text-sm font-semibold text-white transition-colors hover:bg-accent"
+              className="pressable group inline-flex h-12 items-center gap-2 whitespace-nowrap rounded-full bg-ink px-5 sm:px-6 text-[13.5px] sm:text-sm font-semibold text-white transition-colors hover:bg-accent"
             >
               See plans
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -69,10 +69,9 @@ export default function ReviewQrFeature() {
             <Link
               href="/services/google-review-qr"
               prefetch
-              className="pressable group inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] text-accent"
+              className="pressable inline-flex h-12 items-center whitespace-nowrap rounded-full bg-white px-5 sm:px-6 text-[13.5px] sm:text-sm font-semibold text-ink ring-1 ring-ink/15 transition-colors hover:ring-accent hover:text-accent"
             >
               Try the live demo
-              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
         </div>
@@ -107,13 +106,13 @@ function ReviewQrArt() {
       {/* Customer's phone, front: a real phone shape (about 9 by 19.5) */}
       <div className="absolute right-[6%] top-1/2 -translate-y-1/2 sm:right-[8%]">
         <div className="float-soft w-[172px] min-[390px]:w-[186px] sm:w-[236px] xl:w-[252px]">
-          <div className="aspect-[9/19.5] rounded-[30px] sm:rounded-[40px] bg-ink p-[5px] sm:p-[7px] shadow-[0_34px_70px_-26px_rgba(16,42,67,0.6)]">
+          <div className="aspect-[9/17.5] rounded-[30px] sm:rounded-[40px] bg-ink p-[5px] sm:p-[7px] shadow-[0_34px_70px_-26px_rgba(16,42,67,0.6)]">
             <div className="flex h-full flex-col overflow-hidden rounded-[25px] sm:rounded-[33px] bg-[#EEF4FA]">
               {/* Status bar */}
-              <div className="flex items-center justify-between px-4 sm:px-5 pt-2 sm:pt-2.5 text-[7.5px] sm:text-[9.5px] font-semibold text-ink">
-                <span>9:41</span>
+              <div className="grid grid-cols-[1fr_auto_1fr] items-center px-3.5 sm:px-4 pt-2 sm:pt-2.5 text-[7.5px] sm:text-[9.5px] font-semibold text-ink">
+                <span className="justify-self-start pl-1">9:41</span>
                 <span className="h-[13px] w-[52px] sm:h-[17px] sm:w-[64px] rounded-full bg-ink" />
-                <span className="flex items-end gap-[1.5px]">
+                <span className="flex items-end gap-[1.5px] justify-self-end pr-1">
                   <span className="h-[4px] w-[2px] rounded-sm bg-ink" />
                   <span className="h-[6px] w-[2px] rounded-sm bg-ink" />
                   <span className="h-[8px] w-[2px] rounded-sm bg-ink" />
@@ -141,7 +140,7 @@ function ReviewQrArt() {
                     About: <b>Google Ads</b>
                   </p>
                   <div className="mt-1.5 sm:mt-2 space-y-1.5 text-left text-[7.5px] sm:text-[9.5px] leading-snug">
-                    <div className="rounded-xl bg-sky-50 px-2 py-1.5 sm:py-2 text-ink/85 ring-[1.5px] ring-accent">
+                    <div className="rounded-xl bg-sky-50 px-2 py-1.5 sm:py-2 text-ink/85 ring-[1.5px] ring-inset ring-accent">
                       Best digital marketing agency in Karnal. Since they started our Google Ads, enquiries and calls have really gone up.
                     </div>
                     <div className="rounded-xl bg-slate-100 px-2 py-1.5 sm:py-2 text-ink/50">
@@ -157,7 +156,10 @@ function ReviewQrArt() {
                   <div className="rounded-xl sm:rounded-2xl bg-ink py-2 sm:py-2.5 text-center text-[8.5px] sm:text-[11px] font-semibold text-white">
                     Copy and post on Google
                   </div>
-                  <p className="mt-1.5 text-center text-[6.5px] sm:text-[8px] text-ink/40">Powered by CreateVerse</p>
+                  <div className="mt-1.5 flex flex-col items-center gap-0.5 text-[6px] sm:text-[7.5px] text-ink/40">
+                    Powered by
+                    <Image src="/logo.png" alt="" width={88} height={36} className="h-auto w-[42px] sm:w-[52px] opacity-80" />
+                  </div>
                 </div>
               </div>
             </div>

@@ -1,11 +1,11 @@
-import { adminRoute, BadInput, body, parseCategory } from "@/lib/admin-api";
+import { adminMutation, adminRoute, BadInput, body, parseCategory } from "@/lib/admin-api";
 import { deleteCategory, listCategories, updateCategory } from "@/lib/categories";
 import { GENERAL, listLibraryTypes } from "@/lib/review-library";
 
 type Ctx = { params: Promise<{ id: string }> };
 
 export async function PATCH(req: Request, { params }: Ctx) {
-  return adminRoute(async () => {
+  return adminMutation(async () => {
     const { id } = await params;
     const v = parseCategory(await body(req), true);
     if (v.library && !(await listLibraryTypes()).some((t) => t.key === v.library)) v.library = GENERAL;
@@ -17,7 +17,7 @@ export async function PATCH(req: Request, { params }: Ctx) {
 }
 
 export async function DELETE(_req: Request, { params }: Ctx) {
-  return adminRoute(async () => {
+  return adminMutation(async () => {
     const { id } = await params;
     await deleteCategory(id);
   });

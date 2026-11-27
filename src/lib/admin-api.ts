@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { isAdmin } from "@/lib/admin-auth";
 import {
   ENQUIRY_STATUSES,
@@ -19,6 +20,18 @@ export async function adminRoute(fn: () => Promise<unknown>) {
     const msg = e instanceof Error ? e.message : "Something went wrong.";
     return NextResponse.json({ error: msg }, { status: e instanceof BadInput ? 400 : 500 });
   }
+}
+
+/**
+ * An admin change that the public Google Review QR page shows (plans, categories): runs like
+ * adminRoute, then refreshes that cached page so visitors see the change straight away.
+ */
+export async function adminMutation(fn: () => Promise<unknown>) {
+  return adminRoute(async () => {
+    const result = await fn();
+    revalidatePath("/services/google-review-qr");
+    return result;
+  });
 }
 
 export class BadInput extends Error {}

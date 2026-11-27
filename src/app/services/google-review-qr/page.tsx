@@ -3,7 +3,9 @@ import { listActivePlans } from "@/lib/admin-data";
 import { listCategories } from "@/lib/categories";
 import Landing, { type PublicPlan } from "./landing";
 
-export const dynamic = "force-dynamic";
+// Cached and served instantly; refreshed every minute, and right away when plans or categories
+// change in the admin (adminMutation). The "?plans" pop-up is handled in the browser.
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Google Review QR System — Get More Google Reviews",

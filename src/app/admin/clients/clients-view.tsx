@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import QRCode from "qrcode";
-import { Check, ChevronRight, Copy, Download, ExternalLink, FileImage, IndianRupee, Pause, Pencil, Play, Plus, QrCode, Send, Sparkles, Star, Store, Trash2 } from "lucide-react";
+import { Check, ChevronRight, Copy, Download, ExternalLink, FileImage, IndianRupee, Pause, Pencil, Play, Plus, QrCode, Send, RefreshCw, Star, Store, Trash2 } from "lucide-react";
 import { FIELD, LABEL, PLAIN, PRIMARY } from "@/lib/reviews/look";
 import {
   PAYMENT_METHODS,
@@ -311,7 +311,7 @@ function ClientPanel({
             <Pencil size={15} /> Edit suggestions
           </button>
           <button onClick={prepare} disabled={act.busy} className={`${PLAIN} h-9 ring-1 ring-slate-200`}>
-            <Sparkles size={15} className={act.busy ? "animate-pulse text-accent" : ""} /> Write new with AI
+            <RefreshCw size={15} className={act.busy ? "animate-pulse text-accent" : ""} /> Write new with AI
           </button>
         </div>
       </div>
