@@ -74,6 +74,8 @@ export const providerNames = () => providers().map((p) => p.name);
 
 /** Models that answered "not found" are remembered for this server instance and skipped. */
 const missing = new Set<string>();
+/** Models that were busy or out of quota, skipped until the time stored here. */
+const restingUntil = new Map<string, number>();
 
 /** Pulls the first JSON object out of a model reply (some models wrap it in ``` fences). */
 function parseJson(text: string): unknown {
@@ -96,7 +98,7 @@ export async function askJson<T>(
     const models = typeof p.models === "function" ? await p.models() : p.models;
     for (const model of models) {
       const id = `${p.name}:${model}`;
-      if (missing.has(id)) continue;
+      if (missing.has(id) || (restingUntil.get(id) ?? 0) > Date.now()) continue;
       try {
         const payload: Record<string, unknown> = {
           model,
@@ -122,7 +124,7 @@ export async function askJson<T>(
             method: "POST",
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${p.key}` },
             body: JSON.stringify(body),
-            signal: AbortSignal.timeout(30_000),
+            signal: AbortSignal.timeout(25_000),
           });
         let res = await call(payload);
         if (res.status === 400 && "reasoning_effort" in payload) {
@@ -141,8 +143,12 @@ export async function askJson<T>(
             missing.add(id);
             continue; // try the next model
           }
-          // Free daily or per-minute limit used up: each model has its own, so try the next one.
-          if (res.status === 429) continue;
+          // Limit used up (429) or the model is busy/down (5xx, e.g. Gemini's "high demand"):
+          // each model has its own capacity, so try the next one.
+          if (res.status === 429 || res.status >= 500) {
+            restingUntil.set(id, Date.now() + (res.status === 429 ? 10 : 2) * 60_000);
+            continue;
+          }
           break; // quota / auth / outage: try the next provider
         }
         const data = (await res.json()) as {

@@ -150,7 +150,7 @@ export const deleteCategory = (id: string) => db.remove("categories", id);
 export function keywordsFor(clientKeywords: string, category: Category | null): string[] {
   const list = (clientKeywords.trim() ? clientKeywords : category?.keywords ?? "")
     .split(",")
-    .map((k) => k.trim())
-    .filter(Boolean);
+    .map((k) => k.trim().replace(/^best\s+/i, "")) // reviews add "best" themselves: no "best best deal"
+    .filter((k) => k.length > 2);
   return [...new Set(list)];
 }
