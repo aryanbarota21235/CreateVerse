@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { FIELD, LABEL } from "@/lib/reviews/look";
-import { MAX_LANGUAGES, REVIEW_CATEGORIES, REVIEW_LANGUAGES, googleReviewUrl, inr, slugify, type Plan, type ReviewBusiness } from "@/lib/reviews/types";
+import { MAX_LANGUAGES, REVIEW_LANGUAGES, googleReviewUrl, inr, slugify, type Plan, type ReviewBusiness } from "@/lib/reviews/types";
 import { Dialog, DialogButtons, Problem, useAction } from "../ui";
 
 export type BusinessForm = {
@@ -27,7 +27,7 @@ const testUrl = (f: { placeId: string; reviewUrl: string }) => googleReviewUrl(f
 export const formFrom = (b: Partial<ReviewBusiness>): BusinessForm => ({
   name: b.name ?? "",
   slug: b.slug ?? slugify(b.name ?? ""),
-  category: b.category ?? REVIEW_CATEGORIES[0],
+  category: b.category ?? "",
   city: b.city ?? "Karnal",
   highlights: b.highlights ?? "",
   keyword: b.keyword ?? "",
@@ -103,6 +103,19 @@ export default function BusinessDialog({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Categories come from Admin -> Categories.
+  const [categories, setCategories] = useState<string[]>([]);
+  useEffect(() => {
+    fetch("/api/admin/categories")
+      .then((r) => r.json())
+      .then((d) => {
+        const list: string[] = d.categories ?? [];
+        setCategories(list);
+        setF((p) => (p.category ? p : { ...p, category: list[0] ?? "Other" }));
+      })
+      .catch(() => setCategories([]));
+  }, []);
+
   const [otherLang, setOtherLang] = useState("");
   function toggleLang(l: string) {
     setF((p) => {
@@ -141,7 +154,7 @@ export default function BusinessDialog({
         <div>
           <label className={LABEL} htmlFor="b-cat">Category</label>
           <select id="b-cat" value={f.category} onChange={set("category")} className={FIELD}>
-            {REVIEW_CATEGORIES.map((c) => <option key={c}>{c}</option>)}
+            {[...new Set([...(f.category ? [f.category] : []), ...categories])].map((c) => <option key={c}>{c}</option>)}
           </select>
         </div>
         <div>
@@ -238,7 +251,7 @@ export default function BusinessDialog({
           <p className={hint}>For example &quot;Unisex Gym, Sector 12&quot; or &quot;Sweets &amp; Namkeen since 1985&quot;. Empty shows the category.</p>
         </div>
         <div className="sm:col-span-2">
-          <label className={LABEL} htmlFor="b-kw">Main keyword (what people search on Google)</label>
+          <label className={LABEL} htmlFor="b-kw">Keywords people search on Google (comma separated)</label>
           <input id="b-kw" value={f.keyword} onChange={set("keyword")} className={FIELD} placeholder="sweet shop, TV repair shop, dental clinic, digital marketing agency" />
           <p className={hint}>
             Some 4 and 5-star suggestions mention this with the city, like &quot;best {f.keyword || "sweet shop"} in {f.city || "Karnal"}&quot;, which helps the business show up in Google searches.

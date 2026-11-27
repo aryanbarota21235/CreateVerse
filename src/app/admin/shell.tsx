@@ -4,12 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, type ReactNode } from "react";
-import { LayoutDashboard, Inbox, Store, Tags, LogOut, Menu, X, ExternalLink } from "lucide-react";
+import { Shapes, LayoutDashboard, Inbox, Store, Tags, LogOut, Menu, X, ExternalLink } from "lucide-react";
 
 const NAV = [
   { href: "/admin", label: "Overview", icon: LayoutDashboard, exact: true },
   { href: "/admin/leads", label: "Leads", icon: Inbox, badge: "leads" as const },
   { href: "/admin/clients", label: "Clients", icon: Store },
+  { href: "/admin/categories", label: "Categories", icon: Shapes },
   { href: "/admin/plans", label: "Plans", icon: Tags },
 ];
 

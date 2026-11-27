@@ -3,6 +3,7 @@ import * as db from "@/lib/db";
 import { askJson, providers } from "./ai";
 import { templateReviews } from "./templates";
 import { libraryReviews } from "./library";
+import { getCategory, keywordsFor } from "@/lib/categories";
 import type { ReviewBusiness } from "./types";
 
 /*
@@ -47,14 +48,30 @@ interface SuggestionPool {
  * placeholder has no value for this client (say, no city yet) is left out, so nothing reads
  * like "Best sweet shop in."; if every sentence would go, the text is kept with the gaps closed.
  */
+/**
+ * A business with its category's settings folded in: `keyword` becomes the effective comma list
+ * (the client's own keywords, else the category's), plus the category's hint and library type.
+ */
+export type WithCategory = ReviewBusiness & { catHint: string; catLibrary: string };
+
+export async function withCategory(b: ReviewBusiness): Promise<WithCategory> {
+  if ("catHint" in b) return b as WithCategory;
+  const cat = await getCategory(b.category).catch(() => null);
+  return { ...b, keyword: keywordsFor(b.keyword, cat).join(", "), catHint: cat?.hint ?? "", catLibrary: cat?.library ?? "" };
+}
+
+const keywordList = (k: string) => k.split(",").map((x) => x.trim()).filter(Boolean);
+
 export function render(b: Pick<ReviewBusiness, "name" | "city" | "keyword" | "highlights">, text: string): string {
   if (!text.includes("{")) return text;
   const things = b.highlights.split(",").map((h) => h.trim()).filter(Boolean);
+  const kws = keywordList(b.keyword);
+  const kw = kws[Math.floor(Math.random() * kws.length)] ?? "";
   const values: Record<string, string> = {
     name: b.name.trim(),
     city: b.city.trim(),
-    keyword: b.keyword.trim(),
-    kw: b.keyword.trim(),
+    keyword: kw,
+    kw,
     thing: things[Math.floor(Math.random() * things.length)] ?? "",
   };
   const fill = (t: string) => t.replace(/\{(\w+)\}/g, (_, k: string) => values[k.toLowerCase()] ?? "");
@@ -69,38 +86,25 @@ export const textHash = (t: string) =>
   createHash("sha1").update(t.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim()).digest("hex").slice(0, 12);
 
 const TONE: Record<number, string> = {
-  5: `Delighted customer. Warm, specific about what they got, sounds like a real person who would happily recommend the place.
-Good: "Got my root canal done here and honestly it was painless. Doctor explained everything before starting. Very happy."
-Good: "Since they started our ads, we're getting a lot more enquiries and calls. Our business has really grown. Thank you team!"
-Good: "Many more people know about our brand now. The leads are coming in regularly and the team always replies quickly."`,
-  4: `Happy customer. Clearly positive, with one small thing that could be a bit better, said kindly.
-Good: "Food was really tasty and came out quickly. Parking is a little tight on weekends, but we'll definitely come back."`,
-  3: `Average experience. One thing was fine AND one thing clearly needs to improve. Neutral and fair, neither praising nor complaining hard.
-Good: "Haircut was fine, but I had to wait 30 minutes even with an appointment. Okay overall."`,
-  2: `Disappointed customer. The main message is what went wrong. At most one short polite remark about something that was okay. No praise words.
-Good: "Food came cold and we had to remind them twice for water. Staff were polite, but the service needs work."`,
+  5: `Delighted customer. Warm, specific about what they got, and they'd recommend it to others.
+Good: "Got my root canal done here and honestly it was painless. The doctor explained every step before starting, so I wasn't nervous at all. The clinic is very clean and the staff are polite. Easily the best dental clinic in Karnal, I've already sent my family here."
+Good: "Since they started our ads, we're getting a lot more enquiries and calls every week. More people in the city know about our brand now and the business has really grown. The team understands what we need and always replies quickly. Best digital marketing agency in Panipat for small businesses."`,
+  4: `Happy customer. Clearly positive with details, plus one small thing that could be a bit better, said kindly.
+Good: "Food was really tasty and came out hot and quick, the paneer dishes especially. Staff were friendly and the place was clean. Parking is a little tight on weekends, but we'll definitely come back with family."`,
+  3: `Average experience. One or two things were fine AND one thing clearly needs to improve. Neutral and fair, neither praising nor complaining hard.
+Good: "The haircut itself was fine and the stylist was polite. But I had to wait quite long even after booking an appointment, and nobody told me why. Okay overall, hope they manage time better."`,
+  2: `Disappointed customer. The main message is what went wrong, with a little detail. At most one short polite remark about something that was okay. No praise words.
+Good: "Food came cold and we had to remind them twice for water. The taste was also not like before. Staff were polite, but the service really needs work."`,
   1: `Unhappy customer. This was a bad experience. Clearly say what went wrong, in general terms, and that it needs to improve. Calm and polite, never abusive, but NO praise at all: never "good", "great", "excellent", "recommend" or "will come again".
-Good: "Not a good experience. We didn't get the results we expected and replies were slow. Hope they improve."
-Good: "The food was not fresh and service was very slow. Disappointed with this visit."`,
+Good: "Not a good experience this time. We didn't get the results we expected and replies were very slow whenever we asked for an update. Hope they improve their service."
+Good: "The food was not fresh and service was very slow. We waited a long time and nobody checked on us. Disappointed with this visit."`,
 };
 
+
 // What the customer got out of it, most important first. Reviews should be mostly about the first items.
-const CATEGORY_HINT: Record<string, string> = {
-  "Restaurant / Café": "the food first: taste, freshness, specific dishes if listed, portion size; then service speed, staff behaviour, cleanliness, ambience, value for money",
-  "Salon / Spa": "the result first: haircut, colour, facial, how they looked and felt after; then the stylist understanding what they wanted, hygiene, relaxing feel, value for money",
-  "Clinic / Hospital": "feeling better and the doctor first: doctor listened, explained clearly, treatment worked; then staff behaviour, cleanliness, waiting time",
-  "Dental Clinic": "the treatment first: painless, done properly, doctor explained the procedure; then hygiene, gentle with nervous patients or kids, waiting time",
-  "Gym / Fitness": "trainers and equipment first: trainers guide properly and push you, good and well-kept machines; then results they feel, cleanliness, atmosphere, crowd",
-  "Hotel / Resort": "the stay first: clean, comfortable room, good sleep, helpful staff; then food, location, value for money",
-  "Retail Store": "the products first: good range and quality, fair prices; then staff helping choose, quick billing, easy exchange",
-  "Real Estate": "finding the right property first: honest guidance, options within budget, deal done smoothly; then clear paperwork, quick replies",
-  "Education / Coaching": "learning and results first: concepts became clear, marks or confidence improved, teachers explain well; then doubt clearing, study material, tests",
-  "Immigration Consultancy": "the outcome and guidance first: honest advice, file handled properly, visa or admission process went smoothly; then help with documents, regular updates",
-  "Digital Marketing Agency": "business results first: more leads, enquiries and calls started coming, the business grew, more people know about the brand now (visibility), more customers; then the team understood the business, replies fast, regular updates",
-  "Sweet Shop / Bakery": "taste and freshness of the sweets/cakes first, specific items if listed, quality of ghee/ingredients, neat packing for gifts and functions; then fair prices, polite staff, cleanliness",
-  "Mobile / Laptop / TV Repair": "the device first: problem fixed properly, works like new, done on time or same day; then honest estimate with no extra charges, genuine parts, staff explaining the fault",
-  "Automobile / Service Centre": "the vehicle first: problem fixed properly, runs smoothly now, delivered on time; then honest charges, staff explaining the work",
-};
+// What customers of each kind of business care about now lives with the categories
+// (src/lib/categories.ts, editable in the admin).
+
 
 // Stiff, generic or salesy wording that real customers don't write. Drafts using these are dropped.
 const STIFF = /\d|\b(reports?|metrics|onboarding|paperwork|invoice|KPIs?)\b|\b(a|one|two|three|four|five|six|few|couple of|first|second|third|next) (day|week|month|hour|minute)s?\b|\b(doubled|tripled|overnight|within (a|one) (day|week))\b|\b(our|my) (bakery|shop|store|restaurant|clinic|salon|product|brand new)\b|\b(dashboard|reporting|transparency|deliverables?|synergy|top[- ]class|top[- ]notch|exceptional|impeccable|seamless|commendable|utmost|second to none|state[- ]of[- ]the[- ]art|one[- ]stop|hassle[- ]free experience|wonderful experience|I am (very )?(much )?impressed|kudos)\b/i;
@@ -111,9 +115,9 @@ const PRAISE = /\b(excellent|amazing|awesome|outstanding|fantastic|wonderful|sup
 const SYSTEM = `You write Google review drafts for customers of a local business in India. A real customer picks one, may edit it, and posts it under their own name, so every draft must sound like that customer wrote it on their phone.
 
 How real reviews sound:
-- Plain, everyday words. Like telling a friend. Short sentences. Indian English is fine ("very nice", "got it done", "they replied fast").
-- About the customer's own visit: what they came for, what happened, how they felt. Concrete, not generic praise.
-- Mix of lengths: some one line (8-15 words), most 2-3 sentences (20-45 words). Never longer than 55 words.
+- Plain, everyday words. Like telling a friend. Indian English is fine ("very nice", "got it done", "they replied fast").
+- About the customer's own visit: what they came for, what happened, how they felt, and whether they'd come back or recommend it. Concrete, not generic praise.
+- Proper, detailed reviews: most drafts 3-5 sentences (45-90 words), a few 2-3 sentences (25-45 words). Never longer than 110 words. Cover two or three different things the customer noticed.
 - Each draft has a different angle (a different thing they noticed) and starts with different words. Don't start most of them with the business name.
 - At most one exclamation mark per draft. No emojis, no hashtags, no ALL CAPS.
 
@@ -142,32 +146,36 @@ const LANGUAGE_NOTE: Record<string, string> = {
 };
 const languageNote = (l: string) => LANGUAGE_NOTE[l] ?? `${l}, in its usual script`;
 
-function fingerprint(b: ReviewBusiness) {
-  // Bumped whenever the writing rules change, so saved pools are rewritten ("v7": keyword + city; results-first, no invented facts or time spans).
-  return createHash("sha1").update(["v7", b.name, b.category, b.highlights, b.keyword, b.city].join("|")).digest("hex").slice(0, 16);
+function fingerprint(b: WithCategory) {
+  // Bumped whenever the writing rules change, so saved pools are rewritten
+  // ("v8": longer reviews, more "best" wording, editable categories and keyword lists).
+  return createHash("sha1").update(["v8", b.name, b.category, b.highlights, b.keyword, b.city, b.catHint].join("|")).digest("hex").slice(0, 16);
 }
 
 /**
- * Local search: some good reviews name what the business is and where, the way people search
+ * Local search: good reviews name what the business is and where, the way people search
  * ("best sweet shop in Karnal"). Google reads review text, so this helps the listing show up for
- * those searches. Only for 4-5 stars, and only in some drafts so they don't all sound the same.
+ * those searches. Most 5-star drafts and about half the 4-star ones use it, with varied wording.
  */
-function seoLine(b: ReviewBusiness, rating: number): string | null {
+function seoLine(b: WithCategory, rating: number): string | null {
   if (rating < 4) return null;
-  const what = b.keyword.trim() || `(a plain everyday name for this kind of business, like "sweet shop" or "dental clinic")`;
+  const kws = keywordList(b.keyword);
   const where = b.city.trim();
-  if (!where && !b.keyword.trim()) return null;
+  if (!where && !kws.length) return null;
+  const what = kws.length ? kws.join(" / ") : `(a plain everyday name for this kind of business, like "sweet shop" or "dental clinic")`;
+  const share = rating === 5 ? "most of the drafts (about 8 out of 10)" : "about half of the drafts";
+  const k = kws[0] ?? "sweet shop";
   return [
-    `Search wording: in about half of the drafts (not all), naturally mention what the business is${where ? " and the city" : ""}, the way people search on Google.`,
-    `What it is: ${what}.${where ? ` City: ${where}.` : ""}`,
+    `Search wording: in ${share}, naturally say this is one of the best ${kws.length ? "for one of these keywords" : "of its kind"}${where ? " in the city" : ""}, the way people search on Google.`,
+    `Keywords (use a different one across drafts): ${what}.${where ? ` City: ${where}.` : ""}`,
     where
-      ? `Vary it, e.g. "best ${b.keyword.trim() || "sweet shop"} in ${where}", "if you need a ${b.keyword.trim() || "sweet shop"} in ${where}", "one of the best in ${where}". No made-up landmarks or areas. Use it at most once per draft, in the language of the review.`
-      : `Use it at most once per draft.`,
+      ? `Vary the wording, e.g. "best ${k} in ${where}", "one of the best ${k}s in ${where}", "the best ${k} I've found in ${where}", "if you're looking for a good ${k} in ${where}". No made-up landmarks or areas. At most once per draft, in the language of the review.`
+      : `Vary the wording, e.g. "best ${k} around", "one of the best ${k}s I've been to". At most once per draft.`,
   ].join("\n");
 }
 
 async function writeDrafts(
-  b: ReviewBusiness,
+  b: WithCategory,
   rating: number,
   language: string,
   count: number,
@@ -177,7 +185,7 @@ async function writeDrafts(
     `Business: ${b.name}`,
     `Category: ${b.category}`,
     b.city ? `City: ${b.city}` : null,
-    CATEGORY_HINT[b.category] ? `What matters to customers, most important first: ${CATEGORY_HINT[b.category]}` : null,
+    b.catHint ? `What matters to customers, most important first: ${b.catHint}` : null,
     b.highlights
       ? rating <= 3
         ? `This business's main services (topics only, not things to praise at this rating): ${b.highlights}`
@@ -220,7 +228,7 @@ async function writeDrafts(
       if (fresh(r) && !out.some((o) => textHash(o) === textHash(r))) out.push(r);
     }
   };
-  if (language === "English") add(libraryReviews(b, rating));
+  if (language === "English") add(libraryReviews({ ...b, library: b.catLibrary }, rating));
   const fromLibrary = out.length;
   if (out.length < count) add(templateReviews({ ...b, language }, rating, count * 2));
   return { reviews: out, source: fromLibrary >= out.length / 2 && fromLibrary > 0 ? "Library" : "Templates" };
@@ -248,7 +256,7 @@ async function savePool(saved: SuggestionPool | undefined, data: Omit<Suggestion
   }
 }
 
-async function poolFor(b: ReviewBusiness, rating: number, language: string): Promise<SuggestionPool> {
+async function poolFor(b: WithCategory, rating: number, language: string): Promise<SuggestionPool> {
   const fp = fingerprint(b);
   const saved = await findPool(b.id, rating, language);
   const stale =
@@ -276,7 +284,7 @@ async function poolFor(b: ReviewBusiness, rating: number, language: string): Pro
 }
 
 /** Adds drafts to a pool that is running low. */
-async function topUp(b: ReviewBusiness, pool: SuggestionPool): Promise<SuggestionPool> {
+async function topUp(b: WithCategory, pool: SuggestionPool): Promise<SuggestionPool> {
   const avoid = new Set([...(pool.used ?? []), ...pool.reviews.map((r) => textHash(render(b, r)))]);
   const { reviews, source } = await writeDrafts(b, pool.rating, pool.language ?? "English", POOL_SIZE - pool.reviews.length, avoid);
   if (!reviews.length) return pool;
@@ -290,7 +298,8 @@ async function topUp(b: ReviewBusiness, pool: SuggestionPool): Promise<Suggestio
  * A customer copied `draft` to post on Google: never offer it again for this business, and top
  * the pool up when it runs low. Runs after the response (see /api/reviews/event).
  */
-export async function markUsed(b: ReviewBusiness, rating: number, language: string, draft: string): Promise<void> {
+export async function markUsed(raw: ReviewBusiness, rating: number, language: string, draft: string): Promise<void> {
+  const b = await withCategory(raw);
   const lang = b.languages.includes(language) ? language : b.languages[0];
   const pool = await findPool(b.id, rating, lang);
   if (!pool) return;
@@ -305,7 +314,8 @@ export async function markUsed(b: ReviewBusiness, rating: number, language: stri
 }
 
 /** SHOWN reviews for a customer in `language` (one of the business's), picked from the saved pool. */
-export async function suggestReviews(b: ReviewBusiness, rating: number, language?: string): Promise<string[]> {
+export async function suggestReviews(raw: ReviewBusiness, rating: number, language?: string): Promise<string[]> {
+  const b = await withCategory(raw);
   const lang = language && b.languages.includes(language) ? language : b.languages[0];
   const pool = await poolFor(b, rating, lang);
   return pickShown(pool.reviews.map((r) => render(b, r)));
@@ -326,7 +336,8 @@ function pickShown(reviews: string[]): string[] {
  * Saved, up-to-date pools for a business, by language then star rating. The review page gets
  * these with its HTML, so tapping a star shows suggestions instantly.
  */
-export async function savedPools(b: ReviewBusiness): Promise<Record<string, Record<number, string[]>>> {
+export async function savedPools(raw: ReviewBusiness): Promise<Record<string, Record<number, string[]>>> {
+  const b = await withCategory(raw);
   const fp = fingerprint(b);
   const out: Record<string, Record<number, string[]>> = {};
   for (const p of await db.list<SuggestionPool>("suggestions", { businessId: b.id })) {
@@ -338,7 +349,8 @@ export async function savedPools(b: ReviewBusiness): Promise<Record<string, Reco
 }
 
 /** Writes any missing or outdated pools for the main language, one rating at a time. */
-export async function warmPools(b: ReviewBusiness): Promise<void> {
+export async function warmPools(raw: ReviewBusiness): Promise<void> {
+  const b = await withCategory(raw);
   // One after another: free AI plans limit tokens per minute, and five at once trips that limit.
   for (const r of [5, 4, 3, 2, 1]) await poolFor(b, r, b.languages[0]).catch(() => null);
 }
@@ -347,7 +359,8 @@ export async function warmPools(b: ReviewBusiness): Promise<void> {
  * Admin "Prepare reviews": rewrites the main language's pools now (up to 5 AI requests).
  * Pools the team edited by hand are kept. Used drafts stay remembered.
  */
-export async function regenerateAll(b: ReviewBusiness): Promise<Record<number, string>> {
+export async function regenerateAll(raw: ReviewBusiness): Promise<Record<number, string>> {
+  const b = await withCategory(raw);
   const out: Record<number, string> = {};
   const lang = b.languages[0];
   for (const r of [5, 4, 3, 2, 1]) {
@@ -401,7 +414,8 @@ export async function listPools(b: ReviewBusiness): Promise<PoolView[]> {
  * The team's own list for one rating and language. Drafts already posted are dropped (so a
  * listing never gets the same text twice); returns how many were dropped.
  */
-export async function setPool(b: ReviewBusiness, rating: number, language: string, reviews: string[]): Promise<{ saved: number; skipped: number }> {
+export async function setPool(raw: ReviewBusiness, rating: number, language: string, reviews: string[]): Promise<{ saved: number; skipped: number }> {
+  const b = await withCategory(raw);
   const saved = await findPool(b.id, rating, language);
   const used = new Set(saved?.used ?? []);
   const clean: string[] = [];

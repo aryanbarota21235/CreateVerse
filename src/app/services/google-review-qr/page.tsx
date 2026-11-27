@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { listActivePlans } from "@/lib/admin-data";
+import { listCategories } from "@/lib/categories";
 import Landing, { type PublicPlan } from "./landing";
 
 export const dynamic = "force-dynamic";
@@ -21,5 +22,6 @@ export default async function GoogleReviewQrPage() {
     features: p.features,
     popular: p.popular,
   }));
-  return <Landing plans={plans} />;
+  const categories = (await listCategories().catch(() => [])).map((c) => c.name);
+  return <Landing plans={plans} categories={categories} />;
 }

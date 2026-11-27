@@ -2,7 +2,6 @@
 
 import { FormEvent, useState } from "react";
 import { Check, CheckCircle2, ChevronDown } from "lucide-react";
-import { REVIEW_CATEGORIES } from "@/lib/reviews/types";
 import { site } from "@/lib/site";
 import { inr, period, type PublicPlan } from "./plan-format";
 
@@ -14,10 +13,12 @@ const label = "mb-1.5 block text-sm font-semibold text-[#102A43]";
 
 export default function SignupForm({
   plans,
+  categories,
   planId,
   onPlanChange,
 }: {
   plans: PublicPlan[];
+  categories: string[];
   planId: string;
   onPlanChange: (id: string) => void;
 }) {
@@ -117,7 +118,7 @@ export default function SignupForm({
           <div className="relative">
             <select id="su-cat" name="category" defaultValue="" className={select}>
               <option value="" disabled>Choose one</option>
-              {REVIEW_CATEGORIES.map((c) => <option key={c}>{c}</option>)}
+              {categories.map((c) => <option key={c}>{c}</option>)}
             </select>
             <ChevronDown className="pointer-events-none absolute right-4 top-1/2 size-[18px] -translate-y-1/2 text-[#102A43]/60" aria-hidden="true" />
           </div>

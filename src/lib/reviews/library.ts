@@ -8,8 +8,24 @@
  * Edit freely: this file is plain text with commas.
  */
 
-type Family = "food" | "sweets" | "health" | "beauty" | "fitness" | "stay" | "retail" | "repair" | "agency" | "property" | "learning" | "general";
+export type Family = "food" | "sweets" | "health" | "beauty" | "fitness" | "stay" | "retail" | "repair" | "agency" | "property" | "learning" | "general";
 type Sets = Record<1 | 2 | 3 | 4 | 5, string[]>;
+
+/** Library types to pick from when the team adds a category in the admin. */
+export const LIBRARY_TYPES: { id: Family; label: string }[] = [
+  { id: "food", label: "Restaurant / food" },
+  { id: "sweets", label: "Sweet shop / bakery" },
+  { id: "health", label: "Clinic / health" },
+  { id: "beauty", label: "Salon / beauty" },
+  { id: "fitness", label: "Gym / fitness" },
+  { id: "stay", label: "Hotel / stay" },
+  { id: "retail", label: "Shop / retail" },
+  { id: "repair", label: "Repair / service centre" },
+  { id: "agency", label: "Agency / marketing" },
+  { id: "property", label: "Real estate / immigration / consultancy" },
+  { id: "learning", label: "Coaching / education" },
+  { id: "general", label: "Any other business" },
+];
 
 export const FAMILY_OF: Record<string, Family> = {
   "Restaurant / Café": "food",
@@ -494,26 +510,86 @@ export interface LibraryInput {
   name: string;
   category: string;
   city: string;
+  /** One or more keywords, comma separated ("sweet shop, mithai shop") */
   keyword: string;
   highlights: string;
+  /** Library type from the admin's category; falls back to the built-in mapping */
+  library?: string;
 }
 
-/** Library reviews for this business and rating, placeholders filled; lines that can't be filled are skipped. */
+const pickOne = <T,>(list: T[]): T | undefined => list[Math.floor(Math.random() * list.length)];
+const opening = (t: string) => t.split(/\s+/).slice(0, 2).join(" ").toLowerCase();
+const shuffle = <T,>(list: T[]): T[] => {
+  const a = [...list];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+
+/** "Best {kw} in {city}" lines, so most happy reviews carry the search phrase. */
+const SEO_LINES: Record<4 | 5, string[]> = {
+  5: [
+    "Easily the best {kw} in {city}.",
+    "If you are looking for the best {kw} in {city}, this is the place to go.",
+    "Honestly the best {kw} in {city} I have been to so far.",
+    "Best {kw} in {city}, highly recommended to everyone.",
+    "{name} is the best {kw} in {city} for sure.",
+    "Would recommend {name} to anyone looking for the best {kw} in {city}.",
+    "Hands down the best {kw} in {city}.",
+    "For me this is the best {kw} in {city}, no doubt about it.",
+    "Searched for the best {kw} in {city} and I am glad we came here.",
+    "Truly the best {kw} in {city}, will keep coming back.",
+  ],
+  4: [
+    "One of the best {kw} options in {city}.",
+    "Among the best {kw} in {city}, with a little room to improve.",
+    "A good pick if you want the best {kw} in {city}.",
+    "Close to the best {kw} in {city}, just a few small things to fix.",
+  ],
+};
+
+/**
+ * Library reviews for this business and rating, placeholders filled (lines that can't be
+ * filled are skipped). Each review joins three different lines of the same rating (two for
+ * 1-2 stars), so they read as a full 4-6 sentence review. About 8 in 10 five-star and half of
+ * the four-star reviews also get a "best {keyword} in {city}" line.
+ */
 export function libraryReviews(b: LibraryInput, rating: number): string[] {
-  const family = FAMILY_OF[b.category] ?? "general";
+  const family = ((b.library && b.library in LIBRARY ? b.library : undefined) ?? FAMILY_OF[b.category] ?? "general") as Family;
   const r = Math.min(5, Math.max(1, Math.round(rating))) as 1 | 2 | 3 | 4 | 5;
   const things = b.highlights.split(",").map((h) => h.trim()).filter(Boolean);
-  const values: Record<string, string> = {
-    name: b.name.trim(),
-    city: b.city.trim(),
-    kw: b.keyword.trim(),
-    thing: things[Math.floor(Math.random() * things.length)] ?? "",
-  };
-  const out: string[] = [];
-  for (const line of LIBRARY[family][r]) {
+  const keywords = b.keyword.split(",").map((k) => k.trim()).filter(Boolean);
+  const fill = (line: string): string | null => {
+    const values: Record<string, string> = {
+      name: b.name.trim(),
+      city: b.city.trim(),
+      kw: pickOne(keywords) ?? "",
+      thing: pickOne(things) ?? "",
+    };
     const keys = [...line.matchAll(/\{(\w+)\}/g)].map((m) => m[1]);
-    if (keys.some((k) => !values[k])) continue;
-    out.push(line.replace(/\{(\w+)\}/g, (_, k: string) => values[k]));
+    if (keys.some((k) => !values[k])) return null;
+    return line.replace(/\{(\w+)\}/g, (_, k: string) => values[k]);
+  };
+  const singles = LIBRARY[family][r].map(fill).filter((l): l is string => Boolean(l));
+  const parts = r <= 2 ? 2 : 3;
+  const seoShare = r === 5 ? 0.8 : r === 4 ? 0.5 : 0;
+  const seoLines = r >= 4 ? (SEO_LINES[r as 4 | 5].map(fill).filter(Boolean) as string[]) : [];
+  const out: string[] = [];
+  for (let i = 0; i < singles.length; i++) {
+    // Join with other lines that don't start the same way as any line already picked.
+    const picked = [singles[i]];
+    for (const s of shuffle(singles)) {
+      if (picked.length >= parts) break;
+      if (!picked.includes(s) && !picked.some((p) => opening(p) === opening(s))) picked.push(s);
+    }
+    let text = picked.join(" ");
+    if (seoLines.length && !/\bbest\b/i.test(text) && Math.random() < seoShare) {
+      const seo = pickOne(seoLines)!;
+      text = Math.random() < 0.5 ? `${seo} ${text}` : `${text} ${seo}`;
+    }
+    out.push(text);
   }
   return out;
 }

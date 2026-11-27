@@ -38,7 +38,7 @@ const FAQS = [
   },
 ];
 
-export default function Landing({ plans }: { plans: PublicPlan[] }) {
+export default function Landing({ plans, categories }: { plans: PublicPlan[]; categories: string[] }) {
   const popular = plans.find((p) => p.popular)?.id;
   const [planId, setPlanId] = useState(popular ?? (plans.length === 1 ? plans[0].id : ""));
   const [formOpen, setFormOpen] = useState(false);
@@ -254,7 +254,7 @@ export default function Landing({ plans }: { plans: PublicPlan[] }) {
             >
               <X size={18} />
             </button>
-            <SignupForm plans={plans} planId={planId} onPlanChange={setPlanId} />
+            <SignupForm plans={plans} categories={categories} planId={planId} onPlanChange={setPlanId} />
           </div>
         </div>,
         document.body,

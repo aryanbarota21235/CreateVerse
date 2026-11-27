@@ -82,7 +82,7 @@ export async function askJson<T>(
           model,
           temperature: 0.8,
           // Short reviews never need more; caps a runaway reply's cost.
-          max_tokens: 1800,
+          max_tokens: 2600,
           messages: [
             { role: "system", content: system },
             { role: "user", content: user },

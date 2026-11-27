@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/admin-auth";
+import { LIBRARY_TYPES } from "@/lib/reviews/library";
 import {
   ENQUIRY_STATUSES,
   PAYMENT_METHODS,
-  REVIEW_CATEGORIES,
   MAX_LANGUAGES,
   SIGNUP_STATUSES,
   slugify,
@@ -49,7 +49,7 @@ export function parseBusiness(b: Record<string, unknown>, partial = false): Part
     v.slug = slugify(str(b.slug) || v.name || "");
     if (!v.slug) throw new BadInput("QR link is required.");
   }
-  if (has("category")) v.category = oneOf(b.category, REVIEW_CATEGORIES, "Other");
+  if (has("category")) v.category = str(b.category, 60) || "Other";
   if (has("languages")) {
     const raw = Array.isArray(b.languages) ? b.languages : [];
     const list = [...new Set(raw.map((l) => str(l, 30)).filter((l) => /^[\p{L} ()-]{2,30}$/u.test(l)))].slice(0, MAX_LANGUAGES);
@@ -118,3 +118,18 @@ export function parsePayment(b: Record<string, unknown>) {
 
 export const parseSignupStatus = (v: unknown) => oneOf(v, SIGNUP_STATUSES, "New");
 export const parseEnquiryStatus = (v: unknown) => oneOf(v, ENQUIRY_STATUSES, "New");
+
+/** Category fields from the admin form. `partial` for PATCH. */
+export function parseCategory(b: Record<string, unknown>, partial = false) {
+  const v: { name?: string; hint?: string; keywords?: string; library?: string } = {};
+  const has = (k: string) => !partial || k in b;
+  if (has("name")) {
+    v.name = str(b.name, 60);
+    if (!v.name) throw new BadInput("Category name is required.");
+  }
+  if (has("hint")) v.hint = str(b.hint, 400);
+  if (has("keywords")) v.keywords = str(b.keywords, 200);
+  if (has("library")) v.library = LIBRARY_TYPES.some((t) => t.id === str(b.library)) ? str(b.library) : "general";
+  return v;
+}
+

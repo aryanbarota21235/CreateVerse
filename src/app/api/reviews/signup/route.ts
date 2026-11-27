@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSignup, listActivePlans, notifyTeam } from "@/lib/admin-data";
-import { REVIEW_CATEGORIES } from "@/lib/reviews/types";
+import { listCategories } from "@/lib/categories";
 
 const str = (v: unknown, max = 300) => (typeof v === "string" ? v.trim().slice(0, max) : "");
 
@@ -34,7 +34,7 @@ export async function POST(req: Request) {
   }
   const plans = await listActivePlans();
   const planId = plans.some((p) => p.id === str(b.planId)) ? str(b.planId) : "";
-  const category = (REVIEW_CATEGORIES as readonly string[]).includes(str(b.category)) ? str(b.category) : "Other";
+  const category = (await listCategories()).some((c) => c.name === str(b.category)) ? str(b.category) : "Other";
 
   try {
     const signup = await createSignup({
