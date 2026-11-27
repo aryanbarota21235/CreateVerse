@@ -9,6 +9,7 @@ import { inr, period, type PublicPlan } from "./plan-format";
  * the others are white with a hairline.
  */
 export default function PlanCards({ plans, onChoose, compact = false }: { plans: PublicPlan[]; onChoose: (id: string) => void; compact?: boolean }) {
+  if (plans.length === 1) return <SinglePlan p={plans[0]} onChoose={onChoose} />;
   const cols = plans.length >= 3 ? "md:grid-cols-3" : plans.length === 2 ? `sm:grid-cols-2 ${compact ? "" : "max-w-4xl"}` : "mx-auto w-full max-w-md";
   return (
     <div className={`grid items-stretch gap-4 sm:gap-5 ${cols}`}>
@@ -77,6 +78,55 @@ export default function PlanCards({ plans, onChoose, compact = false }: { plans:
           </div>
         );
       })}
+    </div>
+  );
+}
+
+/** One plan: a wide card, price and button on the left, what's included on the right, so it fits one screen. */
+function SinglePlan({ p, onChoose }: { p: PublicPlan; onChoose: (id: string) => void }) {
+  return (
+    <div className="relative mx-auto grid max-w-3xl overflow-hidden rounded-[26px] bg-gradient-to-br from-[#132F4C] to-[#0B1B2E] text-white shadow-[0_30px_60px_-28px_rgba(11,27,46,0.75)] ring-1 ring-white/10 sm:grid-cols-[1fr_1.1fr]">
+      <span
+        className="pointer-events-none absolute -left-20 -top-20 h-56 w-56 rounded-full bg-[radial-gradient(closest-side,rgba(56,189,248,0.28),transparent)]"
+        aria-hidden
+      />
+      <div className="relative flex flex-col p-6 sm:p-8">
+        <div className="flex items-center gap-3">
+          <h3 className="font-display text-[17px] font-semibold tracking-tight">{p.name}</h3>
+          {p.popular && (
+            <span className="rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-sky-100 ring-1 ring-white/15">
+              Most popular
+            </span>
+          )}
+        </div>
+        {p.description && <p className="mt-1.5 text-sm text-white/60">{p.description}</p>}
+        <div className="mt-5 flex items-baseline gap-1.5">
+          <span className="font-display text-[44px] font-semibold leading-none tracking-[-0.04em]">{inr(p.priceInr)}</span>
+          <span className="text-sm text-white/55">/ {period(p.months)}</span>
+        </div>
+        {p.months > 1 && <p className="mt-2 text-[13px] text-sky-200/80">Just {inr(Math.round(p.priceInr / p.months))} a month</p>}
+        <div className="mt-6 sm:mt-auto sm:pt-8">
+          <button onClick={() => onChoose(p.id)} className="w-full rounded-full bg-white py-3.5 text-sm font-semibold text-[#0B1B2E] transition hover:bg-sky-50">
+            {`Choose ${p.name}`}
+          </button>
+          <p className="mt-2.5 text-center text-xs text-white/45">Nothing to pay now. We call you first.</p>
+        </div>
+      </div>
+      {p.features.length > 0 && (
+        <div className="relative border-t border-white/10 p-6 sm:border-l sm:border-t-0 sm:p-8">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">What you get</p>
+          <ul className="mt-4 space-y-3 text-[14.5px]">
+            {p.features.map((f) => (
+              <li key={f} className="flex items-start gap-3">
+                <span className="mt-0.5 flex size-[18px] shrink-0 items-center justify-center rounded-full bg-sky-400/15 text-sky-300">
+                  <Check className="size-3" strokeWidth={3} />
+                </span>
+                <span className="text-white/85">{f}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

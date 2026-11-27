@@ -98,19 +98,17 @@ export default function Landing({ plans, categories }: { plans: PublicPlan[]; ca
                 How it works
               </a>
             </div>
-            <ul className="mt-10 grid max-w-lg grid-cols-3 gap-5 border-t border-[#102A43]/10 pt-6 text-sm">
-              <li>
-                <p className={`${DISPLAY} text-2xl font-bold`}>&lt;1 min</p>
-                <p className="mt-0.5 leading-snug text-[#102A43]/60">for a customer to post a review</p>
-              </li>
-              <li>
-                <p className={`${DISPLAY} text-2xl font-bold`}>12+</p>
-                <p className="mt-0.5 leading-snug text-[#102A43]/60">Indian languages, their choice</p>
-              </li>
-              <li>
-                <p className={`${DISPLAY} text-2xl font-bold`}>1 scan</p>
-                <p className="mt-0.5 leading-snug text-[#102A43]/60">with any phone camera, no app</p>
-              </li>
+            <ul className="mt-10 grid max-w-lg grid-cols-3 gap-4 border-t border-[#102A43]/10 pt-6 sm:gap-5">
+              {[
+                ["<1 min", "to post a review"],
+                ["12+", "Indian languages"],
+                ["No app", "just the camera"],
+              ].map(([big, small]) => (
+                <li key={big}>
+                  <p className={`${DISPLAY} text-[22px] font-bold leading-tight sm:text-2xl`}>{big}</p>
+                  <p className="mt-0.5 text-[13px] leading-snug text-[#102A43]/60 sm:text-sm">{small}</p>
+                </li>
+              ))}
             </ul>
           </div>
           <Demo />
@@ -123,11 +121,11 @@ export default function Landing({ plans, categories }: { plans: PublicPlan[]; ca
           <h2 className={`${DISPLAY} max-w-2xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl`}>Three taps from your counter to your Google listing.</h2>
           <ol className="mt-12 grid gap-10 sm:grid-cols-3 sm:gap-8">
             {STEPS.map((s, i) => (
-              <li key={s.title} className="relative border-t-2 border-[#102A43] pt-6">
-                <span className={`${DISPLAY} absolute -top-[2px] right-0 -translate-y-full pb-1 text-6xl font-extrabold leading-none text-[#102A43]/[0.08]`} aria-hidden="true">
+              <li key={s.title} className="border-t-2 border-[#102A43] pt-6">
+                <span className={`${DISPLAY} flex size-10 items-center justify-center rounded-full bg-[#102A43] text-lg font-bold text-white`} aria-hidden="true">
                   {i + 1}
                 </span>
-                <h3 className={`${DISPLAY} text-2xl font-bold`}>{s.title}</h3>
+                <h3 className={`${DISPLAY} mt-4 text-2xl font-bold`}>{s.title}</h3>
                 <p className="mt-2 max-w-xs leading-relaxed text-[#102A43]/70">{s.body}</p>
               </li>
             ))}

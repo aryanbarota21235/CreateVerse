@@ -12,6 +12,9 @@ const nextConfig = {
   },
   experimental: {
     optimizePackageImports: ["lucide-react"],
+    // Keep pages the browser already loaded (or prefetched) for a minute, so moving between
+    // admin pages is instant. Saving anything in the admin calls router.refresh(), which clears it.
+    staleTimes: { dynamic: 60 },
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error"] } : false,

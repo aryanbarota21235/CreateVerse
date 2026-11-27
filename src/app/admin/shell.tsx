@@ -34,6 +34,9 @@ export default function Shell({ children, badges }: { children: ReactNode; badge
           <Link
             key={n.href}
             href={n.href}
+            // Load every admin page in the background as soon as the panel opens: a click then
+            // shows it instantly instead of waiting on a server that was asleep.
+            prefetch
             onClick={() => setOpen(false)}
             className={`flex h-10 items-center gap-2.5 rounded-[10px] px-3 text-[13px] font-medium transition-colors ${
               on ? "bg-accent/10 font-semibold text-accent-dim" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"

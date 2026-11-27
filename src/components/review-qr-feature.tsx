@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, QrCode, Star } from "lucide-react";
+import { useEnquiry } from "@/context/enquiry-context";
 
 /*
  * Homepage feature for the Google Review QR service, above the practice-area panel.
@@ -14,6 +15,7 @@ import { ArrowRight, QrCode, Star } from "lucide-react";
 const POINTS = ["Review ready in about 30 seconds", "AI-written, never repeated", "Print-ready QR poster included"];
 
 export default function ReviewQrFeature() {
+  const { openEnquiry } = useEnquiry();
 
   return (
     <div className="mb-10 sm:mb-14 lg:mb-16">
@@ -57,22 +59,21 @@ export default function ReviewQrFeature() {
           </ul>
 
           <div className="mt-6 sm:mt-8 flex items-center gap-2.5 sm:gap-3">
-            {/* The service page opens with its plans pop-up (?plans), so visitors see the page too */}
-            <Link
-              href="/services/google-review-qr?plans=1"
-              prefetch
-              className="pressable group inline-flex h-12 items-center gap-2 whitespace-nowrap rounded-full bg-ink px-5 sm:px-6 text-[13.5px] sm:text-sm font-semibold text-white transition-colors hover:bg-accent"
-            >
-              See plans
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
             <Link
               href="/services/google-review-qr"
               prefetch
-              className="pressable inline-flex h-12 items-center whitespace-nowrap rounded-full bg-white px-5 sm:px-6 text-[13.5px] sm:text-sm font-semibold text-ink ring-1 ring-ink/15 transition-colors hover:ring-accent hover:text-accent"
+              className="pressable group inline-flex h-12 items-center gap-2 whitespace-nowrap rounded-full bg-ink px-5 sm:px-6 text-[13.5px] sm:text-sm font-semibold text-white transition-colors hover:bg-accent"
             >
-              Try the live demo
+              See plans and demo
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
+            <button
+              type="button"
+              onClick={() => openEnquiry("google-review-qr")}
+              className="pressable inline-flex h-12 items-center whitespace-nowrap rounded-full bg-white px-5 sm:px-6 text-[13.5px] sm:text-sm font-semibold text-ink ring-1 ring-ink/15 transition-colors hover:ring-accent hover:text-accent cursor-pointer"
+            >
+              Enquire
+            </button>
           </div>
         </div>
 
