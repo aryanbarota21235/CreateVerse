@@ -9,42 +9,68 @@
  * into the database (src/lib/review-library.ts) and edited from Admin -> Backup reviews after that.
  */
 
-export type Family = "food" | "sweets" | "health" | "beauty" | "fitness" | "stay" | "retail" | "repair" | "agency" | "property" | "learning" | "general";
+export type Family =
+  | "food" | "sweets" | "bakery" | "health" | "beauty" | "spa" | "fitness" | "stay" | "retail"
+  | "laptop" | "mobile" | "tv" | "repair" | "agency" | "property" | "learning" | "general";
 export type LibrarySets = Record<1 | 2 | 3 | 4 | 5, string[]>;
 type Sets = LibrarySets;
 
 /** The starting backup-review types (copied into the database on first use). */
 export const LIBRARY_TYPES: { id: Family; label: string }[] = [
-  { id: "food", label: "Restaurant / food" },
-  { id: "sweets", label: "Sweet shop / bakery" },
-  { id: "health", label: "Clinic / health" },
-  { id: "beauty", label: "Salon / beauty" },
-  { id: "fitness", label: "Gym / fitness" },
-  { id: "stay", label: "Hotel / stay" },
-  { id: "retail", label: "Shop / retail" },
-  { id: "repair", label: "Repair / service centre" },
-  { id: "agency", label: "Agency / marketing" },
-  { id: "property", label: "Real estate / immigration / consultancy" },
-  { id: "learning", label: "Coaching / education" },
+  { id: "food", label: "Restaurant" },
+  { id: "sweets", label: "Sweet shop" },
+  { id: "bakery", label: "Bakery" },
+  { id: "health", label: "Clinic" },
+  { id: "beauty", label: "Salon" },
+  { id: "spa", label: "Spa" },
+  { id: "fitness", label: "Gym" },
+  { id: "stay", label: "Hotel" },
+  { id: "retail", label: "Retail store" },
+  { id: "laptop", label: "Laptop repair" },
+  { id: "mobile", label: "Mobile repair" },
+  { id: "tv", label: "TV repair" },
+  { id: "repair", label: "Vehicle service" },
+  { id: "agency", label: "Marketing agency" },
+  { id: "property", label: "Consultancy" },
+  { id: "learning", label: "Coaching centre" },
   { id: "general", label: "Any other business" },
 ];
 
+/** Which backup set each built-in category starts with. Old combined names stay for old records. */
 export const FAMILY_OF: Record<string, Family> = {
+  Restaurant: "food",
+  "Café": "food",
+  "Sweet Shop": "sweets",
+  Bakery: "bakery",
+  Salon: "beauty",
+  Spa: "spa",
+  Clinic: "health",
+  Hospital: "health",
+  "Dental Clinic": "health",
+  Gym: "fitness",
+  Hotel: "stay",
+  Resort: "stay",
+  "Retail Store": "retail",
+  "Real Estate": "property",
+  "Coaching Centre": "learning",
+  "Immigration Consultancy": "property",
+  "Digital Marketing Agency": "agency",
+  "Car Service Centre": "repair",
+  "Bike Service Centre": "repair",
+  "Laptop Repair": "laptop",
+  "Mobile Repair": "mobile",
+  "TV Repair": "tv",
+  Other: "general",
+  // Combined names used before categories were split.
   "Restaurant / Café": "food",
   "Sweet Shop / Bakery": "sweets",
   "Clinic / Hospital": "health",
-  "Dental Clinic": "health",
   "Salon / Spa": "beauty",
   "Gym / Fitness": "fitness",
   "Hotel / Resort": "stay",
-  "Retail Store": "retail",
-  "Mobile / Laptop / TV Repair": "repair",
-  "Automobile / Service Centre": "repair",
-  "Digital Marketing Agency": "agency",
-  "Real Estate": "property",
-  "Immigration Consultancy": "property",
   "Education / Coaching": "learning",
-  Other: "general",
+  "Mobile / Laptop / TV Repair": "laptop",
+  "Automobile / Service Centre": "repair",
 };
 
 export const BUILT_IN_LIBRARY: Record<Family, Sets> = {
@@ -506,6 +532,200 @@ export const BUILT_IN_LIBRARY: Record<Family, Sets> = {
       "Not a good experience this time.",
     ],
   },
+  laptop: {
+    5: [
+      "My laptop was not turning on at all and they fixed it properly. Works like new now.",
+      "Best {kw} in {city}. They told me the exact problem before starting and charged only what they said.",
+      "Got the {thing} done here. Quick work and the laptop is running smoothly now.",
+      "My laptop had become very slow. They suggested an SSD upgrade and now it starts in no time.",
+      "Screen was broken and they replaced it with a good quality one. Looks and works perfect.",
+      "Very honest people. They could have sold me a new part but repaired the old one instead.",
+      "All my data was safe after the repair. I was worried about my files but they took good care of them.",
+      "Laptop was heating a lot and shutting down on its own. After their cleaning and service, no heating at all.",
+      "If you need a {kw} in {city}, go to {name}. Genuine parts and fair price.",
+      "Other shops said the motherboard was dead, but {name} fixed it at a much lower cost.",
+      "Some keyboard keys had stopped working. They replaced the keyboard quickly and it feels like a new laptop.",
+      "They explained the fault in simple words and gave the laptop back on time. Very professional.",
+      "Battery was draining very fast. Got a new battery here and now it lasts the whole day.",
+      "Charging was not working and they found the real problem fast. Fixed properly and the price was fair.",
+    ],
+    4: [
+      "Good repair work and the laptop works fine now. Took a little longer than they said.",
+      "Fixed my laptop screen properly and the price was fair. Just wish they gave updates more often.",
+      "Good {kw} in {city}. Honest estimate and decent work, the shop gets a bit busy in the evening.",
+      "Laptop is running much faster after the service. Would like the warranty written on the bill.",
+      "Staff explained the problem clearly and the repair was good. Waiting time could be less.",
+      "Happy with the battery replacement. Parking near the shop is a little difficult.",
+      "Charging problem is solved now. Good work, only the pickup took a bit of time.",
+    ],
+    3: [
+      "Laptop works now, but the repair took longer than promised.",
+      "The issue got fixed, but the charges felt a bit high for the work.",
+      "Average service. Had to call a few times to know the status of my laptop.",
+      "Work was okay, but they did not explain what exactly was replaced.",
+      "Screen was replaced fine, but there is a small gap near the edge.",
+      "Okay experience overall. Nothing special.",
+    ],
+    2: [
+      "The same problem came back soon after the repair. Needs better checking.",
+      "Laptop was given back late and nobody updated me in between.",
+      "Final bill was more than the estimate they gave. Not happy with that.",
+      "Staff were polite, but the laptop is still heating like before.",
+      "Some of my files were missing after the repair. Please be more careful with data.",
+      "Disappointed with the repair this time.",
+    ],
+    1: [
+      "Very bad experience. My laptop is still not working properly after paying for the repair.",
+      "Not satisfied at all. Many delays and no clear answer about the problem.",
+      "Charged a lot and the issue is still there. Hope they improve.",
+      "The laptop came back with a new problem that was not there before. Very disappointed.",
+      "Poor service and no proper communication. Needs serious improvement.",
+    ],
+  },
+  mobile: {
+    5: [
+      "Phone screen was broken and they replaced it very quickly. Touch works perfectly.",
+      "Best {kw} in {city}. Honest price and they fixed it in front of me.",
+      "Got the {thing} done here. Quick, neat work and the phone works like new.",
+      "Charging port was loose and they fixed it the same day. Very happy.",
+      "If you need a {kw} in {city}, go to {name}. Genuine parts and polite staff.",
+      "Battery was draining fast. Got a new battery here and now it lasts the whole day.",
+      "Phone had fallen in water and they saved it along with all my data. Thank you {name}!",
+      "They told me the real problem and didn't push a costly part I didn't need.",
+    ],
+    4: [
+      "Screen replacement was good. Took a little longer than they said.",
+      "Good {kw} in {city}. Fair price, the shop is a bit crowded.",
+      "Phone works fine now. Would like a proper bill with warranty details.",
+      "Staff explained the fault clearly. Waiting time could be less.",
+      "Good repair work. The back cover fit is slightly loose but okay.",
+    ],
+    3: [
+      "Phone works now, but the repair took longer than promised.",
+      "Repair was fine, but the charges felt a bit high.",
+      "Average service. Had to follow up a few times.",
+      "New screen works, but the brightness feels a little low.",
+      "Okay experience. Nothing special.",
+    ],
+    2: [
+      "The same problem came back soon after the repair.",
+      "Phone was given back late with no update. Not satisfied.",
+      "Charged more than the estimate they gave.",
+      "Staff were polite, but the repair quality was not good.",
+      "Disappointed with the service this time.",
+    ],
+    1: [
+      "Very bad experience. The phone still has the same problem after the repair.",
+      "Not satisfied at all. Delays and no clear answers.",
+      "Charged a lot and the issue still remains. Hope they improve.",
+      "The phone came back with a new problem. Very disappointed.",
+      "Poor service. Needs serious improvement.",
+    ],
+  },
+  tv: {
+    5: [
+      "Our TV had sound but no picture. They fixed it properly and the picture is clear now.",
+      "Best {kw} in {city}. The technician came on time and fixed it neatly.",
+      "Got the {thing} done here and the TV works like new.",
+      "If you need a {kw} in {city}, call {name}. Honest charges and genuine parts.",
+      "They explained the problem clearly and didn't overcharge. Very good service.",
+      "Other shops said the panel had to be changed, but {name} repaired it at a much lower cost.",
+    ],
+    4: [
+      "TV works perfectly now. The technician came a little late.",
+      "Good {kw} in {city}. Fair price, would like more updates during the repair.",
+      "Good work on the board repair. Pickup took a bit of time.",
+      "Staff were helpful and the repair was good. Slightly costly.",
+    ],
+    3: [
+      "TV works now, but the repair took longer than promised.",
+      "Repair was okay, but the charges felt a bit high.",
+      "Average service. Had to call a few times for updates.",
+      "The technician came late, but the work was fine.",
+    ],
+    2: [
+      "The same problem came back soon after the repair.",
+      "TV was returned late and nobody gave an update.",
+      "Charged more than the estimate. Not happy.",
+      "The technician was polite, but the repair did not last.",
+    ],
+    1: [
+      "Very bad experience. The TV is still not working properly.",
+      "Not satisfied at all. Delays and no clear communication.",
+      "Charged a lot and the issue remains. Hope they improve.",
+      "Poor service this time. Needs serious improvement.",
+    ],
+  },
+  bakery: {
+    5: [
+      "Cakes are always fresh and soft. Ordered a birthday cake and everyone loved it.",
+      "Best {kw} in {city}. Fresh bread, tasty cookies and the cakes look exactly like the photo.",
+      "Tried the {thing} and it was just perfect. Fresh, soft and not too sweet.",
+      "If you want a good {kw} in {city}, go to {name}. Fresh stuff every day and polite staff.",
+      "Our custom cake was delivered on time and looked beautiful. The taste was even better.",
+      "The puffs and pastries are fresh and the shop is very clean. Our regular place now.",
+      "Fair prices and great taste. The staff helped us choose the right cake for the party.",
+    ],
+    4: [
+      "Cakes are tasty and fresh. Would love a few more eggless options.",
+      "Good {kw} in {city}. Taste is great, prices are a little high.",
+      "Fresh bakery items and friendly staff. It gets crowded in the evening.",
+      "The birthday cake was very tasty. The design was slightly different from what we asked.",
+      "Nice variety of cookies and breads. Billing could be a bit faster.",
+    ],
+    3: [
+      "Taste was okay, but the cake was not as fresh as last time.",
+      "Average experience. The pastries were fine but nothing special.",
+      "Cake design was okay, but the order was a little late.",
+      "Good variety, but prices felt high for the taste.",
+    ],
+    2: [
+      "The cake was not fresh and the cream tasted off. Not happy.",
+      "Order came late and the design was quite different from what we asked.",
+      "Staff were polite, but the bread was stale this time.",
+      "Disappointed with the quality for the price.",
+    ],
+    1: [
+      "Very bad experience. The cake was stale and nobody cared when we told them.",
+      "Not fresh at all. Needs serious improvement in quality.",
+      "Order was late and the cake was not what we ordered. Very disappointed.",
+      "Poor quality and poor service this time.",
+    ],
+  },
+  spa: {
+    5: [
+      "Very relaxing massage. My body pain went away and I slept so well after.",
+      "Best {kw} in {city}. Clean rooms, calm music and really skilled therapists.",
+      "Got the {thing} and it was amazing. Felt fresh and light for the whole day.",
+      "If you want a good {kw} in {city}, try {name}. Hygienic, peaceful and good value.",
+      "The therapist kept asking about my comfort and the pressure. Very professional.",
+      "Lovely, peaceful place to relax after a long week. Will come again.",
+    ],
+    4: [
+      "Relaxing session and a good therapist. The room was a little warm.",
+      "Good {kw} in {city}. Clean and calm, prices are a bit on the higher side.",
+      "The massage was very good. Had to wait a bit even with a booking.",
+      "Nice ambience and skilled staff. Would like more package options.",
+    ],
+    3: [
+      "Massage was okay, but the session felt rushed.",
+      "Place was clean, but the therapist did not ask about the pressure.",
+      "Average experience. Waited longer than expected.",
+      "Okay for one visit, nothing special.",
+    ],
+    2: [
+      "The session felt rushed and the room was not very clean.",
+      "Had to wait a long time even after booking. Not satisfied.",
+      "Staff were polite, but the massage was not relaxing at all.",
+      "Disappointed with the experience for the price.",
+    ],
+    1: [
+      "Very bad experience. The room was not clean and the session was rushed.",
+      "Not relaxing at all. Needs serious improvement.",
+      "Our booking was not honoured and nobody apologised. Very disappointed.",
+      "Poor service this time.",
+    ],
+  },
 };
 
 export interface LibraryInput {
@@ -552,8 +772,8 @@ const SEO_LINES: Record<4 | 5, string[]> = {
 
 /**
  * Library reviews for this business and rating, placeholders filled (lines that can't be
- * filled are skipped). Each review joins three different lines of the same rating (two for
- * 1-2 stars), so they read as a full 4-6 sentence review. About 8 in 10 five-star and half of
+ * filled are skipped). A review joins three lines (two for 1-3 stars), so it reads as a full
+ * review; a 4-star one is one 4-star line with two happy 5-star lines. About 8 in 10 five-star and half of
  * the four-star reviews also get a "best {keyword} in {city}" line.
  */
 export function libraryReviews(b: LibraryInput, rating: number, sets: LibrarySets): string[] {
@@ -572,14 +792,19 @@ export function libraryReviews(b: LibraryInput, rating: number, sets: LibrarySet
     return line.replace(/\{(\w+)\}/g, (_, k: string) => values[k]);
   };
   const singles = (sets[r] ?? []).map(fill).filter((l): l is string => Boolean(l));
-  const parts = r <= 2 ? 2 : 3;
+  // A 4-star review is happy with one small complaint: one 4-star line plus happy 5-star lines.
+  const happy = r === 4 ? (sets[5] ?? []).map(fill).filter((l): l is string => Boolean(l) && !/\bbest\b/i.test(l!)) : [];
+  const parts = r <= 3 ? 2 : 3;
   const seoShare = r === 5 ? 0.8 : r === 4 ? 0.5 : 0;
   const seoLines = r >= 4 ? (SEO_LINES[r as 4 | 5].map(fill).filter(Boolean) as string[]) : [];
   const out: string[] = [];
   for (let i = 0; i < singles.length; i++) {
     // Join with other lines that don't start the same way as any line already picked.
     const picked = [singles[i]];
-    for (const s of shuffle(singles)) {
+    // A 4-star line about delays shouldn't sit next to "done on time".
+    const slow = r === 4 && /longer|late|wait|time|busy|crowd/i.test(singles[i]);
+    const pool = r === 4 && happy.length ? happy.filter((h) => !slow || !/on time|same day|quick|fast|no time/i.test(h)) : singles;
+    for (const s of shuffle(pool)) {
       if (picked.length >= parts) break;
       if (!picked.includes(s) && !picked.some((p) => opening(p) === opening(s))) picked.push(s);
     }

@@ -103,7 +103,7 @@ function CategoryDialog({ category, types, onClose }: { category: Category | nul
       <div className="grid gap-4">
         <div>
           <label className={LABEL} htmlFor="c-name">Name</label>
-          <input id="c-name" required autoFocus value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} className={FIELD} placeholder="Mobile / Laptop / TV Repair" />
+          <input id="c-name" required autoFocus value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} className={FIELD} placeholder="Laptop Repair" />
           {category && f.name !== category.name && <p className="mt-1 text-xs font-medium text-amber-700">Clients using the old name keep it; pick the new one in their details.</p>}
         </div>
         <div>

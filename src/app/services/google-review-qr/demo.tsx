@@ -10,11 +10,11 @@ import { templateReviews } from "@/lib/reviews/templates";
  */
 
 const SAMPLES = [
-  { label: "Restaurant", name: "Sharma Dhaba", category: "Restaurant / Café", highlights: "dal makhani, tandoori roti" },
-  { label: "Clinic", name: "City Care Clinic", category: "Clinic / Hospital", highlights: "" },
+  { label: "Restaurant", name: "Sharma Dhaba", category: "Restaurant", highlights: "dal makhani, tandoori roti" },
+  { label: "Clinic", name: "City Care Clinic", category: "Clinic", highlights: "" },
   { label: "Dentist", name: "Smile Dental", category: "Dental Clinic", highlights: "" },
-  { label: "Salon", name: "Glow Salon", category: "Salon / Spa", highlights: "hair spa" },
-  { label: "Gym", name: "Iron Fitness", category: "Gym / Fitness", highlights: "" },
+  { label: "Salon", name: "Glow Salon", category: "Salon", highlights: "hair spa" },
+  { label: "Gym", name: "Iron Fitness", category: "Gym", highlights: "" },
 ]
 const LANGS = ["English", "Hindi", "Hinglish", "Punjabi"];
 

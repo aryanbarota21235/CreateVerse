@@ -18,9 +18,13 @@ export default async function Overview() {
   const today = todayIST();
   const month = today.slice(0, 7);
   const subs = businesses.map((b) => ({ b, s: subscriptionOf(b, today) }));
-  const live = subs.filter((x) => x.s === "Active" || x.s === "Expiring").length;
+  const liveIds = new Set(subs.filter((x) => x.s === "Active" || x.s === "Expiring").map((x) => x.b.id));
+  const live = liveIds.size;
   const attention = subs.filter((x) => x.s === "Expiring" || x.s === "Expired" || x.s === "Unpaid");
-  const collected = payments.filter((p) => p.paidOn.startsWith(month)).reduce((n, p) => n + p.amountInr, 0);
+  // Only payments from clients that are live now (not deleted, paused or expired ones).
+  const paidThisMonth = payments.filter((p) => p.paidOn.startsWith(month) && liveIds.has(p.businessId));
+  const collected = paidThisMonth.reduce((n, p) => n + p.amountInr, 0);
+  const payers = new Set(paidThisMonth.map((p) => p.businessId)).size;
   const newSignups = signups.filter((s) => s.status === "New");
   const newEnquiries = enquiries.filter((e) => e.status === "New").length;
   const planName = (id: string) => plans.find((p) => p.id === id)?.name ?? "—";
@@ -32,7 +36,7 @@ export default async function Overview() {
         <Tile label="New sign-ups" value={newSignups.length} sub="Waiting for a call" icon={Inbox} tone={newSignups.length ? "brand" : "plain"} href="/admin/leads" />
         <Tile label="Live review clients" value={live} sub={`${businesses.length} clients in all`} icon={Store} tone="good" href="/admin/clients" />
         <Tile label="Need renewal or payment" value={attention.length} sub="Expiring, expired or unpaid" icon={AlarmClock} tone={attention.length ? "warn" : "plain"} href="/admin/clients" />
-        <Tile label="Collected this month" value={inr(collected)} sub="Review QR payments" icon={IndianRupee} />
+        <Tile label="Collected this month" value={inr(collected)} sub={payers ? `From ${payers} active client${payers === 1 ? "" : "s"}` : "From active clients"} icon={IndianRupee} />
         <Tile label="New enquiries" value={newEnquiries} sub="From website forms" icon={MessageSquareText} tone={newEnquiries ? "brand" : "plain"} href="/admin/leads" />
       </div>
 

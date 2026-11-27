@@ -27,9 +27,45 @@ const byLabel = (a: LibraryType, b: LibraryType) =>
   a.key === GENERAL ? 1 : b.key === GENERAL ? -1 : a.label.localeCompare(b.label);
 
 let seeding: Promise<void> | null = null;
+let renaming: Promise<void> | null = null;
+
+/** Labels from before the types were split ("Sweet shop / bakery"), and the types added then. */
+const OLD_LABELS: Record<string, string> = {
+  food: "Restaurant / food",
+  sweets: "Sweet shop / bakery",
+  health: "Clinic / health",
+  beauty: "Salon / beauty",
+  fitness: "Gym / fitness",
+  stay: "Hotel / stay",
+  retail: "Shop / retail",
+  repair: "Repair / service centre",
+  agency: "Agency / marketing",
+  property: "Real estate / immigration / consultancy",
+  learning: "Coaching / education",
+};
+const ADDED_WITH_SPLIT = ["laptop", "mobile", "tv", "bakery", "spa"];
+
+/** Adds the new single types, then renames the old combined labels. Safe to run again. */
+async function splitLabels(types: LibraryType[]): Promise<void> {
+  for (const key of ADDED_WITH_SPLIT) {
+    const t = LIBRARY_TYPES.find((x) => x.id === key);
+    if (t && !types.some((x) => x.key === key)) {
+      await db.insert<LibraryType>("library", { key, label: t.label, lines: BUILT_IN_LIBRARY[t.id] });
+    }
+  }
+  for (const t of types) {
+    const label = LIBRARY_TYPES.find((x) => x.id === t.key)?.label;
+    if (label && OLD_LABELS[t.key] === t.label) await db.update<LibraryType>("library", t.id, { label });
+  }
+}
 
 export async function listLibraryTypes(): Promise<LibraryType[]> {
   let types = await db.list<LibraryType>("library");
+  if (types.some((t) => OLD_LABELS[t.key] === t.label)) {
+    renaming ??= splitLabels(types).finally(() => (renaming = null));
+    await renaming;
+    types = await db.list<LibraryType>("library");
+  }
   if (!types.length) {
     seeding ??= (async () => {
       for (const t of LIBRARY_TYPES) {

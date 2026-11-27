@@ -33,7 +33,7 @@ const CLEAN: Aspect = { en: "the cleanliness", hl: "saaf-safai", hi: "साफ�
 const GUIDANCE: Aspect = { en: "the guidance", hl: "guidance", hi: "गाइडेंस", pa: "ਗਾਈਡੈਂਸ", g: "f" };
 
 const BANKS: Record<string, Bank> = {
-  "Restaurant / Café": {
+  Restaurant: {
     aspects: [
       { en: "the food", hl: "khana", hi: "खाना", pa: "ਖਾਣਾ", g: "m" },
       { en: "the taste", hl: "swaad", hi: "स्वाद", pa: "ਸੁਆਦ", g: "m" },
@@ -42,11 +42,11 @@ const BANKS: Record<string, Bank> = {
     ],
     people: STAFF,
   },
-  "Salon / Spa": {
+  Salon: {
     aspects: [SERVICE, { en: "the haircut", hl: "haircut", hi: "हेयरकट", pa: "ਹੇਅਰਕੱਟ", g: "m" }, CLEAN, { en: "the ambience", hl: "mahaul", hi: "माहौल", pa: "ਮਾਹੌਲ", g: "m" }],
     people: STAFF,
   },
-  "Clinic / Hospital": {
+  Clinic: {
     aspects: [
       { en: "the consultation", hl: "doctor ki salah", hi: "डॉक्टर की सलाह", pa: "ਡਾਕਟਰ ਦੀ ਸਲਾਹ", g: "f" },
       { en: "the treatment", hl: "ilaaj", hi: "इलाज", pa: "ਇਲਾਜ", g: "m" },
@@ -64,7 +64,7 @@ const BANKS: Record<string, Bank> = {
     ],
     people: STAFF,
   },
-  "Gym / Fitness": {
+  Gym: {
     aspects: [
       { en: "the equipment", hl: "equipment", hi: "इक्विपमेंट", pa: "ਇਕੁਇਪਮੈਂਟ", g: "m" },
       CLEAN,
@@ -73,7 +73,7 @@ const BANKS: Record<string, Bank> = {
     ],
     people: { en: "the trainers", pl: true, hl: "trainers", hi: "ट्रेनर", pa: "ਟ੍ਰੇਨਰ", g: "m" },
   },
-  "Hotel / Resort": {
+  Hotel: {
     aspects: [
       { en: "the room", hl: "kamra", hi: "कमरा", pa: "ਕਮਰਾ", g: "m" },
       { en: "the hospitality", hl: "mehmaan-nawazi", hi: "मेहमान-नवाज़ी", pa: "ਮਹਿਮਾਨ-ਨਿਵਾਜ਼ੀ", g: "f" },
@@ -100,7 +100,7 @@ const BANKS: Record<string, Bank> = {
     ],
     people: TEAM,
   },
-  "Education / Coaching": {
+  "Coaching Centre": {
     aspects: [
       { en: "the teaching", hl: "padhai", hi: "पढ़ाई", pa: "ਪੜ੍ਹਾਈ", g: "f" },
       { en: "the study material", hl: "study material", hi: "स्टडी मटीरियल", pa: "ਸਟੱਡੀ ਮਟੀਰੀਅਲ", g: "m" },
@@ -127,7 +127,7 @@ const BANKS: Record<string, Bank> = {
     ],
     people: TEAM,
   },
-  "Sweet Shop / Bakery": {
+  "Sweet Shop": {
     aspects: [
       { en: "the sweets", pl: true, hl: "mithai", hi: "मिठाई", pa: "ਮਠਿਆਈ", g: "f" },
       { en: "the freshness", hl: "freshness", hi: "ताज़गी", pa: "ਤਾਜ਼ਗੀ", g: "f" },
@@ -136,7 +136,20 @@ const BANKS: Record<string, Bank> = {
     ],
     people: STAFF,
   },
-  "Mobile / Laptop / TV Repair": {
+  Bakery: {
+    aspects: [
+      { en: "the cakes", pl: true, hl: "cake", hi: "केक", pa: "ਕੇਕ", g: "m" },
+      { en: "the freshness", hl: "freshness", hi: "ताज़गी", pa: "ਤਾਜ਼ਗੀ", g: "f" },
+      { en: "the packing", hl: "packing", hi: "पैकिंग", pa: "ਪੈਕਿੰਗ", g: "f" },
+      { en: "the taste", hl: "swaad", hi: "स्वाद", pa: "ਸੁਆਦ", g: "m" },
+    ],
+    people: STAFF,
+  },
+  Spa: {
+    aspects: [SERVICE, { en: "the massage", hl: "massage", hi: "मसाज", pa: "ਮਸਾਜ", g: "f" }, CLEAN, { en: "the ambience", hl: "mahaul", hi: "माहौल", pa: "ਮਾਹੌਲ", g: "m" }],
+    people: { en: "the therapists", pl: true, hl: "therapist", hi: "थेरेपिस्ट", pa: "ਥੈਰੇਪਿਸਟ", g: "m" },
+  },
+  "Laptop Repair": {
     aspects: [
       { en: "the repair work", hl: "repair ka kaam", hi: "रिपेयर का काम", pa: "ਰਿਪੇਅਰ ਦਾ ਕੰਮ", g: "m" },
       { en: "the delivery time", hl: "delivery time", hi: "डिलीवरी टाइम", pa: "ਡਿਲਿਵਰੀ ਟਾਈਮ", g: "m" },
@@ -145,7 +158,7 @@ const BANKS: Record<string, Bank> = {
     ],
     people: STAFF,
   },
-  "Automobile / Service Centre": {
+  "Car Service Centre": {
     aspects: [
       SERVICE,
       { en: "the delivery time", hl: "delivery time", hi: "डिलीवरी टाइम", pa: "ਡਿਲਿਵਰੀ ਟਾਈਮ", g: "m" },
@@ -349,7 +362,8 @@ export interface TemplateInput {
 
 /** "Best sweet shop in Karnal." style line for local search, or null without keyword and city. */
 function localLine(b: TemplateInput, lang: "en" | "hl" | "hi" | "pa"): string | null {
-  const kw = b.keyword?.trim();
+  const kws = (b.keyword ?? "").split(",").map((k) => k.trim()).filter(Boolean);
+  const kw = kws.length ? pick(kws) : "";
   const city = b.city?.trim();
   if (!kw || !city) return null;
   const options: Record<typeof lang, string[]> = {
@@ -361,9 +375,28 @@ function localLine(b: TemplateInput, lang: "en" | "hl" | "hi" | "pa"): string | 
   return pick(options[lang]);
 }
 
+/** Categories that share another's phrase bank, including the old combined names. */
+const BANK_ALIAS: Record<string, string> = {
+  "Café": "Restaurant",
+  Hospital: "Clinic",
+  Resort: "Hotel",
+  "Mobile Repair": "Laptop Repair",
+  "TV Repair": "Laptop Repair",
+  "Bike Service Centre": "Car Service Centre",
+  "Restaurant / Café": "Restaurant",
+  "Sweet Shop / Bakery": "Sweet Shop",
+  "Salon / Spa": "Salon",
+  "Clinic / Hospital": "Clinic",
+  "Gym / Fitness": "Gym",
+  "Hotel / Resort": "Hotel",
+  "Education / Coaching": "Coaching Centre",
+  "Mobile / Laptop / TV Repair": "Laptop Repair",
+  "Automobile / Service Centre": "Car Service Centre",
+};
+
 function one(b: TemplateInput, rating: number): string {
   const L = LANGS[b.language] ?? EN;
-  const bank = BANKS[b.category] ?? DEFAULT_BANK;
+  const bank = BANKS[b.category] ?? BANKS[BANK_ALIAS[b.category]] ?? DEFAULT_BANK;
   const [a1, a2] = shuffle(bank.aspects);
   const highlights = b.highlights.split(",").map((h) => h.trim()).filter(Boolean);
   const parts: string[] = [pick(L.open[rating])(b.name)];
