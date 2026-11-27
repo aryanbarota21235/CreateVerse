@@ -6,7 +6,7 @@
  *   AI_BASE_URL + AI_API_KEY + AI_MODEL         any other OpenAI-compatible provider
  *
  * Gemini's model is picked automatically: the account's model list is read once per server
- * instance and the newest Flash model goes first, then the newest Flash-Lite (each model has its
+ * instance and the newest Flash-Lite model goes first (fast), then the newest Flash (each model has its
  * own free daily limit, so when one is used up the next one answers). GEMINI_MODEL, if set, is
  * tried before those. A model that answers "not found" or "quota used up" is skipped.
  */
@@ -18,7 +18,7 @@ interface Provider {
   models: string[] | (() => Promise<string[]>);
 }
 
-const GEMINI_FALLBACK = ["gemini-2.5-flash", "gemini-2.5-flash-lite"];
+const GEMINI_FALLBACK = ["gemini-2.5-flash-lite", "gemini-2.5-flash"];
 let geminiList: string[] | null = null;
 
 /** The account's Gemini text models, best first: newest Flash, then newest Flash-Lite. */
@@ -39,7 +39,8 @@ async function geminiModels(key: string): Promise<string[]> {
       const newest = (a: string, b: string) => version(b) - version(a);
       const flash = ids.filter((id) => !id.endsWith("-lite")).sort(newest);
       const lite = ids.filter((id) => id.endsWith("-lite")).sort(newest);
-      if (flash.length || lite.length) geminiList = [...flash.slice(0, 2), ...lite.slice(0, 2)];
+      // Flash-Lite first: answers in a few seconds and is rarely "busy"; Flash as the backup.
+      if (flash.length || lite.length) geminiList = [...lite.slice(0, 2), ...flash.slice(0, 2)];
       console.log(`[ai] Gemini models: ${(geminiList ?? GEMINI_FALLBACK).join(", ")}`);
     } catch (e) {
       console.error("[ai] could not list Gemini models", e instanceof Error ? e.message : e);
@@ -124,7 +125,7 @@ export async function askJson<T>(
             method: "POST",
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${p.key}` },
             body: JSON.stringify(body),
-            signal: AbortSignal.timeout(25_000),
+            signal: AbortSignal.timeout(15_000),
           });
         let res = await call(payload);
         if (res.status === 400 && "reasoning_effort" in payload) {
