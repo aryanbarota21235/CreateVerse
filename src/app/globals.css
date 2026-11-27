@@ -26,6 +26,12 @@
   *:not(input):not(textarea):not([contenteditable="true"]) {
     caret-color: transparent;
   }
+  /* caret-color is inherited, so fields must set it back or the typing cursor disappears. */
+  input,
+  textarea,
+  [contenteditable="true"] {
+    caret-color: #0284C7;
+  }
   ::selection {
     background-color: #0284C7;
     color: #ffffff;

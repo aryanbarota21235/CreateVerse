@@ -256,7 +256,7 @@ export default function BusinessDialog({
           <label className={LABEL} htmlFor="b-kw">Keywords people search on Google (comma separated)</label>
           <input id="b-kw" value={f.keyword} onChange={set("keyword")} className={FIELD} placeholder="sweet shop, TV repair shop, dental clinic, digital marketing agency" />
           <p className={hint}>
-            Some 4 and 5-star suggestions mention this with the city, like &quot;best {f.keyword || "sweet shop"} in {f.city || "Karnal"}&quot;, which helps the business show up in Google searches.
+            Some 4 and 5-star suggestions mention this with the city, like &quot;best {f.keyword.split(",").map((k) => k.trim().replace(/^best\s+/i, "")).find((k) => k.length > 2) || "sweet shop"} in {f.city || "Karnal"}&quot;. Different suggestions use different keywords, which helps the business show up in Google searches.
           </p>
         </div>
         <div className="sm:col-span-2">
