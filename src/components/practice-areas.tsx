@@ -24,6 +24,7 @@ import {
   PenTool,
 } from "lucide-react";
 import Reveal from "@/components/reveal";
+import ReviewQrFeature from "@/components/review-qr-feature";
 import { useEnquiry } from "@/context/enquiry-context";
 
 interface PillarItem {
@@ -315,6 +316,7 @@ export default function PracticeAreas() {
   return (
     <section className="relative bg-paper pb-12 sm:pb-16 lg:pb-20">
       <div className="container-site">
+        <ReviewQrFeature />
         <Reveal>
           <div ref={sectionRef}>
             <div className="mb-4 sm:mb-6 flex items-center gap-3 sm:gap-4">

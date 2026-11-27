@@ -1,0 +1,185 @@
+"use client";
+
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight, QrCode, Star } from "lucide-react";
+import { useEnquiry } from "@/context/enquiry-context";
+
+/*
+ * Homepage feature for the Google Review QR service, above the practice-area panel.
+ * Same soft panel as the practice areas; the right side is drawn in HTML/CSS: the printed
+ * QR stand behind, the customer's phone in front, and a "new review" toast. Motion is CSS only
+ * (float-soft, star-pop, node-ring), which art-pauser stops when it's off screen.
+ */
+
+const POINTS = ["Review ready in about 30 seconds", "AI-written, never repeated", "Print-ready QR poster included"];
+
+export default function ReviewQrFeature() {
+  const { openEnquiry } = useEnquiry();
+
+  return (
+    <div className="mb-10 sm:mb-14 lg:mb-16">
+      <div className="mb-4 sm:mb-6 flex items-center gap-3 sm:gap-4">
+        <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-ink/60 shrink-0">
+          New: Reputation Growth
+        </p>
+        <span className="h-px grow bg-gradient-to-r from-ink/15 to-transparent" />
+      </div>
+
+      <div className="overflow-hidden rounded-[24px] sm:rounded-[36px] bg-white/90 shadow-soft ring-1 ring-black/[0.04] lg:grid lg:grid-cols-[1.05fr_1fr]">
+        {/* Copy */}
+        <div className="flex flex-col justify-center p-5 min-[390px]:p-6 sm:p-10 lg:p-12 xl:p-14">
+          <div className="flex items-center gap-3">
+            <span className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-gradient-to-br from-brand-sky to-white text-accent ring-1 ring-accent/10">
+              <QrCode className="h-5 w-5" />
+            </span>
+            <span className="rounded-full bg-brand-orange/10 px-2.5 py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.14em] text-brand-orange">
+              New service
+            </span>
+          </div>
+
+          <span className="mt-5 sm:mt-7 block text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.14em] text-ink/55">
+            Google Review QR
+          </span>
+          <h3 className="mt-1.5 font-display text-[26px] min-[390px]:text-[28px] sm:text-[36px] xl:text-[40px] font-bold leading-[1.08] tracking-[-0.03em] text-ink">
+            Turn every happy customer into a <span className="text-accent">Google review.</span>
+          </h3>
+          <p className="mt-3 sm:mt-4 max-w-[34rem] text-[14px] sm:text-[15.5px] leading-relaxed text-ink/70">
+            One QR on your counter. Customers scan, tap the stars, pick a ready review about what they got done, and post it on
+            Google in one tap. More reviews, better ranking for &ldquo;best in your city&rdquo; searches.
+          </p>
+
+          <ul className="mt-4 sm:mt-6 grid gap-2 sm:gap-2.5">
+            {POINTS.map((p) => (
+              <li key={p} className="flex items-start gap-2 text-[12.5px] sm:text-[13.5px] font-semibold leading-snug text-ink/80">
+                <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange" />
+                {p}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <Link
+              href="/services/google-review-qr"
+              prefetch
+              className="pressable group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-[13px] sm:text-sm font-semibold text-white transition-colors hover:bg-accent"
+            >
+              See plans and demo
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </Link>
+            <button
+              type="button"
+              onClick={() => openEnquiry("google-review-qr")}
+              className="pressable group inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] text-accent cursor-pointer"
+            >
+              Enquire
+              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+            </button>
+          </div>
+        </div>
+
+        {/* Drawing */}
+        <div className="relative h-[330px] min-[390px]:h-[360px] sm:h-[430px] lg:h-auto lg:min-h-[480px] overflow-hidden border-t border-stone-200/70 lg:border-t-0 lg:border-l bg-gradient-to-br from-brand-sky/70 via-white to-white">
+          <div className="absolute inset-0 [background-image:radial-gradient(rgba(16,42,67,0.07)_1px,transparent_1px)] [background-size:18px_18px]" aria-hidden />
+          <ReviewQrArt />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ReviewQrArt() {
+  return (
+    <div className="absolute inset-0" aria-hidden>
+      {/* Printed QR stand, behind */}
+      <div className="absolute left-[7%] top-[13%] w-[44%] max-w-[230px] xl:max-w-[250px] -rotate-[5deg] rounded-[18px] bg-white p-3 sm:p-4 shadow-[0_24px_50px_-24px_rgba(16,42,67,0.45)] ring-1 ring-black/[0.05]">
+        <p className="text-center font-display text-[11px] sm:text-[14px] font-bold tracking-tight text-ink">Sharma Sweets</p>
+        <div className="mt-1 flex justify-center gap-0.5 text-[#FBBC04]">
+          {[0, 1, 2, 3, 4].map((i) => (
+            <Star key={i} className="h-2.5 w-2.5 sm:h-3 sm:w-3 fill-current" />
+          ))}
+        </div>
+        <div className="mx-auto mt-2 sm:mt-3 w-[78%] rounded-lg bg-white p-1 ring-1 ring-ink/10">
+          <QrMark />
+        </div>
+        <p className="mt-2 text-center text-[8px] sm:text-[10px] font-bold uppercase tracking-[0.14em] text-accent">Scan to review</p>
+      </div>
+
+      {/* Customer's phone, front */}
+      <div className="float-soft absolute right-[7%] top-[8%] w-[50%] max-w-[250px] xl:max-w-[272px]">
+        <div className="rounded-[30px] sm:rounded-[36px] bg-ink p-[5px] sm:p-[7px] shadow-[0_30px_60px_-24px_rgba(16,42,67,0.55)]">
+          <div className="overflow-hidden rounded-[25px] sm:rounded-[30px] bg-[#F4F7FA]">
+            <div className="mx-auto mt-1.5 h-[5px] w-12 rounded-full bg-ink/80" />
+            <div className="px-2.5 pb-3 pt-2 sm:px-3.5 sm:pb-4 sm:pt-3">
+              <p className="text-center font-display text-[10px] sm:text-[13px] font-bold tracking-tight text-ink">Sharma Sweets</p>
+              <div className="mt-2 rounded-2xl bg-white px-2 py-2.5 sm:py-3 text-center shadow-[0_8px_20px_-14px_rgba(16,42,67,0.4)]">
+                <p className="text-[8.5px] sm:text-[11px] font-semibold text-ink">How was your visit?</p>
+                <div className="mt-1.5 flex justify-center gap-0.5 sm:gap-1">
+                  {[0, 1, 2, 3, 4].map((i) => (
+                    <Star
+                      key={i}
+                      className="star-pop h-3.5 w-3.5 sm:h-[18px] sm:w-[18px] fill-[#FBBC04] text-[#FBBC04]"
+                      style={{ animationDelay: `${i * 0.18}s` }}
+                    />
+                  ))}
+                </div>
+                <div className="mt-2 sm:mt-2.5 rounded-xl bg-sky-50 px-2 py-1.5 sm:py-2 text-left text-[7.5px] sm:text-[9.5px] leading-snug text-ink/80 ring-[1.5px] ring-accent">
+                  Best sweet shop in Karnal. The kaju katli was fresh and the staff packed our box neatly.
+                </div>
+                <div className="mt-1.5 rounded-xl bg-slate-100 px-2 py-1.5 text-left text-[7.5px] sm:text-[9.5px] leading-snug text-ink/50">
+                  Ordered for a family function and everyone loved it...
+                </div>
+              </div>
+              <div className="mt-2 rounded-xl bg-ink py-1.5 sm:py-2 text-center text-[8px] sm:text-[10.5px] font-semibold text-white">
+                Copy and post on Google
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* New review toast */}
+      <div className="absolute bottom-[8%] left-[6%] flex items-center gap-2.5 rounded-2xl bg-white px-3 py-2.5 sm:px-4 sm:py-3 shadow-[0_18px_40px_-20px_rgba(16,42,67,0.45)] ring-1 ring-black/[0.05]">
+        <span className="relative flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+          <span className="node-ring absolute inset-0 rounded-full bg-emerald-400/40" />
+          <Star className="relative h-3.5 w-3.5 sm:h-4 sm:w-4 fill-current" />
+        </span>
+        <span>
+          <span className="block font-display text-[11.5px] sm:text-[13px] font-bold tracking-tight text-ink">New 5-star review</span>
+          <span className="block text-[10px] sm:text-[11.5px] text-ink/55">Posted on Google just now</span>
+        </span>
+      </div>
+    </div>
+  );
+}
+
+/** A QR-style mark (decorative, not scannable): three finder squares and a fixed module pattern. */
+function QrMark() {
+  const N = 21;
+  const finder = (x: number, y: number) => x < 7 && y < 7;
+  const inFinder = (x: number, y: number) => finder(x, y) || finder(N - 1 - x, y) || finder(x, N - 1 - y);
+  const cells: [number, number][] = [];
+  for (let y = 0; y < N; y++) {
+    for (let x = 0; x < N; x++) {
+      if (inFinder(x, y)) continue;
+      // Fixed pseudo-random pattern, the same on server and browser
+      if (((x * 7 + y * 13 + x * y * 3) % 5) < 2) cells.push([x, y]);
+    }
+  }
+  const Finder = ({ x, y }: { x: number; y: number }) => (
+    <g>
+      <rect x={x} y={y} width={7} height={7} rx={1.4} fill="#102A43" />
+      <rect x={x + 1} y={y + 1} width={5} height={5} rx={1} fill="#fff" />
+      <rect x={x + 2} y={y + 2} width={3} height={3} rx={0.6} fill="#102A43" />
+    </g>
+  );
+  return (
+    <svg viewBox={`0 0 ${N} ${N}`} className="block h-auto w-full" shapeRendering="crispEdges">
+      {cells.map(([x, y]) => (
+        <rect key={`${x}-${y}`} x={x} y={y} width={1} height={1} fill="#102A43" />
+      ))}
+      <Finder x={0} y={0} />
+      <Finder x={N - 7} y={0} />
+      <Finder x={0} y={N - 7} />
+    </svg>
+  );
+}
