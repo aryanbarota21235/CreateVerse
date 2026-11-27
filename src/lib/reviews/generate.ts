@@ -373,10 +373,22 @@ export async function markUsed(raw: ReviewBusiness, rating: number, language: st
   if (reviews.length < LOW) await topUp(b, saved);
 }
 
+/** A customer's own words for what they got done, kept to a short plain phrase. */
+function cleanTyped(v: string): string {
+  return v.replace(/[^\p{L}\p{N}\p{M} &/+.,'-]/gu, " ").replace(/\s+/g, " ").trim().slice(0, 40);
+}
+
 /** SHOWN reviews for a customer in `language` (one of the business's), picked from the saved pool. */
 export async function suggestReviews(raw: ReviewBusiness, rating: number, language?: string, service = ""): Promise<string[]> {
   const b = await withCategory(raw);
   const lang = language && b.languages.includes(language) ? language : b.languages[0];
+  // Something the customer typed ("Something else"): written fresh for them, not saved.
+  const typed = b.serviceList.includes(service) ? "" : cleanTyped(service);
+  if (typed) {
+    const general = await findPool(b.id, rating, lang);
+    const { reviews } = await writeDrafts(b, rating, lang, SHOWN + 2, new Set(general?.used ?? []), typed);
+    return pickShown(reviews.map((r) => render(b, r)));
+  }
   const pool = await poolFor(b, rating, lang, b.serviceList.includes(service) ? service : "");
   return pickShown(pool.reviews.map((r) => render(b, r)));
 }

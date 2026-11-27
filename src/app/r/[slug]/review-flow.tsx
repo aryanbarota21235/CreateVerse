@@ -54,6 +54,9 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages,
   // null until the customer answers "What did you get done?"; "" = something else / general.
   const [service, setService] = useState<string | null>(services.length ? null : "");
   const [asking, setAsking] = useState(false);
+  // "Something else": the customer types what they got done.
+  const [typing, setTyping] = useState(false);
+  const [typed, setTyped] = useState("");
   const rated = useRef(false);
   // The site's page wrapper animates with a transform, which breaks position:fixed inside it,
   // so the pinned button is portalled to <body>.
@@ -98,6 +101,7 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages,
   function chooseService(svc: string) {
     setService(svc);
     setAsking(false);
+    setTyping(false);
     if (rating) load(rating, lang, svc);
     setTimeout(() => listRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 150);
   }
@@ -348,17 +352,42 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages,
                   {sv}
                 </button>
               ))}
+            </div>
+            {typing ? (
+              <form
+                className="mt-2 flex gap-2"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  chooseService(typed.trim().slice(0, 40));
+                }}
+              >
+                <label htmlFor="svc-own" className="sr-only">What did you get done?</label>
+                <input
+                  id="svc-own"
+                  autoFocus
+                  value={typed}
+                  maxLength={40}
+                  onChange={(e) => setTyped(e.target.value)}
+                  placeholder="e.g. Hinge repair"
+                  className="h-12 min-w-0 flex-1 rounded-full bg-slate-100 px-4 text-[16px] text-slate-900 outline-none ring-[#0284C7] placeholder:text-slate-400 focus:bg-white focus:ring-2"
+                />
+                <button type="submit" className="h-12 shrink-0 rounded-full bg-slate-900 px-5 text-[14px] font-semibold text-white">
+                  {typed.trim() ? "Show" : "Skip"}
+                </button>
+              </form>
+            ) : (
               <button
                 type="button"
-                onClick={() => chooseService("")}
-                aria-pressed={service === ""}
-                className={`flex min-h-[48px] items-center justify-center rounded-full px-3 py-2.5 text-[14px] font-medium ring-1 transition-colors ${
-                  services.length % 2 === 0 ? "col-span-2" : ""
-                } ${service === "" ? "bg-slate-900 text-white ring-slate-900" : "bg-white text-slate-600 ring-slate-200 hover:ring-slate-300"}`}
+                onClick={() => setTyping(true)}
+                className={`mt-2 flex h-12 w-full items-center justify-center rounded-full text-[14px] font-medium ring-1 transition-colors ${
+                  service !== null && service !== "" && !services.includes(service)
+                    ? "bg-slate-900 text-white ring-slate-900"
+                    : "bg-white text-slate-600 ring-slate-200 hover:ring-slate-300"
+                }`}
               >
                 Something else
               </button>
-            </div>
+            )}
           </div>
         </div>
       , document.body)}
