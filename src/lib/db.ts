@@ -11,7 +11,7 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
  * in .data/db.json instead. Vercel's filesystem is read-only, so there the keys are required.
  */
 
-export type Collection = "businesses" | "events" | "plans" | "signups" | "payments" | "enquiries" | "suggestions" | "daily" | "categories" | "library";
+export type Collection = "businesses" | "events" | "plans" | "signups" | "payments" | "enquiries" | "suggestions" | "daily" | "categories" | "library" | "meta";
 
 export interface Doc {
   id: string;

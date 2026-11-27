@@ -86,7 +86,40 @@ const byName = (a: Category, b: Category) => (a.name === "Other" ? 1 : b.name ==
 let seeding: Promise<void> | null = null;
 let splitting: Promise<void> | null = null;
 
+/*
+ * One-time fix after the split, recorded in "meta" so it never runs twice: adds the single
+ * categories that are missing (unless one with that name, or a longer name starting with it,
+ * exists), and points laptop, mobile and TV categories at their own backup reviews.
+ */
+const FIX = "categories-single-v2";
+let fixed = false;
+let fixing: Promise<void> | null = null;
+
+async function addMissingSingles(): Promise<void> {
+  if (await db.findOne<{ id: string; createdAt: string; name: string }>("meta", { name: FIX })) return;
+  const cats = await db.list<Category>("categories");
+  if (cats.length) {
+    const names = cats.map((c) => c.name.toLowerCase());
+    for (const d of DEFAULT_CATEGORIES) {
+      const n = d.name.toLowerCase();
+      if (!names.some((x) => x === n || x.startsWith(`${n} `))) {
+        await db.insert<Category>("categories", { ...d, library: FAMILY_OF[d.name] ?? "general" });
+      }
+    }
+    for (const c of cats) {
+      if (c.library !== "repair" && c.library !== "general") continue;
+      const own = /laptop/i.test(c.name) ? "laptop" : /mobile|phone/i.test(c.name) ? "mobile" : /\btv\b/i.test(c.name) ? "tv" : "";
+      if (own) await db.update<Category>("categories", c.id, { library: own });
+    }
+  }
+  await db.insert("meta", { name: FIX });
+}
+
 export async function listCategories(): Promise<Category[]> {
+  if (!fixed) {
+    fixing ??= addMissingSingles().then(() => void (fixed = true)).finally(() => (fixing = null));
+    await fixing;
+  }
   let cats = await db.list<Category>("categories");
   if (cats.some((c) => SPLITS[c.name])) {
     splitting ??= splitCombined(cats).then(() => undefined).finally(() => (splitting = null));
