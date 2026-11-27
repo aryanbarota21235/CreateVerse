@@ -334,40 +334,27 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages,
                 <X size={18} />
               </button>
             </div>
-            <div className="mt-4 grid grid-cols-2 gap-2.5">
-              {services.map((sv) => {
-                const on = service === sv;
-                return (
-                  <button
-                    key={sv}
-                    type="button"
-                    onClick={() => chooseService(sv)}
-                    aria-pressed={on}
-                    className={`relative flex min-h-[60px] items-center rounded-2xl border px-3.5 py-3 pr-8 text-left text-[14px] font-medium leading-snug transition-all active:scale-[0.98] ${
-                      on
-                        ? "border-[#0284C7] bg-sky-50 text-[#075985] shadow-[0_0_0_3px_rgba(2,132,199,0.12)]"
-                        : "border-slate-200 bg-white text-slate-800 shadow-[0_1px_2px_rgba(15,23,42,0.05)] hover:border-slate-300"
-                    }`}
-                  >
-                    {sv}
-                    <span
-                      className={`absolute right-3 top-1/2 flex size-[18px] -translate-y-1/2 items-center justify-center rounded-full border ${
-                        on ? "border-[#0284C7] bg-[#0284C7] text-white" : "border-slate-300 bg-white"
-                      }`}
-                      aria-hidden
-                    >
-                      {on && <Check size={12} strokeWidth={3} />}
-                    </span>
-                  </button>
-                );
-              })}
+            <div className="mt-4 grid grid-cols-2 gap-2">
+              {services.map((sv) => (
+                <button
+                  key={sv}
+                  type="button"
+                  onClick={() => chooseService(sv)}
+                  aria-pressed={service === sv}
+                  className={`flex min-h-[48px] items-center justify-center rounded-full px-3 py-2.5 text-center text-[14px] font-medium leading-snug transition-colors ${
+                    service === sv ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-800 hover:bg-slate-200 active:bg-slate-200"
+                  }`}
+                >
+                  {sv}
+                </button>
+              ))}
               <button
                 type="button"
                 onClick={() => chooseService("")}
                 aria-pressed={service === ""}
-                className={`col-span-2 flex min-h-[52px] items-center justify-center rounded-2xl border border-dashed px-4 text-[14px] font-medium transition-colors ${
-                  service === "" ? "border-[#0284C7] bg-sky-50 text-[#075985]" : "border-slate-300 text-slate-600 hover:border-slate-400 hover:text-slate-900"
-                }`}
+                className={`flex min-h-[48px] items-center justify-center rounded-full px-3 py-2.5 text-[14px] font-medium ring-1 transition-colors ${
+                  services.length % 2 === 0 ? "col-span-2" : ""
+                } ${service === "" ? "bg-slate-900 text-white ring-slate-900" : "bg-white text-slate-600 ring-slate-200 hover:ring-slate-300"}`}
               >
                 Something else
               </button>
