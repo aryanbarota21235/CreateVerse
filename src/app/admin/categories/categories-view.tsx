@@ -3,13 +3,14 @@
 import { useState } from "react";
 import { Pencil, Plus, Shapes, Trash2 } from "lucide-react";
 import { FIELD, LABEL, PRIMARY } from "@/lib/reviews/look";
-import { LIBRARY_TYPES } from "@/lib/reviews/library";
+import Link from "next/link";
 import type { Category } from "@/lib/categories";
 import { Dialog, DialogButtons, Empty, PageHead, Panel, Problem, TABLE, TD, TH, TR, useAction } from "../ui";
 
-const libraryLabel = (id: string) => LIBRARY_TYPES.find((t) => t.id === id)?.label ?? "Any other business";
+type TypeOption = { key: string; label: string };
 
-export default function CategoriesView({ categories, used }: { categories: Category[]; used: Record<string, number> }) {
+export default function CategoriesView({ categories, used, types }: { categories: Category[]; used: Record<string, number>; types: TypeOption[] }) {
+  const libraryLabel = (key: string) => types.find((t) => t.key === key)?.label ?? types.find((t) => t.key === "general")?.label ?? "General";
   const [editing, setEditing] = useState<Category | "new" | null>(null);
   const { run } = useAction();
 
@@ -72,12 +73,12 @@ export default function CategoriesView({ categories, used }: { categories: Categ
           </div>
         )}
       </Panel>
-      {editing && <CategoryDialog category={editing === "new" ? null : editing} onClose={() => setEditing(null)} />}
+      {editing && <CategoryDialog category={editing === "new" ? null : editing} types={types} onClose={() => setEditing(null)} />}
     </>
   );
 }
 
-function CategoryDialog({ category, onClose }: { category: Category | null; onClose: () => void }) {
+function CategoryDialog({ category, types, onClose }: { category: Category | null; types: TypeOption[]; onClose: () => void }) {
   const [f, setF] = useState({
     name: category?.name ?? "",
     hint: category?.hint ?? "",
@@ -118,10 +119,14 @@ function CategoryDialog({ category, onClose }: { category: Category | null; onCl
         <div>
           <label className={LABEL} htmlFor="c-lib">Backup reviews (used when AI is unavailable)</label>
           <select id="c-lib" value={f.library} onChange={(e) => setF({ ...f, library: e.target.value })} className={FIELD}>
-            {LIBRARY_TYPES.map((t) => (
-              <option key={t.id} value={t.id}>{t.label}</option>
+            {types.map((t) => (
+              <option key={t.key} value={t.key}>{t.label}</option>
             ))}
           </select>
+          <p className={hint}>
+            Ready-made reviews used only when the AI can&apos;t write. Edit them in{" "}
+            <Link href="/admin/library" className="font-semibold text-accent-dim hover:underline">Backup reviews</Link>.
+          </p>
         </div>
       </div>
       <Problem message={error} />

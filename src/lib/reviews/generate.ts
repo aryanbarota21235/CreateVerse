@@ -2,7 +2,8 @@ import { createHash } from "crypto";
 import * as db from "@/lib/db";
 import { askJson, providers } from "./ai";
 import { templateReviews } from "./templates";
-import { libraryReviews } from "./library";
+import { FAMILY_OF, libraryReviews } from "./library";
+import { librarySets } from "@/lib/review-library";
 import { getCategory, keywordsFor } from "@/lib/categories";
 import type { ReviewBusiness } from "./types";
 
@@ -14,7 +15,7 @@ import type { ReviewBusiness } from "./types";
  *   fingerprint remembered, so the same text is never offered again for that business and every
  *   posted review stays unique. When fewer than LOW are left, the pool is topped up.
  * - Writers, in order: AI (free-tier providers, see ai.ts), then the hand-written library
- *   (library.ts, English), then the phrase-bank templates (templates.ts, other languages).
+ *   (Admin -> Backup reviews, English), then the phrase-bank templates (templates.ts, other languages).
  * - The team can edit a pool in the admin ("manual"); manual pools are never rewritten,
  *   only topped up when they run low.
  */
@@ -228,7 +229,7 @@ async function writeDrafts(
       if (fresh(r) && !out.some((o) => textHash(o) === textHash(r))) out.push(r);
     }
   };
-  if (language === "English") add(libraryReviews({ ...b, library: b.catLibrary }, rating));
+  if (language === "English") add(libraryReviews(b, rating, await librarySets(b.catLibrary || FAMILY_OF[b.category] || "general")));
   const fromLibrary = out.length;
   if (out.length < count) add(templateReviews({ ...b, language }, rating, count * 2));
   return { reviews: out, source: fromLibrary >= out.length / 2 && fromLibrary > 0 ? "Library" : "Templates" };

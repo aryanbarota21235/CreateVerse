@@ -5,13 +5,15 @@
  *   {name} business name   {city} city   {kw} the client's main keyword   {thing} one of its highlights
  * A line whose placeholder has no value for a client (no city, no keyword...) is skipped.
  * Low ratings complain about general things only, never made-up incidents.
- * Edit freely: this file is plain text with commas.
+ * These are only the starting set: the first time the backup reviews are read they are copied
+ * into the database (src/lib/review-library.ts) and edited from Admin -> Backup reviews after that.
  */
 
 export type Family = "food" | "sweets" | "health" | "beauty" | "fitness" | "stay" | "retail" | "repair" | "agency" | "property" | "learning" | "general";
-type Sets = Record<1 | 2 | 3 | 4 | 5, string[]>;
+export type LibrarySets = Record<1 | 2 | 3 | 4 | 5, string[]>;
+type Sets = LibrarySets;
 
-/** Library types to pick from when the team adds a category in the admin. */
+/** The starting backup-review types (copied into the database on first use). */
 export const LIBRARY_TYPES: { id: Family; label: string }[] = [
   { id: "food", label: "Restaurant / food" },
   { id: "sweets", label: "Sweet shop / bakery" },
@@ -45,7 +47,7 @@ export const FAMILY_OF: Record<string, Family> = {
   Other: "general",
 };
 
-const LIBRARY: Record<Family, Sets> = {
+export const BUILT_IN_LIBRARY: Record<Family, Sets> = {
   sweets: {
     5: [
       "The sweets here are always fresh and not too sugary. My family's favourite for every festival.",
@@ -513,8 +515,6 @@ export interface LibraryInput {
   /** One or more keywords, comma separated ("sweet shop, mithai shop") */
   keyword: string;
   highlights: string;
-  /** Library type from the admin's category; falls back to the built-in mapping */
-  library?: string;
 }
 
 const pickOne = <T,>(list: T[]): T | undefined => list[Math.floor(Math.random() * list.length)];
@@ -556,8 +556,7 @@ const SEO_LINES: Record<4 | 5, string[]> = {
  * 1-2 stars), so they read as a full 4-6 sentence review. About 8 in 10 five-star and half of
  * the four-star reviews also get a "best {keyword} in {city}" line.
  */
-export function libraryReviews(b: LibraryInput, rating: number): string[] {
-  const family = ((b.library && b.library in LIBRARY ? b.library : undefined) ?? FAMILY_OF[b.category] ?? "general") as Family;
+export function libraryReviews(b: LibraryInput, rating: number, sets: LibrarySets): string[] {
   const r = Math.min(5, Math.max(1, Math.round(rating))) as 1 | 2 | 3 | 4 | 5;
   const things = b.highlights.split(",").map((h) => h.trim()).filter(Boolean);
   const keywords = b.keyword.split(",").map((k) => k.trim()).filter(Boolean);
@@ -572,7 +571,7 @@ export function libraryReviews(b: LibraryInput, rating: number): string[] {
     if (keys.some((k) => !values[k])) return null;
     return line.replace(/\{(\w+)\}/g, (_, k: string) => values[k]);
   };
-  const singles = LIBRARY[family][r].map(fill).filter((l): l is string => Boolean(l));
+  const singles = (sets[r] ?? []).map(fill).filter((l): l is string => Boolean(l));
   const parts = r <= 2 ? 2 : 3;
   const seoShare = r === 5 ? 0.8 : r === 4 ? 0.5 : 0;
   const seoLines = r >= 4 ? (SEO_LINES[r as 4 | 5].map(fill).filter(Boolean) as string[]) : [];

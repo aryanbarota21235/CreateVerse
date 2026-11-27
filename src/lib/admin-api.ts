@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/admin-auth";
-import { LIBRARY_TYPES } from "@/lib/reviews/library";
 import {
   ENQUIRY_STATUSES,
   PAYMENT_METHODS,
@@ -129,7 +128,23 @@ export function parseCategory(b: Record<string, unknown>, partial = false) {
   }
   if (has("hint")) v.hint = str(b.hint, 400);
   if (has("keywords")) v.keywords = str(b.keywords, 200);
-  if (has("library")) v.library = LIBRARY_TYPES.some((t) => t.id === str(b.library)) ? str(b.library) : "general";
+  if (has("library")) v.library = str(b.library, 60) || "general";
+  return v;
+}
+
+/** A backup-review type from the admin: its name and/or its lines for each star rating. */
+export function parseLibraryType(b: Record<string, unknown>) {
+  const v: { label?: string; lines?: Record<1 | 2 | 3 | 4 | 5, string[]> } = {};
+  if ("label" in b) {
+    v.label = str(b.label, 60);
+    if (!v.label) throw new BadInput("Name is required.");
+  }
+  if ("lines" in b) {
+    const raw = (b.lines ?? {}) as Record<string, unknown>;
+    const clean = (list: unknown) =>
+      [...new Set((Array.isArray(list) ? list : []).map((l) => str(l, 300)).filter(Boolean))].slice(0, 200);
+    v.lines = { 1: clean(raw[1]), 2: clean(raw[2]), 3: clean(raw[3]), 4: clean(raw[4]), 5: clean(raw[5]) };
+  }
   return v;
 }
 
