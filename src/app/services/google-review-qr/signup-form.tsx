@@ -89,7 +89,7 @@ export default function SignupForm({
                   <span className="flex items-center justify-between gap-2">
                     <span className="text-sm font-semibold">{p.name}</span>
                     {on && (
-                      <span className="flex size-5 items-center justify-center rounded-full bg-[#F6B500] text-[#102A43]">
+                      <span className="flex size-5 items-center justify-center rounded-full bg-white text-[#102A43]">
                         <Check className="size-3" strokeWidth={3} />
                       </span>
                     )}

@@ -1,22 +1,19 @@
 "use client";
 
-import { useCallback, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, QrCode, Star } from "lucide-react";
-import ReviewQrPlans, { loadPlans } from "@/components/review-qr-plans";
 
 /*
  * Homepage feature for the Google Review QR service, above the practice-area panel.
- * Same soft panel as the practice areas; the right side is drawn in HTML/CSS: the printed
- * QR stand behind, the customer's phone in front, and a "new review" toast. Motion is CSS only
+ * Same soft panel as the practice areas; the right side is drawn in HTML/CSS with CreateVerse
+ * as the example business: the printed QR stand behind, the phone in front, a "new review" toast. Motion is CSS only
  * (float-soft, star-pop, node-ring), which art-pauser stops when it's off screen.
  */
 
 const POINTS = ["Review ready in about 30 seconds", "AI-written, never repeated", "Print-ready QR poster included"];
 
 export default function ReviewQrFeature() {
-  const [plansOpen, setPlansOpen] = useState(false);
-  const closePlans = useCallback(() => setPlansOpen(false), []);
 
   return (
     <div className="mb-10 sm:mb-14 lg:mb-16">
@@ -60,16 +57,15 @@ export default function ReviewQrFeature() {
           </ul>
 
           <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
-            <button
-              type="button"
-              onClick={() => setPlansOpen(true)}
-              onPointerEnter={() => loadPlans()}
-              onFocus={() => loadPlans()}
-              className="pressable group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-[13.5px] sm:text-sm font-semibold text-white transition-colors hover:bg-accent cursor-pointer"
+            {/* The service page opens with its plans pop-up (?plans), so visitors see the page too */}
+            <Link
+              href="/services/google-review-qr?plans=1"
+              prefetch
+              className="pressable group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-[13.5px] sm:text-sm font-semibold text-white transition-colors hover:bg-accent"
             >
-              See plans and sign up
+              See plans
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </button>
+            </Link>
             <Link
               href="/services/google-review-qr"
               prefetch
@@ -87,7 +83,6 @@ export default function ReviewQrFeature() {
           <ReviewQrArt />
         </div>
       </div>
-      {plansOpen && <ReviewQrPlans onClose={closePlans} />}
     </div>
   );
 }
@@ -97,7 +92,7 @@ function ReviewQrArt() {
     <div className="absolute inset-0" aria-hidden>
       {/* Printed QR stand, behind */}
       <div className="absolute left-[5%] top-[12%] w-[46%] max-w-[250px] -rotate-[6deg] rounded-[18px] bg-white p-3 sm:p-5 shadow-[0_24px_50px_-24px_rgba(16,42,67,0.45)] ring-1 ring-black/[0.05]">
-        <p className="text-center font-display text-[12px] sm:text-[16px] font-bold tracking-tight text-ink">Sharma Sweets</p>
+        <Image src="/logo.png" alt="" width={140} height={56} className="mx-auto h-auto w-[72%]" />
         <div className="mt-1 flex justify-center gap-0.5 text-[#FBBC04]">
           {[0, 1, 2, 3, 4].map((i) => (
             <Star key={i} className="h-2.5 w-2.5 sm:h-3.5 sm:w-3.5 fill-current" />
@@ -126,8 +121,8 @@ function ReviewQrArt() {
               </div>
 
               <div className="flex flex-1 flex-col px-2.5 sm:px-3.5 pb-2.5 sm:pb-3.5 pt-3 sm:pt-4">
-                <p className="text-center font-display text-[12px] sm:text-[15px] font-bold tracking-tight text-ink">Sharma Sweets</p>
-                <p className="text-center text-[7.5px] sm:text-[9.5px] text-ink/50">Sweets &amp; Namkeen, Karnal</p>
+                <p className="text-center font-display text-[12px] sm:text-[15px] font-bold tracking-tight text-ink">CreateVerse</p>
+                <p className="text-center text-[7.5px] sm:text-[9.5px] text-ink/50">Digital Marketing Agency, Karnal</p>
 
                 <div className="mt-2.5 sm:mt-3.5 rounded-[16px] sm:rounded-[20px] bg-white px-2 sm:px-2.5 py-3 sm:py-3.5 text-center shadow-[0_8px_20px_-14px_rgba(16,42,67,0.4)]">
                   <p className="text-[9.5px] sm:text-[12px] font-semibold text-ink">How was your visit?</p>
@@ -143,17 +138,17 @@ function ReviewQrArt() {
                   <p className="mt-1 text-[8px] sm:text-[10px] font-semibold text-emerald-700">Excellent</p>
 
                   <p className="mt-2.5 sm:mt-3 inline-block rounded-full bg-sky-50 px-2 py-0.5 text-[7px] sm:text-[9px] text-[#0369A1]">
-                    About: <b>Kaju katli</b>
+                    About: <b>Google Ads</b>
                   </p>
                   <div className="mt-1.5 sm:mt-2 space-y-1.5 text-left text-[7.5px] sm:text-[9.5px] leading-snug">
                     <div className="rounded-xl bg-sky-50 px-2 py-1.5 sm:py-2 text-ink/85 ring-[1.5px] ring-accent">
-                      Best sweet shop in Karnal. The kaju katli was fresh and soft, and the staff packed our box neatly.
+                      Best digital marketing agency in Karnal. Since they started our Google Ads, enquiries and calls have really gone up.
                     </div>
                     <div className="rounded-xl bg-slate-100 px-2 py-1.5 sm:py-2 text-ink/50">
-                      Ordered for a family function and everyone asked where the sweets were from...
+                      The team understood our business quickly and always replies fast...
                     </div>
                     <div className="hidden min-[390px]:block rounded-xl bg-slate-100 px-2 py-1.5 sm:py-2 text-ink/50">
-                      Pure taste, fair prices and very polite staff...
+                      More people in the city know our brand now...
                     </div>
                   </div>
                 </div>

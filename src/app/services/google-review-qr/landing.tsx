@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
-import { Check, Minus, Plus, Star, X } from "lucide-react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Minus, Plus, Star } from "lucide-react";
 import Demo from "./demo";
-import SignupForm from "./signup-form";
-import { inr, period, type PublicPlan } from "./plan-format";
+import PlanCards from "./plan-cards";
+import ReviewQrPlans from "@/components/review-qr-plans";
+import type { PublicPlan } from "./plan-format";
 
 export type { PublicPlan };
 
@@ -39,34 +39,21 @@ const FAQS = [
 ];
 
 export default function Landing({ plans, categories }: { plans: PublicPlan[]; categories: string[] }) {
-  const popular = plans.find((p) => p.popular)?.id;
-  const [planId, setPlanId] = useState(popular ?? (plans.length === 1 ? plans[0].id : ""));
-  const [formOpen, setFormOpen] = useState(false);
+  const data = useMemo(() => ({ plans, categories }), [plans, categories]);
+  // null = closed; "plans" = the plans step; any other string = the form with that plan ("" = none)
+  const [popup, setPopup] = useState<string | null>(null);
+  const close = useCallback(() => setPopup(null), []);
 
+  // Arriving from the homepage's "See plans" (?plans): open the plans pop-up straight away.
   useEffect(() => {
-    if (!formOpen) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setFormOpen(false);
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [formOpen]);
+    const url = new URL(window.location.href);
+    if (!url.searchParams.has("plans")) return;
+    setPopup("plans");
+    url.searchParams.delete("plans");
+    window.history.replaceState(window.history.state, "", url.pathname + url.search + url.hash);
+  }, []);
 
-  // Bring the whole pricing block into view, clear of the fixed navbar.
-  function scrollToPlans() {
-    // Aim at the cards themselves (just under the navbar) so every card shows in full;
-    // on tall screens the heading above stays in view too.
-    const cards = document.getElementById("plan-cards") ?? document.getElementById("plans");
-    if (!cards) return;
-    const rect = cards.getBoundingClientRect();
-    const navbar = 100;
-    const room = window.innerHeight - navbar;
-    const extra = Math.max(0, Math.min(200, (room - rect.height) / 2));
-    window.scrollTo({ top: rect.top + window.scrollY - navbar - extra, behavior: "smooth" });
-  }
-
-  function choose(id: string) {
-    setPlanId(id);
-    setFormOpen(true);
-  }
+  const choose = (id: string) => setPopup(id);
 
   return (
     <div className={`${INK} bg-white`}>
@@ -95,7 +82,7 @@ export default function Landing({ plans, categories }: { plans: PublicPlan[]; ca
                 href="#plans"
                 onClick={(e) => {
                   e.preventDefault();
-                  scrollToPlans();
+                  setPopup("plans");
                 }}
                 className="inline-flex items-center rounded-full bg-[#0284C7] px-7 py-3.5 text-sm font-bold text-white shadow-[0_10px_24px_-10px_rgba(2,132,199,0.7)] transition hover:bg-[#0369A1]"
               >
@@ -165,51 +152,8 @@ export default function Landing({ plans, categories }: { plans: PublicPlan[]; ca
               </button>
             </div>
           ) : (
-            <div id="plan-cards" className={`mt-10 grid items-stretch gap-5 ${plans.length === 2 ? "md:grid-cols-2 max-w-4xl" : plans.length >= 3 ? "md:grid-cols-3" : "max-w-md"}`}>
-              {plans.map((p) => {
-                const hot = p.popular;
-                return (
-                  <div
-                    key={p.id}
-                    className={`relative flex flex-col rounded-[28px] p-7 sm:p-8 ${
-                      hot ? "bg-[#102A43] text-white shadow-[0_30px_60px_-25px_rgba(16,42,67,0.6)] md:-my-3 md:py-10" : "bg-white ring-1 ring-[#102A43]/10"
-                    }`}
-                  >
-                    {hot && (
-                      <span className="absolute -top-3 left-7 rounded-full bg-[#F6B500] px-3 py-1 text-xs font-bold text-[#102A43]">Most popular</span>
-                    )}
-                    <h3 className={`${DISPLAY} text-xl font-bold`}>{p.name}</h3>
-                    {p.description && <p className={`mt-1 text-sm ${hot ? "text-white/65" : "text-[#102A43]/60"}`}>{p.description}</p>}
-                    <p className="mt-6 flex items-baseline gap-1.5">
-                      <span className={`${DISPLAY} text-5xl font-extrabold tracking-[-0.03em]`}>{inr(p.priceInr)}</span>
-                      <span className={`text-sm ${hot ? "text-white/60" : "text-[#102A43]/55"}`}>/ {period(p.months)}</span>
-                    </p>
-                    {p.months > 1 && (
-                      <p className={`mt-1 text-sm ${hot ? "text-white/60" : "text-[#102A43]/55"}`}>That&apos;s {inr(Math.round(p.priceInr / p.months))} a month</p>
-                    )}
-                    {p.features.length > 0 && (
-                      <ul className="mt-7 space-y-3 text-[15px]">
-                        {p.features.map((f) => (
-                          <li key={f} className="flex gap-2.5">
-                            <Check className={`mt-0.5 h-4 w-4 shrink-0 ${hot ? "text-[#F6B500]" : "text-[#0284C7]"}`} strokeWidth={3} />
-                            <span className={hot ? "text-white/90" : ""}>{f}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                    <div className="mt-auto pt-8">
-                      <button
-                        onClick={() => choose(p.id)}
-                        className={`w-full rounded-full py-3.5 text-sm font-bold transition ${
-                          hot ? "bg-[#F6B500] text-[#102A43] hover:bg-[#ffc61a]" : "bg-[#102A43] text-white hover:bg-[#1b3a57]"
-                        }`}
-                      >
-                        {`Choose ${p.name}`}
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
+            <div id="plan-cards" className="mt-10">
+              <PlanCards plans={plans} onChoose={choose} />
             </div>
           )}
         </div>
@@ -234,31 +178,7 @@ export default function Landing({ plans, categories }: { plans: PublicPlan[]; ca
         </div>
       </section>
 
-      {/* Portalled to <body>: the site's page wrapper uses a transform, which traps position:fixed */}
-      {formOpen && createPortal(
-        <div
-          className="fixed inset-0 z-[100] flex items-end justify-center bg-[#102A43]/50 backdrop-blur-sm sm:items-center sm:p-4"
-          onMouseDown={() => setFormOpen(false)}
-        >
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-label="Sign up for Google Review QR"
-            onMouseDown={(e) => e.stopPropagation()}
-            className="relative max-h-[94dvh] w-full max-w-xl overflow-y-auto rounded-t-[28px] bg-[#EAF2F8] sm:rounded-[28px]"
-          >
-            <button
-              onClick={() => setFormOpen(false)}
-              aria-label="Close"
-              className="absolute right-4 top-4 z-10 flex size-9 items-center justify-center rounded-full bg-white/80 text-[#102A43] hover:bg-[#EAF2F8]"
-            >
-              <X size={18} />
-            </button>
-            <SignupForm plans={plans} categories={categories} planId={planId} onPlanChange={setPlanId} />
-          </div>
-        </div>,
-        document.body,
-      )}
+      {popup !== null && <ReviewQrPlans onClose={close} initial={data} startPlanId={popup === "plans" ? undefined : popup} />}
     </div>
   );
 }
