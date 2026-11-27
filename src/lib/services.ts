@@ -440,9 +440,9 @@ export const services: Service[] = [
     description: "Strategic content, calendars and community management that build brands people remember and trust — on Instagram, Facebook, LinkedIn and YouTube.",
     icon: "Share2",
     priority: false,
-    metaTitle: "Social Media Marketing Company in Karnal",
+    metaTitle: "Social Media Marketing Services for Brands in India",
     metaDescription:
-      "Social media marketing company in Karnal, Haryana. Reels, content calendars and community management that build brands people trust, across India.",
+      "Social media marketing services: reels, content calendars and community management that build brands people trust. From our Karnal studio, for clients across India.",
     category: "Creative",
     problem: {
       title: "Posting without strategy is noise.",
@@ -530,9 +530,9 @@ export const services: Service[] = [
     description: "Blogs, guides, email sequences and thought leadership that build organic demand over time — written around what your buyers actually search for.",
     icon: "PenLine",
     priority: false,
-    metaTitle: "Content Marketing Agency in Karnal, Haryana",
+    metaTitle: "Content Marketing & SEO Content Writing Services",
     metaDescription:
-      "Content marketing agency in Karnal, Haryana. SEO blogs, guides, email nurture and thought leadership that build organic demand for businesses across India.",
+      "SEO blogs, guides, email nurture and thought leadership that build organic demand. Content marketing services by CreateVerse, Karnal, for businesses across India.",
     category: "Creative",
     problem: {
       title: "Ads stop when spend stops. Content compounds.",
@@ -575,9 +575,9 @@ export const services: Service[] = [
     description: "End-to-end influencer campaigns — creator discovery, negotiation, briefing, execution and measurement — with regional creators across Haryana, Punjab and India.",
     icon: "Users",
     priority: false,
-    metaTitle: "Influencer Marketing Agency in Karnal, Haryana",
+    metaTitle: "Influencer Marketing Agency for Regional Creators",
     metaDescription:
-      "Influencer marketing agency in Karnal, Haryana. Creator discovery, briefs, negotiation and tracked campaigns with regional creators across Haryana and India.",
+      "Creator discovery, briefs, negotiation and tracked campaigns with regional creators across Haryana and India. Influencer marketing by CreateVerse, Karnal.",
     category: "Creative",
     problem: {
       title: "People trust people more than ads.",
@@ -787,9 +787,9 @@ export const services: Service[] = [
       "Data-driven, omnichannel paid customer acquisition across Google, Meta, and programmatic channels. Every rupee deployed is optimized toward pipeline, revenue, and customer acquisition cost.",
     icon: "Target",
     priority: true,
-    metaTitle: "Performance Marketing Agency in Karnal & India",
+    metaTitle: "Performance Marketing Agency in India",
     metaDescription:
-      "Performance marketing agency in Karnal, Haryana. Google, Meta and YouTube campaigns run on attribution and CRO, reported in leads and revenue across India.",
+      "Google, Meta and YouTube campaigns run on attribution and CRO, reported in leads and revenue. Performance marketing by CreateVerse, Karnal, for brands across India.",
     category: "Acquisition",
     problem: {
       title: "Ad spend without rigorous attribution and CRO burns capital fast.",

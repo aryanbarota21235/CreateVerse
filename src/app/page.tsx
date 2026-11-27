@@ -14,7 +14,7 @@ import { siteKeywords, homeFaqs, getFaqJsonLd } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Best Digital Marketing Agency in Karnal, India | CreateVerse",
   description:
-    "Digital marketing agency in Karnal, Haryana, serving clients across India — Google Ads, Meta Ads, SEO, lead generation and web development. Call +91 91746-91846.",
+    "Digital marketing in Karnal that brings real leads: Google Ads, Meta Ads, SEO, websites and lead generation for businesses across India. Call +91 91746-91846.",
   keywords: siteKeywords,
   alternates: {
     canonical: "https://www.createverse.in",
