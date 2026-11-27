@@ -44,24 +44,42 @@ export async function downloadPoster(b: ReviewBusiness, link: string) {
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, W, H);
 
-  // Business name and type
+  // Business name: one line at full size, or two lines a little smaller for long names.
   ctx.fillStyle = "#0f172a";
   ctx.font = `600 84px ${font}`;
-  const lines = wrap(ctx, name, W - 240);
-  let y = 230;
-  lines.forEach((l, i) => ctx.fillText(l, W / 2, y + i * 96));
-  y += (lines.length - 1) * 96;
+  let lines = wrap(ctx, name, W - 240);
+  let lineH = 96;
+  if (lines.length > 1) {
+    ctx.font = `600 70px ${font}`;
+    lines = wrap(ctx, name, W - 200);
+    lineH = 80;
+  }
+  const nameTop = lines.length > 1 ? 190 : 220;
+  lines.forEach((l, i) => ctx.fillText(l, W / 2, nameTop + i * lineH));
+  const nameBottom = nameTop + (lines.length - 1) * lineH;
   ctx.fillStyle = "#64748b";
   ctx.font = `400 38px ${font}`;
-  ctx.fillText((b.tagline || b.category).replace(/\s+/g, " ").trim(), W / 2, y + 66);
+  const taglineY = nameBottom + 62;
+  ctx.fillText((b.tagline || b.category).replace(/\s+/g, " ").trim(), W / 2, taglineY);
 
-  // The card carries the depth: a wide soft shadow plus a closer, tighter one (like a card
-  // lifted off the page), and a faint light edge on top.
+  // Card layout, worked out from its contents so nothing ever spills out: everything inside
+  // is placed relative to the QR, and the QR shrinks a little when a long name needs room.
+  const footerTop = H - 230; // the card must end above "Powered by"
   const cardX = 110;
   const cardW = W - 220;
-  const cardY = y + 140;
-  // Fits above the footer even when a long name takes two lines
-  const cardH = Math.min(1110, H - 250 - cardY);
+  const cardY = taglineY + 76;
+  const QUESTION = 130; // card top -> question baseline
+  const STARS = 95; // question baseline -> star centres
+  const TO_QR = 75; // star centres -> QR top
+  const TO_CTA = 100; // QR bottom -> "Scan to review" baseline
+  const TO_SUB = 54; // -> "Takes less than a minute"
+  const BOTTOM = 72; // -> card bottom
+  const fixed = QUESTION + STARS + TO_QR + TO_CTA + TO_SUB + BOTTOM;
+  const qrSize = Math.max(420, Math.min(600, footerTop - cardY - fixed));
+  const cardH = fixed + qrSize;
+
+  // The card carries the depth: a wide soft shadow plus a closer, tighter one (like a card
+  // lifted off the page), and a faint edge.
   const cardPath = () => {
     ctx.beginPath();
     ctx.roundRect(cardX, cardY, cardW, cardH, 72);
@@ -87,28 +105,31 @@ export async function downloadPoster(b: ReviewBusiness, link: string) {
   ctx.restore();
 
   // Inside the card: question, gold stars, QR, call to action
+  const questionY = cardY + QUESTION;
   ctx.fillStyle = "#0f172a";
   ctx.font = `600 56px ${font}`;
-  ctx.fillText("Loved your visit?", W / 2, cardY + 130);
+  ctx.fillText("Loved your visit?", W / 2, questionY);
+  const starsY = questionY + STARS;
   const starSize = 76;
   const gap = 22;
   const starsW = 5 * starSize + 4 * gap;
-  for (let i = 0; i < 5; i++) drawStar(ctx, (W - starsW) / 2 + starSize / 2 + i * (starSize + gap), cardY + 225, starSize / 2, "#FBBC04");
+  for (let i = 0; i < 5; i++) drawStar(ctx, (W - starsW) / 2 + starSize / 2 + i * (starSize + gap), starsY, starSize / 2, "#FBBC04");
 
   // The QR is flat on the card, white on white, so it blends in.
-  const qrSize = 600;
+  const qrTop = starsY + TO_QR;
   const qr = new window.Image();
   qr.src = await QRCode.toDataURL(link, { width: Math.round(qrSize * SCALE), margin: 0, color: { dark: "#0f172a", light: "#ffffff" } });
   await qr.decode();
-  ctx.drawImage(qr, (W - qrSize) / 2, cardY + 300, qrSize, qrSize);
+  ctx.drawImage(qr, (W - qrSize) / 2, qrTop, qrSize, qrSize);
   ctx.imageSmoothingEnabled = true;
 
+  const ctaY = qrTop + qrSize + TO_CTA;
   ctx.fillStyle = "#0f172a";
   ctx.font = `600 54px ${font}`;
-  ctx.fillText("Scan to review us on Google", W / 2, cardY + 1010);
+  ctx.fillText("Scan to review us on Google", W / 2, ctaY);
   ctx.fillStyle = "#64748b";
   ctx.font = `400 36px ${font}`;
-  ctx.fillText("Takes less than a minute", W / 2, cardY + 1064);
+  ctx.fillText("Takes less than a minute", W / 2, ctaY + TO_SUB);
 
   // Footer
   const logo = new window.Image();
