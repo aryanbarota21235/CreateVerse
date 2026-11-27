@@ -1,43 +1,62 @@
 /*
- * Free-tier AI providers, tried in order: Groq, then Gemini, then any OpenAI-compatible
- * provider you set with AI_BASE_URL (e.g. OpenRouter). All speak the same OpenAI-style
- * /chat/completions request, so switching provider is a Vercel setting.
+ * AI providers, tried in order: Google Gemini, then any OpenAI-compatible provider set with
+ * AI_BASE_URL. Both speak the OpenAI-style /chat/completions request.
  *
- *   GROQ_API_KEY    (+ optional GROQ_MODEL)     https://console.groq.com/keys
  *   GEMINI_API_KEY  (+ optional GEMINI_MODEL)   https://aistudio.google.com/apikey
  *   AI_BASE_URL + AI_API_KEY + AI_MODEL         any other OpenAI-compatible provider
  *
- * Each provider has a list of models, best first. A model the account can't use (404, or
- * "model not found") is skipped for the next one, so a retired or restricted model never
- * silently drops every review to the templates.
+ * Gemini's model is picked automatically: the account's model list is read once per server
+ * instance and the newest Flash model goes first, then the newest Flash-Lite (each model has its
+ * own free daily limit, so when one is used up the next one answers). GEMINI_MODEL, if set, is
+ * tried before those. A model that answers "not found" or "quota used up" is skipped.
  */
 
 interface Provider {
   name: string;
   url: string;
   key: string;
-  models: string[];
+  models: string[] | (() => Promise<string[]>);
 }
 
-const list = (preferred: string | undefined, defaults: string[]) =>
-  [...new Set([...(preferred ? [preferred] : []), ...defaults])];
+const GEMINI_FALLBACK = ["gemini-2.5-flash", "gemini-2.5-flash-lite"];
+let geminiList: string[] | null = null;
+
+/** The account's Gemini text models, best first: newest Flash, then newest Flash-Lite. */
+async function geminiModels(key: string): Promise<string[]> {
+  const preferred = process.env.GEMINI_MODEL ? [process.env.GEMINI_MODEL] : [];
+  if (!geminiList) {
+    try {
+      const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models?pageSize=1000", {
+        headers: { "x-goog-api-key": key },
+        signal: AbortSignal.timeout(8_000),
+      });
+      const data = (await res.json()) as { models?: { name: string; supportedGenerationMethods?: string[] }[] };
+      const ids = (data.models ?? [])
+        .filter((m) => m.supportedGenerationMethods?.includes("generateContent"))
+        .map((m) => m.name.replace(/^models\//, ""))
+        .filter((id) => /^gemini-\d+(\.\d+)?-flash(-lite)?$/.test(id));
+      const version = (id: string) => parseFloat(id.match(/gemini-(\d+(?:\.\d+)?)/)?.[1] ?? "0");
+      const newest = (a: string, b: string) => version(b) - version(a);
+      const flash = ids.filter((id) => !id.endsWith("-lite")).sort(newest);
+      const lite = ids.filter((id) => id.endsWith("-lite")).sort(newest);
+      if (flash.length || lite.length) geminiList = [...flash.slice(0, 2), ...lite.slice(0, 2)];
+      console.log(`[ai] Gemini models: ${(geminiList ?? GEMINI_FALLBACK).join(", ")}`);
+    } catch (e) {
+      console.error("[ai] could not list Gemini models", e instanceof Error ? e.message : e);
+    }
+  }
+  return [...new Set([...preferred, ...(geminiList ?? GEMINI_FALLBACK)])];
+}
 
 export function providers(): Provider[] {
   const out: Provider[] = [];
-  if (process.env.GROQ_API_KEY) {
-    out.push({
-      name: "Groq",
-      url: "https://api.groq.com/openai/v1/chat/completions",
-      key: process.env.GROQ_API_KEY,
-      models: list(process.env.GROQ_MODEL, ["openai/gpt-oss-120b", "llama-3.3-70b-versatile", "openai/gpt-oss-20b", "llama-3.1-8b-instant"]),
-    });
-  }
-  if (process.env.GEMINI_API_KEY) {
+  const gemini = process.env.GEMINI_API_KEY;
+  if (gemini) {
     out.push({
       name: "Gemini",
       url: "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
-      key: process.env.GEMINI_API_KEY,
-      models: list(process.env.GEMINI_MODEL, ["gemini-3.5-flash-lite", "gemini-3.1-flash-lite"]),
+      key: gemini,
+      models: () => geminiModels(gemini),
     });
   }
   if (process.env.AI_BASE_URL && process.env.AI_API_KEY && process.env.AI_MODEL) {
@@ -74,15 +93,16 @@ export async function askJson<T>(
   accept: (v: unknown) => T | null,
 ): Promise<{ value: T; provider: string } | null> {
   for (const p of providers()) {
-    for (const model of p.models) {
+    const models = typeof p.models === "function" ? await p.models() : p.models;
+    for (const model of models) {
       const id = `${p.name}:${model}`;
       if (missing.has(id)) continue;
       try {
         const payload: Record<string, unknown> = {
           model,
           temperature: 0.8,
-          // Short reviews never need more; caps a runaway reply's cost.
-          max_tokens: 2600,
+          // Room for ten detailed drafts plus a little thinking; caps a runaway reply.
+          max_tokens: 4000,
           messages: [
             { role: "system", content: system },
             { role: "user", content: user },
@@ -90,9 +110,12 @@ export async function askJson<T>(
         };
         // gpt-oss "thinks" before answering, and those hidden tokens are billed as output.
         // Writing short reviews needs very little of it.
+        // Gemini "thinks" too; reviews need little of it, and less thinking answers faster.
         if (/gpt-oss/.test(model)) {
           payload.reasoning_effort = "low";
           payload.include_reasoning = false;
+        } else if (/gemini/.test(model)) {
+          payload.reasoning_effort = "low";
         }
         const call = (body: Record<string, unknown>) =>
           fetch(p.url, {
@@ -118,6 +141,8 @@ export async function askJson<T>(
             missing.add(id);
             continue; // try the next model
           }
+          // Free daily or per-minute limit used up: each model has its own, so try the next one.
+          if (res.status === 429) continue;
           break; // quota / auth / outage: try the next provider
         }
         const data = (await res.json()) as {

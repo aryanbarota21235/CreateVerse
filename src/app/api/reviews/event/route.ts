@@ -11,12 +11,13 @@ export const maxDuration = 60;
  */
 export async function POST(req: Request) {
   try {
-    const { slug, rating, type, draft, language } = (await req.json()) as {
+    const { slug, rating, type, draft, language, service } = (await req.json()) as {
       slug?: unknown;
       rating?: unknown;
       type?: unknown;
       draft?: unknown;
       language?: unknown;
+      service?: unknown;
     };
     if (typeof slug !== "string") return NextResponse.json({ ok: false }, { status: 400 });
     const business = await getBusinessBySlug(slug);
@@ -27,7 +28,7 @@ export async function POST(req: Request) {
     await logEvent(business.id, kind, validRating);
     if (kind === "copied" && validRating && typeof draft === "string" && draft.trim()) {
       const lang = typeof language === "string" ? language : business.languages[0];
-      after(() => markUsed(business, validRating, lang, draft.slice(0, 1000)).catch((e) => console.error("[reviews] markUsed failed", e)));
+      after(() => markUsed(business, validRating, lang, draft.slice(0, 1000), typeof service === "string" ? service.slice(0, 80) : "").catch((e) => console.error("[reviews] markUsed failed", e)));
     }
     return NextResponse.json({ ok: true });
   } catch {

@@ -40,6 +40,8 @@ interface SuggestionPool {
   used?: string[];
   /** Edited by the team in the admin: never rewritten automatically */
   manual?: boolean;
+  /** The service the customer picked ("SSD upgrade"); empty for the general pool */
+  service?: string;
 }
 
 /** Same text (ignoring case, spacing and punctuation) gives the same fingerprint. */
@@ -53,12 +55,26 @@ interface SuggestionPool {
  * A business with its category's settings folded in: `keyword` becomes the effective comma list
  * (the client's own keywords, else the category's), plus the category's hint and library type.
  */
-export type WithCategory = ReviewBusiness & { catHint: string; catLibrary: string };
+export type WithCategory = ReviewBusiness & { catHint: string; catLibrary: string; serviceList: string[] };
+
+const commaList = (v: string | undefined) => [...new Set((v ?? "").split(",").map((x) => x.trim()).filter(Boolean))];
 
 export async function withCategory(b: ReviewBusiness): Promise<WithCategory> {
   if ("catHint" in b) return b as WithCategory;
   const cat = await getCategory(b.category).catch(() => null);
-  return { ...b, keyword: keywordsFor(b.keyword, cat).join(", "), catHint: cat?.hint ?? "", catLibrary: cat?.library ?? "" };
+  const own = commaList(b.services);
+  return {
+    ...b,
+    keyword: keywordsFor(b.keyword, cat).join(", "),
+    catHint: cat?.hint ?? "",
+    catLibrary: cat?.library ?? "",
+    serviceList: own.length ? own : commaList(cat?.services),
+  };
+}
+
+/** The services a customer can pick on the review page (the client's own, else the category's). */
+export async function servicesFor(raw: ReviewBusiness): Promise<string[]> {
+  return (await withCategory(raw)).serviceList;
 }
 
 const keywordList = (k: string) => k.split(",").map((x) => x.trim()).filter(Boolean);
@@ -149,8 +165,8 @@ const languageNote = (l: string) => LANGUAGE_NOTE[l] ?? `${l}, in its usual scri
 
 function fingerprint(b: WithCategory) {
   // Bumped whenever the writing rules change, so saved pools are rewritten
-  // ("v8": longer reviews, more "best" wording, editable categories and keyword lists).
-  return createHash("sha1").update(["v8", b.name, b.category, b.highlights, b.keyword, b.city, b.catHint].join("|")).digest("hex").slice(0, 16);
+  // ("v9": written by Gemini, per-service suggestions).
+  return createHash("sha1").update(["v9", b.name, b.category, b.highlights, b.keyword, b.city, b.catHint].join("|")).digest("hex").slice(0, 16);
 }
 
 /**
@@ -158,8 +174,19 @@ function fingerprint(b: WithCategory) {
  * ("best sweet shop in Karnal"). Google reads review text, so this helps the listing show up for
  * those searches. Most 5-star drafts and about half the 4-star ones use it, with varied wording.
  */
-function seoLine(b: WithCategory, rating: number): string | null {
+function seoLine(b: WithCategory, rating: number, service = ""): string | null {
   if (rating < 4) return null;
+  if (service) {
+    const where = b.city.trim();
+    const share = rating === 5 ? "most of the drafts (about 8 out of 10)" : "about half of the drafts";
+    const s = /^[A-Z][a-z]/.test(service) ? service[0].toLowerCase() + service.slice(1) : service;
+    return [
+      `Search wording: in ${share}, naturally say this is one of the best places for ${service}${where ? ` in ${where}` : ""}, the way people search on Google.`,
+      where
+        ? `Vary the wording, e.g. "best ${s} in ${where}", "the best place for ${s} in ${where}", "if you need ${s} in ${where}, go here"${keywordList(b.keyword)[0] ? `, or once in a while "best ${keywordList(b.keyword)[0]} in ${where}"` : ""}. At most once per draft, in the language of the review.`
+        : `Vary the wording, e.g. "best place for ${s}", "the best ${s} I've had done". At most once per draft.`,
+    ].join("\n");
+  }
   const kws = keywordList(b.keyword);
   const where = b.city.trim();
   if (!where && !kws.length) return null;
@@ -181,6 +208,7 @@ async function writeDrafts(
   language: string,
   count: number,
   avoid: Set<string>,
+  service = "",
 ): Promise<{ reviews: string[]; source: string }> {
   const prompt = [
     `Business: ${b.name}`,
@@ -192,8 +220,11 @@ async function writeDrafts(
         ? `This business's main services (topics only, not things to praise at this rating): ${b.highlights}`
         : `This business is known for (mention some of these naturally): ${b.highlights}`
       : null,
+    service
+      ? `The customer came for: ${service}. Every draft is about this ${service}: what the problem or need was and how it went (in general terms, no made-up details). Mention "${service}" or a natural way of saying it.`
+      : null,
     `Language: ${languageNote(language)}`,
-    seoLine(b, rating),
+    seoLine(b, rating, service),
     "",
     `Star rating: ${rating} of 5 stars.`,
     `Tone: ${TONE[rating]}`,
@@ -229,17 +260,44 @@ async function writeDrafts(
       if (fresh(r) && !out.some((o) => textHash(o) === textHash(r))) out.push(r);
     }
   };
-  if (language === "English") add(libraryReviews(b, rating, await librarySets(b.catLibrary || FAMILY_OF[b.category] || "general")));
+  if (language === "English") {
+    if (service) {
+      // About one service: general lines (the category's lines may name other repairs or dishes)
+      // after a first sentence about the service, which carries the "best ..." wording.
+      const lib = libraryReviews({ ...b, keyword: "" }, rating, await librarySets("general"));
+      add(lib.map((r) => `${serviceOpener(service, rating, b.city)} ${r}`));
+    } else {
+      add(libraryReviews(b, rating, await librarySets(b.catLibrary || FAMILY_OF[b.category] || "general")));
+    }
+  }
   const fromLibrary = out.length;
-  if (out.length < count) add(templateReviews({ ...b, language }, rating, count * 2));
+  if (out.length < count) {
+    const t = templateReviews({ ...b, language }, rating, count * 2);
+    add(service && language === "English" ? t.map((r) => `${serviceOpener(service, rating, b.city)} ${r}`) : t);
+  }
   return { reviews: out, source: fromLibrary >= out.length / 2 && fromLibrary > 0 ? "Library" : "Templates" };
+}
+
+/** First sentence of a backup review when the customer picked a service. */
+function serviceOpener(service: string, rating: number, city: string): string {
+  // "Screen replacement" -> "screen replacement", but "SSD upgrade" stays as it is.
+  const s = /^[A-Z][a-z]/.test(service) ? service[0].toLowerCase() + service.slice(1) : service;
+  const lines =
+    rating === 5
+      ? city
+        ? [`Best place for ${s} in ${city}.`, `Got my ${s} done here, easily the best ${s} in ${city}.`, `If you need ${s} in ${city}, this is the best place.`, `Came here for ${s} and it was done perfectly.`]
+        : [`Got my ${s} done here and I'm really happy with it.`, `Came here for ${s} and it was done perfectly.`]
+      : rating === 4
+        ? [`Got my ${s} done here and it was good.`, `Came here for ${s}.`, ...(city ? [`One of the best places for ${s} in ${city}.`] : [])]
+        : [`Came here for ${s}.`, `Got my ${s} done here.`];
+  return lines[Math.floor(Math.random() * lines.length)];
 }
 
 const isFallback = (source: string) => source === "Templates" || source === "Library";
 
-async function findPool(businessId: string, rating: number, language: string): Promise<SuggestionPool | undefined> {
+async function findPool(businessId: string, rating: number, language: string, service = ""): Promise<SuggestionPool | undefined> {
   return (await db.list<SuggestionPool>("suggestions", { businessId })).find(
-    (p) => p.rating === rating && (p.language ?? "English") === language,
+    (p) => p.rating === rating && (p.language ?? "English") === language && (p.service ?? "") === service,
   );
 }
 
@@ -257,9 +315,9 @@ async function savePool(saved: SuggestionPool | undefined, data: Omit<Suggestion
   }
 }
 
-async function poolFor(b: WithCategory, rating: number, language: string): Promise<SuggestionPool> {
+async function poolFor(b: WithCategory, rating: number, language: string, service = ""): Promise<SuggestionPool> {
   const fp = fingerprint(b);
-  const saved = await findPool(b.id, rating, language);
+  const saved = await findPool(b.id, rating, language, service);
   const stale =
     !saved ||
     saved.reviews.length === 0 ||
@@ -271,11 +329,12 @@ async function poolFor(b: WithCategory, rating: number, language: string): Promi
   }
   const used = saved?.used ?? [];
   const keepManual = saved?.manual ? saved.reviews : [];
-  const { reviews, source } = await writeDrafts(b, rating, language, POOL_SIZE - keepManual.length, new Set([...used, ...keepManual.map((r) => textHash(render(b, r)))]));
+  const { reviews, source } = await writeDrafts(b, rating, language, POOL_SIZE - keepManual.length, new Set([...used, ...keepManual.map((r) => textHash(render(b, r)))]), service);
   return savePool(saved, {
     businessId: b.id,
     rating,
     language,
+    service,
     fingerprint: fp,
     source: saved?.manual ? "Manual" : source,
     reviews: [...keepManual, ...reviews],
@@ -287,7 +346,7 @@ async function poolFor(b: WithCategory, rating: number, language: string): Promi
 /** Adds drafts to a pool that is running low. */
 async function topUp(b: WithCategory, pool: SuggestionPool): Promise<SuggestionPool> {
   const avoid = new Set([...(pool.used ?? []), ...pool.reviews.map((r) => textHash(render(b, r)))]);
-  const { reviews, source } = await writeDrafts(b, pool.rating, pool.language ?? "English", POOL_SIZE - pool.reviews.length, avoid);
+  const { reviews, source } = await writeDrafts(b, pool.rating, pool.language ?? "English", POOL_SIZE - pool.reviews.length, avoid, pool.service ?? "");
   if (!reviews.length) return pool;
   const { id: _i, createdAt: _c, ...rest } = pool;
   void _i;
@@ -299,10 +358,10 @@ async function topUp(b: WithCategory, pool: SuggestionPool): Promise<SuggestionP
  * A customer copied `draft` to post on Google: never offer it again for this business, and top
  * the pool up when it runs low. Runs after the response (see /api/reviews/event).
  */
-export async function markUsed(raw: ReviewBusiness, rating: number, language: string, draft: string): Promise<void> {
+export async function markUsed(raw: ReviewBusiness, rating: number, language: string, draft: string, service = ""): Promise<void> {
   const b = await withCategory(raw);
   const lang = b.languages.includes(language) ? language : b.languages[0];
-  const pool = await findPool(b.id, rating, lang);
+  const pool = await findPool(b.id, rating, lang, b.serviceList.includes(service) ? service : "");
   if (!pool) return;
   const h = textHash(draft);
   const used = [...new Set([...(pool.used ?? []), h])].slice(-MAX_USED);
@@ -315,10 +374,10 @@ export async function markUsed(raw: ReviewBusiness, rating: number, language: st
 }
 
 /** SHOWN reviews for a customer in `language` (one of the business's), picked from the saved pool. */
-export async function suggestReviews(raw: ReviewBusiness, rating: number, language?: string): Promise<string[]> {
+export async function suggestReviews(raw: ReviewBusiness, rating: number, language?: string, service = ""): Promise<string[]> {
   const b = await withCategory(raw);
   const lang = language && b.languages.includes(language) ? language : b.languages[0];
-  const pool = await poolFor(b, rating, lang);
+  const pool = await poolFor(b, rating, lang, b.serviceList.includes(service) ? service : "");
   return pickShown(pool.reviews.map((r) => render(b, r)));
 }
 
@@ -343,7 +402,7 @@ export async function savedPools(raw: ReviewBusiness): Promise<Record<string, Re
   const out: Record<string, Record<number, string[]>> = {};
   for (const p of await db.list<SuggestionPool>("suggestions", { businessId: b.id })) {
     const lang = p.language ?? "English";
-    if ((!p.manual && p.fingerprint !== fp) || !b.languages.includes(lang) || !p.reviews.length) continue;
+    if (p.service || (!p.manual && p.fingerprint !== fp) || !b.languages.includes(lang) || !p.reviews.length) continue;
     (out[lang] ??= {})[p.rating] = p.reviews.map((r) => render(b, r));
   }
   return out;
@@ -364,6 +423,10 @@ export async function regenerateAll(raw: ReviewBusiness): Promise<Record<number,
   const b = await withCategory(raw);
   const out: Record<number, string> = {};
   const lang = b.languages[0];
+  // Per-service pools are written again the next time a customer picks that service.
+  for (const p of await db.list<SuggestionPool>("suggestions", { businessId: b.id })) {
+    if (p.service && !p.manual) await db.remove("suggestions", p.id);
+  }
   for (const r of [5, 4, 3, 2, 1]) {
     const saved = await findPool(b.id, r, lang);
     if (saved?.manual) {
@@ -400,7 +463,7 @@ export interface PoolView {
 export async function listPools(b: ReviewBusiness): Promise<PoolView[]> {
   const pools = await db.list<SuggestionPool>("suggestions", { businessId: b.id });
   return pools
-    .filter((p) => b.languages.includes(p.language ?? "English"))
+    .filter((p) => !p.service && b.languages.includes(p.language ?? "English"))
     .map((p) => ({
       rating: p.rating,
       language: p.language ?? "English",

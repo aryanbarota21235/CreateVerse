@@ -3,13 +3,15 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Star, Shuffle, Check, PenLine } from "lucide-react";
+import { Star, Shuffle, Check, PenLine, X } from "lucide-react";
 import { poppins } from "@/lib/reviews/look";
 
 /*
  * The page a customer sees after scanning. One card, one question at a time:
  * tap the stars, tap a suggestion (it becomes editable right there), press the button
  * pinned to the bottom. Low ratings get honest wording; the button works for every rating.
+ * When the business lists services, a sheet asks what the customer got done right after the
+ * first star tap, and the suggestions are about that service.
  */
 
 const WORDS = ["", "Poor", "Below average", "Average", "Good", "Excellent"];
@@ -22,6 +24,8 @@ interface Props {
   category: string;
   googleUrl: string;
   languages: string[];
+  /** Services the customer can pick ("SSD upgrade"); empty = no service step */
+  services: string[];
   /** Saved suggestions sent with the page, by language then star rating */
   pools: Record<string, Record<number, string[]>>;
 }
@@ -37,7 +41,7 @@ function pickFour(pool: string[]): string[] {
   return out;
 }
 
-export default function ReviewFlow({ slug, name, category, googleUrl, languages, pools }: Props) {
+export default function ReviewFlow({ slug, name, category, googleUrl, languages, services, pools }: Props) {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [lang, setLang] = useState(languages[0] ?? "English");
@@ -47,6 +51,9 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages,
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
+  // null until the customer answers "What did you get done?"; "" = something else / general.
+  const [service, setService] = useState<string | null>(services.length ? null : "");
+  const [asking, setAsking] = useState(false);
   const rated = useRef(false);
   // The site's page wrapper animates with a transform, which breaks position:fixed inside it,
   // so the pinned button is portalled to <body>.
@@ -56,26 +63,17 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages,
   const editorRef = useRef<HTMLTextAreaElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
-  async function load(r: number, language = lang) {
+  async function load(r: number, language = lang, svc = service ?? "") {
     const id = ++reqId.current;
     setError("");
     setPicked(null);
     setText("");
 
-    // Saved suggestions came with the page: show them instantly, count the rating in the background.
-    const saved = pools[language]?.[r];
+    // Saved general suggestions came with the page: show them instantly.
+    const saved = svc ? undefined : pools[language]?.[r];
     if (saved && saved.length) {
       setLoading(false);
       setSuggestions(pickFour(saved));
-      if (!rated.current) {
-        rated.current = true;
-        fetch("/api/reviews/event", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ slug, rating: r, type: "rated" }),
-          keepalive: true,
-        }).catch(() => {});
-      }
       return;
     }
 
@@ -84,9 +82,8 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages,
       const res = await fetch("/api/reviews/suggest", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug, rating: r, language, first: !rated.current }),
+        body: JSON.stringify({ slug, rating: r, language, service: svc }),
       });
-      rated.current = true;
       const data = await res.json();
       if (id !== reqId.current) return;
       if (!res.ok) throw new Error(data.error || "Couldn't load suggestions. You can still write your own.");
@@ -98,9 +95,30 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages,
     }
   }
 
+  function chooseService(svc: string) {
+    setService(svc);
+    setAsking(false);
+    if (rating) load(rating, lang, svc);
+    setTimeout(() => listRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 150);
+  }
+
   function rate(r: number) {
     const first = rating === 0;
     setRating(r);
+    if (!rated.current) {
+      rated.current = true;
+      fetch("/api/reviews/event", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug, rating: r, type: "rated" }),
+        keepalive: true,
+      }).catch(() => {});
+    }
+    if (service === null) {
+      // First ask what they got done; suggestions load once they answer.
+      setAsking(true);
+      return;
+    }
     load(r);
     if (first) setTimeout(() => listRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 150);
   }
@@ -146,6 +164,7 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages,
         rating,
         type: "copied",
         language: lang,
+        service: service ?? "",
         draft: picked !== null && picked >= 0 ? suggestions[picked] : undefined,
       }),
       keepalive: true,
@@ -175,7 +194,7 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages,
                 aria-pressed={lang === l}
                 onClick={() => {
                   setLang(l);
-                  if (rating) load(rating, l);
+                  if (rating && service !== null) load(rating, l, service);
                 }}
                 className={`h-8 rounded-full px-3.5 text-[13px] font-medium transition-colors ${lang === l ? "bg-slate-900 text-white" : "text-slate-600"}`}
               >
@@ -214,13 +233,25 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages,
         </section>
 
         {/* Suggestions */}
-        {rating > 0 && (
+        {rating > 0 && service !== null && (
           <section ref={listRef} className="scroll-mt-4 border-t border-slate-100 px-4 pb-4 pt-5">
+            {services.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setAsking(true)}
+                className="mx-2 mb-3 flex max-w-[calc(100%-1rem)] items-center gap-1.5 rounded-full bg-sky-50 px-3 py-1.5 text-left text-[13px] text-[#0369A1]"
+              >
+                <span className="truncate">
+                  About: <span className="font-semibold">{service || "General visit"}</span>
+                </span>
+                <span className="shrink-0 font-semibold underline underline-offset-2">Change</span>
+              </button>
+            )}
             <div className="flex items-center justify-between px-2">
               <h2 className="text-[15px] font-semibold text-slate-900">Pick what fits, then edit</h2>
               <button
                 type="button"
-                onClick={() => load(rating)}
+                onClick={() => load(rating, lang, service ?? "")}
                 disabled={loading}
                 aria-label="Show other suggestions"
                 className="flex size-9 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 disabled:opacity-40"
@@ -277,6 +308,57 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages,
         Powered by
         <Image src="/logo.png" alt="CreateVerse" width={88} height={36} className="h-auto w-[88px] opacity-80" />
       </a>
+
+      {/* What did you get done? */}
+      {asking && mounted && createPortal(
+        <div className={`${poppins.className} fixed inset-0 z-50 flex items-end justify-center bg-slate-900/40 sm:items-center`} onClick={() => chooseService(service ?? "")}>
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="svc-title"
+            onClick={(e) => e.stopPropagation()}
+            className="max-h-[85dvh] w-full max-w-[25rem] overflow-y-auto rounded-t-[28px] bg-white px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-5 shadow-2xl sm:rounded-[28px]"
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <h2 id="svc-title" className="text-[18px] font-semibold tracking-[-0.01em] text-slate-900">What did you get done?</h2>
+                <p className="mt-0.5 text-[13px] text-slate-500">We&apos;ll suggest a review about it.</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => chooseService(service ?? "")}
+                aria-label="Close"
+                className="-mr-1 flex size-9 shrink-0 items-center justify-center rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-700"
+              >
+                <X size={18} />
+              </button>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {services.map((sv) => (
+                <button
+                  key={sv}
+                  type="button"
+                  onClick={() => chooseService(sv)}
+                  className={`rounded-full px-4 py-2.5 text-[14px] font-medium transition-colors ${
+                    service === sv ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-800 hover:bg-slate-200 active:bg-slate-200"
+                  }`}
+                >
+                  {sv}
+                </button>
+              ))}
+              <button
+                type="button"
+                onClick={() => chooseService("")}
+                className={`rounded-full px-4 py-2.5 text-[14px] font-medium ring-1 transition-colors ${
+                  service === "" ? "bg-slate-900 text-white ring-slate-900" : "bg-white text-slate-600 ring-slate-200 hover:ring-slate-300"
+                }`}
+              >
+                Something else
+              </button>
+            </div>
+          </div>
+        </div>
+      , document.body)}
 
       {/* Pinned action */}
       {rating > 0 && mounted && createPortal(

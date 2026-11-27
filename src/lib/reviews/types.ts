@@ -58,8 +58,13 @@ export interface ReviewBusiness {
   highlights: string;
   /** What the business wants to be found for on Google, e.g. "sweet shop" or "TV repair shop" */
   keyword: string;
-  /** Line under the name on the poster and review page; empty = the category */
+  /** Line under the name on the poster and review page; empty = nothing */
   tagline: string;
+  /**
+   * Services a customer picks from after rating ("SSD upgrade, Screen replacement"), comma
+   * separated; suggestions are then about that service. Empty = the category's list.
+   */
+  services: string;
   /** Languages customers can pick on the review page; the first is the default. */
   languages: string[];
   /** Google Place ID, used to build the write-review link */

@@ -5,7 +5,7 @@ import { isAdmin } from "@/lib/admin-auth";
 import { getBusinessBySlug } from "@/lib/reviews/store";
 import { googleReviewUrl, isLive } from "@/lib/reviews/types";
 import { CARD, ROOT } from "@/lib/reviews/look";
-import { savedPools } from "@/lib/reviews/generate";
+import { savedPools, servicesFor } from "@/lib/reviews/generate";
 import ReviewFlow from "./review-flow";
 
 export const dynamic = "force-dynamic";
@@ -42,7 +42,7 @@ export default async function ReviewPage({ params }: Props) {
     );
   }
 
-  const pools = await savedPools(b).catch(() => ({}));
+  const [pools, services] = await Promise.all([savedPools(b).catch(() => ({})), servicesFor(b).catch(() => [])]);
 
   return (
     <div
@@ -54,7 +54,7 @@ export default async function ReviewPage({ params }: Props) {
           Admin preview: customers see “not active” until a payment is recorded and the client is live.
         </p>
       )}
-      <ReviewFlow slug={b.slug} name={b.name} category={b.tagline.trim()} googleUrl={googleReviewUrl(b)} languages={b.languages} pools={pools} />
+      <ReviewFlow slug={b.slug} name={b.name} category={b.tagline.trim()} googleUrl={googleReviewUrl(b)} languages={b.languages} services={services} pools={pools} />
     </div>
   );
 }

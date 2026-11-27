@@ -23,6 +23,10 @@ export async function adminRoute(fn: () => Promise<unknown>) {
 
 export class BadInput extends Error {}
 
+/** "a, b ,, c" -> "a, b, c": a comma list without blanks or repeats. */
+const cleanList = (v: unknown, max: number) =>
+  [...new Set(str(v, max).split(",").map((x) => x.trim().replace(/\s+/g, " ")).filter(Boolean))].slice(0, 20).join(", ");
+
 export async function body(req: Request): Promise<Record<string, unknown>> {
   return (await req.json().catch(() => ({}))) as Record<string, unknown>;
 }
@@ -56,7 +60,8 @@ export function parseBusiness(b: Record<string, unknown>, partial = false): Part
   }
   if (has("city")) v.city = str(b.city, 80);
   if (has("highlights")) v.highlights = str(b.highlights, 400);
-  if (has("keyword")) v.keyword = str(b.keyword, 60);
+  if (has("keyword")) v.keyword = str(b.keyword, 200);
+  if (has("services")) v.services = cleanList(b.services, 600);
   if (has("tagline")) v.tagline = str(b.tagline, 60);
   if (has("placeId")) v.placeId = str(b.placeId, 200);
   if (has("reviewUrl")) {
@@ -120,7 +125,7 @@ export const parseEnquiryStatus = (v: unknown) => oneOf(v, ENQUIRY_STATUSES, "Ne
 
 /** Category fields from the admin form. `partial` for PATCH. */
 export function parseCategory(b: Record<string, unknown>, partial = false) {
-  const v: { name?: string; hint?: string; keywords?: string; library?: string } = {};
+  const v: { name?: string; hint?: string; keywords?: string; services?: string; library?: string } = {};
   const has = (k: string) => !partial || k in b;
   if (has("name")) {
     v.name = str(b.name, 60);
@@ -128,6 +133,7 @@ export function parseCategory(b: Record<string, unknown>, partial = false) {
   }
   if (has("hint")) v.hint = str(b.hint, 400);
   if (has("keywords")) v.keywords = str(b.keywords, 200);
+  if (has("services")) v.services = cleanList(b.services, 600);
   if (has("library")) v.library = str(b.library, 60) || "general";
   return v;
 }

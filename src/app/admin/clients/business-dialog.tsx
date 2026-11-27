@@ -13,6 +13,7 @@ export type BusinessForm = {
   highlights: string;
   keyword: string;
   tagline: string;
+  services: string;
   languages: string[];
   placeId: string;
   reviewUrl: string;
@@ -32,6 +33,7 @@ export const formFrom = (b: Partial<ReviewBusiness>): BusinessForm => ({
   highlights: b.highlights ?? "",
   keyword: b.keyword ?? "",
   tagline: b.tagline ?? "",
+  services: b.services ?? "",
   languages: b.languages?.length ? b.languages : ["English"],
   placeId: b.placeId ?? "",
   reviewUrl: b.reviewUrl ?? "",
@@ -255,6 +257,13 @@ export default function BusinessDialog({
           <input id="b-kw" value={f.keyword} onChange={set("keyword")} className={FIELD} placeholder="sweet shop, TV repair shop, dental clinic, digital marketing agency" />
           <p className={hint}>
             Some 4 and 5-star suggestions mention this with the city, like &quot;best {f.keyword || "sweet shop"} in {f.city || "Karnal"}&quot;, which helps the business show up in Google searches.
+          </p>
+        </div>
+        <div className="sm:col-span-2">
+          <label className={LABEL} htmlFor="b-svc">Services customers pick from (comma separated)</label>
+          <textarea id="b-svc" rows={2} value={f.services} onChange={set("services")} className={`${FIELD} resize-none`} placeholder="SSD upgrade, Screen replacement, Battery replacement, Keyboard replacement" />
+          <p className={hint}>
+            After rating, the customer taps what they got done, and the reviews are about that (&quot;best SSD upgrade in {f.city || "Karnal"}&quot;). Leave empty to use the category&apos;s services. Up to 20.
           </p>
         </div>
         <div className="sm:col-span-2">

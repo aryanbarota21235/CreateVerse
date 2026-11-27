@@ -83,6 +83,7 @@ function CategoryDialog({ category, types, onClose }: { category: Category | nul
     name: category?.name ?? "",
     hint: category?.hint ?? "",
     keywords: category?.keywords ?? "",
+    services: category?.services ?? "",
     library: category?.library ?? "general",
   });
   const { run, busy, error } = useAction();
@@ -110,6 +111,11 @@ function CategoryDialog({ category, types, onClose }: { category: Category | nul
           <label className={LABEL} htmlFor="c-kw">Keywords (comma separated)</label>
           <input id="c-kw" value={f.keywords} onChange={(e) => setF({ ...f, keywords: e.target.value })} className={FIELD} placeholder="mobile repair shop, laptop repair, TV repair" />
           <p className={hint}>Used in reviews like &quot;best mobile repair shop in Karnal&quot; when a client has no keywords of its own.</p>
+        </div>
+        <div>
+          <label className={LABEL} htmlFor="c-svc">Services (comma separated)</label>
+          <textarea id="c-svc" rows={2} value={f.services} onChange={(e) => setF({ ...f, services: e.target.value })} className={`${FIELD} resize-none`} placeholder="SSD upgrade, Screen replacement, Battery replacement" />
+          <p className={hint}>Customers pick one after rating, for clients that have no services of their own.</p>
         </div>
         <div>
           <label className={LABEL} htmlFor="c-hint">What customers care about (most important first)</label>
