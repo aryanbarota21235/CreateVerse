@@ -59,15 +59,17 @@ export async function downloadPoster(b: ReviewBusiness, link: string) {
   const nameBottom = nameTop + (lines.length - 1) * lineH;
   ctx.fillStyle = "#64748b";
   ctx.font = `400 38px ${font}`;
+  // The line under the name only when the team wrote one; empty means nothing there.
+  const tagline = (b.tagline ?? "").replace(/\s+/g, " ").trim();
   const taglineY = nameBottom + 62;
-  ctx.fillText((b.tagline || b.category).replace(/\s+/g, " ").trim(), W / 2, taglineY);
+  if (tagline) ctx.fillText(tagline, W / 2, taglineY);
 
   // Card layout, worked out from its contents so nothing ever spills out: everything inside
   // is placed relative to the QR, and the QR shrinks a little when a long name needs room.
   const footerTop = H - 230; // the card must end above "Powered by"
   const cardX = 110;
   const cardW = W - 220;
-  const cardY = taglineY + 76;
+  const cardY = tagline ? taglineY + 76 : nameBottom + 100;
   const QUESTION = 130; // card top -> question baseline
   const STARS = 95; // question baseline -> star centres
   const TO_QR = 75; // star centres -> QR top

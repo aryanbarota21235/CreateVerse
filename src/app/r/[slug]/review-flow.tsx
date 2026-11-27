@@ -162,7 +162,7 @@ export default function ReviewFlow({ slug, name, category, googleUrl, languages,
       {/* Business */}
       <header className="flex flex-col items-center pt-2 text-center">
         <h1 className="text-[24px] font-semibold leading-tight tracking-[-0.02em] text-slate-900">{name}</h1>
-        <p className="mt-0.5 text-[13px] text-slate-500">{category}</p>
+        {category && <p className="mt-0.5 text-[13px] text-slate-500">{category}</p>}
       </header>
 
       {languages.length > 1 && (

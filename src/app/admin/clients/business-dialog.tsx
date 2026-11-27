@@ -247,8 +247,8 @@ export default function BusinessDialog({
         </div>
         <div className="sm:col-span-2">
           <label className={LABEL} htmlFor="b-tag">Line under the name (poster and review page)</label>
-          <input id="b-tag" value={f.tagline} onChange={set("tagline")} className={FIELD} placeholder={`${f.category} (leave empty to use this)`} maxLength={60} />
-          <p className={hint}>For example &quot;Unisex Gym, Sector 12&quot; or &quot;Sweets &amp; Namkeen since 1985&quot;. Empty shows the category.</p>
+          <input id="b-tag" value={f.tagline} onChange={set("tagline")} className={FIELD} placeholder="Optional. Leave empty to show nothing" maxLength={60} />
+          <p className={hint}>For example &quot;Unisex Gym, Sector 12&quot; or &quot;Sweets &amp; Namkeen since 1985&quot;. Leave it empty and nothing shows.</p>
         </div>
         <div className="sm:col-span-2">
           <label className={LABEL} htmlFor="b-kw">Keywords people search on Google (comma separated)</label>

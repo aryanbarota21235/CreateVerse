@@ -54,7 +54,7 @@ export default async function ReviewPage({ params }: Props) {
           Admin preview: customers see “not active” until a payment is recorded and the client is live.
         </p>
       )}
-      <ReviewFlow slug={b.slug} name={b.name} category={b.tagline || b.category} googleUrl={googleReviewUrl(b)} languages={b.languages} pools={pools} />
+      <ReviewFlow slug={b.slug} name={b.name} category={b.tagline.trim()} googleUrl={googleReviewUrl(b)} languages={b.languages} pools={pools} />
     </div>
   );
 }
