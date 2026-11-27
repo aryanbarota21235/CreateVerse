@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, QrCode, Star } from "lucide-react";
-import { useEnquiry } from "@/context/enquiry-context";
 
 /*
  * Homepage feature for the Google Review QR service, above the practice-area panel.
@@ -15,7 +14,6 @@ import { useEnquiry } from "@/context/enquiry-context";
 const POINTS = ["Review ready in about 30 seconds", "AI-written, never repeated", "Print-ready QR poster included"];
 
 export default function ReviewQrFeature() {
-  const { openEnquiry } = useEnquiry();
 
   return (
     <div className="mb-10 sm:mb-14 lg:mb-16">
@@ -67,13 +65,12 @@ export default function ReviewQrFeature() {
               See plans and demo
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
-            <button
-              type="button"
-              onClick={() => openEnquiry("google-review-qr")}
-              className="pressable inline-flex h-12 items-center whitespace-nowrap rounded-full bg-white px-5 sm:px-6 text-[13.5px] sm:text-sm font-semibold text-ink ring-1 ring-ink/15 transition-colors hover:ring-accent hover:text-accent cursor-pointer"
+            <Link
+              href="/services/google-review-qr#how"
+              className="pressable inline-flex h-12 items-center whitespace-nowrap rounded-full bg-white px-5 sm:px-6 text-[13.5px] sm:text-sm font-semibold text-ink ring-1 ring-ink/15 transition-colors hover:ring-accent hover:text-accent"
             >
-              Enquire
-            </button>
+              How it works
+            </Link>
           </div>
         </div>
 

@@ -119,13 +119,13 @@ export default function Landing({ plans, categories }: { plans: PublicPlan[]; ca
       <section id="how" className="scroll-mt-24 py-20 sm:py-28">
         <div className="container-site">
           <h2 className={`${DISPLAY} max-w-2xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl`}>Three taps from your counter to your Google listing.</h2>
-          <ol className="mt-12 grid gap-10 sm:grid-cols-3 sm:gap-8">
+          <ol className="mt-24 grid gap-20 sm:mt-20 sm:grid-cols-3 sm:gap-8">
             {STEPS.map((s, i) => (
-              <li key={s.title} className="border-t-2 border-[#102A43] pt-6">
-                <span className={`${DISPLAY} flex size-10 items-center justify-center rounded-full bg-[#102A43] text-lg font-bold text-white`} aria-hidden="true">
+              <li key={s.title} className="relative border-t-2 border-[#102A43] pt-6">
+                <span className={`${DISPLAY} absolute -top-[2px] right-0 -translate-y-full pb-1 text-6xl font-extrabold leading-none text-[#102A43]/[0.08]`} aria-hidden="true">
                   {i + 1}
                 </span>
-                <h3 className={`${DISPLAY} mt-4 text-2xl font-bold`}>{s.title}</h3>
+                <h3 className={`${DISPLAY} text-2xl font-bold`}>{s.title}</h3>
                 <p className="mt-2 max-w-xs leading-relaxed text-[#102A43]/70">{s.body}</p>
               </li>
             ))}
