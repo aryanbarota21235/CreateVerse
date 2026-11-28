@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { isAdmin } from "@/lib/admin-auth";
-import { getBusinessBySlug } from "@/lib/reviews/store";
+import { getBusinessByOldSlug, getBusinessBySlug } from "@/lib/reviews/store";
 import { googleReviewUrl, isLive } from "@/lib/reviews/types";
 import { CARD, ROOT } from "@/lib/reviews/look";
 import { savedPools, servicesFor } from "@/lib/reviews/generate";
@@ -24,7 +24,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ReviewPage({ params }: Props) {
   const { slug } = await params;
   const b = await getBusinessBySlug(slug);
-  if (!b) notFound();
+  if (!b) {
+    // A QR printed before the link name was changed: send it to the current page.
+    const moved = await getBusinessByOldSlug(slug);
+    if (moved) permanentRedirect(`/r/${moved.slug}`);
+    notFound();
+  }
 
   const live = isLive(b);
   // The CreateVerse team can open any client's page (to test before payment).

@@ -56,6 +56,13 @@ export async function getBusinessBySlug(slug: string): Promise<ReviewBusiness | 
 async function assertSlugFree(slug: string, exceptId?: string) {
   const other = await db.findOne<ReviewBusiness>("businesses", { slug });
   if (other && other.id !== exceptId) throw new Error("That QR link name is taken. Pick another.");
+  const printed = (await listBusinesses()).find((b) => b.id !== exceptId && b.oldSlugs?.includes(slug));
+  if (printed) throw new Error(`That QR link name was used before by ${printed.name} and may be printed. Pick another.`);
+}
+
+/** The client whose QR link used to be `slug` (renamed since), if any. */
+export async function getBusinessByOldSlug(slug: string): Promise<ReviewBusiness | null> {
+  return (await listBusinesses()).find((b) => b.oldSlugs?.includes(slug)) ?? null;
 }
 
 export async function createBusiness(input: Partial<ReviewBusinessInput> & { slug: string; name: string }) {
@@ -64,7 +71,14 @@ export async function createBusiness(input: Partial<ReviewBusinessInput> & { slu
 }
 
 export async function updateBusiness(id: string, patch: Partial<ReviewBusinessInput>) {
-  if (patch.slug) await assertSlugFree(patch.slug, id);
+  if (patch.slug) {
+    await assertSlugFree(patch.slug, id);
+    // Keep the old QR link working: codes already printed in a shop still point at it.
+    const current = await db.get<ReviewBusiness>("businesses", id);
+    if (current && current.slug !== patch.slug) {
+      patch = { ...patch, oldSlugs: [...new Set([...(current.oldSlugs ?? []), current.slug])].filter((s) => s !== patch.slug) };
+    }
+  }
   const b = await db.update<ReviewBusiness>("businesses", id, patch);
   return b ? normalize(b) : null;
 }

@@ -78,26 +78,36 @@ export default function BusinessDialog({
   );
   const [linkState, setLinkState] = useState<"idle" | "checking" | "bad">("idle");
   const [linkError, setLinkError] = useState("");
+  // The link text the saved Place ID came from, and the business name Google gave for it.
+  const [checkedLink, setCheckedLink] = useState(!initialLink && (initial.placeId || initial.reviewUrl) ? glink.trim() : "");
+  const [foundName, setFoundName] = useState("");
 
+  type Found = { placeId: string; reviewUrl: string };
   // Reads the pasted link on the server and fills the Place ID / review link from it.
-  async function checkLink(link: string) {
+  async function checkLink(link: string): Promise<Found | null> {
     const value = link.trim();
-    if (!value) return;
+    if (!value) return null;
+    if (value === checkedLink) return { placeId: f.placeId, reviewUrl: f.reviewUrl };
     setLinkState("checking");
     const res = await fetch("/api/admin/google-link", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ link: value }),
-    });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) {
+    }).catch(() => null);
+    const data = res ? await res.json().catch(() => ({})) : {};
+    if (!res?.ok) {
       setLinkState("bad");
       setLinkError(data.error || "Couldn't read that link.");
       setF((p) => ({ ...p, placeId: "", reviewUrl: "" }));
-      return;
+      setFoundName("");
+      return null;
     }
+    const found = { placeId: data.placeId ?? "", reviewUrl: data.reviewUrl ?? "" };
     setLinkState("idle");
-    setF((p) => ({ ...p, placeId: data.placeId ?? "", reviewUrl: data.reviewUrl ?? "" }));
+    setCheckedLink(value);
+    setFoundName(data.name ?? "");
+    setF((p) => ({ ...p, ...found }));
+    return found;
   }
 
   useEffect(() => {
@@ -138,7 +148,14 @@ export default function BusinessDialog({
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
-    if (await run(url, method, f)) onClose();
+    // A link pasted or changed just before pressing Save is read first, so the new listing is
+    // what gets saved (not the old Place ID still in the form).
+    let link: Found | null = null;
+    if (glink.trim() && glink.trim() !== checkedLink) {
+      link = await checkLink(glink);
+      if (!link) return;
+    }
+    if (await run(url, method, { ...f, ...(link ?? {}) })) onClose();
   }
 
   const hint = "mt-1 text-xs text-slate-500";
@@ -173,7 +190,7 @@ export default function BusinessDialog({
               className="w-full rounded-lg bg-transparent px-1 py-2 outline-none"
             />
           </div>
-          {slugLocked && f.slug !== slugLocked && <p className="mt-1 text-xs font-medium text-amber-700">QR codes already printed will stop working.</p>}
+          {slugLocked && f.slug !== slugLocked && <p className="mt-1 text-xs font-medium text-amber-700">Printed QR codes keep working: the old link forwards to the new one.</p>}
         </div>
 
         <div className={group}>
@@ -291,7 +308,7 @@ export default function BusinessDialog({
           {linkState === "bad" && <p className="mt-2 text-xs font-medium text-rose-700">{linkError}</p>}
           {(f.placeId || f.reviewUrl) && linkState !== "checking" && (
             <p className="mt-2 flex flex-wrap items-center gap-2 text-xs font-medium text-[#3a6729]">
-              ✓ Google listing found.
+              {foundName ? `✓ Found: ${foundName}.` : "✓ Google listing found."}
               <a href={testUrl(f)} target="_blank" rel="noreferrer" className="text-accent-dim underline">
                 Open the review page to check it
               </a>

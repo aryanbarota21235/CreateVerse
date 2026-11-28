@@ -12,6 +12,19 @@
 export interface ResolvedLink {
   placeId: string;
   reviewUrl: string;
+  /** The place's name when the link carries it (".../maps/place/CreateVerse+Consulting/..."), to show the team */
+  name?: string;
+}
+
+/** The business name inside a Maps place link, if any. */
+function placeName(text: string): string {
+  const m = text.match(/\/maps\/place\/([^/@?]+)/);
+  if (!m) return "";
+  try {
+    return decodeURIComponent(m[1].replace(/\+/g, " ")).trim().slice(0, 120);
+  } catch {
+    return m[1].replace(/\+/g, " ").slice(0, 120);
+  }
 }
 
 export function placeIdFromFeatureId(a: string, b: string): string {
@@ -48,6 +61,8 @@ const SHORT = /^https?:\/\/(maps\.app\.goo\.gl|goo\.gl\/maps|g\.co\/kgs|maps\.go
 /** Follows a short share link's redirects (at most 6), checking every hop for the place. */
 async function followShortLink(url: string): Promise<ResolvedLink | null> {
   let next = url;
+  const seen: string[] = [];
+  const named = (found: ResolvedLink): ResolvedLink => ({ ...found, name: seen.map(placeName).find(Boolean) || undefined });
   for (let hop = 0; hop < 6; hop++) {
     const res = await fetch(next, {
       redirect: "manual",
@@ -56,14 +71,15 @@ async function followShortLink(url: string): Promise<ResolvedLink | null> {
     });
     const location = res.headers.get("location");
     if (location) {
+      seen.push(location);
       const found = fromText(location);
-      if (found) return found;
+      if (found) return named(found);
       next = new URL(location, next).toString();
       continue;
     }
     // No more redirects: look in the page itself (some links land on an HTML hop).
     const found = fromText(next) ?? fromText((await res.text()).slice(0, 200_000));
-    return found;
+    return found ? named(found) : null;
   }
   return null;
 }
@@ -72,7 +88,7 @@ export async function resolveGoogleLink(input: string): Promise<ResolvedLink | n
   const text = input.trim();
   if (!text) return null;
   const direct = fromText(text);
-  if (direct) return direct;
+  if (direct) return { ...direct, name: placeName(text) || undefined };
   const url = text.match(/https?:\/\/\S+/)?.[0];
   if (url && SHORT.test(url)) {
     try {

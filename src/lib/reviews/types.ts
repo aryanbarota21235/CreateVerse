@@ -81,6 +81,8 @@ export interface ReviewBusiness {
   paidUntil: string;
   /** The sign-up this client came from, if any */
   signupId: string;
+  /** Earlier QR link names: printed QR codes with these still open this client's page */
+  oldSlugs?: string[];
   createdAt: string;
 }
 
